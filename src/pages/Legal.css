@@ -1,0 +1,30 @@
+.legal-content {
+  max-width: 760px;
+}
+
+.legal-content h2 {
+  font-size: 1.15rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary-dark);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.legal-content h2:first-child { margin-top: 0; }
+
+.legal-content p,
+.legal-content address,
+.legal-content li {
+  font-size: 0.95rem;
+  color: var(--gray-700);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+.legal-content address { font-style: normal; }
+
+.legal-content ul {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.legal-content li { margin-bottom: 0.3rem; }
