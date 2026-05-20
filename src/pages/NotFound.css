@@ -1,0 +1,27 @@
+.notfound {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.notfound-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+.notfound-code {
+  font-size: 8rem;
+  font-weight: 900;
+  font-family: var(--font-heading);
+  color: var(--gray-200);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.notfound h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.75rem;
+}
+.notfound p {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
