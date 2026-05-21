@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DEMOLUX – Abriss & Abbruch Profis</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zahnarztpraxis Dr. Abokor – Berlin-Mitte</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- NAVIGATION -->
+  <!-- NAV -->
   <header id="header">
     <nav class="navbar">
-      <a href="#home" class="logo">
-        <span class="logo-icon">⚒</span>
-        <span class="logo-text">DEMO<span class="accent">LUX</span></span>
+      <a href="index.html" class="logo">
+        <span class="logo-tooth">🦷</span>
+        <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#leistungen">Leistungen</a></li>
-        <li><a href="#projekte">Projekte</a></li>
-        <li><a href="#ueber-uns">Über uns</a></li>
-        <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="portal.html">Patientenportal</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="booking.html" class="nav-cta">Termin buchen</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
         <span></span><span></span><span></span>
@@ -32,281 +34,282 @@
   <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="hero-sub">Professionell · Sicher · Zuverlässig</p>
-      <h1>Abriss & Abbruch<br /><span class="accent">auf höchstem Niveau</span></h1>
+    <div class="hero-content container">
+      <p class="hero-eyebrow">Zahnarztpraxis Berlin-Mitte</p>
+      <h1>Ihr Lächeln.<br><span class="accent">Digital &amp; Persönlich</span></h1>
       <p class="hero-desc">
-        Von Einzelgebäuden bis zu Industrieanlagen – wir realisieren Ihr Abbruchprojekt
-        termingerecht, sicher und umweltgerecht.
+        Moderne Zahnmedizin mit Online-Terminbuchung, digitalem Patientenportal
+        und schneller Notfallversorgung – direkt in Berlin-Mitte.
       </p>
-      <div class="hero-buttons">
-        <a href="#kontakt" class="btn btn-primary">Kostenlos anfragen</a>
-        <a href="#leistungen" class="btn btn-outline">Unsere Leistungen</a>
+      <div class="hero-actions">
+        <a href="booking.html" class="btn btn-primary btn-lg">Termin online buchen</a>
+        <a href="portal.html" class="btn btn-outline-white btn-lg">Patientenportal</a>
       </div>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-number">25+</span><span class="stat-label">Jahre Erfahrung</span></div>
-      <div class="stat"><span class="stat-number">1.200+</span><span class="stat-label">Projekte</span></div>
-      <div class="stat"><span class="stat-number">100%</span><span class="stat-label">Zertifiziert</span></div>
-      <div class="stat"><span class="stat-number">50+</span><span class="stat-label">Fachleute</span></div>
+      <div class="hero-emergency">
+        <span class="emergency-dot"></span>
+        <span>Notfall? Jetzt anrufen: <a href="tel:+4930000001">+49 30 000 001</a> &middot; Auch außerhalb der Öffnungszeiten</span>
+      </div>
     </div>
   </section>
 
-  <!-- LEISTUNGEN -->
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="container stats-inner">
+      <div class="stat-item">
+        <span class="stat-num" data-target="4800">0</span><span class="stat-suf">+</span>
+        <span class="stat-lbl">Patienten</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="15">0</span><span class="stat-suf"></span>
+        <span class="stat-lbl">Jahre Erfahrung</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="98">0</span><span class="stat-suf">%</span>
+        <span class="stat-lbl">Weiterempfehlung</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="24">0</span><span class="stat-suf">/7</span>
+        <span class="stat-lbl">Notfall-Hotline</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKING CATEGORIES -->
   <section class="section" id="leistungen">
     <div class="container">
       <div class="section-header">
-        <p class="section-sub">Was wir bieten</p>
-        <h2>Unsere <span class="accent">Leistungen</span></h2>
-        <p class="section-desc">Umfassende Abbruch- und Abrisslösungen für jeden Bedarf – von der Planung bis zur Entsorgung.</p>
+        <p class="section-eyebrow">Online-Terminbuchung</p>
+        <h2>Wählen Sie Ihr <span class="accent">Anliegen</span></h2>
+        <p class="section-sub-text">Buchen Sie direkt online – passend zu Ihrem Behandlungsbedarf, ohne Wartezeit am Telefon.</p>
       </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon">🏗️</div>
-          <h3>Gebäudeabbruch</h3>
-          <p>Kompletter Rückbau von Wohn-, Gewerbe- und Industriegebäuden aller Größen – sicher und effizient.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">🏭</div>
-          <h3>Industriedemontage</h3>
-          <p>Rückbau von Produktionsanlagen, Hallen und Industriekomplexen mit modernsten Maschinen.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">🧱</div>
-          <h3>Selektiver Rückbau</h3>
-          <p>Gezielter Teilabbruch mit maximaler Materialrückgewinnung und minimaler Umweltbelastung.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">☣️</div>
-          <h3>Schadstoffsanierung</h3>
-          <p>Fachgerechte Entfernung von Asbest, PCB und anderen Schadstoffen nach aktuellen Sicherheitsstandards.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">🚧</div>
-          <h3>Innenabbruch</h3>
-          <p>Entkernung von Gebäuden, Entfernung von Trennwänden, Decken und Böden für Umbaumaßnahmen.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">♻️</div>
-          <h3>Entsorgung & Recycling</h3>
-          <p>Umweltgerechte Trennung, Transport und Verwertung aller Abbruchmaterialien nach gesetzlichen Vorgaben.</p>
-        </div>
+      <div class="booking-categories">
+        <a href="booking.html?type=prophylaxe" class="cat-card reveal">
+          <div class="cat-icon" style="background:#e0f2fe;">🦷</div>
+          <h3>Prophylaxe</h3>
+          <p>Professionelle Zahnreinigung, Recall alle 3–12 Monate</p>
+          <span class="cat-next">Nächster Termin: morgen</span>
+          <span class="cat-arrow">→</span>
+        </a>
+        <a href="booking.html?type=notfall" class="cat-card cat-emergency reveal">
+          <div class="cat-icon" style="background:#fee2e2;">🚨</div>
+          <h3>Schmerzen / Notfall</h3>
+          <p>Akute Zahnschmerzen, Unfälle, Notfallversorgung</p>
+          <span class="cat-next emergency-badge">Heute noch möglich</span>
+          <span class="cat-arrow">→</span>
+        </a>
+        <a href="booking.html?type=implantologie" class="cat-card reveal">
+          <div class="cat-icon" style="background:#d1fae5;">🔩</div>
+          <h3>Implantologie</h3>
+          <p>Kostenlose Erstberatung, Vorab-Fragebogen &amp; Unterlagen</p>
+          <span class="cat-next">Beratungstermin buchen</span>
+          <span class="cat-arrow">→</span>
+        </a>
+        <a href="booking.html?type=zahnersatz" class="cat-card reveal">
+          <div class="cat-icon" style="background:#fefce8;">👑</div>
+          <h3>Zahnersatz</h3>
+          <p>Kronen, Brücken, Prothesen – mit Kostenplan &amp; Beratung</p>
+          <span class="cat-next">Termin vereinbaren</span>
+          <span class="cat-arrow">→</span>
+        </a>
+        <a href="booking.html?type=bleaching" class="cat-card reveal">
+          <div class="cat-icon" style="background:#fdf4ff;">✨</div>
+          <h3>Bleaching / Veneers</h3>
+          <p>Professionelle Zahnaufhellung &amp; ästhetische Behandlungen</p>
+          <span class="cat-next">Beratungsgespräch</span>
+          <span class="cat-arrow">→</span>
+        </a>
+        <a href="booking.html?type=checkup" class="cat-card reveal">
+          <div class="cat-icon" style="background:#f0f9ff;">📋</div>
+          <h3>Vorsorge / Check-up</h3>
+          <p>Jährliche Untersuchung, Röntgen, Kariesdiagnose</p>
+          <span class="cat-next">Jetzt einplanen</span>
+          <span class="cat-arrow">→</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- WHY US -->
+  <!-- FEATURES -->
   <section class="why-us">
-    <div class="container why-us-inner">
-      <div class="why-us-text">
-        <p class="section-sub">Warum DEMOLUX?</p>
-        <h2>Ihr Partner für <span class="accent">sichere Lösungen</span></h2>
-        <p>Mit über 25 Jahren Branchenerfahrung sind wir der zuverlässige Ansprechpartner für alle Abbruch- und Abrisslösungen. Wir legen höchsten Wert auf Arbeitssicherheit, Umweltschutz und Termintreue.</p>
-        <ul class="check-list">
-          <li>✔ Zertifizierter Entsorgungsfachbetrieb</li>
-          <li>✔ Modernster Maschinenpark</li>
-          <li>✔ Fachkundiges und geschultes Personal</li>
-          <li>✔ Vollständige Projektabwicklung aus einer Hand</li>
-          <li>✔ Flexible Arbeitszeiten – auch Wochenend-Einsätze</li>
-          <li>✔ Transparente Kostenplanung</li>
-        </ul>
-        <a href="#kontakt" class="btn btn-primary">Jetzt Angebot anfordern</a>
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow" style="color:#00b4a0;">Warum Dr. Abokor?</p>
+        <h2 style="color:#fff;">Modernste Praxis –<br><span class="accent">digital von Anfang an</span></h2>
       </div>
-      <div class="why-us-image">
-        <div class="image-badge">
-          <span class="badge-number">25+</span>
-          <span class="badge-text">Jahre Expertise</span>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">📱</div>
+          <h4>Online-Terminbuchung</h4>
+          <p>24/7 Buchung, automatische Bestätigung per E-Mail &amp; SMS, digitale Absage jederzeit möglich.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🤖</div>
+          <h4>KI-Telefonassistent</h4>
+          <p>Nimmt Anrufe außerhalb der Öffnungszeiten entgegen. Erkennt Notfälle, leitet weiter oder erstellt Rückrufauftrag.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📋</div>
+          <h4>Digitale Aufnahme</h4>
+          <p>Neupatientenformular, Anamnese und Einwilligungen bequem von zu Hause ausfüllen – kein Papierkram.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🔒</div>
+          <h4>DSGVO-konform</h4>
+          <p>EU-Hosting, Ende-zu-Ende-Verschlüsselung, Rollenrechte und vollständige Audit-Logs.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">⚡</div>
+          <h4>Automatische Erinnerungen</h4>
+          <p>SMS &amp; E-Mail-Erinnerungen 48h vor dem Termin. Recall-System für Prophylaxe alle 3/6/12 Monate.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🏥</div>
+          <h4>Notfall-Priorität</h4>
+          <p>Täglich reservierte Notfall-Slots. Bei echten Notfällen sofortige Weiterleitung an den diensthabenden Arzt.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROJEKTE -->
-  <section class="section" id="projekte">
+  <!-- TEAM -->
+  <section class="section" id="team">
     <div class="container">
       <div class="section-header">
-        <p class="section-sub">Referenzen</p>
-        <h2>Abgeschlossene <span class="accent">Projekte</span></h2>
-        <p class="section-desc">Ein Auszug aus unseren erfolgreich realisierten Abbruchprojekten.</p>
+        <p class="section-eyebrow">Ihr Team</p>
+        <h2>Wir sind für <span class="accent">Sie da</span></h2>
       </div>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-img project-img-1">
-            <div class="project-overlay">
-              <span class="project-tag">Industrieabbruch</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Fabrikanlage Dortmund</h3>
-            <p>Vollständiger Rückbau einer 12.000 m² Produktionshalle inkl. Schadstoffsanierung</p>
-            <span class="project-year">2024</span>
-          </div>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-avatar" style="background-image:url('https://i.pravatar.cc/200?img=33')"></div>
+          <h4>Dr. med. dent. Abokor Deek</h4>
+          <span class="team-role">Zahnarzt &amp; Praxisinhaber</span>
+          <p>Spezialist für Implantologie und ästhetische Zahnheilkunde. Über 15 Jahre Erfahrung.</p>
         </div>
-        <div class="project-card">
-          <div class="project-img project-img-2">
-            <div class="project-overlay">
-              <span class="project-tag">Wohngebäude</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Mehrfamilienhaus Hamburg</h3>
-            <p>Abbruch eines 8-stöckigen Wohngebäudes im Innenstadtbereich mit Engstelle</p>
-            <span class="project-year">2023</span>
-          </div>
+        <div class="team-card reveal">
+          <div class="team-avatar" style="background-image:url('https://i.pravatar.cc/200?img=47')"></div>
+          <h4>Dr. Lena Hoffmann</h4>
+          <span class="team-role">Fachzahnärztin</span>
+          <p>Spezialistin für Kieferorthopädie und Alignertherapie für Kinder und Erwachsene.</p>
         </div>
-        <div class="project-card">
-          <div class="project-img project-img-3">
-            <div class="project-overlay">
-              <span class="project-tag">Brückenabbruch</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Eisenbahnbrücke Köln</h3>
-            <p>Selektiver Rückbau einer 180 Meter langen Stahlbetonbrücke unter laufendem Betrieb</p>
-            <span class="project-year">2023</span>
-          </div>
+        <div class="team-card reveal">
+          <div class="team-avatar" style="background-image:url('https://i.pravatar.cc/200?img=45')"></div>
+          <h4>Anna Schreiber</h4>
+          <span class="team-role">Dentalhygienikerin</span>
+          <p>Expertin für Prophylaxe, Parodontitis-Behandlung und Recall-Management.</p>
         </div>
-        <div class="project-card">
-          <div class="project-img project-img-4">
-            <div class="project-overlay">
-              <span class="project-tag">Gewerbeimmobilie</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Einkaufszentrum Berlin</h3>
-            <p>Innenabbruch und Entkernung von 25.000 m² für Komplettsanierung</p>
-            <span class="project-year">2024</span>
-          </div>
+        <div class="team-card reveal">
+          <div class="team-avatar" style="background-image:url('https://i.pravatar.cc/200?img=52')"></div>
+          <h4>Marcus Berger</h4>
+          <span class="team-role">Praxismanager</span>
+          <p>Koordiniert digitale Patientenaufnahme, das Praxis-Dashboard und alle Abläufe.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ÜBER UNS -->
-  <section class="section about-section" id="ueber-uns">
+  <!-- DIGITAL CTA -->
+  <section class="digital-cta">
     <div class="container">
-      <div class="section-header">
-        <p class="section-sub">Das Unternehmen</p>
-        <h2>Über <span class="accent">DEMOLUX</span></h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-text">
-          <p>
-            DEMOLUX wurde 1999 gegründet und hat sich seitdem zu einem der führenden Abbruchunternehmen
-            in Deutschland entwickelt. Mit unserem erfahrenen Team und modernstem Maschinenpark bieten
-            wir maßgeschneiderte Lösungen für jedes Abbruchprojekt.
-          </p>
-          <p>
-            Als zertifizierter Entsorgungsfachbetrieb gewährleisten wir die fachgerechte und
-            umweltgerechte Entsorgung aller Abbruchmaterialien. Unsere Mitarbeiter werden regelmäßig
-            geschult und sind mit den neuesten Sicherheitsstandards vertraut.
-          </p>
-          <div class="certifications">
-            <div class="cert-badge">ISO 9001</div>
-            <div class="cert-badge">ISO 14001</div>
-            <div class="cert-badge">SCC**</div>
-            <div class="cert-badge">DGUV</div>
-          </div>
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h2>Erstmals bei uns?<br>Jetzt <span class="accent">digital anmelden</span></h2>
+          <p>Füllen Sie das Neupatientenformular bequem zu Hause aus. Sparen Sie Zeit in der Praxis.</p>
         </div>
-        <div class="team-grid">
-          <div class="team-card">
-            <div class="team-avatar ta-1"></div>
-            <h4>Klaus Müller</h4>
-            <span>Geschäftsführer</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar ta-2"></div>
-            <h4>Sandra Weber</h4>
-            <span>Projektleiterin</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar ta-3"></div>
-            <h4>Thomas Braun</h4>
-            <span>Bauleiter</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar ta-4"></div>
-            <h4>Anna Schmidt</h4>
-            <span>Arbeitssicherheit</span>
-          </div>
+        <div class="cta-actions">
+          <a href="portal.html?tab=neupatient" class="btn btn-primary btn-lg">Neupatientenformular</a>
+          <a href="portal.html" class="btn btn-outline btn-lg">Zum Patientenportal</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- KONTAKT -->
-  <section class="section contact-section" id="kontakt">
+  <!-- CONTACT -->
+  <section class="section" id="kontakt">
     <div class="container">
       <div class="section-header">
-        <p class="section-sub">Jetzt anfragen</p>
-        <h2>Kontaktieren Sie <span class="accent">uns</span></h2>
-        <p class="section-desc">Erhalten Sie innerhalb von 24 Stunden ein unverbindliches Angebot.</p>
+        <p class="section-eyebrow">Kontakt</p>
+        <h2>So erreichen <span class="accent">Sie uns</span></h2>
       </div>
-      <div class="contact-wrapper">
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
+      <div class="contact-grid">
+        <div class="contact-info-block">
+          <div class="contact-item reveal">
+            <div class="ci-icon">📍</div>
             <div>
               <strong>Adresse</strong>
-              <p>Industriestraße 42<br />44139 Dortmund</p>
+              <p>Torstraße 123<br>10119 Berlin-Mitte</p>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">📞</div>
+          <div class="contact-item reveal">
+            <div class="ci-icon">📞</div>
             <div>
               <strong>Telefon</strong>
-              <p><a href="tel:+492311234567">+49 231 123 45 67</a></p>
+              <p><a href="tel:+4930000000">+49 30 000 000</a></p>
+              <small>Mo–Fr 08:00–19:00 · Sa 09:00–14:00</small>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">✉️</div>
+          <div class="contact-item emergency-contact reveal">
+            <div class="ci-icon">🚨</div>
+            <div>
+              <strong>Notfall-Hotline</strong>
+              <p><a href="tel:+4930000001">+49 30 000 001</a></p>
+              <small>24/7 – auch nachts und am Wochenende</small>
+            </div>
+          </div>
+          <div class="contact-item reveal">
+            <div class="ci-icon">✉️</div>
             <div>
               <strong>E-Mail</strong>
-              <p><a href="mailto:info@demolux.de">info@demolux.de</a></p>
+              <p><a href="mailto:info@zahnarzt-abokor.de">info@zahnarzt-abokor.de</a></p>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">🕐</div>
-            <div>
-              <strong>Öffnungszeiten</strong>
-              <p>Mo–Fr: 07:00–18:00 Uhr<br />Notfall-Hotline: 24/7</p>
+          <div class="opening-hours">
+            <h4>Öffnungszeiten</h4>
+            <div class="oh-grid">
+              <span>Montag – Donnerstag</span><span>08:00 – 19:00</span>
+              <span>Freitag</span><span>08:00 – 17:00</span>
+              <span>Samstag</span><span>09:00 – 14:00</span>
+              <span>Sonntag</span><span>Nur Notfall</span>
             </div>
           </div>
         </div>
         <form class="contact-form" id="contactForm">
           <div class="form-row">
             <div class="form-group">
-              <label for="name">Name *</label>
-              <input type="text" id="name" name="name" placeholder="Max Mustermann" required />
+              <label for="cName">Name *</label>
+              <input type="text" id="cName" name="name" placeholder="Max Mustermann" required>
             </div>
             <div class="form-group">
-              <label for="email">E-Mail *</label>
-              <input type="email" id="email" name="email" placeholder="max@beispiel.de" required />
+              <label for="cEmail">E-Mail *</label>
+              <input type="email" id="cEmail" name="email" placeholder="max@beispiel.de" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="phone">Telefon</label>
-              <input type="tel" id="phone" name="phone" placeholder="+49 ..." />
+              <label for="cPhone">Telefon</label>
+              <input type="tel" id="cPhone" name="phone" placeholder="+49 ...">
             </div>
             <div class="form-group">
-              <label for="service">Leistung</label>
-              <select id="service" name="service">
+              <label for="cSubject">Betreff</label>
+              <select id="cSubject" name="subject">
                 <option value="">Bitte wählen...</option>
-                <option>Gebäudeabbruch</option>
-                <option>Industriedemontage</option>
-                <option>Selektiver Rückbau</option>
-                <option>Schadstoffsanierung</option>
-                <option>Innenabbruch</option>
-                <option>Entsorgung & Recycling</option>
+                <option>Terminanfrage</option>
+                <option>Notfall</option>
+                <option>Frage zur Abrechnung</option>
+                <option>Dokumente anfordern</option>
+                <option>Rückrufbitte</option>
+                <option>Sonstiges</option>
               </select>
             </div>
           </div>
-          <div class="form-group full">
-            <label for="message">Nachricht *</label>
-            <textarea id="message" name="message" rows="5" placeholder="Beschreiben Sie Ihr Projekt..." required></textarea>
+          <div class="form-group">
+            <label for="cMsg">Nachricht *</label>
+            <textarea id="cMsg" name="message" rows="5" placeholder="Ihr Anliegen..." required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-full">Anfrage absenden</button>
+          <div class="form-check">
+            <input type="checkbox" id="cDsgvo" required>
+            <label for="cDsgvo">Ich stimme der Verarbeitung meiner Daten gem. <a href="#">Datenschutzerklärung</a> zu. *</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Nachricht senden</button>
         </form>
       </div>
     </div>
@@ -316,40 +319,43 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a href="#home" class="logo">
-          <span class="logo-icon">⚒</span>
-          <span class="logo-text">DEMO<span class="accent">LUX</span></span>
+        <a href="index.html" class="logo">
+          <span class="logo-tooth">🦷</span>
+          <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
         </a>
-        <p>Ihr zuverlässiger Partner für professionellen Abbruch und Abriss in ganz Deutschland.</p>
+        <p>Zahnarztpraxis Dr. Abokor Deek<br>Torstraße 123 · 10119 Berlin-Mitte</p>
       </div>
-      <div class="footer-links">
+      <div class="footer-col">
         <h4>Leistungen</h4>
         <ul>
-          <li><a href="#leistungen">Gebäudeabbruch</a></li>
-          <li><a href="#leistungen">Industriedemontage</a></li>
-          <li><a href="#leistungen">Schadstoffsanierung</a></li>
-          <li><a href="#leistungen">Innenabbruch</a></li>
+          <li><a href="booking.html?type=prophylaxe">Prophylaxe</a></li>
+          <li><a href="booking.html?type=implantologie">Implantologie</a></li>
+          <li><a href="booking.html?type=zahnersatz">Zahnersatz</a></li>
+          <li><a href="booking.html?type=bleaching">Bleaching</a></li>
+          <li><a href="booking.html?type=notfall">Notfall</a></li>
         </ul>
       </div>
-      <div class="footer-links">
-        <h4>Unternehmen</h4>
+      <div class="footer-col">
+        <h4>Portal</h4>
         <ul>
-          <li><a href="#ueber-uns">Über uns</a></li>
-          <li><a href="#projekte">Projekte</a></li>
-          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="booking.html">Termin buchen</a></li>
+          <li><a href="portal.html">Patientenportal</a></li>
+          <li><a href="portal.html?tab=neupatient">Neupatientenformular</a></li>
+          <li><a href="portal.html?tab=anamnese">Anamnese</a></li>
+          <li><a href="dashboard.html">Praxis-Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
           <li><a href="#">Impressum</a></li>
           <li><a href="#">Datenschutz</a></li>
+          <li><a href="#">Barrierefreiheit</a></li>
         </ul>
-      </div>
-      <div class="footer-contact">
-        <h4>Kontakt</h4>
-        <p>📍 Industriestraße 42, 44139 Dortmund</p>
-        <p>📞 <a href="tel:+492311234567">+49 231 123 45 67</a></p>
-        <p>✉️ <a href="mailto:info@demolux.de">info@demolux.de</a></p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 DEMOLUX GmbH. Alle Rechte vorbehalten.</p>
+      <p>© 2026 Zahnarztpraxis Dr. Abokor Deek · Berlin-Mitte · DSGVO-konform · EU-Hosting</p>
     </div>
   </footer>
 
