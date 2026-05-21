@@ -7,12 +7,16 @@ const state = {
 };
 
 const typeConfig = {
-  prophylaxe:    { label: 'Prophylaxe',              icon: '🦷', duration: '45–60 Min.' },
-  notfall:       { label: 'Schmerzen / Notfall',      icon: '🚨', duration: '30 Min.' },
-  implantologie: { label: 'Implantologie-Beratung',   icon: '🔩', duration: '30 Min. · kostenlos' },
-  zahnersatz:    { label: 'Zahnersatz',               icon: '👑', duration: '45 Min.' },
-  bleaching:     { label: 'Bleaching / Veneers',      icon: '✨', duration: '60–90 Min.' },
-  checkup:       { label: 'Vorsorge / Check-up',      icon: '📋', duration: '30 Min.' },
+  prophylaxe:       { label: 'Prophylaxe',                    icon: '🦷', duration: '45–60 Min.' },
+  notfall:          { label: 'Schmerzen / Notfall',            icon: '🚨', duration: '30 Min.' },
+  implantologie:    { label: 'Implantologie-Beratung',         icon: '🔩', duration: '30 Min. · kostenlos' },
+  zahnersatz:       { label: 'Zahnersatz',                     icon: '👑', duration: '45 Min.' },
+  bleaching:        { label: 'Bleaching / Veneers',            icon: '✨', duration: '60–90 Min.' },
+  checkup:          { label: 'Vorsorge / Check-up',            icon: '📋', duration: '30 Min.' },
+  kfo:              { label: 'Kieferorthopädie (KFO)',          icon: '😁', duration: '30 Min. · kostenlos' },
+  oralchirurgie:    { label: 'Oralchirurgie / OP',             icon: '🔬', duration: '30–60 Min.' },
+  kinderzahn:       { label: 'Kinderzahnheilkunde',            icon: '🌈', duration: '30–45 Min.' },
+  parodontologie:   { label: 'Parodontologie / Zahnfleisch',   icon: '🦠', duration: '45–60 Min.' },
 };
 
 const MONTH_NAMES = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
