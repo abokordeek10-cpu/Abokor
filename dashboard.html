@@ -6,238 +6,360 @@
   <title>Praxis-Dashboard – Dr. Abokor</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="page-dashboard">
 
-  <div class="dashboard-layout">
+<div class="dashboard-layout">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-logo">
-        <span class="logo-tooth">🦷</span>
-        <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-tooth">🦷</span>
+      <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="snav-item active" data-view="view-dashboard">
+        <span class="snav-icon">📊</span><span class="snav-label">Cockpit</span>
+      </a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="prac-section">
+        <span class="snav-icon">📅</span><span class="snav-label">Termine heute</span>
+      </a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="callbacks-section">
+        <span class="snav-icon">📞</span><span class="snav-label">Rückrufe</span>
+        <span class="snav-badge" id="badge-rueckrufe">3</span>
+      </a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="requests-section">
+        <span class="snav-icon">📨</span><span class="snav-label">Anfragen</span>
+        <span class="snav-badge warn" id="badge-anfragen">8</span>
+      </a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="notfall-section">
+        <span class="snav-icon">🚨</span><span class="snav-label">Notfall-Slots</span>
+      </a>
+      <a href="#" class="snav-item" data-view="view-recall">
+        <span class="snav-icon">🔄</span><span class="snav-label">Recall</span>
+      </a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="missing-section">
+        <span class="snav-icon">📁</span><span class="snav-label">Fehlende Unterlagen</span>
+        <span class="snav-badge warn" id="badge-unterlagen">2</span>
+      </a>
+      <a href="#" class="snav-item" data-view="view-uebersicht">
+        <span class="snav-icon">📈</span><span class="snav-label">Auslastung</span>
+      </a>
+      <div class="sidebar-divider"></div>
+      <a href="index.html" class="snav-item">
+        <span class="snav-icon">🌐</span><span class="snav-label">Praxis-Website</span>
+      </a>
+      <a href="portal.html" class="snav-item">
+        <span class="snav-icon">👥</span><span class="snav-label">Patientenportal</span>
+      </a>
+      <a href="booking.html" class="snav-item">
+        <span class="snav-icon">➕</span><span class="snav-label">Termin buchen</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="staff-info">
+        <div class="staff-avatar">M</div>
+        <div>
+          <strong>Marcus Berger</strong>
+          <span>Praxismanager</span>
+        </div>
       </div>
-      <nav class="sidebar-nav">
-        <a href="#" class="snav-item active" data-section="overview"><span>📊</span> Übersicht</a>
-        <a href="#" class="snav-item" data-section="termine"><span>📅</span> Termine heute</a>
-        <a href="#" class="snav-item" data-section="rueckrufe">
-          <span>📞</span> Rückrufe <span class="snav-badge">3</span>
-        </a>
-        <a href="#" class="snav-item" data-section="anfragen">
-          <span>📨</span> Anfragen <span class="snav-badge warn">8</span>
-        </a>
-        <a href="#" class="snav-item" data-section="notfall"><span>🚨</span> Notfall-Slots</a>
-        <a href="#" class="snav-item" data-section="recall"><span>🔄</span> Recall</a>
-        <a href="#" class="snav-item" data-section="unterlagen">
-          <span>📁</span> Fehlende Unterlagen <span class="snav-badge warn">2</span>
-        </a>
-        <a href="#" class="snav-item" data-section="auslastung"><span>📈</span> Auslastung</a>
-        <div class="sidebar-divider"></div>
-        <a href="index.html" class="snav-item"><span>🌐</span> Praxis-Website</a>
-        <a href="portal.html" class="snav-item"><span>👥</span> Patientenportal</a>
-        <a href="booking.html" class="snav-item"><span>📅</span> Termin buchen</a>
-      </nav>
-      <div class="sidebar-footer">
-        <div class="staff-info">
-          <div class="staff-avatar">M</div>
-          <div>
-            <strong>Marcus Berger</strong>
-            <span>Praxismanager</span>
-          </div>
-        </div>
-      </div>
-    </aside>
+    </div>
+  </aside>
 
-    <!-- MAIN -->
-    <div class="dash-content">
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <div class="dash-content">
 
-      <!-- TOPBAR -->
-      <div class="dash-topbar">
-        <div class="dash-title">
-          <button class="sidebar-toggle" id="sidebarToggle">☰</button>
-          <div>
-            <h1>Guten Morgen, Marcus 👋</h1>
-            <p>Donnerstag, 21. Mai 2026 · Letzte Aktualisierung: 10:32 Uhr</p>
-          </div>
-        </div>
-        <div class="dash-topbar-actions">
-          <button class="btn btn-sm btn-outline" onclick="window.location.href='booking.html'">+ Notfall-Slot</button>
-          <div class="notif-bell">🔔<span class="notif-count">5</span></div>
-        </div>
-      </div>
-
-      <!-- KPI CARDS -->
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-icon" style="background:#dbeafe;color:#1d4ed8;">📅</div>
-          <div class="kpi-data">
-            <span class="kpi-num">14</span>
-            <span class="kpi-lbl">Termine heute</span>
-          </div>
-          <div class="kpi-trend up">↑ +2 vs. gestern</div>
-        </div>
-        <div class="kpi-card kpi-alert">
-          <div class="kpi-icon" style="background:#fee2e2;color:#dc2626;">📞</div>
-          <div class="kpi-data">
-            <span class="kpi-num">3</span>
-            <span class="kpi-lbl">Offene Rückrufe</span>
-          </div>
-          <div class="kpi-trend warn">Ältester: 2 Std.</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon" style="background:#d1fae5;color:#059669;">🚨</div>
-          <div class="kpi-data">
-            <span class="kpi-num">2</span>
-            <span class="kpi-lbl">Notfall-Slots frei</span>
-          </div>
-          <div class="kpi-trend neutral">Heute verfügbar</div>
-        </div>
-        <div class="kpi-card kpi-warn">
-          <div class="kpi-icon" style="background:#fef3c7;color:#d97706;">📨</div>
-          <div class="kpi-data">
-            <span class="kpi-num">8</span>
-            <span class="kpi-lbl">Unbearbeitete Anfragen</span>
-          </div>
-          <div class="kpi-trend warn">3 seit gestern</div>
+    <!-- TOPBAR with compact KPI bar -->
+    <div class="dash-topbar">
+      <div class="dash-title-wrap">
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <div class="dash-greeting">
+          <h1>Guten Morgen, Marcus 👋</h1>
+          <p>Do., 21. Mai 2026 · Aktualisiert: 10:32 Uhr</p>
         </div>
       </div>
 
-      <!-- TWO-COL: Schedule + Tasks -->
-      <div class="dash-two-col">
+      <div class="dash-kpi-bar">
+        <div class="kpi-pill">
+          <span class="kpi-pill-num" id="kpi-termine">14</span>
+          <span class="kpi-pill-lbl">Termine</span>
+        </div>
+        <div class="kpi-pill-sep"></div>
+        <div class="kpi-pill kpi-alert">
+          <span class="kpi-pill-num" id="kpi-rueckrufe">3</span>
+          <span class="kpi-pill-lbl">Rückrufe offen</span>
+        </div>
+        <div class="kpi-pill-sep"></div>
+        <div class="kpi-pill">
+          <span class="kpi-pill-num" id="kpi-notfall">2</span>
+          <span class="kpi-pill-lbl">Notfall-Slots frei</span>
+        </div>
+        <div class="kpi-pill-sep"></div>
+        <div class="kpi-pill kpi-warn">
+          <span class="kpi-pill-num" id="kpi-anfragen">8</span>
+          <span class="kpi-pill-lbl">Anfragen offen</span>
+        </div>
+      </div>
 
-        <!-- TODAY'S SCHEDULE -->
-        <div class="dash-card">
-          <div class="dash-card-header">
-            <h3>Heutige Termine</h3>
-            <span class="dash-badge">14 gesamt</span>
-          </div>
-          <div class="appt-timeline">
-            <div class="tl-item tl-done">
-              <div class="tl-time">08:00</div>
-              <div class="tl-dot tl-dot-done"></div>
-              <div class="tl-body">
-                <strong>Petra M.</strong> · Prophylaxe
-                <span>Dr. Schreiber · 45 Min. · <em class="status-done">Abgeschlossen</em></span>
+      <div class="dash-topbar-right">
+        <button class="btn btn-sm btn-primary" onclick="window.location.href='booking.html'">+ Notfall-Slot</button>
+        <div class="notif-bell">🔔<span class="notif-count">5</span></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         VIEW: DASHBOARD (Cockpit)
+    ══════════════════════════════ -->
+    <div id="view-dashboard" class="dash-view active">
+      <div class="dash-view-inner">
+
+        <!-- PRACTITIONER GRID -->
+        <div id="prac-section">
+          <div class="section-label">Heutige Termine <span class="section-label-sub">— nach Behandler</span></div>
+          <div class="prac-grid">
+
+            <!-- Dr. Schreiber -->
+            <div class="prac-col">
+              <div class="prac-col-header">
+                <span class="prac-col-name">Dr. Schreiber</span>
+                <span class="prac-col-count">4 Termine</span>
+              </div>
+              <div class="prac-timeline">
+                <div class="prac-appt appt-done">
+                  <span class="prac-time">08:00</span>
+                  <div class="prac-dot dot-done"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Petra M.</span>
+                    <span class="prac-type">Prophylaxe · 45 Min.</span>
+                  </div>
+                  <span class="prac-status-badge sb-done">✓</span>
+                </div>
+                <div class="prac-appt appt-done">
+                  <span class="prac-time">09:30</span>
+                  <div class="prac-dot dot-done"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Günter H.</span>
+                    <span class="prac-type">Check-up · 30 Min.</span>
+                  </div>
+                  <span class="prac-status-badge sb-done">✓</span>
+                </div>
+                <div class="prac-appt">
+                  <span class="prac-time">11:00</span>
+                  <div class="prac-dot"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Sabine P.</span>
+                    <span class="prac-type">Bleaching · 60 Min.</span>
+                  </div>
+                </div>
+                <div class="prac-appt">
+                  <span class="prac-time">15:30</span>
+                  <div class="prac-dot"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Hans J.</span>
+                    <span class="prac-type">Prophylaxe · 45 Min.</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="tl-item tl-done">
-              <div class="tl-time">09:00</div>
-              <div class="tl-dot tl-dot-done"></div>
-              <div class="tl-body">
-                <strong>Klaus W.</strong> · Zahnersatz-Beratung
-                <span>Dr. Abokor · 60 Min. · <em class="status-done">Abgeschlossen</em></span>
+
+            <!-- Dr. Abokor -->
+            <div class="prac-col">
+              <div class="prac-col-header">
+                <span class="prac-col-name">Dr. Abokor</span>
+                <span class="prac-col-count">5 Termine</span>
+              </div>
+              <div class="prac-timeline">
+                <div class="prac-appt appt-done">
+                  <span class="prac-time">09:00</span>
+                  <div class="prac-dot dot-done"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Klaus W.</span>
+                    <span class="prac-type">Zahnersatz-Berat. · 60 Min.</span>
+                  </div>
+                  <span class="prac-status-badge sb-done">✓</span>
+                </div>
+                <div class="prac-appt appt-active">
+                  <span class="prac-time">10:30</span>
+                  <div class="prac-dot dot-active"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Maria S.</span>
+                    <span class="prac-type">Implantologie-Berat. · 90 Min.</span>
+                    <div class="prac-pulse-bar"><div class="prac-pulse-fill"></div></div>
+                  </div>
+                  <span class="prac-status-badge sb-active">Läuft</span>
+                </div>
+                <div class="prac-appt appt-urgent">
+                  <span class="prac-time">13:00</span>
+                  <div class="prac-dot dot-urgent"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">NOTFALL · Anonym</span>
+                    <span class="prac-type">Zahnschmerzen · Notfall-Slot</span>
+                  </div>
+                  <span class="prac-status-badge sb-notfall">Notfall</span>
+                </div>
+                <div class="prac-appt">
+                  <span class="prac-time">14:00</span>
+                  <div class="prac-dot"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Anna K.</span>
+                    <span class="prac-type">Bleaching · 60 Min.</span>
+                  </div>
+                </div>
+                <div class="prac-appt">
+                  <span class="prac-time">15:00</span>
+                  <div class="prac-dot"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Stephan R.</span>
+                    <span class="prac-type">Zahnersatz · 45 Min.</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="tl-item tl-active">
-              <div class="tl-time">10:30</div>
-              <div class="tl-dot tl-dot-active"></div>
-              <div class="tl-body">
-                <strong>Maria S.</strong> · Implantologie-Beratung
-                <span>Dr. Abokor · 90 Min. · <em class="status-active">Läuft gerade</em></span>
+
+            <!-- Dr. Hoffmann -->
+            <div class="prac-col">
+              <div class="prac-col-header">
+                <span class="prac-col-name">Dr. Hoffmann</span>
+                <span class="prac-col-count">5 Termine</span>
+              </div>
+              <div class="prac-timeline">
+                <div class="prac-appt appt-done">
+                  <span class="prac-time">08:30</span>
+                  <div class="prac-dot dot-done"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Brigitte K.</span>
+                    <span class="prac-type">Vorsorge · 30 Min.</span>
+                  </div>
+                  <span class="prac-status-badge sb-done">✓</span>
+                </div>
+                <div class="prac-appt appt-done">
+                  <span class="prac-time">10:00</span>
+                  <div class="prac-dot dot-done"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Frank B.</span>
+                    <span class="prac-type">Implantologie · 60 Min.</span>
+                  </div>
+                  <span class="prac-status-badge sb-done">✓</span>
+                </div>
+                <div class="prac-appt">
+                  <span class="prac-time">12:00</span>
+                  <div class="prac-dot"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Thomas B.</span>
+                    <span class="prac-type">Vorsorge / Check-up · 30 Min.</span>
+                  </div>
+                </div>
+                <div class="prac-appt">
+                  <span class="prac-time">13:30</span>
+                  <div class="prac-dot"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Eva N.</span>
+                    <span class="prac-type">Prophylaxe · 45 Min.</span>
+                  </div>
+                </div>
+                <div class="prac-appt">
+                  <span class="prac-time">16:00</span>
+                  <div class="prac-dot"></div>
+                  <div class="prac-body">
+                    <span class="prac-patient">Max O.</span>
+                    <span class="prac-type">Zahnersatz-Berat. · 45 Min.</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="tl-item">
-              <div class="tl-time">12:00</div>
-              <div class="tl-dot"></div>
-              <div class="tl-body">
-                <strong>Thomas B.</strong> · Vorsorge / Check-up
-                <span>Dr. Hoffmann · 30 Min.</span>
-              </div>
-            </div>
-            <div class="tl-item tl-urgent">
-              <div class="tl-time">13:00</div>
-              <div class="tl-dot tl-dot-urgent"></div>
-              <div class="tl-body">
-                <strong>NOTFALL · Anonym</strong> · Zahnschmerzen
-                <span>Dr. Abokor · <em class="status-urgent">Notfall-Slot</em></span>
-              </div>
-            </div>
-            <div class="tl-item">
-              <div class="tl-time">14:00</div>
-              <div class="tl-dot"></div>
-              <div class="tl-body">
-                <strong>Anna K.</strong> · Bleaching
-                <span>Dr. Abokor · 60 Min.</span>
-              </div>
-            </div>
-            <div class="tl-item">
-              <div class="tl-time">15:30</div>
-              <div class="tl-dot"></div>
-              <div class="tl-body">
-                <strong>Hans J.</strong> · Prophylaxe
-                <span>Dr. Schreiber · 45 Min.</span>
-              </div>
-            </div>
-            <div class="tl-more">+ 7 weitere Termine <a href="#">Alle anzeigen</a></div>
+
           </div>
         </div>
+        <!-- /prac-section -->
 
-        <!-- TASKS COLUMN -->
-        <div class="dash-col-stack">
+        <!-- BOTTOM GRID: Callbacks + Requests -->
+        <div class="dash-bottom-grid">
 
           <!-- CALLBACKS -->
-          <div class="dash-card">
+          <div class="dash-card" id="callbacks-section">
             <div class="dash-card-header">
               <h3>Offene Rückrufe</h3>
-              <span class="dash-badge urgent">3</span>
+              <span class="dash-badge urgent" id="cb-badge">3</span>
             </div>
-            <div class="task-list">
+            <div class="task-list" id="taskList">
+
               <div class="task-item task-urgent">
                 <div class="task-icon">📞</div>
                 <div class="task-body">
-                  <strong>Julia T. · +49 170 123456</strong>
-                  <span>Zahnschmerzen seit gestern · 08:14 Uhr</span>
-                  <span class="task-age warn">vor 2 Std. 20 Min.</span>
+                  <strong>Julia T.</strong>
+                  <span>Zahnschmerzen seit gestern · eingetroffen 08:14 Uhr</span>
+                  <span class="task-age warn">vor 2 Std. 20 Min. — dringend</span>
                 </div>
-                <button class="btn btn-xs btn-primary" onclick="markDone(this, 'task-item')">✓</button>
+                <div class="task-actions">
+                  <a href="tel:+4917012345678" class="btn-voip" title="Anrufen">📲 Anrufen</a>
+                  <button class="btn btn-xs btn-primary" onclick="markDone(this,'task-item')">✓</button>
+                </div>
               </div>
+
               <div class="task-item">
                 <div class="task-icon">📞</div>
                 <div class="task-body">
-                  <strong>Robert F. · +49 152 654321</strong>
+                  <strong>Robert F.</strong>
                   <span>Frage zu Kostenplan Implantologie</span>
                   <span class="task-age">vor 45 Min.</span>
                 </div>
-                <button class="btn btn-xs btn-primary" onclick="markDone(this, 'task-item')">✓</button>
+                <div class="task-actions">
+                  <a href="tel:+4915265432109" class="btn-voip">📲 Anrufen</a>
+                  <button class="btn btn-xs btn-primary" onclick="markDone(this,'task-item')">✓</button>
+                </div>
               </div>
+
               <div class="task-item">
                 <div class="task-icon">📞</div>
                 <div class="task-body">
-                  <strong>Lisa M. · +49 178 987654</strong>
+                  <strong>Lisa M.</strong>
                   <span>Rezept anfordern</span>
                   <span class="task-age">vor 15 Min.</span>
                 </div>
-                <button class="btn btn-xs btn-primary" onclick="markDone(this, 'task-item')">✓</button>
+                <div class="task-actions">
+                  <a href="tel:+4917898765432" class="btn-voip">📲 Anrufen</a>
+                  <button class="btn btn-xs btn-primary" onclick="markDone(this,'task-item')">✓</button>
+                </div>
               </div>
+
             </div>
+            <div class="callback-log" id="callbackLog"></div>
           </div>
 
           <!-- REQUESTS -->
-          <div class="dash-card">
+          <div class="dash-card" id="requests-section">
             <div class="dash-card-header">
               <h3>Neue Anfragen</h3>
-              <span class="dash-badge">8</span>
+              <span class="dash-badge urgent" id="req-badge">4</span>
             </div>
-            <div class="request-list">
-              <div class="req-item">
+            <div class="request-list" id="reqList">
+
+              <div class="req-item req-priority-1">
                 <span class="req-cat cat-notfall">Notfall</span>
                 <div class="req-body">
                   <strong>Anonyme Anfrage</strong>
                   <span>Starke Zahnschmerzen, Schwellung · vor 30 Min.</span>
+                  <span class="ai-triage">🤖 Schwellung + Schmerz → Priorität 1</span>
                 </div>
-                <span class="req-prio high">Hoch</span>
-                <button class="btn btn-xs btn-primary" onclick="markDone(this, 'req-item')">✓</button>
+                <span class="req-prio high">P1</span>
+                <button class="btn btn-xs btn-primary" onclick="markDone(this,'req-item')">✓</button>
               </div>
+
               <div class="req-item">
-                <span class="req-cat cat-implant">Implantologie</span>
+                <span class="req-cat cat-implant">Implant.</span>
                 <div class="req-body">
                   <strong>S. Becker</strong>
                   <span>Beratungstermin + Kostenplan · vor 1 Std.</span>
+                  <span class="ai-triage">🤖 Erstberatung Implantologie</span>
                 </div>
-                <span class="req-prio medium">Mittel</span>
-                <button class="btn btn-xs btn-outline" onclick="markDone(this, 'req-item')">✓</button>
+                <span class="req-prio medium">P2</span>
+                <button class="btn btn-xs btn-outline" onclick="markDone(this,'req-item')">✓</button>
               </div>
+
               <div class="req-item">
                 <span class="req-cat cat-recall">Recall</span>
                 <div class="req-body">
@@ -245,31 +367,167 @@
                   <span>Prophylaxe überfällig seit 3 Monaten</span>
                 </div>
                 <span class="req-prio low">Recall</span>
-                <button class="btn btn-xs btn-outline" onclick="markDone(this, 'req-item')">✓</button>
+                <button class="btn btn-xs btn-outline" onclick="markDone(this,'req-item')">✓</button>
               </div>
+
               <div class="req-item">
-                <span class="req-cat cat-abrechnung">Abrechnung</span>
+                <span class="req-cat cat-abrechnung">Abrechng.</span>
                 <div class="req-body">
                   <strong>K. Peters</strong>
                   <span>Frage zu Rechnung vom 10.04.2026</span>
                 </div>
                 <span class="req-prio low">Normal</span>
-                <button class="btn btn-xs btn-outline" onclick="markDone(this, 'req-item')">✓</button>
+                <button class="btn btn-xs btn-outline" onclick="markDone(this,'req-item')">✓</button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- NOTFALL SLOTS -->
+          <div class="dash-card" id="notfall-section">
+            <div class="dash-card-header">
+              <h3>Notfall-Slots heute</h3>
+              <span class="dash-badge">2 frei</span>
+            </div>
+            <div class="notfall-slots">
+              <div class="nf-slot nf-free">
+                <span class="nf-time">13:00</span>
+                <div class="nf-info">
+                  <strong>Slot frei</strong>
+                  <span>Dr. Abokor · bis 13:45 Uhr</span>
+                </div>
+                <a href="booking.html?type=notfall" class="btn btn-sm btn-primary">Vergeben</a>
+              </div>
+              <div class="nf-slot nf-free">
+                <span class="nf-time">16:30</span>
+                <div class="nf-info">
+                  <strong>Slot frei</strong>
+                  <span>Dr. Schreiber · bis 17:00 Uhr</span>
+                </div>
+                <a href="booking.html?type=notfall" class="btn btn-sm btn-primary">Vergeben</a>
+              </div>
+              <div class="nf-slot nf-taken">
+                <span class="nf-time">11:30</span>
+                <div class="nf-info">
+                  <strong>Besetzt</strong>
+                  <span>Dr. Hoffmann · Anonym</span>
+                </div>
+                <span class="dash-badge">Vergeben</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- MISSING DOCS -->
+          <div class="dash-card" id="missing-section">
+            <div class="dash-card-header">
+              <h3>Fehlende Unterlagen</h3>
+              <span class="dash-badge urgent">2</span>
+            </div>
+            <div class="missing-list">
+              <div class="missing-item">
+                <span class="mi-warn">⚠️</span>
+                <div class="mi-body">
+                  <strong>B. Schulz</strong>
+                  <span>Termin 26.05. · fehlt: Röntgenbild OPG</span>
+                </div>
+                <button class="btn btn-xs btn-outline" onclick="requestDoc(this)">Anfordern</button>
+              </div>
+              <div class="missing-item">
+                <span class="mi-warn">⚠️</span>
+                <div class="mi-body">
+                  <strong>M. Fischer</strong>
+                  <span>Termin 28.05. · fehlt: Anamnese-Bogen</span>
+                </div>
+                <button class="btn btn-xs btn-outline" onclick="requestDoc(this)">Anfordern</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /bottom grid -->
+
+      </div>
+    </div>
+    <!-- /view-dashboard -->
+
+    <!-- ══════════════════════════════
+         VIEW: AUSLASTUNG
+    ══════════════════════════════ -->
+    <div id="view-uebersicht" class="dash-view">
+      <div class="dash-view-inner">
+        <div class="dash-bottom-grid">
+
+          <div class="dash-card dash-full-row">
+            <div class="dash-card-header">
+              <h3>Auslastung nach Leistung – Diese Woche</h3>
+              <span class="dash-badge neutral">KW 21</span>
+            </div>
+            <div class="capacity-bars">
+              <div class="cap-item">
+                <div class="cap-label"><span>Prophylaxe</span><span class="cap-pct">87%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:87%;background:#0ea5e9;"></div></div>
+              </div>
+              <div class="cap-item">
+                <div class="cap-label"><span>Implantologie</span><span class="cap-pct">62%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:62%;background:#8b5cf6;"></div></div>
+              </div>
+              <div class="cap-item">
+                <div class="cap-label"><span>Zahnersatz</span><span class="cap-pct">74%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:74%;background:#f59e0b;"></div></div>
+              </div>
+              <div class="cap-item">
+                <div class="cap-label"><span>Notfall-Slots</span><span class="cap-pct">50%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:50%;background:#ef4444;"></div></div>
+              </div>
+              <div class="cap-item">
+                <div class="cap-label"><span>Bleaching / Ästhetik</span><span class="cap-pct">43%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:43%;background:#10b981;"></div></div>
+              </div>
+              <div class="cap-item">
+                <div class="cap-label"><span>Vorsorge / Check-up</span><span class="cap-pct">91%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:91%;background:#0061E0;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-card dash-full-row">
+            <div class="dash-card-header">
+              <h3>Auslastung nach Behandler – Diese Woche</h3>
+            </div>
+            <div class="capacity-bars">
+              <div class="cap-item">
+                <div class="cap-label"><span>Dr. Abokor</span><span class="cap-pct">82%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:82%;background:#0061E0;"></div></div>
+              </div>
+              <div class="cap-item">
+                <div class="cap-label"><span>Dr. Schreiber</span><span class="cap-pct">68%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:68%;background:#0ea5e9;"></div></div>
+              </div>
+              <div class="cap-item">
+                <div class="cap-label"><span>Dr. Hoffmann</span><span class="cap-pct">75%</span></div>
+                <div class="cap-bar"><div class="cap-fill" style="width:75%;background:#8b5cf6;"></div></div>
               </div>
             </div>
           </div>
 
         </div>
       </div>
+    </div>
+    <!-- /view-uebersicht -->
 
-      <!-- BOTTOM ROW: Recall + Kapazität -->
-      <div class="dash-two-col" style="margin-top:20px;">
+    <!-- ══════════════════════════════
+         VIEW: RECALL
+    ══════════════════════════════ -->
+    <div id="view-recall" class="dash-view">
+      <div class="dash-view-inner">
 
-        <!-- RECALL TABLE -->
         <div class="dash-card">
           <div class="dash-card-header">
             <h3>Recall-Liste</h3>
-            <button class="btn btn-xs btn-outline">Alle anzeigen</button>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span class="dash-badge urgent">2 überfällig</span>
+              <button class="btn btn-xs btn-outline">Alle einladen</button>
+            </div>
           </div>
           <div class="table-scroll">
             <table class="recall-table">
@@ -280,7 +538,7 @@
                   <th>Fälligkeit</th>
                   <th>Intervall</th>
                   <th>Status</th>
-                  <th></th>
+                  <th>Aktion</th>
                 </tr>
               </thead>
               <tbody>
@@ -324,77 +582,29 @@
                   <td><span class="recall-badge rb-ok">79 Tage</span></td>
                   <td><button class="btn btn-xs btn-outline" disabled>Einladen</button></td>
                 </tr>
+                <tr class="recall-row">
+                  <td><strong>P. Müller</strong></td>
+                  <td>14.03.2026</td>
+                  <td>14.09.2026</td>
+                  <td>6 Monate</td>
+                  <td><span class="recall-badge rb-ok">116 Tage</span></td>
+                  <td><button class="btn btn-xs btn-outline" disabled>Einladen</button></td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- CAPACITY + MISSING DOCS -->
-        <div class="dash-col-stack">
-          <div class="dash-card">
-            <div class="dash-card-header">
-              <h3>Auslastung nach Leistung</h3>
-              <span class="dash-badge neutral">Diese Woche</span>
-            </div>
-            <div class="capacity-bars">
-              <div class="cap-item">
-                <div class="cap-label"><span>Prophylaxe</span><span class="cap-pct">87%</span></div>
-                <div class="cap-bar"><div class="cap-fill" style="width:87%;background:#0ea5e9;"></div></div>
-              </div>
-              <div class="cap-item">
-                <div class="cap-label"><span>Implantologie</span><span class="cap-pct">62%</span></div>
-                <div class="cap-bar"><div class="cap-fill" style="width:62%;background:#8b5cf6;"></div></div>
-              </div>
-              <div class="cap-item">
-                <div class="cap-label"><span>Zahnersatz</span><span class="cap-pct">74%</span></div>
-                <div class="cap-bar"><div class="cap-fill" style="width:74%;background:#f59e0b;"></div></div>
-              </div>
-              <div class="cap-item">
-                <div class="cap-label"><span>Notfall-Slots</span><span class="cap-pct">50%</span></div>
-                <div class="cap-bar"><div class="cap-fill" style="width:50%;background:#ef4444;"></div></div>
-              </div>
-              <div class="cap-item">
-                <div class="cap-label"><span>Bleaching / Ästhetik</span><span class="cap-pct">43%</span></div>
-                <div class="cap-bar"><div class="cap-fill" style="width:43%;background:#10b981;"></div></div>
-              </div>
-              <div class="cap-item">
-                <div class="cap-label"><span>Vorsorge / Check-up</span><span class="cap-pct">91%</span></div>
-                <div class="cap-bar"><div class="cap-fill" style="width:91%;background:#0e6fa8;"></div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="dash-card">
-            <div class="dash-card-header">
-              <h3>Fehlende Unterlagen</h3>
-              <span class="dash-badge urgent">2</span>
-            </div>
-            <div class="missing-list">
-              <div class="missing-item">
-                <span class="mi-warn">⚠️</span>
-                <div class="mi-body">
-                  <strong>B. Schulz</strong>
-                  <span>Termin 26.05. · fehlt: Röntgenbild OPG</span>
-                </div>
-                <button class="btn btn-xs btn-outline" onclick="requestDoc(this)">Anfordern</button>
-              </div>
-              <div class="missing-item">
-                <span class="mi-warn">⚠️</span>
-                <div class="mi-body">
-                  <strong>M. Fischer</strong>
-                  <span>Termin 28.05. · fehlt: Anamnese-Bogen</span>
-                </div>
-                <button class="btn btn-xs btn-outline" onclick="requestDoc(this)">Anfordern</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
-
     </div>
-  </div>
+    <!-- /view-recall -->
 
-  <script src="dashboard.js"></script>
+  </div>
+  <!-- /dash-content -->
+
+</div>
+<!-- /dashboard-layout -->
+
+<script src="dashboard.js"></script>
 </body>
 </html>
