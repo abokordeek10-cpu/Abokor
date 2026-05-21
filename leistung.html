@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Leistung – Dr. Abokor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="page-leistung">
+
+  <header id="header" class="header-solid">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <span class="logo-tooth">🦷</span>
+        <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#leistungen">Leistungen</a></li>
+        <li><a href="index.html#team">Team</a></li>
+        <li><a href="portal.html">Patientenportal</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="booking.html" class="nav-cta">Termin buchen</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="lp-hero" id="lpHero">
+    <div class="lp-hero-overlay"></div>
+    <div class="container lp-hero-content">
+      <a href="index.html#leistungen" class="lp-back">← Alle Leistungen</a>
+      <div class="lp-hero-icon" id="lpIcon"></div>
+      <h1 id="lpTitle"></h1>
+      <p id="lpSubtitle"></p>
+      <div class="lp-hero-meta" id="lpMeta"></div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="lp-main">
+    <div class="container lp-grid">
+
+      <!-- LEFT: Content -->
+      <div class="lp-content">
+
+        <!-- Description -->
+        <div class="lp-section" id="lpDescSection">
+          <h2 id="lpDescTitle"></h2>
+          <div id="lpDesc"></div>
+        </div>
+
+        <!-- Process steps -->
+        <div class="lp-section">
+          <h2>Ablauf der Behandlung</h2>
+          <div class="lp-steps" id="lpSteps"></div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="lp-section">
+          <h2>Ihre Vorteile</h2>
+          <div class="lp-benefits" id="lpBenefits"></div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="lp-section">
+          <h2>Häufige Fragen</h2>
+          <div class="lp-faq" id="lpFaq"></div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Sticky booking card -->
+      <aside class="lp-sidebar">
+        <div class="lp-booking-card">
+          <div class="lp-bc-icon" id="lbcIcon"></div>
+          <h3 id="lbcTitle"></h3>
+          <div class="lp-cost" id="lpCost"></div>
+          <div class="lp-duration-info" id="lpDuration"></div>
+          <a id="lpBookBtn" href="booking.html" class="btn btn-primary btn-full btn-lg">
+            Jetzt Termin buchen
+          </a>
+          <a href="index.html#kontakt" class="btn btn-outline btn-full" style="margin-top:10px;">
+            Frage stellen
+          </a>
+          <div class="lp-insurance" id="lpInsurance"></div>
+        </div>
+
+        <!-- Other services -->
+        <div class="lp-other-services">
+          <h4>Weitere Leistungen</h4>
+          <div class="lp-other-list" id="lpOtherList"></div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- CTA BANNER -->
+  <section class="lp-cta-banner">
+    <div class="container lp-cta-inner">
+      <div>
+        <h2>Bereit für Ihren Termin?</h2>
+        <p>Online buchen – in unter 2 Minuten, 24/7 verfügbar.</p>
+      </div>
+      <a id="lpCtaBtn" href="booking.html" class="btn btn-primary btn-lg">Termin online buchen →</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-tooth">🦷</span><span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span></a>
+        <p>Zahnarztpraxis Dr. Abokor Deek<br>Torstraße 123 · 10119 Berlin-Mitte</p>
+      </div>
+      <div class="footer-col"><h4>Leistungen</h4><ul>
+        <li><a href="leistung.html?type=prophylaxe">Prophylaxe</a></li>
+        <li><a href="leistung.html?type=implantologie">Implantologie</a></li>
+        <li><a href="leistung.html?type=zahnersatz">Zahnersatz</a></li>
+        <li><a href="leistung.html?type=bleaching">Bleaching</a></li>
+        <li><a href="leistung.html?type=notfall">Notfall</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Portal</h4><ul>
+        <li><a href="booking.html">Termin buchen</a></li>
+        <li><a href="portal.html">Patientenportal</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Rechtliches</h4><ul>
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Zahnarztpraxis Dr. Abokor Deek · Berlin-Mitte</p></div>
+  </footer>
+
+  <script src="leistung.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
