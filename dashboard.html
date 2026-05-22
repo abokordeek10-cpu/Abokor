@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praxis-OS — Dr. Abokor</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Auth guard: only staff may access the dashboard -->
+  <script src="auth-client.js"></script>
+  <script>
+    (function(){
+      if (!Auth.isLoggedIn()) { window.location.href = 'staff-login.html'; return; }
+      const u = Auth.getUser();
+      if (u && u.type !== 'staff') { window.location.href = 'staff-login.html'; }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="page-dashboard">
+<div class="dashboard-layout">
+
+  <!-- ═══════════════════════════════════════════════════
+       SIDEBAR
+  ═══════════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+      <span class="logo-tooth">🦷</span>
+      <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
+    </div>
+
+    <!-- Role Switcher -->
+    <div class="role-switcher">
+      <button class="role-btn active" data-role="admin" onclick="switchRole('admin')">
+        <span>👩‍💼</span> Empfang
+      </button>
+      <button class="role-btn" data-role="doctor" onclick="switchRole('doctor')">
+        <span>🩺</span> Arzt
+      </button>
+    </div>
+
+    <!-- Admin Nav -->
+    <nav class="sidebar-nav" id="nav-admin">
+      <a href="#" class="snav-item active" data-view="view-dashboard"><span class="snav-icon">📊</span><span class="snav-label">Cockpit</span></a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="prac-section"><span class="snav-icon">📅</span><span class="snav-label">Termine heute</span></a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="callbacks-section"><span class="snav-icon">📞</span><span class="snav-label">Rückrufe</span><span class="snav-badge" id="badge-rueckrufe">3</span></a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="requests-section"><span class="snav-icon">📨</span><span class="snav-label">Anfragen</span><span class="snav-badge warn" id="badge-anfragen">4</span></a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="phone-section"><span class="snav-icon">🤖</span><span class="snav-label">KI-Telefon</span></a>
+      <a href="#" class="snav-item" data-view="view-recall"><span class="snav-icon">🔄</span><span class="snav-label">Recall</span></a>
+      <a href="#" class="snav-item" data-view="view-dashboard" data-scroll="missing-section"><span class="snav-icon">📁</span><span class="snav-label">Unterlagen</span><span class="snav-badge warn" id="badge-unterlagen">2</span></a>
+      <a href="#" class="snav-item" data-view="view-uebersicht"><span class="snav-icon">📈</span><span class="snav-label">Auslastung</span></a>
+      <div class="sidebar-divider"></div>
+      <a href="index.html" class="snav-item"><span class="snav-icon">🌐</span><span class="snav-label">Praxis-Website</span></a>
+      <a href="portal.html" class="snav-item"><span class="snav-icon">👥</span><span class="snav-label">Patientenportal</span></a>
+      <a href="booking.html" class="snav-item"><span class="snav-icon">➕</span><span class="snav-label">Termin buchen</span></a>
+    </nav>
+
+    <!-- Doctor Nav (hidden by default) -->
+    <nav class="sidebar-nav hidden" id="nav-doctor">
+      <div class="doctor-selector-wrap">
+        <label class="doctor-selector-label">Aktiver Arzt</label>
+        <select class="doctor-selector" id="doctorSelector" onchange="changeActiveDoctor(this.value)">
+          <option value="abokor">Dr. Abokor</option>
+          <option value="hoffmann">Dr. Hoffmann</option>
+          <option value="schreiber">Dr. Schreiber</option>
+          <option value="mueller">Dr. Müller (KFO)</option>
+          <option value="weber">Dr. Weber (Chir.)</option>
+          <option value="schmidt">Dr. Schmidt (Kind.)</option>
+          <option value="braun">Dr. Braun (Paro.)</option>
+        </select>
+      </div>
+      <a href="#" class="snav-item active"><span class="snav-icon">👤</span><span class="snav-label">Aktuelle Patienten</span></a>
+      <a href="#" class="snav-item" onclick="switchRole('admin');return false;"><span class="snav-icon">← </span><span class="snav-label">Zur Empfangsansicht</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="staff-info">
+        <div class="staff-avatar" id="sidebarAvatar">M</div>
+        <div>
+          <strong id="sidebarName">–</strong>
+          <span id="sidebarRole">Praxismitarbeiter</span>
+        </div>
+      </div>
+      <button class="btn-sidebar-logout" onclick="doStaffLogout()">⬅ Abmelden</button>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════════════════ -->
+  <div class="dash-content">
+
+    <!-- TOPBAR -->
+    <div class="dash-topbar">
+      <div class="dash-title-wrap">
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <div class="dash-greeting">
+          <h1 id="topbarTitle">Guten Morgen, Marcus 👋</h1>
+          <p>Do., 21. Mai 2026 · Aktualisiert: 10:32 Uhr</p>
+        </div>
+      </div>
+      <div class="dash-kpi-bar" id="adminKpiBar">
+        <div class="kpi-pill"><span class="kpi-pill-num" id="kpi-termine">14</span><span class="kpi-pill-lbl">Termine</span></div>
+        <div class="kpi-pill-sep"></div>
+        <div class="kpi-pill kpi-alert"><span class="kpi-pill-num" id="kpi-rueckrufe">3</span><span class="kpi-pill-lbl">Rückrufe</span></div>
+        <div class="kpi-pill-sep"></div>
+        <div class="kpi-pill kpi-warn"><span class="kpi-pill-num" id="kpi-anfragen">4</span><span class="kpi-pill-lbl">Anfragen</span></div>
+        <div class="kpi-pill-sep"></div>
+        <div class="kpi-pill"><span class="kpi-pill-num">2</span><span class="kpi-pill-lbl">Notfall-Slots frei</span></div>
+        <div class="kpi-pill-sep"></div>
+        <div class="kpi-pill" id="kpi-recall-pill" style="cursor:pointer;" onclick="switchView('view-recall')">
+          <span class="kpi-pill-num" style="color:#16A34A;">+4.750€</span>
+          <span class="kpi-pill-lbl">Recall-Umsatz</span>
+        </div>
+      </div>
+      <div class="dash-topbar-right">
+        <button class="btn btn-sm btn-primary" onclick="window.location.href='booking.html?type=notfall'">+ Notfall-Slot</button>
+        <div class="notif-bell">🔔<span class="notif-count">5</span></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         ROLE: ADMIN
+    ══════════════════════════════════════════════════════ -->
+    <div id="role-admin" class="role-view active">
+
+      <!-- VIEW: COCKPIT -->
+      <div id="view-dashboard" class="dash-view active">
+        <div class="dash-view-inner">
+
+          <!-- Legend -->
+          <div class="reliability-legend">
+            <span class="legend-title">Zuverlässigkeits-Barometer:</span>
+            <span class="leg-item">🟢 Zuverlässig (≥90%)</span>
+            <span class="leg-item">🟡 Achtung (75–89%)</span>
+            <span class="leg-item">🔴 Risiko (&lt;75% / Fehltermine)</span>
+            <span class="leg-item">· 24h-Erinnerung: 🟢 Bestätigt · 🟡 Ausstehend · 🔴 Abgesagt</span>
+          </div>
+
+          <!-- PRACTITIONER GRID (rendered by JS) -->
+          <div id="prac-section">
+            <div class="section-label">Heutige Termine <span class="section-label-sub">— nach Behandler</span></div>
+            <div class="prac-grid" id="pracGrid">
+              <!-- Rendered by dashboard.js -->
+            </div>
+          </div>
+
+          <!-- AI TELEPHONY WIDGET -->
+          <div class="dash-card" id="phone-section">
+            <div class="dash-card-header">
+              <h3>🤖 KI-Telefon-Assistent</h3>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <span class="phone-status-dot" id="phoneStatusDot"></span>
+                <span class="phone-status-lbl" id="phoneStatusLbl">Bereit</span>
+                <button class="btn btn-xs btn-primary" onclick="startPhoneSim()">Anruf simulieren</button>
+              </div>
+            </div>
+            <div class="phone-dsgvo-bar" id="phoneDsgvo">
+              ⚖️ <strong>DSGVO-Hinweis:</strong> Das KI-System spielt bei jedem Anruf folgende Pflichtansage ab: <em>„Um Ihnen optimal zu helfen, wird dieses Gespräch von einer KI ausgewertet. Wenn Sie einverstanden sind, sagen Sie bitte Ja oder bleiben Sie in der Leitung."</em>
+            </div>
+            <div class="phone-transcript" id="phoneTranscript">
+              <div class="transcript-idle">
+                <span>📵</span>
+                <p>Kein aktiver Anruf. Klicken Sie auf „Anruf simulieren" um einen Notfall-Anruf zu testen.</p>
+              </div>
+            </div>
+            <div class="phone-triage-result hidden" id="phoneTriageResult"></div>
+          </div>
+
+          <!-- BOTTOM GRID -->
+          <div class="dash-bottom-grid">
+
+            <!-- CALLBACKS -->
+            <div class="dash-card" id="callbacks-section">
+              <div class="dash-card-header">
+                <h3>Offene Rückrufe</h3>
+                <span class="dash-badge urgent" id="cb-badge">3</span>
+              </div>
+              <div class="task-list" id="taskList">
+                <!-- Rendered by JS -->
+              </div>
+              <div class="callback-log" id="callbackLog"></div>
+            </div>
+
+            <!-- REQUESTS -->
+            <div class="dash-card" id="requests-section">
+              <div class="dash-card-header">
+                <h3>Neue Anfragen</h3>
+                <span class="dash-badge urgent" id="req-badge">4</span>
+              </div>
+              <div class="request-list" id="reqList">
+                <div class="req-item req-priority-1">
+                  <span class="req-cat cat-notfall">Notfall</span>
+                  <div class="req-body">
+                    <strong>Anonyme Anfrage</strong>
+                    <span>Starke Zahnschmerzen, Schwellung · vor 30 Min.</span>
+                    <span class="ai-triage">🤖 Schwellung + Schmerz → Priorität 1</span>
+                  </div>
+                  <span class="req-prio high">P1</span>
+                  <button class="btn btn-xs btn-primary" onclick="markDone(this,'req-item')">✓</button>
+                </div>
+                <div class="req-item">
+                  <span class="req-cat cat-implant">Implant.</span>
+                  <div class="req-body">
+                    <strong>S. Becker</strong>
+                    <span>Erstberatung + Kostenplan · vor 1 Std.</span>
+                    <span class="ai-triage">🤖 Erstberatung Implantologie</span>
+                  </div>
+                  <span class="req-prio medium">P2</span>
+                  <button class="btn btn-xs btn-outline" onclick="markDone(this,'req-item')">✓</button>
+                </div>
+                <div class="req-item">
+                  <span class="req-cat cat-recall">Recall</span>
+                  <div class="req-body">
+                    <strong>H. Wagner</strong>
+                    <span>Prophylaxe überfällig seit 3 Monaten</span>
+                  </div>
+                  <span class="req-prio low">Recall</span>
+                  <button class="btn btn-xs btn-outline" onclick="markDone(this,'req-item')">✓</button>
+                </div>
+                <div class="req-item">
+                  <span class="req-cat cat-abrechnung">Abrechng.</span>
+                  <div class="req-body">
+                    <strong>K. Peters</strong>
+                    <span>Frage zu Rechnung 10.04.2026</span>
+                  </div>
+                  <span class="req-prio low">Normal</span>
+                  <button class="btn btn-xs btn-outline" onclick="markDone(this,'req-item')">✓</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- NOTFALL SLOTS -->
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <h3>Notfall-Slots heute</h3>
+                <span class="dash-badge">2 frei</span>
+              </div>
+              <div class="notfall-slots">
+                <div class="nf-slot nf-free">
+                  <span class="nf-time">13:00</span>
+                  <div class="nf-info"><strong>Slot frei</strong><span>Dr. Abokor · bis 13:45</span></div>
+                  <a href="booking.html?type=notfall" class="btn btn-sm btn-primary">Vergeben</a>
+                </div>
+                <div class="nf-slot nf-free">
+                  <span class="nf-time">16:30</span>
+                  <div class="nf-info"><strong>Slot frei</strong><span>Dr. Schreiber · bis 17:00</span></div>
+                  <a href="booking.html?type=notfall" class="btn btn-sm btn-primary">Vergeben</a>
+                </div>
+                <div class="nf-slot nf-taken">
+                  <span class="nf-time">11:30</span>
+                  <div class="nf-info"><strong>Besetzt</strong><span>Dr. Hoffmann · Anonym</span></div>
+                  <span class="dash-badge">Vergeben</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- MISSING DOCS -->
+            <div class="dash-card" id="missing-section">
+              <div class="dash-card-header">
+                <h3>Fehlende Unterlagen</h3>
+                <span class="dash-badge urgent">2</span>
+              </div>
+              <div class="missing-list">
+                <div class="missing-item">
+                  <span class="mi-warn">⚠️</span>
+                  <div class="mi-body"><strong>B. Schulz</strong><span>Termin 26.05. · fehlt: Röntgenbild OPG</span></div>
+                  <button class="btn btn-xs btn-outline" onclick="requestDoc(this)">Anfordern</button>
+                </div>
+                <div class="missing-item">
+                  <span class="mi-warn">⚠️</span>
+                  <div class="mi-body"><strong>M. Fischer</strong><span>Termin 28.05. · fehlt: Anamnese-Bogen</span></div>
+                  <button class="btn btn-xs btn-outline" onclick="requestDoc(this)">Anfordern</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /bottom grid -->
+
+        </div>
+      </div>
+      <!-- /view-dashboard -->
+
+      <!-- VIEW: RECALL -->
+      <div id="view-recall" class="dash-view">
+        <div class="dash-view-inner">
+
+          <!-- Revenue Widget -->
+          <div class="recall-revenue-card">
+            <div class="rrc-icon">💰</div>
+            <div class="rrc-body">
+              <div class="rrc-amount">+4.750 €</div>
+              <div class="rrc-label">Durch automatischen Recall generierter Zusatzumsatz — Mai 2026</div>
+            </div>
+            <div class="rrc-stat">
+              <div class="rrc-stat-num">6</div>
+              <div class="rrc-stat-lbl">Patienten eingeladen</div>
+            </div>
+            <div class="rrc-stat">
+              <div class="rrc-stat-num">4</div>
+              <div class="rrc-stat-lbl">Termine gebucht</div>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <h3>Recall-Liste — Automatisches PZR-Monitoring</h3>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <span class="dash-badge urgent">2 überfällig</span>
+                <button class="btn btn-xs btn-primary" onclick="inviteAll()">Alle einladen</button>
+              </div>
+            </div>
+            <div class="table-scroll">
+              <table class="recall-table" id="recallTable">
+                <thead>
+                  <tr><th>Patient</th><th>Letzte PZR</th><th>Fälligkeit</th><th>Intervall</th><th>Status</th><th>Aktion</th></tr>
+                </thead>
+                <tbody id="recallBody">
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- VIEW: AUSLASTUNG -->
+      <div id="view-uebersicht" class="dash-view">
+        <div class="dash-view-inner">
+          <div class="dash-bottom-grid">
+            <div class="dash-card dash-full-row">
+              <div class="dash-card-header"><h3>Auslastung nach Leistung — KW 21</h3><span class="dash-badge neutral">Diese Woche</span></div>
+              <div class="capacity-bars">
+                <div class="cap-item"><div class="cap-label"><span>Prophylaxe</span><span class="cap-pct">87%</span></div><div class="cap-bar"><div class="cap-fill" style="width:87%;background:#0ea5e9;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Implantologie</span><span class="cap-pct">62%</span></div><div class="cap-bar"><div class="cap-fill" style="width:62%;background:#8b5cf6;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Zahnersatz</span><span class="cap-pct">74%</span></div><div class="cap-bar"><div class="cap-fill" style="width:74%;background:#f59e0b;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Kieferorthopädie</span><span class="cap-pct">91%</span></div><div class="cap-bar"><div class="cap-fill" style="width:91%;background:#10b981;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Oralchirurgie</span><span class="cap-pct">55%</span></div><div class="cap-bar"><div class="cap-fill" style="width:55%;background:#f59e0b;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Kinderzahnheilkunde</span><span class="cap-pct">78%</span></div><div class="cap-bar"><div class="cap-fill" style="width:78%;background:#ec4899;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Parodontologie</span><span class="cap-pct">69%</span></div><div class="cap-bar"><div class="cap-fill" style="width:69%;background:#6366f1;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Bleaching / Ästhetik</span><span class="cap-pct">43%</span></div><div class="cap-bar"><div class="cap-fill" style="width:43%;background:#0ea5e9;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Notfall-Slots</span><span class="cap-pct">50%</span></div><div class="cap-bar"><div class="cap-fill" style="width:50%;background:#ef4444;"></div></div></div>
+              </div>
+            </div>
+            <div class="dash-card dash-full-row">
+              <div class="dash-card-header"><h3>Auslastung nach Behandler — KW 21</h3></div>
+              <div class="capacity-bars">
+                <div class="cap-item"><div class="cap-label"><span>Dr. Abokor Deek</span><span class="cap-pct">82%</span></div><div class="cap-bar"><div class="cap-fill" style="width:82%;background:#0061E0;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Dr. Jana Hoffmann</span><span class="cap-pct">75%</span></div><div class="cap-bar"><div class="cap-fill" style="width:75%;background:#8b5cf6;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Dr. Tim Schreiber</span><span class="cap-pct">68%</span></div><div class="cap-bar"><div class="cap-fill" style="width:68%;background:#0ea5e9;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Dr. Petra Müller (KFO)</span><span class="cap-pct">91%</span></div><div class="cap-bar"><div class="cap-fill" style="width:91%;background:#10b981;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Dr. Klaus Weber (Chir.)</span><span class="cap-pct">55%</span></div><div class="cap-bar"><div class="cap-fill" style="width:55%;background:#f59e0b;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Dr. Lena Schmidt (Kind.)</span><span class="cap-pct">78%</span></div><div class="cap-bar"><div class="cap-fill" style="width:78%;background:#ec4899;"></div></div></div>
+                <div class="cap-item"><div class="cap-label"><span>Dr. Anna Braun (Paro.)</span><span class="cap-pct">69%</span></div><div class="cap-bar"><div class="cap-fill" style="width:69%;background:#6366f1;"></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /role-admin -->
+
+    <!-- ══════════════════════════════════════════════════════
+         ROLE: DOCTOR (Mobile-optimized)
+    ══════════════════════════════════════════════════════ -->
+    <div id="role-doctor" class="role-view hidden">
+      <div class="doctor-view-inner">
+
+        <div class="doctor-view-header">
+          <div>
+            <div class="dv-role-label">Arzt-Ansicht</div>
+            <div class="dv-doctor-name" id="dvDoctorName">Dr. Abokor Deek</div>
+          </div>
+          <div class="dv-time" id="dvTime">10:32</div>
+        </div>
+
+        <!-- Current patient (BIG card) -->
+        <div class="dv-current-card" id="dvCurrentCard">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Upcoming queue -->
+        <div class="dv-queue-label">Warteschlange</div>
+        <div class="dv-queue" id="dvQueue">
+          <!-- Rendered by JS -->
+        </div>
+
+      </div>
+    </div>
+    <!-- /role-doctor -->
+
+  </div>
+  <!-- /dash-content -->
+
+</div>
+<!-- /dashboard-layout -->
+
+<!-- ═══ 5-SECOND PATIENT PROFILE MODAL ═══ -->
+<div id="profileModal" class="profile-modal-overlay hidden" onclick="closeProfile(event)">
+  <div class="profile-modal">
+    <button class="profile-close" onclick="closeProfileModal()">✕</button>
+    <div class="profile-header">
+      <div class="profile-avatar" id="pmAvatar">M</div>
+      <div class="profile-meta">
+        <div class="profile-name" id="pmName">–</div>
+        <div class="profile-badges" id="pmBadges"></div>
+      </div>
+    </div>
+    <div class="profile-alerts" id="pmAlerts"></div>
+    <div class="profile-reliability" id="pmReliability"></div>
+    <div class="profile-note" id="pmNote"></div>
+    <div class="profile-actions">
+      <button class="btn btn-primary btn-full" onclick="callInPatient()">📢 In Zimmer rufen</button>
+      <button class="btn btn-outline btn-full" style="margin-top:8px;" onclick="closeProfileModal()">Zurück</button>
+    </div>
+  </div>
+</div>
+
+<script src="app-state.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

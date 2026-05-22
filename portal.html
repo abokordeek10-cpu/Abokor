@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patientenportal – Dr. Abokor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Auth guard: redirect to login if not authenticated -->
+  <script src="auth-client.js"></script>
+  <script>if (!Auth.isLoggedIn()) { window.location.href = 'patient-login.html'; }</script>
+</head>
+<body class="page-portal">
+
+  <header id="header" class="header-solid">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <span class="logo-tooth">🦷</span>
+        <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="booking.html">Termin buchen</a></li>
+        <li><a href="#" id="navUserName">Mein Profil</a></li>
+      </ul>
+      <button class="btn btn-sm btn-outline" onclick="doPortalLogout()" style="margin-right:8px;">Abmelden</button>
+      <a href="booking.html" class="btn btn-primary btn-sm">+ Neuen Termin</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <div class="container">
+      <div class="portal-header">
+        <div>
+          <h1>Patientenportal</h1>
+          <p>Verwalten Sie Ihre Termine, Formulare und Dokumente</p>
+        </div>
+        <a href="booking.html" class="btn btn-primary">+ Neuen Termin buchen</a>
+      </div>
+
+      <div class="portal-tabs">
+        <button class="ptab active" data-tab="termine">📅 Meine Termine</button>
+        <button class="ptab" data-tab="neupatient">📝 Neupatientenformular</button>
+        <button class="ptab" data-tab="anamnese">🏥 Anamnese</button>
+        <button class="ptab" data-tab="dokumente">📎 Dokumente</button>
+        <button class="ptab" data-tab="einwilligungen">✍️ Einwilligungen</button>
+      </div>
+
+      <!-- TAB: TERMINE -->
+      <div class="tab-content active" id="tab-termine">
+        <div class="tab-section">
+          <h3>Nächste Termine</h3>
+          <div class="appointment-list">
+            <div class="appointment-card upcoming">
+              <div class="appt-date-block">
+                <span class="appt-day">26</span>
+                <span class="appt-month">Mai</span>
+              </div>
+              <div class="appt-info">
+                <h4>Prophylaxe · Professionelle Zahnreinigung</h4>
+                <p>Di, 26.05.2026 · 09:30 Uhr · Dr. Anna Schreiber</p>
+                <span class="appt-badge badge-prophylaxe">Prophylaxe</span>
+              </div>
+              <div class="appt-actions">
+                <button class="btn btn-sm btn-outline" onclick="showModal('rebookModal')">Umbuchen</button>
+                <button class="btn btn-sm btn-danger" onclick="showModal('cancelModal')">Absagen</button>
+              </div>
+            </div>
+            <div class="appointment-card upcoming">
+              <div class="appt-date-block">
+                <span class="appt-day">12</span>
+                <span class="appt-month">Jun</span>
+              </div>
+              <div class="appt-info">
+                <h4>Implantologie-Beratung</h4>
+                <p>Fr, 12.06.2026 · 14:00 Uhr · Dr. Abokor Deek</p>
+                <span class="appt-badge badge-implant">Implantologie</span>
+              </div>
+              <div class="appt-actions">
+                <button class="btn btn-sm btn-outline" onclick="showModal('rebookModal')">Umbuchen</button>
+                <button class="btn btn-sm btn-danger" onclick="showModal('cancelModal')">Absagen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-section">
+          <h3>Vergangene Termine</h3>
+          <div class="appointment-list">
+            <div class="appointment-card past">
+              <div class="appt-date-block muted">
+                <span class="appt-day">14</span>
+                <span class="appt-month">Jan</span>
+              </div>
+              <div class="appt-info">
+                <h4>Vorsorge / Check-up</h4>
+                <p>Di, 14.01.2026 · 10:00 Uhr · Dr. Abokor Deek</p>
+                <span class="appt-badge badge-checkup">Check-up</span>
+              </div>
+              <div class="appt-actions">
+                <span class="appt-done">✓ Abgeschlossen</span>
+              </div>
+            </div>
+            <div class="appointment-card past">
+              <div class="appt-date-block muted">
+                <span class="appt-day">15</span>
+                <span class="appt-month">Nov</span>
+              </div>
+              <div class="appt-info">
+                <h4>Prophylaxe · PZR</h4>
+                <p>Sa, 15.11.2025 · 09:00 Uhr · Dr. Anna Schreiber</p>
+                <span class="appt-badge badge-prophylaxe">Prophylaxe</span>
+              </div>
+              <div class="appt-actions">
+                <span class="appt-done">✓ Abgeschlossen</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: NEUPATIENT -->
+      <div class="tab-content hidden" id="tab-neupatient">
+        <div class="form-card">
+          <h3>Neupatientenformular</h3>
+          <p class="form-intro">Füllen Sie dieses Formular bequem zu Hause aus – kein Warten in der Praxis.</p>
+          <form id="newPatientForm">
+            <fieldset class="form-section">
+              <legend>Persönliche Daten</legend>
+              <div class="form-grid-3">
+                <div class="form-group">
+                  <label>Anrede *</label>
+                  <select required><option value="">–</option><option>Herr</option><option>Frau</option><option>Divers</option></select>
+                </div>
+                <div class="form-group">
+                  <label>Vorname *</label>
+                  <input type="text" placeholder="Max" required>
+                </div>
+                <div class="form-group">
+                  <label>Nachname *</label>
+                  <input type="text" placeholder="Mustermann" required>
+                </div>
+              </div>
+              <div class="form-grid-3">
+                <div class="form-group">
+                  <label>Geburtsdatum *</label>
+                  <input type="date" required>
+                </div>
+                <div class="form-group">
+                  <label>E-Mail *</label>
+                  <input type="email" placeholder="max@mail.de" required>
+                </div>
+                <div class="form-group">
+                  <label>Telefon *</label>
+                  <input type="tel" placeholder="+49 ...">
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label>Straße &amp; Hausnummer *</label>
+                  <input type="text" placeholder="Musterstraße 1" required>
+                </div>
+                <div class="form-group">
+                  <label>PLZ &amp; Ort *</label>
+                  <input type="text" placeholder="10119 Berlin" required>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="form-section">
+              <legend>Versicherung</legend>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label>Versicherungsart *</label>
+                  <select required>
+                    <option value="">Bitte wählen...</option>
+                    <option>Gesetzlich (GKV)</option>
+                    <option>Privat (PKV)</option>
+                    <option>Selbstzahler</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Krankenkasse</label>
+                  <input type="text" placeholder="z.B. AOK, TK, Barmer...">
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label>Versichertennummer</label>
+                  <input type="text" placeholder="X000000000">
+                </div>
+                <div class="form-group">
+                  <label>Versichert seit</label>
+                  <input type="date">
+                </div>
+              </div>
+            </fieldset>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Formular speichern &amp; absenden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- TAB: ANAMNESE -->
+      <div class="tab-content hidden" id="tab-anamnese">
+        <div class="form-card">
+          <h3>Anamnese-Bogen</h3>
+          <p class="form-intro">Diese Angaben helfen uns, Sie optimal und sicher zu behandeln. Alle Daten sind DSGVO-geschützt.</p>
+          <form id="anamneseForm">
+            <fieldset class="form-section">
+              <legend>Allgemeinerkrankungen</legend>
+              <p class="fieldset-hint">Leiden oder litten Sie an folgenden Erkrankungen?</p>
+              <div class="checkbox-grid">
+                <label class="check-option"><input type="checkbox"><span>Herzerkrankung</span></label>
+                <label class="check-option"><input type="checkbox"><span>Bluthochdruck</span></label>
+                <label class="check-option"><input type="checkbox"><span>Diabetes</span></label>
+                <label class="check-option"><input type="checkbox"><span>Schilddrüsenerkrankung</span></label>
+                <label class="check-option"><input type="checkbox"><span>Nierenerkrankung</span></label>
+                <label class="check-option"><input type="checkbox"><span>Lebererkrankung</span></label>
+                <label class="check-option"><input type="checkbox"><span>Epilepsie</span></label>
+                <label class="check-option"><input type="checkbox"><span>Gerinnungsstörung</span></label>
+                <label class="check-option"><input type="checkbox"><span>Osteoporose</span></label>
+                <label class="check-option"><input type="checkbox"><span>Krebserkrankung</span></label>
+                <label class="check-option"><input type="checkbox"><span>Asthma / COPD</span></label>
+                <label class="check-option"><input type="checkbox"><span>Rheuma / Arthritis</span></label>
+              </div>
+              <div class="form-group" style="margin-top:16px;">
+                <label>Sonstige Erkrankungen</label>
+                <input type="text" placeholder="Weitere Erkrankungen...">
+              </div>
+            </fieldset>
+            <fieldset class="form-section">
+              <legend>Medikamente &amp; Allergien</legend>
+              <div class="form-group">
+                <label>Aktuelle Medikamente (Name, Dosierung)</label>
+                <textarea rows="3" placeholder="z.B. Aspirin 100mg täglich, Metformin 500mg..."></textarea>
+              </div>
+              <div class="form-group">
+                <label>Bekannte Allergien / Unverträglichkeiten</label>
+                <div class="checkbox-grid">
+                  <label class="check-option"><input type="checkbox"><span>Penicillin</span></label>
+                  <label class="check-option"><input type="checkbox"><span>Latex</span></label>
+                  <label class="check-option"><input type="checkbox"><span>Jod</span></label>
+                  <label class="check-option"><input type="checkbox"><span>Aspirin / NSAR</span></label>
+                  <label class="check-option"><input type="checkbox"><span>Lokalanästhetika</span></label>
+                  <label class="check-option"><input type="checkbox"><span>Metall (Nickel)</span></label>
+                </div>
+                <textarea style="margin-top:8px;" rows="2" placeholder="Weitere Allergien / Reaktionen..."></textarea>
+              </div>
+            </fieldset>
+            <fieldset class="form-section">
+              <legend>Zahnmedizinische Anamnese</legend>
+              <div class="yn-grid">
+                <div class="yn-item">
+                  <span>Haben Sie Angst vor dem Zahnarzt?</span>
+                  <div class="yn-btns" data-group="angst">
+                    <button type="button" class="yn-btn" data-val="ja">Ja</button>
+                    <button type="button" class="yn-btn" data-val="nein">Nein</button>
+                  </div>
+                </div>
+                <div class="yn-item">
+                  <span>Nehmen Sie blutverdünnende Medikamente?</span>
+                  <div class="yn-btns" data-group="blutverduenner">
+                    <button type="button" class="yn-btn" data-val="ja">Ja</button>
+                    <button type="button" class="yn-btn" data-val="nein">Nein</button>
+                  </div>
+                </div>
+                <div class="yn-item">
+                  <span>Haben Sie Probleme beim Öffnen des Mundes?</span>
+                  <div class="yn-btns" data-group="kieferproblem">
+                    <button type="button" class="yn-btn" data-val="ja">Ja</button>
+                    <button type="button" class="yn-btn" data-val="nein">Nein</button>
+                  </div>
+                </div>
+                <div class="yn-item">
+                  <span>Sind Sie schwanger oder stillen Sie?</span>
+                  <div class="yn-btns" data-group="schwanger">
+                    <button type="button" class="yn-btn" data-val="ja">Ja</button>
+                    <button type="button" class="yn-btn" data-val="nein">Nein</button>
+                    <button type="button" class="yn-btn" data-val="na">N/A</button>
+                  </div>
+                </div>
+                <div class="yn-item">
+                  <span>Haben Sie Herzschrittmacher oder Implantate?</span>
+                  <div class="yn-btns" data-group="schrittmacher">
+                    <button type="button" class="yn-btn" data-val="ja">Ja</button>
+                    <button type="button" class="yn-btn" data-val="nein">Nein</button>
+                  </div>
+                </div>
+                <div class="yn-item">
+                  <span>Rauchen Sie oder haben Sie geraucht?</span>
+                  <div class="yn-btns" data-group="rauchen">
+                    <button type="button" class="yn-btn" data-val="ja">Ja</button>
+                    <button type="button" class="yn-btn" data-val="nein">Nein</button>
+                    <button type="button" class="yn-btn" data-val="fruher">Früher</button>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Anamnese speichern &amp; absenden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- TAB: DOKUMENTE -->
+      <div class="tab-content hidden" id="tab-dokumente">
+        <div class="form-card">
+          <h3>Dokumente hochladen</h3>
+          <p class="form-intro">Laden Sie Röntgenbilder, Überweisungen, Heil- und Kostenpläne oder Vorbefunde hoch.</p>
+          <div class="doc-upload-area" id="docUploadArea">
+            <input type="file" id="docFileInput" multiple accept=".pdf,.jpg,.jpeg,.png" style="display:none">
+            <div class="doc-upload-inner" onclick="document.getElementById('docFileInput').click()">
+              <span class="du-icon">📁</span>
+              <h4>Dateien hierher ziehen oder klicken</h4>
+              <p>PDF, JPG, PNG – max. 20 MB pro Datei</p>
+            </div>
+          </div>
+          <div class="doc-existing">
+            <h4>Vorhandene Dokumente</h4>
+            <div class="doc-list" id="docList">
+              <div class="doc-item">
+                <span class="doc-type-icon">🦷</span>
+                <div class="doc-info">
+                  <strong>Röntgenbild_OPG_Jan2026.pdf</strong>
+                  <span>Hochgeladen: 14.01.2026 · 2,4 MB · Röntgen</span>
+                </div>
+                <span class="doc-status ok">✓ Empfangen</span>
+              </div>
+              <div class="doc-item">
+                <span class="doc-type-icon">📄</span>
+                <div class="doc-info">
+                  <strong>HKP_Implantologie_2026.pdf</strong>
+                  <span>Hochgeladen: 20.01.2026 · 890 KB · Heil- und Kostenplan</span>
+                </div>
+                <span class="doc-status ok">✓ Empfangen</span>
+              </div>
+              <div class="doc-item">
+                <span class="doc-type-icon">⏳</span>
+                <div class="doc-info">
+                  <strong>Vorbefund_Hausarzt.pdf</strong>
+                  <span>Hochgeladen: 20.05.2026 · 1,1 MB · Vorbefund</span>
+                </div>
+                <span class="doc-status pending">⏳ In Prüfung</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: EINWILLIGUNGEN -->
+      <div class="tab-content hidden" id="tab-einwilligungen">
+        <div class="form-card">
+          <h3>Einwilligungen &amp; Datenschutz</h3>
+          <p class="form-intro">Bitte lesen Sie die folgenden Einwilligungen sorgfältig durch und bestätigen Sie diese digital.</p>
+
+          <div class="consent-item" id="consent1">
+            <div class="consent-header">
+              <h4>Behandlungseinwilligung</h4>
+              <span class="consent-status pending-status" id="cstatus1">Ausstehend</span>
+            </div>
+            <p>Ich willige in die diagnostischen und therapeutischen Maßnahmen der Zahnarztpraxis Dr. Abokor ein. Ich wurde über Art, Umfang und Risiken der Behandlung aufgeklärt.</p>
+            <div class="form-check">
+              <input type="checkbox" id="c1" onchange="updateConsent(1, this.checked)">
+              <label for="c1">Ich stimme der Behandlungseinwilligung zu.</label>
+            </div>
+          </div>
+
+          <div class="consent-item" id="consent2">
+            <div class="consent-header">
+              <h4>Datenschutzerklärung (DSGVO)</h4>
+              <span class="consent-status pending-status" id="cstatus2">Ausstehend</span>
+            </div>
+            <p>Ich stimme der Verarbeitung meiner personenbezogenen Daten gemäß der Datenschutzerklärung der Zahnarztpraxis Dr. Abokor zu. Die Daten werden ausschließlich auf EU-Servern (Deutschland) gespeichert und sind Ende-zu-Ende verschlüsselt.</p>
+            <div class="form-check">
+              <input type="checkbox" id="c2" onchange="updateConsent(2, this.checked)">
+              <label for="c2">Ich stimme der Datenschutzerklärung zu.</label>
+            </div>
+          </div>
+
+          <div class="consent-item" id="consent3">
+            <div class="consent-header">
+              <h4>Kommunikation per E-Mail &amp; SMS</h4>
+              <span class="consent-status pending-status" id="cstatus3">Ausstehend</span>
+            </div>
+            <p>Ich bin einverstanden, dass die Praxis mich per E-Mail und SMS über Termine, Erinnerungen und Recall-Nachrichten kontaktiert. Diese Einwilligung ist freiwillig und jederzeit widerrufbar.</p>
+            <div class="form-check">
+              <input type="checkbox" id="c3" onchange="updateConsent(3, this.checked)">
+              <label for="c3">Ich stimme der Kommunikation per E-Mail &amp; SMS zu.</label>
+            </div>
+          </div>
+
+          <div class="consent-item" id="consent4">
+            <div class="consent-header">
+              <h4>Fotodokumentation (Bleaching / Veneers)</h4>
+              <span class="consent-status pending-status" id="cstatus4">Ausstehend</span>
+            </div>
+            <p>Ich erkläre mich bereit, dass für Behandlungszwecke Fotos der Zähne erstellt werden dürfen (Vorher-Nachher). Die Fotos werden nicht ohne meine gesonderte Einwilligung veröffentlicht.</p>
+            <div class="form-check">
+              <input type="checkbox" id="c4" onchange="updateConsent(4, this.checked)">
+              <label for="c4">Ich stimme der Fotodokumentation zu.</label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="saveConsents()">Einwilligungen speichern</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODALS -->
+  <div class="modal hidden" id="cancelModal">
+    <div class="modal-overlay" onclick="closeModal('cancelModal')"></div>
+    <div class="modal-box">
+      <h3>Termin absagen</h3>
+      <p>Möchten Sie Ihren Termin wirklich absagen? Bitte sagen Sie Termine mindestens 24 Stunden im Voraus ab.</p>
+      <div class="form-group">
+        <label>Grund (optional)</label>
+        <select><option>Bitte wählen</option><option>Krankheit</option><option>Terminkonflikt</option><option>Sonstiges</option></select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeModal('cancelModal')">Abbrechen</button>
+        <button class="btn btn-danger" onclick="confirmCancel()">Termin absagen</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal hidden" id="rebookModal">
+    <div class="modal-overlay" onclick="closeModal('rebookModal')"></div>
+    <div class="modal-box">
+      <h3>Termin umbuchen</h3>
+      <p>Sie werden zur Terminbuchung weitergeleitet, um einen neuen Termin zu wählen. Ihr bestehender Termin wird erst nach erfolgreicher Neubuchung storniert.</p>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeModal('rebookModal')">Abbrechen</button>
+        <button class="btn btn-primary" onclick="window.location.href='booking.html'">Neuen Termin wählen →</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="portal.js"></script>
+  <script>
+    // Personalise portal with logged-in user's name
+    (function() {
+      const user = Auth.getUser();
+      if (!user) return;
+      const firstName = user.name.split(' ')[0];
+      const navName = document.getElementById('navUserName');
+      if (navName) navName.textContent = '👤 ' + firstName;
+      // Update portal heading
+      const h1 = document.querySelector('.portal-header h1');
+      if (h1) h1.textContent = 'Guten Tag, ' + firstName + ' 👋';
+      const sub = document.querySelector('.portal-header p');
+      if (sub) sub.textContent = 'Verwalten Sie Ihre Termine, Formulare und Dokumente';
+    })();
+
+    async function doPortalLogout() {
+      await Auth.logout();
+      window.location.href = 'patient-login.html';
+    }
+  </script>
+</body>
+</html>

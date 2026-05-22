@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praxis-OS — Staff-Anmeldung | Dr. Abokor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{min-height:100vh;display:flex;font-family:'Inter',sans-serif;background:#0F172A;}
+    .auth-split{display:flex;min-height:100vh;width:100%;}
+
+    /* LEFT BRAND */
+    .auth-brand{
+      flex:0 0 400px;
+      background:linear-gradient(160deg,#0F172A 0%,#1E293B 60%,#0F172A 100%);
+      border-right:1px solid #334155;
+      display:flex;flex-direction:column;justify-content:space-between;
+      padding:40px 40px;color:#fff;
+    }
+    .auth-brand-logo{display:flex;align-items:center;gap:10px;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:48px;}
+    .auth-brand-logo .tooth{font-size:1.5rem;}
+    .auth-brand h1{font-family:'Poppins',sans-serif;font-size:1.7rem;font-weight:800;line-height:1.25;margin-bottom:14px;}
+    .auth-brand p{color:#94A3B8;font-size:0.87rem;line-height:1.65;margin-bottom:32px;}
+    .praxis-badge{display:inline-flex;align-items:center;gap:8px;background:#1E293B;border:1px solid #334155;border-radius:8px;padding:10px 14px;margin-bottom:28px;}
+    .praxis-badge-dot{width:8px;height:8px;border-radius:50%;background:#22C55E;animation:pulse 2s infinite;}
+    .praxis-badge-text{font-size:0.78rem;color:#94A3B8;}
+    .praxis-badge-text strong{color:#E2E8F0;display:block;font-size:0.82rem;}
+    .roles-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+    .role-item{display:flex;align-items:center;gap:10px;background:#1E293B;border:1px solid #334155;border-radius:8px;padding:10px 14px;}
+    .role-item-icon{font-size:1.1rem;}
+    .role-item-text strong{display:block;font-size:0.78rem;color:#E2E8F0;}
+    .role-item-text span{font-size:0.7rem;color:#64748B;}
+    .auth-brand-footer{font-size:0.7rem;color:#475569;margin-top:32px;}
+
+    /* RIGHT FORM */
+    .auth-form-panel{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 24px;background:#F8FAFC;overflow-y:auto;}
+    .auth-box{width:100%;max-width:420px;}
+    .auth-box-title{font-family:'Poppins',sans-serif;font-size:1.4rem;font-weight:700;color:#0F172A;margin-bottom:5px;}
+    .auth-box-sub{color:#64748B;font-size:0.83rem;margin-bottom:24px;}
+
+    /* Tabs */
+    .auth-tabs{display:flex;border-bottom:2px solid #E2E8F0;margin-bottom:22px;}
+    .auth-tab{flex:1;padding:9px;text-align:center;font-size:0.83rem;font-weight:500;color:#64748B;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.15s;}
+    .auth-tab.active{color:#0F172A;border-bottom-color:#0F172A;font-weight:700;}
+
+    .auth-step{display:none;}.auth-step.active{display:block;}
+
+    .form-group{margin-bottom:14px;}
+    .form-label{display:block;font-size:0.76rem;font-weight:600;color:#334155;margin-bottom:4px;}
+    .form-input{width:100%;padding:10px 12px;border:1.5px solid #E2E8F0;border-radius:7px;font-size:0.87rem;color:#0F172A;outline:none;transition:border-color 0.14s;background:#fff;}
+    .form-input:focus{border-color:#0F172A;box-shadow:0 0 0 3px rgba(15,23,42,0.08);}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .form-hint{font-size:0.71rem;color:#94A3B8;margin-top:3px;}
+
+    /* Role select */
+    .role-radio-group{display:flex;gap:8px;margin-bottom:14px;}
+    .role-radio-btn{flex:1;border:1.5px solid #E2E8F0;border-radius:7px;padding:10px;text-align:center;cursor:pointer;font-size:0.82rem;background:#fff;transition:all 0.15s;}
+    .role-radio-btn.selected{border-color:#0F172A;background:#0F172A;color:#fff;}
+    .role-radio-btn .rr-icon{font-size:1.2rem;display:block;margin-bottom:3px;}
+    .role-radio-btn .rr-label{font-size:0.75rem;font-weight:600;}
+
+    /* Access code */
+    .access-code-field{background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:7px;padding:10px 12px;font-size:0.87rem;color:#0F172A;width:100%;outline:none;font-family:monospace;letter-spacing:1px;}
+    .access-code-field:focus{border-color:#F97316;box-shadow:0 0 0 3px rgba(249,115,22,0.1);}
+
+    /* Code inputs */
+    .code-inputs{display:flex;gap:8px;justify-content:center;margin:14px 0;}
+    .code-char{width:46px;height:52px;border:1.5px solid #E2E8F0;border-radius:7px;font-size:1.4rem;font-weight:700;text-align:center;outline:none;color:#0F172A;transition:border-color 0.14s;}
+    .code-char:focus{border-color:#0F172A;}
+
+    /* Steps */
+    .step-indicator{display:flex;align-items:center;gap:6px;margin-bottom:20px;}
+    .step-dot{width:26px;height:26px;border-radius:50%;background:#E2E8F0;color:#94A3B8;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .step-dot.done{background:#0F172A;color:#fff;}
+    .step-dot.active{background:#0061E0;color:#fff;}
+    .step-line{flex:1;height:2px;background:#E2E8F0;}
+    .step-line.done{background:#0F172A;}
+
+    /* Buttons */
+    .btn-auth{width:100%;padding:11px;background:#0F172A;color:#fff;border:none;border-radius:7px;font-size:0.88rem;font-weight:700;cursor:pointer;transition:background 0.14s;margin-top:4px;}
+    .btn-auth:hover{background:#1E293B;}
+    .btn-auth:disabled{background:#94A3B8;cursor:not-allowed;}
+
+    .auth-error{background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;border-radius:6px;padding:8px 12px;font-size:0.78rem;margin-bottom:10px;display:none;}
+    .auth-success{background:#D1FAE5;border:1px solid #A7F3D0;color:#065F46;border-radius:6px;padding:8px 12px;font-size:0.78rem;margin-bottom:10px;display:none;}
+    .email-preview-bar{background:#FEF3C7;border:1px solid #FDE68A;border-radius:6px;padding:7px 11px;font-size:0.73rem;color:#92400E;margin-bottom:10px;display:none;}
+    .email-preview-bar a{color:#B45309;font-weight:600;}
+
+    .auth-nav-link{display:block;text-align:center;font-size:0.78rem;color:#64748B;margin-top:16px;}
+    .auth-nav-link a{color:#0061E0;font-weight:600;text-decoration:none;cursor:pointer;}
+
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+    @media(max-width:768px){.auth-brand{display:none;}.auth-form-panel{background:#fff;padding:24px 16px;}}
+  </style>
+</head>
+<body>
+
+<div class="auth-split">
+  <!-- LEFT: DARK BRAND -->
+  <div class="auth-brand">
+    <div>
+      <div class="auth-brand-logo"><span class="tooth">🦷</span> Praxis-OS</div>
+      <h1>Willkommen im Praxis-Betriebssystem</h1>
+      <p>Ihr digitaler Arbeitsplatz für Empfangspersonal und Ärzte — Termine, Patienten und KI-Assistenz in einem System.</p>
+
+      <div class="praxis-badge">
+        <div class="praxis-badge-dot"></div>
+        <div class="praxis-badge-text">
+          <strong>Zahnarztpraxis Dr. Abokor Deek</strong>
+          Berlin-Mitte · 030 / 123 456-0
+        </div>
+      </div>
+
+      <div class="roles-list">
+        <div class="role-item">
+          <span class="role-item-icon">👩‍💼</span>
+          <div class="role-item-text"><strong>Empfang / Admin</strong><span>Tagesplanung, Rückrufe, Recall, Anfragen</span></div>
+        </div>
+        <div class="role-item">
+          <span class="role-item-icon">🩺</span>
+          <div class="role-item-text"><strong>Arzt</strong><span>Patienten-Queue, 5-Sek.-Profil, Behandlungsansicht</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="auth-brand-footer">Nur für autorisiertes Praxispersonal · Zugangscode erforderlich</div>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="auth-form-panel">
+    <div class="auth-box">
+
+      <div class="auth-box-title" id="authTitle">Staff-Anmeldung</div>
+      <div class="auth-box-sub" id="authSub">Für Empfangspersonal und Ärzte.</div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="showTab('login')">Anmelden</button>
+        <button class="auth-tab" id="tabReg"   onclick="showTab('register')">Registrieren</button>
+      </div>
+
+      <div id="authError"   class="auth-error"></div>
+      <div id="authSuccess" class="auth-success"></div>
+      <div id="emailPreviewBar" class="email-preview-bar"></div>
+
+      <!-- LOGIN -->
+      <div id="stepLogin" class="auth-step active">
+        <div class="form-group">
+          <label class="form-label">E-Mail-Adresse</label>
+          <input class="form-input" id="loginEmail" type="email" placeholder="mitarbeiter@praxis.de" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Passwort</label>
+          <input class="form-input" id="loginPassword" type="password" placeholder="Passwort" autocomplete="current-password">
+        </div>
+        <button class="btn-auth" id="loginBtn" onclick="doLogin()">Anmelden</button>
+        <div class="auth-nav-link">Noch nicht registriert? <a onclick="showTab('register')">Konto erstellen</a></div>
+        <div class="auth-nav-link" style="margin-top:8px;"><a href="index.html">← Zurück zur Website</a></div>
+      </div>
+
+      <!-- REGISTER STEP 1 -->
+      <div id="stepReg1" class="auth-step">
+        <div class="step-indicator">
+          <div class="step-dot active">1</div><div class="step-line"></div>
+          <div class="step-dot">2</div><div class="step-line"></div>
+          <div class="step-dot">3</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Vorname</label><input class="form-input" id="regFirst" type="text" placeholder="Jana"></div>
+          <div class="form-group"><label class="form-label">Nachname</label><input class="form-input" id="regLast" type="text" placeholder="Hoffmann"></div>
+        </div>
+        <div class="form-group"><label class="form-label">E-Mail-Adresse</label><input class="form-input" id="regEmail" type="email" placeholder="mitarbeiter@praxis.de"></div>
+        <div class="form-group"><label class="form-label">Mobilnummer</label><input class="form-input" id="regPhone" type="tel" placeholder="+49 170 …"></div>
+
+        <div class="form-group">
+          <label class="form-label">Rolle</label>
+          <div class="role-radio-group">
+            <div class="role-radio-btn selected" id="roleAdmin" onclick="selectRole('admin')">
+              <span class="rr-icon">👩‍💼</span><span class="rr-label">Empfang</span>
+            </div>
+            <div class="role-radio-btn" id="roleDoctor" onclick="selectRole('doctor')">
+              <span class="rr-icon">🩺</span><span class="rr-label">Arzt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="doctorSelectWrap" style="display:none;">
+          <label class="form-label">Behandlerprofil</label>
+          <select class="form-input" id="regDoctorId">
+            <option value="">-- Bitte wählen --</option>
+            <option value="abokor">Dr. Abokor Deek</option>
+            <option value="hoffmann">Dr. Jana Hoffmann</option>
+            <option value="schreiber">Dr. Tim Schreiber</option>
+            <option value="mueller">Dr. Petra Müller (KFO)</option>
+            <option value="weber">Dr. Klaus Weber (Chirurgie)</option>
+            <option value="schmidt">Dr. Lena Schmidt (Kinderzahn)</option>
+            <option value="braun">Dr. Anna Braun (Parodontologie)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Passwort (mind. 8 Zeichen)</label>
+          <input class="form-input" id="regPass" type="password" placeholder="Sicheres Passwort">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Passwort wiederholen</label>
+          <input class="form-input" id="regPass2" type="password" placeholder="Passwort bestätigen">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">🔑 Praxis-Zugangscode</label>
+          <input class="access-code-field" id="regStaffCode" type="text" placeholder="PRAXIS-XXXX" autocomplete="off" spellcheck="false">
+          <div class="form-hint">Erhalten Sie von Dr. Abokor oder dem Praxismanager.</div>
+        </div>
+
+        <button class="btn-auth" onclick="doRegisterStep1()">Weiter — E-Mail bestätigen</button>
+        <div class="auth-nav-link">Bereits registriert? <a onclick="showTab('login')">Anmelden</a></div>
+      </div>
+
+      <!-- REGISTER STEP 2: E-Mail Code -->
+      <div id="stepReg2" class="auth-step">
+        <div class="step-indicator">
+          <div class="step-dot done">✓</div><div class="step-line done"></div>
+          <div class="step-dot active">2</div><div class="step-line"></div>
+          <div class="step-dot">3</div>
+        </div>
+        <p style="font-size:0.83rem;color:#334155;margin-bottom:14px;">6-stelliger <strong>E-Mail-Code</strong> eingeben:</p>
+        <div class="code-inputs" id="emailCodeInputs"></div>
+        <div class="form-hint" style="text-align:center;margin-top:4px;"><a href="#" onclick="doResendEmail();return false;" style="color:#0061E0;">Code erneut senden</a></div>
+        <button class="btn-auth" onclick="doVerifyEmail()" style="margin-top:14px;">E-Mail bestätigen</button>
+      </div>
+
+      <!-- REGISTER STEP 3: SMS Code -->
+      <div id="stepReg3" class="auth-step">
+        <div class="step-indicator">
+          <div class="step-dot done">✓</div><div class="step-line done"></div>
+          <div class="step-dot done">✓</div><div class="step-line done"></div>
+          <div class="step-dot active">3</div>
+        </div>
+        <p style="font-size:0.83rem;color:#334155;margin-bottom:14px;">6-stelligen <strong>SMS-Code</strong> eingeben:</p>
+        <div class="code-inputs" id="smsCodeInputs"></div>
+        <div class="form-hint" style="text-align:center;margin-top:4px;" id="devSmsHint"></div>
+        <button class="btn-auth" onclick="doVerifySms()" style="margin-top:14px;">Konto aktivieren</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="auth-client.js"></script>
+<script>
+  let _userId = null;
+  let _role = 'admin';
+
+  Auth.redirectIfLoggedIn('staff', 'dashboard.html');
+
+  function buildCodeInputs(containerId) {
+    const c = document.getElementById(containerId);
+    c.innerHTML = '';
+    for (let i = 0; i < 6; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text'; inp.maxLength = 1; inp.className = 'code-char'; inp.inputMode = 'numeric';
+      inp.addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g,''); if (e.target.value && i < 5) c.children[i+1].focus(); });
+      inp.addEventListener('keydown', e => { if (e.key === 'Backspace' && !e.target.value && i > 0) c.children[i-1].focus(); });
+      c.appendChild(inp);
+    }
+  }
+  buildCodeInputs('emailCodeInputs');
+  buildCodeInputs('smsCodeInputs');
+  function getCodeValue(id) { return Array.from(document.getElementById(id).children).map(i => i.value).join(''); }
+
+  function selectRole(r) {
+    _role = r;
+    document.getElementById('roleAdmin').classList.toggle('selected', r === 'admin');
+    document.getElementById('roleDoctor').classList.toggle('selected', r === 'doctor');
+    document.getElementById('doctorSelectWrap').style.display = r === 'doctor' ? 'block' : 'none';
+  }
+
+  function showTab(tab) {
+    document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('tabReg').classList.toggle('active', tab === 'register');
+    document.getElementById('stepLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('stepReg1').classList.toggle('active', tab === 'register');
+    ['stepReg2','stepReg3'].forEach(id => document.getElementById(id).classList.remove('active'));
+    document.getElementById('authTitle').textContent = tab === 'login' ? 'Staff-Anmeldung' : 'Staff-Registrierung';
+    document.getElementById('authSub').textContent = tab === 'login'
+      ? 'Für Empfangspersonal und Ärzte.'
+      : 'Neues Mitarbeiterkonto erstellen.';
+    clearMessages();
+  }
+
+  function showError(msg) { const e=document.getElementById('authError'); e.textContent=msg; e.style.display='block'; document.getElementById('authSuccess').style.display='none'; }
+  function showSuccess(msg) { const e=document.getElementById('authSuccess'); e.textContent=msg; e.style.display='block'; document.getElementById('authError').style.display='none'; }
+  function clearMessages() { ['authError','authSuccess','emailPreviewBar'].forEach(id => { document.getElementById(id).style.display='none'; }); }
+
+  async function doLogin() {
+    clearMessages();
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass  = document.getElementById('loginPassword').value;
+    if (!email || !pass) return showError('Bitte E-Mail und Passwort eingeben.');
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true; btn.textContent = 'Anmelden…';
+    try {
+      const data = await Auth.login(email, pass);
+      if (data.user.type !== 'staff') { Auth.clearSession(); return showError('Dieses Konto ist kein Staff-Konto.'); }
+      showSuccess('Anmeldung erfolgreich! Weiterleitung zum Dashboard…');
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
+    } catch (err) {
+      btn.disabled = false; btn.textContent = 'Anmelden';
+      if (err.needsVerification) { _userId = err.userId; showTab('register'); goToStep(err.step === 'sms' ? 'sms' : 'email'); }
+      else showError(err.message || 'Anmeldung fehlgeschlagen.');
+    }
+  }
+
+  async function doRegisterStep1() {
+    clearMessages();
+    const first = document.getElementById('regFirst').value.trim();
+    const last  = document.getElementById('regLast').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const pass  = document.getElementById('regPass').value;
+    const pass2 = document.getElementById('regPass2').value;
+    const staffCode = document.getElementById('regStaffCode').value.trim();
+    const doctorId  = _role === 'doctor' ? document.getElementById('regDoctorId').value : undefined;
+    if (!first||!last||!email||!phone||!pass||!staffCode) return showError('Bitte alle Felder ausfüllen.');
+    if (pass !== pass2) return showError('Passwörter stimmen nicht überein.');
+    if (pass.length < 8) return showError('Passwort muss mind. 8 Zeichen haben.');
+    if (_role === 'doctor' && !doctorId) return showError('Bitte Behandlerprofil auswählen.');
+
+    const btn = document.querySelector('#stepReg1 .btn-auth');
+    btn.disabled = true; btn.textContent = 'Bitte warten…';
+    try {
+      const data = await Auth.register({ type:'staff', name:first+' '+last, email, phone, password:pass, role:_role, doctorId, staffCode });
+      _userId = data.userId;
+      if (data.emailPreview) {
+        const bar = document.getElementById('emailPreviewBar');
+        bar.innerHTML = `📧 Dev: <a href="${data.emailPreview}" target="_blank">E-Mail-Vorschau</a>`;
+        bar.style.display = 'block';
+      }
+      goToStep('email');
+    } catch (err) {
+      btn.disabled = false; btn.textContent = 'Weiter — E-Mail bestätigen';
+      showError(err.message || 'Registrierung fehlgeschlagen.');
+    }
+  }
+
+  function goToStep(step) {
+    ['stepReg1','stepReg2','stepReg3'].forEach(id => document.getElementById(id).classList.remove('active'));
+    document.getElementById(step==='email'?'stepReg2':'stepReg3').classList.add('active');
+    clearMessages();
+    if (step==='email') { showSuccess('Code per E-Mail gesendet.'); document.getElementById('emailCodeInputs').children[0]?.focus(); }
+    else { showSuccess('E-Mail bestätigt! SMS-Code gesendet.'); document.getElementById('smsCodeInputs').children[0]?.focus(); }
+  }
+
+  async function doVerifyEmail() {
+    clearMessages();
+    const code = getCodeValue('emailCodeInputs');
+    if (code.length!==6) return showError('Bitte alle 6 Stellen eingeben.');
+    try {
+      const data = await Auth.verifyEmail({ userId:_userId, code });
+      if (data.devSmsCode) document.getElementById('devSmsHint').innerHTML = `🔧 Dev SMS-Code: <strong style="color:#0061E0;font-size:1.1rem;">${data.devSmsCode}</strong>`;
+      goToStep('sms');
+    } catch (err) { showError(err.message||'Falscher Code.'); }
+  }
+
+  async function doVerifySms() {
+    clearMessages();
+    const code = getCodeValue('smsCodeInputs');
+    if (code.length!==6) return showError('Bitte alle 6 Stellen eingeben.');
+    try {
+      await Auth.verifySms({ userId:_userId, code });
+      showSuccess('Konto aktiviert! Weiterleitung zum Dashboard…');
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+    } catch (err) { showError(err.message||'Falscher SMS-Code.'); }
+  }
+
+  async function doResendEmail() {
+    if (!_userId) return;
+    try {
+      const data = await Auth.resendEmail(_userId);
+      showSuccess('Code erneut gesendet.');
+      if (data.emailPreview) {
+        const bar = document.getElementById('emailPreviewBar');
+        bar.innerHTML = `📧 Dev: <a href="${data.emailPreview}" target="_blank">E-Mail-Vorschau</a>`;
+        bar.style.display = 'block';
+      }
+    } catch (err) { showError(err.message); }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('stepLogin').classList.contains('active')) doLogin();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termin buchen – Dr. Abokor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="page-booking">
+
+  <header id="header" class="header-solid">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <span class="logo-tooth">🦷</span>
+        <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
+      </a>
+      <a href="tel:+4930000001" class="nav-emergency-link">🚨 Notfall: +49 30 000 001</a>
+    </nav>
+  </header>
+
+  <main class="booking-main">
+    <div class="booking-header">
+      <div class="container">
+        <h1>Online-Terminbuchung</h1>
+        <div class="booking-progress">
+          <div class="bp-step active" data-step="1">
+            <div class="bp-circle">1</div>
+            <span>Leistung</span>
+          </div>
+          <div class="bp-line"></div>
+          <div class="bp-step" data-step="2">
+            <div class="bp-circle">2</div>
+            <span>Datum &amp; Zeit</span>
+          </div>
+          <div class="bp-line"></div>
+          <div class="bp-step" data-step="3">
+            <div class="bp-circle">3</div>
+            <span>Ihre Daten</span>
+          </div>
+          <div class="bp-line"></div>
+          <div class="bp-step" data-step="4">
+            <div class="bp-circle">4</div>
+            <span>Bestätigung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container booking-container">
+
+      <!-- STEP 1 -->
+      <div class="booking-step" id="step1">
+        <h2>Welche Leistung benötigen Sie?</h2>
+        <p class="step-desc">Wählen Sie den passenden Behandlungsbereich, um verfügbare Termine zu sehen.</p>
+        <div class="treatment-grid">
+          <button class="treatment-card" data-type="prophylaxe">
+            <div class="tc-icon" style="background:#dbeafe;">🦷</div>
+            <div class="tc-info">
+              <h3>Prophylaxe</h3>
+              <p>Professionelle Zahnreinigung, Recall</p>
+              <span class="tc-duration">⏱ 45–60 Min.</span>
+            </div>
+            <span class="tc-check">○</span>
+          </button>
+          <button class="treatment-card tc-urgent" data-type="notfall">
+            <div class="tc-icon" style="background:#fee2e2;">🚨</div>
+            <div class="tc-info">
+              <h3>Schmerzen / Notfall</h3>
+              <p>Akute Beschwerden, Unfall, Füllung heraus</p>
+              <span class="tc-badge">Heute möglich</span>
+            </div>
+            <span class="tc-check">○</span>
+          </button>
+          <button class="treatment-card" data-type="implantologie">
+            <div class="tc-icon" style="background:#d1fae5;">🔩</div>
+            <div class="tc-info">
+              <h3>Implantologie-Beratung</h3>
+              <p>Kostenlose Erstberatung, Planung</p>
+              <span class="tc-duration">⏱ 30 Min. · kostenlos</span>
+            </div>
+            <span class="tc-check">○</span>
+          </button>
+          <button class="treatment-card" data-type="zahnersatz">
+            <div class="tc-icon" style="background:#fef9c3;">👑</div>
+            <div class="tc-info">
+              <h3>Zahnersatz</h3>
+              <p>Kronen, Brücken, Prothesen, Inlays</p>
+              <span class="tc-duration">⏱ 45 Min. Erstgespräch</span>
+            </div>
+            <span class="tc-check">○</span>
+          </button>
+          <button class="treatment-card" data-type="bleaching">
+            <div class="tc-icon" style="background:#fae8ff;">✨</div>
+            <div class="tc-info">
+              <h3>Bleaching / Veneers</h3>
+              <p>Aufhellung, ästhetische Behandlung</p>
+              <span class="tc-duration">⏱ 60–90 Min.</span>
+            </div>
+            <span class="tc-check">○</span>
+          </button>
+          <button class="treatment-card" data-type="checkup">
+            <div class="tc-icon" style="background:#e0f2fe;">📋</div>
+            <div class="tc-info">
+              <h3>Vorsorge / Check-up</h3>
+              <p>Jährliche Untersuchung, Röntgen</p>
+              <span class="tc-duration">⏱ 30 Min.</span>
+            </div>
+            <span class="tc-check">○</span>
+          </button>
+        </div>
+        <div class="step-actions right">
+          <button class="btn btn-primary" id="toStep2" disabled>Weiter →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="booking-step hidden" id="step2">
+        <h2>Datum &amp; Uhrzeit wählen</h2>
+        <div class="step2-layout">
+          <div class="calendar-panel">
+            <div class="cal-nav">
+              <button id="calPrev" class="cal-nav-btn">‹</button>
+              <h3 id="calMonthYear">Mai 2026</h3>
+              <button id="calNext" class="cal-nav-btn">›</button>
+            </div>
+            <div class="cal-weekdays">
+              <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+            <div class="cal-legend">
+              <span class="cl-item available"></span> Verfügbar
+              <span class="cl-item busy"></span> Wenige Slots
+              <span class="cl-item unavailable"></span> Belegt / geschlossen
+            </div>
+          </div>
+          <div class="timeslot-panel">
+            <div id="timeslotHeader"><h3>← Datum wählen</h3><p>Klicken Sie auf einen verfügbaren Tag</p></div>
+            <div class="timeslot-grid" id="timeslotGrid"></div>
+          </div>
+        </div>
+        <div class="step-actions">
+          <button class="btn btn-outline" id="backToStep1">← Zurück</button>
+          <button class="btn btn-primary" id="toStep3" disabled>Weiter →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="booking-step hidden" id="step3">
+        <h2>Ihre persönlichen Daten</h2>
+        <div class="patient-type-toggle">
+          <button class="ptt-btn active" data-type="new">Neupatient</button>
+          <button class="ptt-btn" data-type="existing">Bestandspatient</button>
+        </div>
+        <form id="bookingForm" novalidate>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Vorname *</label>
+              <input type="text" name="vorname" placeholder="Max" required>
+            </div>
+            <div class="form-group">
+              <label>Nachname *</label>
+              <input type="text" name="nachname" placeholder="Mustermann" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>E-Mail *</label>
+              <input type="email" name="email" placeholder="max@mail.de" required>
+            </div>
+            <div class="form-group">
+              <label>Mobilnummer *</label>
+              <input type="tel" name="phone" placeholder="+49 160 ..." required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Geburtsdatum *</label>
+              <input type="date" name="dob" required>
+            </div>
+            <div class="form-group">
+              <label>Versicherung *</label>
+              <select name="insurance" required>
+                <option value="">Bitte wählen...</option>
+                <option value="gkv">Gesetzlich (GKV)</option>
+                <option value="pkv">Privat (PKV)</option>
+                <option value="selbstzahler">Selbstzahler</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Anmerkungen / Beschwerden</label>
+            <textarea name="notes" rows="3" placeholder="Beschreiben Sie Ihr Anliegen..."></textarea>
+          </div>
+          <div class="form-group" id="uploadSection">
+            <label>Vorbefunde / Unterlagen hochladen (optional)</label>
+            <div class="file-upload-area">
+              <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png" style="display:none">
+              <div class="file-upload-inner" onclick="document.getElementById('fileInput').click()">
+                <span class="fu-icon">📎</span>
+                <p>Röntgenbilder, Heil- und Kostenpläne, Vorbefunde</p>
+                <span class="fu-hint">PDF, JPG, PNG – max. 10 MB pro Datei</span>
+              </div>
+              <div id="fileList" class="file-list"></div>
+            </div>
+          </div>
+          <div class="consent-group">
+            <div class="form-check">
+              <input type="checkbox" id="consentData" required>
+              <label for="consentData">Ich stimme der Verarbeitung meiner Patientendaten gem. <a href="#">Datenschutzerklärung</a> zu. *</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="consentReminder">
+              <label for="consentReminder">Ich möchte SMS/E-Mail-Erinnerungen 48h vor meinem Termin erhalten.</label>
+            </div>
+          </div>
+        </form>
+        <div class="step-actions">
+          <button class="btn btn-outline" id="backToStep2">← Zurück</button>
+          <button class="btn btn-primary" id="toStep4">Termin prüfen →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="booking-step hidden" id="step4">
+        <div id="confirmationCard">
+          <h2>Zusammenfassung &amp; Bestätigung</h2>
+          <p class="step-desc">Bitte prüfen Sie Ihre Buchung und bestätigen Sie verbindlich.</p>
+          <div class="booking-summary" id="bookingSummary"></div>
+          <div class="step-actions">
+            <button class="btn btn-outline" id="backToStep3">← Zurück</button>
+            <button class="btn btn-primary btn-lg" id="confirmBooking">✓ Termin verbindlich buchen</button>
+          </div>
+        </div>
+        <div class="booking-success hidden" id="bookingSuccess">
+          <div class="success-icon">✅</div>
+          <h2>Termin erfolgreich gebucht!</h2>
+          <div class="success-details" id="successDetails"></div>
+          <div class="success-actions">
+            <a href="portal.html" class="btn btn-outline">Meine Termine ansehen</a>
+            <a href="index.html" class="btn btn-primary">Zur Startseite</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="booking.js"></script>
+</body>
+</html>

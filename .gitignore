@@ -1,0 +1,18 @@
+# SQLite database files (auto-generated, not for version control)
+server/praxis.db
+server/praxis.db-shm
+server/praxis.db-wal
+
+# Environment variables (never commit secrets)
+server/.env
+.env
+
+# Node.js dependencies
+server/node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Team – Dr. Abokor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="page-team">
+
+  <header id="header" class="header-solid">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <span class="logo-tooth">🦷</span>
+        <span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#leistungen">Leistungen</a></li>
+        <li><a href="index.html#team">Team</a></li>
+        <li><a href="portal.html">Patientenportal</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="booking.html" class="nav-cta">Termin buchen</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="tm-hero" id="tmHero">
+    <div class="tm-hero-bg"></div>
+    <div class="container tm-hero-inner">
+      <a href="index.html#team" class="lp-back">← Zurück zum Team</a>
+      <div class="tm-hero-card">
+        <div class="tm-avatar-wrap">
+          <img id="tmAvatar" src="" alt="" class="tm-avatar-img">
+          <div class="tm-avatar-badge" id="tmBadge"></div>
+        </div>
+        <div class="tm-hero-info">
+          <p class="tm-role" id="tmRole"></p>
+          <h1 id="tmName"></h1>
+          <p class="tm-tagline" id="tmTagline"></p>
+          <div class="tm-chips" id="tmChips"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="tm-main">
+    <div class="container tm-grid">
+
+      <div class="tm-content">
+
+        <div class="lp-section">
+          <h2 id="tmAboutTitle"></h2>
+          <div id="tmAbout"></div>
+        </div>
+
+        <div class="lp-section">
+          <h2>Schwerpunkte &amp; Spezialisierungen</h2>
+          <div class="tm-specialties" id="tmSpecialties"></div>
+        </div>
+
+        <div class="lp-section">
+          <h2>Ausbildung &amp; Weiterbildungen</h2>
+          <div class="tm-education" id="tmEducation"></div>
+        </div>
+
+        <div class="lp-section">
+          <h2>Häufige Fragen an <span id="tmFaqName"></span></h2>
+          <div class="lp-faq" id="tmFaq"></div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="lp-sidebar">
+        <div class="tm-contact-card">
+          <img id="tmAvatarSide" src="" alt="" class="tm-side-avatar">
+          <h3 id="tmNameSide"></h3>
+          <p id="tmRoleSide" class="tm-side-role"></p>
+          <div class="tm-langs" id="tmLangs"></div>
+          <a id="tmBookBtn" href="booking.html" class="btn btn-primary btn-full btn-lg">
+            Termin buchen
+          </a>
+          <a href="index.html#kontakt" class="btn btn-outline btn-full" style="margin-top:10px;">
+            Frage stellen
+          </a>
+          <div class="tm-availability" id="tmAvailability"></div>
+        </div>
+
+        <div class="lp-other-services">
+          <h4>Unser Team</h4>
+          <div id="tmOtherTeam"></div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- CTA -->
+  <section class="lp-cta-banner">
+    <div class="container lp-cta-inner">
+      <div>
+        <h2>Einen Termin vereinbaren?</h2>
+        <p>Online buchen – in unter 2 Minuten, 24/7 verfügbar.</p>
+      </div>
+      <a href="booking.html" class="btn btn-primary btn-lg">Termin online buchen →</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-tooth">🦷</span><span class="logo-text">Dr.&nbsp;<span class="accent">Abokor</span></span></a>
+        <p>Zahnarztpraxis Dr. Abokor Deek<br>Torstraße 123 · 10119 Berlin-Mitte</p>
+      </div>
+      <div class="footer-col"><h4>Leistungen</h4><ul>
+        <li><a href="leistung.html?type=prophylaxe">Prophylaxe</a></li>
+        <li><a href="leistung.html?type=implantologie">Implantologie</a></li>
+        <li><a href="leistung.html?type=zahnersatz">Zahnersatz</a></li>
+        <li><a href="leistung.html?type=bleaching">Bleaching</a></li>
+        <li><a href="leistung.html?type=notfall">Notfall</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Portal</h4><ul>
+        <li><a href="booking.html">Termin buchen</a></li>
+        <li><a href="portal.html">Patientenportal</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Rechtliches</h4><ul>
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Zahnarztpraxis Dr. Abokor Deek · Berlin-Mitte</p></div>
+  </footer>
+
+  <script src="team.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

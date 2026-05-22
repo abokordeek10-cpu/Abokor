@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patientenportal – Anmelden | Dr. Abokor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{min-height:100vh;display:flex;font-family:'Inter',sans-serif;background:#F8FAFC;}
+    .auth-split{display:flex;min-height:100vh;width:100%;}
+
+    /* LEFT PANEL */
+    .auth-brand{
+      flex:0 0 420px;background:linear-gradient(145deg,#003A9B 0%,#0061E0 55%,#0EA5E9 100%);
+      display:flex;flex-direction:column;justify-content:space-between;
+      padding:40px 44px;color:#fff;
+    }
+    .auth-brand-logo{display:flex;align-items:center;gap:10px;font-size:1.25rem;font-weight:700;margin-bottom:48px;}
+    .auth-brand-logo .tooth{font-size:1.6rem;}
+    .auth-brand h1{font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;line-height:1.2;margin-bottom:16px;}
+    .auth-brand p{color:rgba(255,255,255,0.75);font-size:0.9rem;line-height:1.6;margin-bottom:32px;}
+    .auth-brand-features{display:flex;flex-direction:column;gap:14px;}
+    .auth-feature{display:flex;align-items:flex-start;gap:12px;}
+    .auth-feature-icon{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+    .auth-feature-text strong{display:block;font-size:0.82rem;font-weight:600;}
+    .auth-feature-text span{font-size:0.75rem;color:rgba(255,255,255,0.65);}
+    .auth-brand-footer{font-size:0.72rem;color:rgba(255,255,255,0.4);}
+
+    /* RIGHT PANEL */
+    .auth-form-panel{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 24px;overflow-y:auto;}
+    .auth-box{width:100%;max-width:440px;}
+    .auth-box-title{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:700;color:#0F172A;margin-bottom:6px;}
+    .auth-box-sub{color:#64748B;font-size:0.85rem;margin-bottom:28px;}
+
+    /* Tabs */
+    .auth-tabs{display:flex;border-bottom:2px solid #E2E8F0;margin-bottom:24px;}
+    .auth-tab{flex:1;padding:9px;text-align:center;font-size:0.85rem;font-weight:500;color:#64748B;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.15s;}
+    .auth-tab.active{color:#0061E0;border-bottom-color:#0061E0;font-weight:700;}
+
+    /* Steps */
+    .auth-step{display:none;}.auth-step.active{display:block;}
+    .step-indicator{display:flex;align-items:center;gap:6px;margin-bottom:22px;}
+    .step-dot{width:28px;height:28px;border-radius:50%;background:#E2E8F0;color:#94A3B8;font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+    .step-dot.done{background:#16A34A;color:#fff;}
+    .step-dot.active{background:#0061E0;color:#fff;}
+    .step-line{flex:1;height:2px;background:#E2E8F0;border-radius:1px;}
+    .step-line.done{background:#16A34A;}
+
+    /* Form */
+    .form-group{margin-bottom:16px;}
+    .form-label{display:block;font-size:0.78rem;font-weight:600;color:#334155;margin-bottom:5px;}
+    .form-input{width:100%;padding:10px 12px;border:1.5px solid #E2E8F0;border-radius:7px;font-size:0.88rem;color:#0F172A;outline:none;transition:border-color 0.14s;background:#fff;}
+    .form-input:focus{border-color:#0061E0;box-shadow:0 0 0 3px rgba(0,97,224,0.1);}
+    .form-input.error{border-color:#EF4444;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .form-hint{font-size:0.72rem;color:#94A3B8;margin-top:4px;}
+
+    /* Code input */
+    .code-inputs{display:flex;gap:8px;justify-content:center;margin:16px 0;}
+    .code-char{width:46px;height:54px;border:2px solid #E2E8F0;border-radius:8px;font-size:1.4rem;font-weight:700;text-align:center;outline:none;color:#0F172A;transition:border-color 0.14s;}
+    .code-char:focus{border-color:#0061E0;box-shadow:0 0 0 3px rgba(0,97,224,0.1);}
+
+    /* Buttons */
+    .btn-auth{width:100%;padding:11px;background:#0061E0;color:#fff;border:none;border-radius:7px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:background 0.14s;margin-top:4px;}
+    .btn-auth:hover{background:#0041A0;}
+    .btn-auth:disabled{background:#94A3B8;cursor:not-allowed;}
+    .btn-auth-outline{width:100%;padding:10px;background:#fff;color:#0061E0;border:1.5px solid #0061E0;border-radius:7px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.14s;margin-top:8px;}
+    .btn-auth-outline:hover{background:#EFF6FF;}
+
+    /* Error / Success */
+    .auth-error{background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;border-radius:6px;padding:9px 12px;font-size:0.8rem;margin-bottom:12px;display:none;}
+    .auth-success{background:#D1FAE5;border:1px solid #A7F3D0;color:#065F46;border-radius:6px;padding:9px 12px;font-size:0.8rem;margin-bottom:12px;display:none;}
+
+    /* Email preview (dev only) */
+    .email-preview-bar{background:#FEF3C7;border:1px solid #FDE68A;border-radius:6px;padding:8px 12px;font-size:0.75rem;color:#92400E;margin-bottom:12px;display:none;}
+    .email-preview-bar a{color:#B45309;font-weight:600;}
+
+    /* Nav */
+    .auth-nav-link{display:block;text-align:center;font-size:0.8rem;color:#64748B;margin-top:20px;}
+    .auth-nav-link a{color:#0061E0;font-weight:600;text-decoration:none;}
+
+    /* Responsive */
+    @media(max-width:768px){
+      .auth-brand{display:none;}
+      .auth-form-panel{padding:24px 16px;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="auth-split">
+  <!-- LEFT BRAND PANEL -->
+  <div class="auth-brand">
+    <div>
+      <div class="auth-brand-logo"><span class="tooth">🦷</span> Dr. Abokor Deek</div>
+      <h1>Ihr persönliches Patientenportal</h1>
+      <p>Verwalten Sie Ihre Termine, Dokumente und Nachrichten bequem online — sicher und rund um die Uhr.</p>
+      <div class="auth-brand-features">
+        <div class="auth-feature">
+          <div class="auth-feature-icon">📅</div>
+          <div class="auth-feature-text"><strong>Termine buchen & verwalten</strong><span>Online 24/7 verfügbar</span></div>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-icon">💬</div>
+          <div class="auth-feature-text"><strong>Direkte Nachrichten</strong><span>Fragen Sie uns jederzeit</span></div>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-icon">📋</div>
+          <div class="auth-feature-text"><strong>Anamnese & Formulare</strong><span>Digital, kein Papierkram</span></div>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-icon">🔒</div>
+          <div class="auth-feature-text"><strong>DSGVO-konform & verschlüsselt</strong><span>Ihre Daten sind sicher</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="auth-brand-footer">Zahnarztpraxis Dr. Abokor Deek · Berlin-Mitte · 030 / 123 456-0</div>
+  </div>
+
+  <!-- RIGHT FORM PANEL -->
+  <div class="auth-form-panel">
+    <div class="auth-box">
+
+      <div class="auth-box-title" id="authTitle">Willkommen zurück!</div>
+      <div class="auth-box-sub" id="authSub">Melden Sie sich in Ihrem Patientenportal an.</div>
+
+      <!-- TABS -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="showTab('login')">Anmelden</button>
+        <button class="auth-tab" id="tabReg"   onclick="showTab('register')">Registrieren</button>
+      </div>
+
+      <div id="authError"   class="auth-error"></div>
+      <div id="authSuccess" class="auth-success"></div>
+      <div id="emailPreviewBar" class="email-preview-bar"></div>
+
+      <!-- ═══ LOGIN ═══ -->
+      <div id="stepLogin" class="auth-step active">
+        <div class="form-group">
+          <label class="form-label">E-Mail-Adresse</label>
+          <input class="form-input" id="loginEmail" type="email" placeholder="ihre@email.de" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Passwort</label>
+          <input class="form-input" id="loginPassword" type="password" placeholder="Passwort" autocomplete="current-password">
+        </div>
+        <button class="btn-auth" id="loginBtn" onclick="doLogin()">Anmelden</button>
+        <div class="auth-nav-link">Noch kein Konto? <a onclick="showTab('register')">Jetzt registrieren</a></div>
+      </div>
+
+      <!-- ═══ REGISTER STEP 1: Personal Data ═══ -->
+      <div id="stepReg1" class="auth-step">
+        <div class="step-indicator">
+          <div class="step-dot active" id="sd1">1</div>
+          <div class="step-line" id="sl1"></div>
+          <div class="step-dot" id="sd2">2</div>
+          <div class="step-line" id="sl2"></div>
+          <div class="step-dot" id="sd3">3</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Vorname</label><input class="form-input" id="regFirst" type="text" placeholder="Max"></div>
+          <div class="form-group"><label class="form-label">Nachname</label><input class="form-input" id="regLast" type="text" placeholder="Mustermann"></div>
+        </div>
+        <div class="form-group"><label class="form-label">E-Mail-Adresse</label><input class="form-input" id="regEmail" type="email" placeholder="ihre@email.de" autocomplete="email"></div>
+        <div class="form-group"><label class="form-label">Mobilnummer (für SMS-Code)</label><input class="form-input" id="regPhone" type="tel" placeholder="+49 170 123 45 67"></div>
+        <div class="form-group"><label class="form-label">Passwort (mind. 8 Zeichen)</label><input class="form-input" id="regPass" type="password" placeholder="Sicheres Passwort"></div>
+        <div class="form-group"><label class="form-label">Passwort wiederholen</label><input class="form-input" id="regPass2" type="password" placeholder="Passwort bestätigen"></div>
+        <button class="btn-auth" onclick="doRegisterStep1()">Weiter — E-Mail bestätigen</button>
+        <div class="auth-nav-link">Bereits registriert? <a onclick="showTab('login')">Anmelden</a></div>
+      </div>
+
+      <!-- ═══ REGISTER STEP 2: Email Code ═══ -->
+      <div id="stepReg2" class="auth-step">
+        <div class="step-indicator">
+          <div class="step-dot done" id="sd1b">✓</div>
+          <div class="step-line done" id="sl1b"></div>
+          <div class="step-dot active" id="sd2b">2</div>
+          <div class="step-line" id="sl2b"></div>
+          <div class="step-dot" id="sd3b">3</div>
+        </div>
+        <p style="font-size:0.85rem;color:#334155;margin-bottom:16px;">Wir haben Ihnen einen <strong>6-stelligen Code per E-Mail</strong> gesendet. Bitte geben Sie ihn ein:</p>
+        <div class="code-inputs" id="emailCodeInputs"></div>
+        <div class="form-hint" style="text-align:center;">Code gültig 15 Minuten · <a href="#" onclick="doResendEmail();return false;" style="color:#0061E0;">Erneut senden</a></div>
+        <button class="btn-auth" onclick="doVerifyEmail()" style="margin-top:16px;">E-Mail bestätigen</button>
+      </div>
+
+      <!-- ═══ REGISTER STEP 3: SMS Code ═══ -->
+      <div id="stepReg3" class="auth-step">
+        <div class="step-indicator">
+          <div class="step-dot done">✓</div>
+          <div class="step-line done"></div>
+          <div class="step-dot done">✓</div>
+          <div class="step-line done"></div>
+          <div class="step-dot active">3</div>
+        </div>
+        <p style="font-size:0.85rem;color:#334155;margin-bottom:16px;">Wir haben Ihnen einen <strong>6-stelligen Code per SMS</strong> gesendet. Bitte geben Sie ihn ein:</p>
+        <div class="code-inputs" id="smsCodeInputs"></div>
+        <div class="form-hint" style="text-align:center;" id="devSmsHint"></div>
+        <button class="btn-auth" onclick="doVerifySms()" style="margin-top:16px;">SMS bestätigen & Konto erstellen</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="auth-client.js"></script>
+<script>
+  let _userId = null;
+
+  // Redirect if already logged in as patient
+  Auth.redirectIfLoggedIn('patient', 'portal.html');
+
+  // Build 6-char code inputs
+  function buildCodeInputs(containerId) {
+    const c = document.getElementById(containerId);
+    c.innerHTML = '';
+    for (let i = 0; i < 6; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text'; inp.maxLength = 1;
+      inp.className = 'code-char';
+      inp.inputMode = 'numeric';
+      inp.addEventListener('input', e => {
+        const val = e.target.value.replace(/\D/g,'');
+        e.target.value = val;
+        if (val && i < 5) c.children[i+1].focus();
+      });
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !e.target.value && i > 0) c.children[i-1].focus();
+      });
+      c.appendChild(inp);
+    }
+  }
+  buildCodeInputs('emailCodeInputs');
+  buildCodeInputs('smsCodeInputs');
+
+  function getCodeValue(containerId) {
+    return Array.from(document.getElementById(containerId).children).map(i => i.value).join('');
+  }
+
+  function showTab(tab) {
+    document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('tabReg').classList.toggle('active', tab === 'register');
+    document.getElementById('stepLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('stepReg1').classList.toggle('active', tab === 'register');
+    document.getElementById('stepReg2').classList.remove('active');
+    document.getElementById('stepReg3').classList.remove('active');
+    document.getElementById('authTitle').textContent = tab === 'login' ? 'Willkommen zurück!' : 'Konto erstellen';
+    document.getElementById('authSub').textContent = tab === 'login'
+      ? 'Melden Sie sich in Ihrem Patientenportal an.'
+      : 'Registrieren Sie sich für Ihr Patientenportal.';
+    clearMessages();
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('authError');
+    el.textContent = msg; el.style.display = 'block';
+    document.getElementById('authSuccess').style.display = 'none';
+  }
+  function showSuccess(msg) {
+    const el = document.getElementById('authSuccess');
+    el.textContent = msg; el.style.display = 'block';
+    document.getElementById('authError').style.display = 'none';
+  }
+  function clearMessages() {
+    document.getElementById('authError').style.display = 'none';
+    document.getElementById('authSuccess').style.display = 'none';
+    document.getElementById('emailPreviewBar').style.display = 'none';
+  }
+  function setLoading(btnId, loading) {
+    const btn = document.getElementById(btnId) || document.querySelector('.btn-auth');
+    if (!btn) return;
+    btn.disabled = loading;
+    btn.textContent = loading ? 'Bitte warten…' : btn.dataset.label || btn.textContent;
+  }
+
+  async function doLogin() {
+    clearMessages();
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass  = document.getElementById('loginPassword').value;
+    if (!email || !pass) return showError('Bitte E-Mail und Passwort eingeben.');
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true; btn.textContent = 'Anmelden…';
+    try {
+      const data = await Auth.login(email, pass);
+      if (data.user.type !== 'patient') {
+        Auth.clearSession();
+        return showError('Dieses Konto ist kein Patientenkonto. Bitte nutzen Sie die Staff-Anmeldung.');
+      }
+      showSuccess('Anmeldung erfolgreich! Sie werden weitergeleitet…');
+      setTimeout(() => { window.location.href = 'portal.html'; }, 800);
+    } catch (err) {
+      btn.disabled = false; btn.textContent = 'Anmelden';
+      if (err.needsVerification) {
+        _userId = err.userId;
+        if (err.step === 'sms') { goToStep('sms'); }
+        else { showTab('register'); goToStep('email'); }
+      } else {
+        showError(err.message || 'Anmeldung fehlgeschlagen.');
+      }
+    }
+  }
+
+  async function doRegisterStep1() {
+    clearMessages();
+    const first = document.getElementById('regFirst').value.trim();
+    const last  = document.getElementById('regLast').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const pass  = document.getElementById('regPass').value;
+    const pass2 = document.getElementById('regPass2').value;
+    if (!first || !last || !email || !phone || !pass) return showError('Bitte alle Felder ausfüllen.');
+    if (pass !== pass2) return showError('Passwörter stimmen nicht überein.');
+    if (pass.length < 8) return showError('Passwort muss mindestens 8 Zeichen haben.');
+
+    const btns = document.querySelectorAll('#stepReg1 .btn-auth');
+    btns.forEach(b => { b.disabled = true; b.textContent = 'Registrierung läuft…'; });
+    try {
+      const data = await Auth.register({ type:'patient', name: first+' '+last, email, phone, password: pass });
+      _userId = data.userId;
+      if (data.emailPreview) {
+        const bar = document.getElementById('emailPreviewBar');
+        bar.innerHTML = `📧 Dev-Modus: <a href="${data.emailPreview}" target="_blank">E-Mail-Vorschau öffnen</a>`;
+        bar.style.display = 'block';
+      }
+      goToStep('email');
+    } catch (err) {
+      btns.forEach(b => { b.disabled = false; b.textContent = 'Weiter — E-Mail bestätigen'; });
+      showError(err.message || 'Registrierung fehlgeschlagen.');
+    }
+  }
+
+  function goToStep(step) {
+    document.querySelectorAll('.auth-step').forEach(s => s.classList.remove('active'));
+    document.getElementById(step === 'email' ? 'stepReg2' : 'stepReg3').classList.add('active');
+    clearMessages();
+    if (step === 'email') {
+      showSuccess('Code per E-Mail gesendet. Bitte E-Mail-Postfach prüfen.');
+      document.getElementById('emailCodeInputs').children[0]?.focus();
+    } else {
+      showSuccess('E-Mail bestätigt! SMS-Code wurde gesendet.');
+      document.getElementById('smsCodeInputs').children[0]?.focus();
+    }
+  }
+
+  async function doVerifyEmail() {
+    clearMessages();
+    const code = getCodeValue('emailCodeInputs');
+    if (code.length !== 6) return showError('Bitte alle 6 Stellen eingeben.');
+    try {
+      const data = await Auth.verifyEmail({ userId: _userId, code });
+      if (data.devSmsCode) {
+        document.getElementById('devSmsHint').innerHTML =
+          `🔧 Dev-Modus SMS-Code: <strong style="color:#0061E0;font-size:1.1rem;">${data.devSmsCode}</strong>`;
+      }
+      goToStep('sms');
+    } catch (err) {
+      showError(err.message || 'Falscher Code.');
+    }
+  }
+
+  async function doVerifySms() {
+    clearMessages();
+    const code = getCodeValue('smsCodeInputs');
+    if (code.length !== 6) return showError('Bitte alle 6 Stellen eingeben.');
+    try {
+      const data = await Auth.verifySms({ userId: _userId, code });
+      showSuccess('Konto erfolgreich erstellt! Weiterleitung…');
+      setTimeout(() => { window.location.href = 'portal.html'; }, 1000);
+    } catch (err) {
+      showError(err.message || 'Falscher SMS-Code.');
+    }
+  }
+
+  async function doResendEmail() {
+    if (!_userId) return;
+    try {
+      const data = await Auth.resendEmail(_userId);
+      showSuccess('Code erneut gesendet.');
+      if (data.emailPreview) {
+        const bar = document.getElementById('emailPreviewBar');
+        bar.innerHTML = `📧 Dev-Modus: <a href="${data.emailPreview}" target="_blank">E-Mail-Vorschau öffnen</a>`;
+        bar.style.display = 'block';
+      }
+    } catch (err) { showError(err.message); }
+  }
+
+  // Enter key support
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      if (document.getElementById('stepLogin').classList.contains('active')) doLogin();
+    }
+  });
+</script>
+</body>
+</html>
