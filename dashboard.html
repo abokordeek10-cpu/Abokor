@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Praxis-OS — Dr. Abokor</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Auth guard: only staff may access the dashboard -->
+  <script src="auth-client.js"></script>
+  <script>
+    (function(){
+      if (!Auth.isLoggedIn()) { window.location.href = 'staff-login.html'; return; }
+      const u = Auth.getUser();
+      if (u && u.type !== 'staff') { window.location.href = 'staff-login.html'; }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -67,12 +76,13 @@
 
     <div class="sidebar-footer">
       <div class="staff-info">
-        <div class="staff-avatar">M</div>
+        <div class="staff-avatar" id="sidebarAvatar">M</div>
         <div>
-          <strong>Marcus Berger</strong>
-          <span>Praxismanager</span>
+          <strong id="sidebarName">–</strong>
+          <span id="sidebarRole">Praxismitarbeiter</span>
         </div>
       </div>
+      <button class="btn-sidebar-logout" onclick="doStaffLogout()">⬅ Abmelden</button>
     </div>
   </aside>
 

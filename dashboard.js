@@ -506,6 +506,34 @@ function showToast(msg) {
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────
+(function initStaffSession() {
+  const user = typeof Auth !== 'undefined' ? Auth.getUser() : null;
+  if (!user) return;
+  const nameEl = document.getElementById('sidebarName');
+  const roleEl = document.getElementById('sidebarRole');
+  const avatarEl = document.getElementById('sidebarAvatar');
+  const titleEl = document.getElementById('topbarTitle');
+  const firstName = user.name.split(' ')[0];
+  if (nameEl) nameEl.textContent = user.name;
+  if (avatarEl) avatarEl.textContent = user.name.charAt(0).toUpperCase();
+  if (roleEl) roleEl.textContent = user.role === 'doctor' ? 'Arzt' : 'Empfang / Admin';
+  if (titleEl) titleEl.textContent = `Guten Morgen, ${firstName} 👋`;
+
+  // Auto-switch to doctor view if logged in as doctor
+  if (user.role === 'doctor') {
+    const docId = user.doctorId || 'abokor';
+    AppState.setActiveDoctor(docId);
+    const sel = document.getElementById('doctorSelector');
+    if (sel) sel.value = docId;
+    switchRole('doctor');
+  }
+})();
+
+async function doStaffLogout() {
+  if (typeof Auth !== 'undefined') await Auth.logout();
+  window.location.href = 'staff-login.html';
+}
+
 renderPracGrid();
 renderCallbacks();
 renderRecallTable();

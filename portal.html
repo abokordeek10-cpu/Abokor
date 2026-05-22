@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Auth guard: redirect to login if not authenticated -->
+  <script src="auth-client.js"></script>
+  <script>if (!Auth.isLoggedIn()) { window.location.href = 'patient-login.html'; }</script>
 </head>
 <body class="page-portal">
 
@@ -19,8 +22,9 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Startseite</a></li>
         <li><a href="booking.html">Termin buchen</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#" id="navUserName">Mein Profil</a></li>
       </ul>
+      <button class="btn btn-sm btn-outline" onclick="doPortalLogout()" style="margin-right:8px;">Abmelden</button>
       <a href="booking.html" class="btn btn-primary btn-sm">+ Neuen Termin</a>
     </nav>
   </header>
@@ -437,5 +441,25 @@
   </div>
 
   <script src="portal.js"></script>
+  <script>
+    // Personalise portal with logged-in user's name
+    (function() {
+      const user = Auth.getUser();
+      if (!user) return;
+      const firstName = user.name.split(' ')[0];
+      const navName = document.getElementById('navUserName');
+      if (navName) navName.textContent = '👤 ' + firstName;
+      // Update portal heading
+      const h1 = document.querySelector('.portal-header h1');
+      if (h1) h1.textContent = 'Guten Tag, ' + firstName + ' 👋';
+      const sub = document.querySelector('.portal-header p');
+      if (sub) sub.textContent = 'Verwalten Sie Ihre Termine, Formulare und Dokumente';
+    })();
+
+    async function doPortalLogout() {
+      await Auth.logout();
+      window.location.href = 'patient-login.html';
+    }
+  </script>
 </body>
 </html>
