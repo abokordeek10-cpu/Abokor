@@ -2,10 +2,10 @@
   "name": "praxis-abokor",
   "version": "1.0.0",
   "description": "Zahnarztpraxis Dr. Abokor Deek — Praxis-OS",
-  "main": "server/server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server/server.js",
-    "dev": "node --watch server/server.js"
+    "start": "node app.js",
+    "dev": "node --watch app.js"
   },
   "engines": {
     "node": ">=18.0.0"
