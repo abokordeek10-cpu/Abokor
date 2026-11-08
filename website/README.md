@@ -34,90 +34,61 @@ npm run preview    # gebaute Website ansehen
 
 ## Änderungen hochladen
 
-Einmalig: In `deploy.sh` die Server-Adresse eintragen und sicherstellen, dass du dich per SSH-Schlüssel anmelden kannst.
+Die Website liegt auf dem Server in `/var/www/abora-automation.de`. Caddy liefert sie direkt von dort aus. Ein Neustart ist nicht nötig, und n8n wird nicht angefasst.
 
-Danach reicht immer:
+**Weg 1: mit Node.js auf dem Mac**
 
 ```bash
 cd website
 ./deploy.sh
 ```
 
-Das Skript baut die Website neu und lädt sie per `rsync` auf den Server. n8n wird dabei nicht angefasst.
+Das Skript baut die Website und lädt sie per `rsync` hoch.
+
+**Weg 2: ohne Node.js**
+
+Die fertig gebaute Website liegt auf dem Branch `website-dist` (Datei `abora-website.tar.gz`). Nach jeder Änderung wird sie dort neu abgelegt. Dann reicht auf dem Mac:
+
+```bash
+ssh root@2.31.26.76 'curl -fsSL https://raw.githubusercontent.com/abokordeek10-cpu/Abokor/website-dist/abora-website.tar.gz | tar -xz -C /var/www/abora-automation.de && ls /var/www/abora-automation.de'
+```
 
 ---
 
-## Einrichtung auf dem Hetzner-Server (einmalig, Schritt für Schritt)
+## So ist der Server eingerichtet
 
-> **Wichtig:** n8n läuft schon auf dem Server und darf nicht kaputtgehen. Vor jeder Änderung an Proxy- oder Docker-Konfiguration wird ein Backup angelegt.
+- **Server:** Hetzner, Ubuntu 26.04, IP `2.31.26.76`
+- **Docker-Compose-Projekt** in `/root/n8n/` mit zwei Containern:
+  - `caddy` (Ports 80/443, automatisches HTTPS)
+  - `n8n`
+- **Caddyfile:** `/root/n8n/Caddyfile`, Kopie im Repo: `deploy/Caddyfile`
+- **Zusatzdatei:** `/root/n8n/docker-compose.override.yml`, Kopie im Repo: `deploy/docker-compose.override.yml`. Sie bindet den Website-Ordner nur lesend in Caddy ein. Die Original-`docker-compose.yml` ist unverändert.
+- **Backups vom 09.11.2026** in `/root/n8n/`: `Caddyfile.backup-2026-11-09`, `Caddyfile.backup-2026-11-09-b`, `docker-compose.yml.backup-2026-11-09`
+- **Caddy schreibt keine Zugriffs-Logs.** Es werden also keine Besucher-IPs gespeichert.
 
-### Schritt 1: Nachsehen, was läuft (ändert nichts)
-
-```bash
-cd website
-ssh root@2.31.26.76 'bash -s' < deploy/server-pruefen.sh
-```
-
-Das Skript liest nur. Passwörter und Schlüssel gibt es nicht aus.
-
-Die Ausgabe zeigt, ob Docker läuft und welcher Webserver (Caddy, Nginx oder Traefik) die Ports 80/443 belegt. **Danach entscheiden wir gemeinsam, welcher Weg passt.**
-
-### Schritt 2a: Wenn Caddy läuft (ohne Docker)
+Caddyfile ändern (auf dem Server):
 
 ```bash
-cp /etc/caddy/Caddyfile /etc/caddy/Caddyfile.backup-$(date +%F)
-mkdir -p /var/www/abora-automation.de
+cd /root/n8n && cp Caddyfile Caddyfile.backup-$(date +%F) && nano Caddyfile
+docker compose exec caddy caddy validate --config /etc/caddy/Caddyfile && docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile
 ```
 
-Dann den Website-Block aus `deploy/Caddyfile.beispiel` **zusätzlich** in `/etc/caddy/Caddyfile` einfügen (n8n-Block bleibt unverändert) und prüfen:
+Server-Zustand prüfen, nur lesend: `ssh root@2.31.26.76 'bash -s' < deploy/server-pruefen.sh`
 
-```bash
-caddy validate --config /etc/caddy/Caddyfile && systemctl reload caddy
-```
+## DNS (Squarespace Domains)
 
-Caddy holt das HTTPS-Zertifikat automatisch.
+Unter account.squarespace.com/domains → abora-automation.de → DNS → Benutzerdefinierte Einträge:
 
-### Schritt 2b: Wenn Nginx läuft
-
-Datei `deploy/nginx.beispiel.conf` als `/etc/nginx/sites-available/abora-automation.de` anlegen, dann:
-
-```bash
-ln -s /etc/nginx/sites-available/abora-automation.de /etc/nginx/sites-enabled/
-nginx -t && systemctl reload nginx
-certbot --nginx -d abora-automation.de -d www.abora-automation.de
-```
-
-### Schritt 2c: Wenn Caddy oder Traefik in Docker läuft
-
-Dann muss der Ordner `/var/www/abora-automation.de` in den Proxy-Container eingebunden werden (Docker-Volume). Das hängt von deiner `docker-compose.yml` ab. Diesen Schritt machen wir gemeinsam, wenn wir die Ausgabe aus Schritt 1 kennen.
-
-### Schritt 2d: Wenn noch gar kein Reverse Proxy läuft
-
-Empfehlung: **Caddy**, weil es HTTPS automatisch einrichtet. Dann wie in 2a vorgehen.
-
-### Schritt 3: Website hochladen
-
-```bash
-./deploy.sh
-```
-
-## DNS-Einträge beim Domain-Anbieter
-
-Die Server-IP findest du in der Hetzner Cloud Console beim Server.
-
-| Typ | Name / Host | Wert | TTL |
+| Art | Name | Daten | Zweck |
 |---|---|---|---|
-| A | `@` (= abora-automation.de) | `2.31.26.76` | 3600 |
-| A | `www` | `2.31.26.76` | 3600 |
-| AAAA | `@` | `[SERVER-IPv6]` (nur wenn der Server IPv6 hat) | 3600 |
-| AAAA | `www` | `[SERVER-IPv6]` (nur wenn der Server IPv6 hat) | 3600 |
+| A | `@` | `2.31.26.76` | Website |
+| A | `www` | `2.31.26.76` | Website (leitet auf ohne www weiter) |
+| A | `n8n` | `2.31.26.76` | n8n |
+| MX | `@` | `smtp.google.com` | E-Mail (Google Workspace) |
+| TXT | `@` | `v=spf1 include:_spf.google.com ~all` | E-Mail-Schutz |
+| TXT | `google._domainkey` | `v=DKIM1; …` | E-Mail-Signatur |
 
-Den bestehenden Eintrag für `n8n` **nicht** ändern. Falls es für `@` oder `www` schon Einträge gibt (z. B. von Squarespace oder einer Parkseite), müssen diese ersetzt werden. Bis die Änderung überall ankommt, kann es einige Minuten bis wenige Stunden dauern. Prüfen mit:
-
-```bash
-dig +short abora-automation.de
-dig +short www.abora-automation.de
-```
+Die Gruppe „Squarespace-Standardeinstellung“ wurde gelöscht. Sie darf nicht wieder hinzugefügt werden, sonst zeigt die Domain wieder auf Squarespace.
 
 ## Kontaktformular und n8n
 

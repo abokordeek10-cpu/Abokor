@@ -1,0 +1,39 @@
+# ─────────────────────────────────────────────────────────────
+#  So steht die Caddyfile auf dem Server: /root/n8n/Caddyfile
+#  (im Container eingebunden als /etc/caddy/Caddyfile).
+#  Die Website liegt auf dem Server in /var/www/abora-automation.de,
+#  im Container als /srv/abora (siehe docker-compose.override.yml).
+# ─────────────────────────────────────────────────────────────
+n8n.abora-automation.de {
+	reverse_proxy n8n:5678
+}
+
+# Website von Abora Automation
+abora-automation.de {
+	root * /srv/abora
+	encode zstd gzip
+	try_files {path} {path}.html {path}/index.html
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "SAMEORIGIN"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	@statisch path /_astro/* /fonts/*
+	header @statisch Cache-Control "public, max-age=31536000, immutable"
+
+	handle_errors 404 {
+		rewrite * /404.html
+		file_server
+	}
+
+	file_server
+}
+
+www.abora-automation.de {
+	redir https://abora-automation.de{uri} permanent
+}

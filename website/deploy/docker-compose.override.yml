@@ -1,0 +1,6 @@
+# Liegt auf dem Server neben der Original-Datei: /root/n8n/docker-compose.override.yml
+# Docker liest sie automatisch mit. Die Original-docker-compose.yml bleibt unverändert.
+services:
+  caddy:
+    volumes:
+      - /var/www/abora-automation.de:/srv/abora:ro
