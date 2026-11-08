@@ -6,7 +6,7 @@ import Abschluss from '../components/Abschluss.astro';
 import Icon from '../components/Icon.astro';
 import { PREISE, CTA_LINK, CTA_TEXT } from '../config';
 
-// TODO: PREIS – Beträge stehen zentral in src/config.ts (PREISE).
+// Beträge stehen zentral in src/config.ts (PREISE).
 const pakete = [
   {
     name: 'Start',
@@ -58,8 +58,7 @@ const fragen = [
   },
   {
     frage: 'Wie lange läuft der Vertrag?',
-    // TODO: KÜNDIGUNG – Laufzeit und Kündigungsfrist festlegen.
-    antwort: '<p><span class="platzhalter">[Laufzeit und Kündigungsfrist ergänzen]</span></p>',
+    antwort: '<p>Die Betreuung ist monatlich kündbar.</p>',
   },
   {
     frage: 'Lohnt sich das für meinen kleinen Betrieb?',
@@ -109,9 +108,8 @@ const fragen = [
               <h3 class="paket__name">{p.name}</h3>
               <p class="paket__text">{p.text}</p>
               <div class="paket__preis">
-                {/* TODO: PREIS */}
-                <p class="platzhalter">{p.preis.aufbau}</p>
-                <p class="platzhalter">{p.preis.monat}</p>
+                <p class="paket__betrag">{p.preis.aufbau}</p>
+                <p class="paket__betrag">{p.preis.monat}</p>
               </div>
               <ul>
                 {p.enthalten.map((e) => (
@@ -128,8 +126,7 @@ const fragen = [
           ))
         }
       </div>
-      {/* TODO: PREIS – Hinweis zu MwSt. bzw. Kleinunternehmerregelung */}
-      <p class="preis-hinweis"><span class="platzhalter">{PREISE.hinweis}</span></p>
+      <p class="preis-hinweis">{PREISE.hinweis}</p>
     </div>
   </section>
 
@@ -271,6 +268,11 @@ const fragen = [
     margin: 0;
     font-size: 1.05rem;
     font-weight: 700;
+  }
+  .paket__betrag:first-child {
+    font-size: 1.7rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em;
   }
   .paket ul {
     list-style: none;

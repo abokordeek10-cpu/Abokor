@@ -142,9 +142,9 @@ const ablauf = [
         <div class="meldung meldung--fehler" data-fehler tabindex="-1" hidden>
           <h2>Das hat leider nicht geklappt.</h2>
           <p>
-            Deine Anfrage konnte gerade nicht gesendet werden. Bitte versuch es gleich noch einmal oder schreib uns direkt an
-            <!-- TODO: KONTAKT – E-Mail in src/config.ts eintragen -->
-            <span class="platzhalter">{KONTAKT.email}</span>.
+            Deine Anfrage konnte gerade nicht gesendet werden. Bitte versuch es gleich noch einmal oder schreib uns direkt an{' '}
+            <a href={`mailto:${KONTAKT.email}`}>{KONTAKT.email}</a> oder ruf an unter{' '}
+            <a href={`tel:${KONTAKT.telefonLink}`}>{KONTAKT.telefon}</a>.
           </p>
           <button type="button" class="btn btn--rahmen" data-nochmal>Nochmal versuchen</button>
         </div>
@@ -486,6 +486,11 @@ const ablauf = [
   }
   .meldung--fehler h2 {
     color: #8a1c12;
+  }
+  .meldung--fehler a {
+    color: var(--text);
+    font-weight: 700;
+    word-break: break-word;
   }
   .meldung .textlink {
     color: var(--text);

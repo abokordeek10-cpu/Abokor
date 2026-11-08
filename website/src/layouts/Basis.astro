@@ -20,7 +20,7 @@ const seitenTitel = Astro.url.pathname === '/' ? `${FIRMA.name} – ${FIRMA.slog
 const kanonisch = new URL(Astro.url.pathname, FIRMA.url).href;
 const ogUrl = new URL(ogBild, FIRMA.url).href;
 
-// Strukturierte Daten für Google. TODO: KONTAKT – Adresse/Telefon in src/config.ts ergänzen.
+// Strukturierte Daten für Google (Daten aus src/config.ts).
 const strukturierteDaten = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
@@ -31,7 +31,8 @@ const strukturierteDaten = {
     'Automatisierung für Handwerksbetriebe: Anfragen beantworten und vorsortieren, Termine buchen, Angebote vorbereiten und nachfassen, Bewertungen einholen.',
   image: ogUrl,
   email: KONTAKT.email,
-  telephone: KONTAKT.telefon,
+  telephone: KONTAKT.telefonLink,
+  founder: { '@type': 'Person', name: KONTAKT.inhaber },
   address: {
     '@type': 'PostalAddress',
     streetAddress: KONTAKT.strasse,

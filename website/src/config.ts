@@ -3,30 +3,31 @@
 //  Alles, was du später ausfüllen musst, steht hier an EINEM Ort.
 // ─────────────────────────────────────────────────────────────
 
-// TODO: N8N – URL deines n8n-Webhooks für das Kontaktformular eintragen,
-// z. B. 'https://n8n.abora-automation.de/webhook/erstgespraech'
-// Solange hier der Platzhalter steht, zeigt das Formular eine Fehlermeldung.
-export const N8N_WEBHOOK_URL = '[N8N_WEBHOOK_URL]';
+// URL des n8n-Webhooks für das Kontaktformular.
+export const N8N_WEBHOOK_URL = 'https://n8n.abora-automation.de/webhook/8b0fcd17-200f-4859-879c-613198143e88';
 
 // TODO: KALENDER – Link zur Online-Terminbuchung (z. B. Cal.com).
 // Leer lassen, solange es keinen gibt: Dann wird der Kalender-Block ausgeblendet.
 export const KALENDER_URL = '';
 
-// TODO: KONTAKT – echte Kontaktdaten eintragen.
 export const KONTAKT = {
-  email: '[E-MAIL]',
-  telefon: '[TELEFON]',
-  strasse: '[STRASSE UND HAUSNUMMER]',
-  plz: '[PLZ]',
-  ort: 'Mannheim',
+  inhaber: 'Abokor Deek Osman',
+  email: 'abokorosman@abora-automation.de',
+  telefon: '0176 87823235',
+  telefonLink: '+4917687823235',
+  strasse: 'Werkstraße 29',
+  plz: '68519',
+  ort: 'Viernheim',
 };
 
-// TODO: PREIS – Preise eintragen, sobald sie feststehen.
 export const PREISE = {
-  start: { aufbau: 'ab [PREIS] € einmalig', monat: 'ab [PREIS] € / Monat' },
-  komplett: { aufbau: 'ab [PREIS] € einmalig', monat: 'ab [PREIS] € / Monat' },
-  hinweis: '[netto zzgl. MwSt. / Kleinunternehmer-Hinweis]',
+  start: { aufbau: 'ab 990 € einmalig', monat: 'ab 149 € / Monat' },
+  komplett: { aufbau: 'ab 2.490 € einmalig', monat: 'ab 299 € / Monat' },
+  hinweis: 'Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.',
 };
+
+export const PILOTANGEBOT =
+  'Die ersten 3 Betriebe bekommen den Aufbau zum halben Preis. Dafür gibst du uns ehrliches Feedback und wir dürfen dich als Referenz nennen, wenn du zufrieden bist.';
 
 export const FIRMA = {
   name: 'Abora Automation',

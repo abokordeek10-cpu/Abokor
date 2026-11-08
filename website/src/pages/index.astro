@@ -11,7 +11,7 @@ import Abschluss from '../components/Abschluss.astro';
 import Icon from '../components/Icon.astro';
 import Benachrichtigung from '../components/Benachrichtigung.astro';
 import { ABLAUF_KURZ } from '../inhalte';
-import { CTA_LINK, CTA_TEXT } from '../config';
+import { CTA_LINK, CTA_TEXT, PREISE, PILOTANGEBOT } from '../config';
 
 const probleme = [
   {
@@ -39,9 +39,7 @@ const probleme = [
 const fragen = [
   {
     frage: 'Was kostet das?',
-    // TODO: PREIS – Antwort ergänzen, sobald die Preise feststehen.
-    antwort:
-      '<p>Du zahlst einmal für den Aufbau und danach einen festen Betrag pro Monat für Betrieb, Betreuung, Server- und KI-Kosten. Das Paket „Start“ gibt es <span class="platzhalter">ab [PREIS] € einmalig</span> und <span class="platzhalter">ab [PREIS] € / Monat</span>. Was genau bei dir sinnvoll ist, klären wir im kostenlosen Erstgespräch. <a href="/preise">Mehr zu den Preisen</a></p>',
+    antwort: `<p>Du zahlst einmal für den Aufbau und danach einen festen Betrag pro Monat für Betrieb, Betreuung, Server- und KI-Kosten. Das Paket „Start“ gibt es ${PREISE.start.aufbau} und ${PREISE.start.monat}, das Paket „Komplett“ ${PREISE.komplett.aufbau} und ${PREISE.komplett.monat}. ${PREISE.hinweis} Was genau bei dir sinnvoll ist, klären wir im kostenlosen Erstgespräch. <a href="/preise">Mehr zu den Preisen</a></p>`,
   },
   {
     frage: 'Muss ich mich mit Technik auskennen?',
@@ -50,28 +48,24 @@ const fragen = [
   },
   {
     frage: 'Was passiert mit den Daten meiner Kunden?',
-    // TODO: DATENSCHUTZ – Serverstandort und eingesetzte KI-Dienste konkret benennen.
     antwort:
-      '<p>Die Daten deiner Kunden gehören dir. Wir nutzen sie nur, um deine Anfragen zu bearbeiten, und schließen mit dir einen Vertrag zur Auftragsverarbeitung. <span class="platzhalter">[Serverstandort und eingesetzte KI-Dienste ergänzen]</span></p>',
+      '<p>Wir nutzen sie nur, um deine Automatisierungen zu betreiben. Unser Server steht in Deutschland (Falkenstein). Für die KI-Funktionen setzen wir Claude von Anthropic ein. Vor dem Start schließen wir mit dir einen Vertrag zur Auftragsverarbeitung.</p>',
   },
   {
     frage: 'Wie lange dauert der Aufbau?',
-    // TODO: DAUER – realistische Zeitspanne eintragen.
     antwort:
-      '<p>Das hängt davon ab, wie viele Bausteine du willst. Ein Start mit ein, zwei Bausteinen geht deutlich schneller als das Komplettpaket. Üblich sind <span class="platzhalter">[X–Y Wochen]</span>. Den genauen Zeitplan bekommst du nach dem Erstgespräch.</p>',
+      '<p>Meist 2 bis 4 Wochen. Den genauen Zeitplan bekommst du nach dem Erstgespräch.</p>',
   },
   {
     frage: 'Kann ich jederzeit kündigen?',
-    // TODO: KÜNDIGUNG – Laufzeit und Kündigungsfrist festlegen.
-    antwort:
-      '<p>Die monatliche Betreuung hat eine <span class="platzhalter">[Laufzeit / Kündigungsfrist]</span>. Wir wollen, dass du bleibst, weil es dir Arbeit abnimmt, nicht wegen eines langen Vertrags.</p>',
+    antwort: '<p>Die Betreuung ist monatlich kündbar.</p>',
   },
 ];
 ---
 
 <Basis
   titel="Startseite"
-  beschreibung="Abora Automation aus Mannheim: Deine KI beantwortet Anfragen, bucht Termine und fasst Angebote nach, während du auf der Baustelle bist. Für Handwerksbetriebe aller Gewerke."
+  beschreibung="Abora Automation aus Viernheim: Deine KI beantwortet Anfragen, bucht Termine und fasst Angebote nach, während du auf der Baustelle bist. Für Handwerksbetriebe aller Gewerke."
 >
   <!-- 1. Einstieg -->
   <Einstieg />
@@ -211,18 +205,12 @@ const fragen = [
         <h2>Wir suchen die ersten Handwerksbetriebe, mit denen wir gemeinsam starten.</h2>
         <p class="einleitung">
           Wir sind neu und sagen das offen. Deshalb haben wir noch keine Kundenstimmen. Wir suchen ein paar Betriebe, die
-          mit uns anfangen, uns ehrlich sagen, was funktioniert, und dafür besondere Konditionen bekommen.
+          mit uns anfangen und uns ehrlich sagen, was funktioniert.
         </p>
       </div>
       <div class="karte pilot__karte" data-reveal style="--delay:.1s">
         <p class="pilot__label">Dein Vorteil als Pilotkunde</p>
-        <!-- TODO: PILOTANGEBOT – konkreten Vorteil eintragen (z. B. Rabatt auf den Aufbau, verlängerte Testphase) -->
-        <p class="pilot__vorteil"><span class="platzhalter">[PILOTANGEBOT: konkreter Vorteil]</span></p>
-        <ul class="liste">
-          <li>Wir nehmen uns besonders viel Zeit für deinen Betrieb</li>
-          <li>Du gestaltest mit, wie die Bausteine funktionieren</li>
-          <li>Direkter Draht zu den Leuten, die alles bauen</li>
-        </ul>
+        <p class="pilot__vorteil">{PILOTANGEBOT}</p>
         <a href={CTA_LINK} class="btn btn--gelb btn--block-mobil">{CTA_TEXT}</a>
       </div>
     </div>
@@ -343,8 +331,9 @@ const fragen = [
   }
   .pilot__vorteil {
     margin: 0;
-    font-size: 1.05rem;
-    font-weight: 800;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.45;
   }
 
   .faq-raster {

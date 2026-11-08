@@ -5,8 +5,8 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-# TODO: SERVER – diese drei Werte anpassen
-SERVER="root@[SERVER-IP]"            # SSH-Zugang, z. B. root@123.45.67.89
+# Server-Einstellungen
+SERVER="root@2.31.26.76"              # SSH-Zugang zum Hetzner-Server
 ZIEL="/var/www/abora-automation.de"   # Ordner auf dem Server, aus dem der Webserver ausliefert
 SSH_PORT="22"
 

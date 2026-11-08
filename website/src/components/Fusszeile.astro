@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { NAVIGATION, FIRMA, CTA_LINK, CTA_TEXT } from '../config';
+import { NAVIGATION, FIRMA, CTA_LINK, CTA_TEXT, KONTAKT } from '../config';
 const jahr = new Date().getFullYear();
 ---
 
@@ -10,7 +10,11 @@ const jahr = new Date().getFullYear();
       <div class="fusszeile__marke">
         <a href="/" aria-label="Abora Automation – zur Startseite" style="text-decoration:none"><Logo /></a>
         <p class="fusszeile__slogan">{FIRMA.slogan}</p>
-        <p class="fusszeile__ort">Automatisierung für Handwerksbetriebe aus Mannheim.</p>
+        <p class="fusszeile__ort">Automatisierung für Handwerksbetriebe aus Viernheim.</p>
+        <p class="fusszeile__kontakt">
+          <a href={`tel:${KONTAKT.telefonLink}`}>{KONTAKT.telefon}</a><br />
+          <a href={`mailto:${KONTAKT.email}`}>{KONTAKT.email}</a>
+        </p>
       </div>
       <nav aria-label="Seiten">
         <h2 class="fusszeile__titel">Seiten</h2>
@@ -66,6 +70,16 @@ const jahr = new Date().getFullYear();
   .fusszeile__klein {
     font-size: 0.85rem;
     margin-top: 16px;
+  }
+  .fusszeile__kontakt a {
+    color: var(--text-hell);
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 0;
+    word-break: break-word;
+  }
+  .fusszeile__kontakt a:hover {
+    color: var(--gelb);
   }
   .fusszeile__titel {
     font-size: 0.78rem;

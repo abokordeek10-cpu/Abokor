@@ -3,6 +3,7 @@ import Basis from '../layouts/Basis.astro';
 import Seitenkopf from '../components/Seitenkopf.astro';
 import Abschluss from '../components/Abschluss.astro';
 import Icon from '../components/Icon.astro';
+import { KONTAKT } from '../config';
 
 const werte = [
   { icon: 'handschlag', titel: 'Ehrlich', text: 'Wir sagen dir, was sich lohnt und was nicht. Auch wenn die Antwort mal „brauchst du nicht“ ist.' },
@@ -13,13 +14,13 @@ const werte = [
 
 <Basis
   titel="Über uns"
-  beschreibung="Wer hinter Abora Automation aus Mannheim steht und warum wir Automatisierung speziell für Handwerksbetriebe bauen."
+  beschreibung="Wer hinter Abora Automation aus Viernheim steht und warum wir Automatisierung speziell für Handwerksbetriebe bauen."
 >
   <!-- TODO: BILD – Motiv siehe `motiv` -->
   <Seitenkopf
     dachzeile="Über uns"
     titel='Wir bauen die Technik. <span class="gelb">Du bleibst beim Handwerk.</span>'
-    text="Abora Automation sitzt in Mannheim. Wir automatisieren für Handwerksbetriebe alles rund um Anfragen, Termine und Angebote."
+    text="Abora Automation sitzt in Viernheim. Wir automatisieren für Handwerksbetriebe alles rund um Anfragen, Termine und Angebote."
     motiv="Porträt des Gründers in der Werkstatt eines befreundeten Handwerksbetriebs, natürliches Licht, kein Anzug"
   />
 
@@ -33,19 +34,15 @@ const werte = [
         </div>
       </div>
       <div class="fliesstext" data-reveal>
-        <!-- TODO: TEXT – Die folgenden Absätze sind Platzhalter. Bitte mit deiner eigenen Geschichte ersetzen. -->
         <p class="dachzeile">Wer dahintersteht</p>
-        <h2>Hallo, ich bin <span class="platzhalter">[NAME]</span>.</h2>
-        <p>
-          <span class="platzhalter">[TEXT: Wer bist du? Was hast du vorher gemacht? Ein, zwei Sätze zu dir.]</span>
+        <h2>{KONTAKT.inhaber}</h2>
+        <p class="ueber-uns__text">
+          Ich bin Abokor aus Viernheim und baue Automatisierungen für Handwerksbetriebe. Handwerker stehen den ganzen Tag auf
+          der Baustelle und machen das Büro abends. Genau das will ich ihnen abnehmen.
         </p>
-        <h3>Warum Handwerk?</h3>
-        <p>
-          <span class="platzhalter">[TEXT: Deine persönliche Verbindung zum Handwerk, z. B. Familie, Freunde, eigene Erfahrung. Was hast du gesehen, das dich auf die Idee gebracht hat?]</span>
-        </p>
-        <h3>Was uns antreibt</h3>
-        <p>
-          <span class="platzhalter">[TEXT: Was willst du für Handwerksbetriebe erreichen? Warum jetzt, warum mit KI?]</span>
+        <p class="ueber-uns__kontakt">
+          <a href={`tel:${KONTAKT.telefonLink}`}>{KONTAKT.telefon}</a><br />
+          <a href={`mailto:${KONTAKT.email}`}>{KONTAKT.email}</a>
         </p>
       </div>
     </div>
@@ -114,5 +111,17 @@ const werte = [
   }
   .fliesstext h2 {
     margin-top: 0;
+  }
+  .ueber-uns__text {
+    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+    line-height: 1.55;
+    font-weight: 500;
+  }
+  .ueber-uns__kontakt a {
+    font-weight: 700;
+    color: var(--text);
+    text-decoration-color: var(--gelb);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 </style>

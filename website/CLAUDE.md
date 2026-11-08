@@ -6,7 +6,13 @@ Diese Datei beschreibt die Website von Abora Automation. Lies sie vollständig, 
 
 - **Name:** Abora Automation
 - **Domain:** abora-automation.de
-- **Sitz:** Mannheim
+- **Sitz:** Viernheim (nicht Mannheim)
+- **Inhaber:** Abokor Deek Osman
+- **Adresse:** Werkstraße 29, 68519 Viernheim
+- **E-Mail:** abokorosman@abora-automation.de
+- **Telefon:** 0176 87823235
+- **Server:** Hetzner, IP 2.31.26.76, SSH-Benutzer root
+- **Impressum und Datenschutz:** Texte stammen vom Inhaber und werden wörtlich übernommen. Nichts dazu erfinden.
 - **Was wir machen:** Wir automatisieren für Handwerksbetriebe den Weg von der ersten Anfrage bis zur Bewertung: Anfragen beantworten und vorsortieren, Termine buchen, Angebote vorbereiten, Angebote nachfassen, Bewertungen einholen.
 - **Zielgruppe:** Inhaber kleiner und mittlerer Handwerksbetriebe aller Gewerke in Deutschland (Sanitär/Heizung, Elektro, Dach, Maler, Tischler, Garten- und Landschaftsbau usw.). Sie sind tagsüber auf der Baustelle, erledigen das Büro abends und haben wenig Zeit und wenig Lust auf Technik.
 - **Slogan:** „Du machst das Handwerk. Wir machen den Rest.“
@@ -33,7 +39,13 @@ Das Modell: **einmaliger Aufbau + monatliche Betreuung.**
 - **Pakete:**
   - **Start:** die 1–2 Bausteine, die im Betrieb am meisten bringen
   - **Komplett:** alle 6 Bausteine
-- Preise sind noch offen. Nutze Platzhalter wie `ab [PREIS] € einmalig` und `ab [PREIS] € / Monat` und markiere sie im Code mit `TODO: PREIS`. Unter den Preisen steht ein Hinweis-Platzhalter `[netto zzgl. MwSt. / Kleinunternehmer-Hinweis]`.
+- **Preise (festgelegt, stehen in `src/config.ts`):**
+  - Start: ab 990 € einmalig, ab 149 € / Monat
+  - Komplett: ab 2.490 € einmalig, ab 299 € / Monat
+  - Hinweis unter den Preisen: „Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.“
+- **Pilotangebot:** „Die ersten 3 Betriebe bekommen den Aufbau zum halben Preis. Dafür gibst du uns ehrliches Feedback und wir dürfen dich als Referenz nennen, wenn du zufrieden bist.“
+- **Laufzeit:** Die Betreuung ist monatlich kündbar. **Aufbaudauer:** meist 2 bis 4 Wochen.
+- **Daten:** Server in Deutschland (Falkenstein). KI-Funktionen über Claude von Anthropic. Vertrag zur Auftragsverarbeitung vor dem Start.
 
 ## Die 6 Bausteine (Leistungen)
 
@@ -53,13 +65,13 @@ Das Modell: **einmaliger Aufbau + monatliche Betreuung.**
 | Für wen | `/fuer-wen` | alle Gewerke als Kacheln, je mit einem typischen Alltagsproblem |
 | So arbeiten wir | `/ablauf` | Erstgespräch → Analyse → Aufbau → Start → Betreuung |
 | Preise | `/preise` | Modell Aufbau + Abo, Pakete Start und Komplett, FAQ zu Kosten |
-| Über uns | `/ueber-uns` | wer hinter Abora steht und warum Handwerk (Platzhaltertext, markiert mit `TODO: TEXT`) |
+| Über uns | `/ueber-uns` | Text vom Inhaber: „Ich bin Abokor aus Viernheim und baue Automatisierungen für Handwerksbetriebe. Handwerker stehen den ganzen Tag auf der Baustelle und machen das Büro abends. Genau das will ich ihnen abnehmen.“ |
 | Ratgeber | `/ratgeber` | Übersicht für Blogartikel, dazu 1 Beispielartikel: „Warum Handwerker Aufträge verlieren, bevor sie sie sehen“ |
 | Erstgespräch | `/kontakt` | Formular + Hinweis, was im Gespräch passiert |
-| Impressum | `/impressum` | Platzhalter, markiert mit `TODO: RECHTLICH` |
-| Datenschutz | `/datenschutz` | Platzhalter, markiert mit `TODO: RECHTLICH` |
+| Impressum | `/impressum` | Text vom Inhaber, wörtlich übernommen |
+| Datenschutz | `/datenschutz` | Text vom Inhaber, wörtlich übernommen (Stand: November 2026) |
 
-Keine fertigen Rechtstexte erfinden. Impressum und Datenschutz bekommen eine klare Gliederung mit Platzhaltern, die der Inhaber mit einem Generator oder Anwalt füllt.
+Keine Rechtstexte erfinden. Impressum und Datenschutz stammen vom Inhaber und werden nur wörtlich übernommen.
 
 ## Startseite – Abschnitte in dieser Reihenfolge
 
@@ -69,8 +81,8 @@ Keine fertigen Rechtstexte erfinden. Impressum und Datenschutz bekommen eine kla
 4. **Rechner „Was kosten dich verlorene Anfragen?“:** Eingaben: verpasste/liegengebliebene Anfragen pro Woche, Anteil davon, der ein Auftrag geworden wäre (%), durchschnittlicher Auftragswert (€). Ergebnis: geschätzter Umsatzverlust pro Monat und pro Jahr. Startwerte bewusst niedrig wählen und deutlich als Beispiel kennzeichnen. Hinweis: „Rechne mit deinen eigenen Zahlen.“
 5. **Ablauf:** 4 Schritte bis zur Automatisierung.
 6. **Zusammenarbeit:** „Einmal aufbauen, dauerhaft entlastet“ – kurz das Modell Aufbau + Betreuung, Link zu `/preise`.
-7. **Pilotkunden-Angebot:** Ehrlich formuliert: „Wir suchen die ersten Handwerksbetriebe, mit denen wir gemeinsam starten.“ Mit Vorteil-Platzhalter `TODO: PILOTANGEBOT`.
-8. **FAQ:** Was kostet das? · Muss ich mich mit Technik auskennen? · Was passiert mit den Daten meiner Kunden? · Wie lange dauert der Aufbau? · Kann ich jederzeit kündigen? (Antworten bei offenen Punkten mit `TODO` markieren)
+7. **Pilotkunden-Angebot:** Ehrlich formuliert: „Wir suchen die ersten Handwerksbetriebe, mit denen wir gemeinsam starten.“ Vorteil: siehe Pilotangebot oben.
+8. **FAQ:** Was kostet das? · Muss ich mich mit Technik auskennen? · Was passiert mit den Daten meiner Kunden? · Wie lange dauert der Aufbau? · Kann ich jederzeit kündigen? (Antworten siehe „Angebot und Preise“)
 9. **Abschluss:** Slogan + Button.
 
 ## Design

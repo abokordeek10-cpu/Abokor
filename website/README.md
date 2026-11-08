@@ -54,7 +54,7 @@ Das Skript baut die Website neu und lädt sie per `rsync` auf den Server. n8n wi
 ### Schritt 1: Nachsehen, was läuft (ändert nichts)
 
 ```bash
-ssh root@[SERVER-IP]
+ssh root@2.31.26.76
 docker ps 2>/dev/null; systemctl is-active caddy nginx traefik 2>/dev/null; ss -tlnp | grep -E ':80|:443'
 ```
 
@@ -105,8 +105,8 @@ Die Server-IP findest du in der Hetzner Cloud Console beim Server.
 
 | Typ | Name / Host | Wert | TTL |
 |---|---|---|---|
-| A | `@` (= abora-automation.de) | `[SERVER-IPv4]` | 3600 |
-| A | `www` | `[SERVER-IPv4]` | 3600 |
+| A | `@` (= abora-automation.de) | `2.31.26.76` | 3600 |
+| A | `www` | `2.31.26.76` | 3600 |
 | AAAA | `@` | `[SERVER-IPv6]` (nur wenn der Server IPv6 hat) | 3600 |
 | AAAA | `www` | `[SERVER-IPv6]` (nur wenn der Server IPv6 hat) | 3600 |
 
