@@ -2,11 +2,14 @@
 # Docker liest sie automatisch mit. Die Original-docker-compose.yml bleibt unverändert.
 services:
   caddy:
+    restart: always             # startet nach einem Server-Neustart automatisch
     volumes:
       - /var/www/abora-automation.de:/srv/abora:ro
     logging:
       driver: journald          # Logs ins Systemprotokoll (dort nach 14 Tagen gelöscht)
   n8n:
+    restart: always
+    ports: !reset []            # Port 5678 nicht nach außen öffnen, Zugriff nur über Caddy (HTTPS)
     environment:
       EXECUTIONS_DATA_PRUNE: "true"
       EXECUTIONS_DATA_MAX_AGE: "336"   # Ausführungen nach 14 Tagen (336 Stunden) löschen
