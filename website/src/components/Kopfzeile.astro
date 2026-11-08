@@ -1,0 +1,223 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { NAVIGATION, CTA_LINK, CTA_TEXT } from '../config';
+
+interface Props {
+  artikel?: boolean;
+}
+const { artikel = false } = Astro.props;
+const pfad = Astro.url.pathname.replace(/\.html$/, '');
+const aktiv = (href: string) => pfad === href || pfad.startsWith(href + '/');
+---
+
+<header class:list={['kopfzeile', { 'kopfzeile--fest': artikel }]} data-kopfzeile>
+  <div class="container kopfzeile__innen">
+    <a href="/" class="kopfzeile__logo" aria-label="Abora Automation – zur Startseite">
+      <Logo />
+    </a>
+
+    <nav class="kopfzeile__nav" aria-label="Hauptnavigation" id="hauptmenue" data-menue>
+      <ul>
+        {
+          NAVIGATION.map((p) => (
+            <li>
+              <a href={p.href} aria-current={aktiv(p.href) ? 'page' : undefined}>
+                {p.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={CTA_LINK} class="btn btn--gelb kopfzeile__cta">{CTA_TEXT}</a>
+    </nav>
+
+    <button
+      class="kopfzeile__menueknopf"
+      type="button"
+      aria-expanded="false"
+      aria-controls="hauptmenue"
+      aria-label="Menü öffnen"
+      data-menue-knopf
+    >
+      <span class="balken" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .kopfzeile {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 100;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  .kopfzeile.gescrollt,
+  .kopfzeile--fest {
+    background: rgba(20, 32, 46, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 var(--linie-dunkel);
+  }
+  /* backdrop-filter würde das feste Vollbild-Menü auf die Kopfzeile begrenzen */
+  :global(.menue-offen) .kopfzeile {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--dunkel);
+  }
+  .kopfzeile__innen {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 24px;
+  }
+  .kopfzeile__logo {
+    text-decoration: none;
+    position: relative;
+    z-index: 2;
+  }
+  .kopfzeile__nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .kopfzeile__nav a:not(.btn) {
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Handy: Vollbild-Menü */
+  .kopfzeile__menueknopf {
+    position: relative;
+    z-index: 2;
+    width: 48px;
+    height: 48px;
+    margin-right: -8px;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 0;
+    color: var(--text-hell);
+    cursor: pointer;
+  }
+  .balken,
+  .balken::before,
+  .balken::after {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.25s, opacity 0.2s;
+  }
+  .balken {
+    position: relative;
+  }
+  .balken::before,
+  .balken::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+  .balken::before {
+    top: -7px;
+  }
+  .balken::after {
+    top: 7px;
+  }
+  :global(.menue-offen) .balken {
+    background: transparent;
+  }
+  :global(.menue-offen) .balken::before {
+    transform: translateY(7px) rotate(45deg);
+  }
+  :global(.menue-offen) .balken::after {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 899px) {
+    .kopfzeile__nav {
+      position: fixed;
+      inset: 0;
+      background: var(--dunkel);
+      padding: 96px var(--gutter) 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      overflow-y: auto;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.25s, visibility 0.25s;
+    }
+    :global(.menue-offen) .kopfzeile__nav {
+      visibility: visible;
+      opacity: 1;
+    }
+    :global(.menue-offen) {
+      overflow: hidden;
+    }
+    .kopfzeile__nav li {
+      border-bottom: 1px solid var(--linie-dunkel);
+    }
+    .kopfzeile__nav a:not(.btn) {
+      display: block;
+      padding: 16px 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .kopfzeile__nav a[aria-current='page'] {
+      color: var(--gelb);
+    }
+    .kopfzeile__cta {
+      width: 100%;
+      min-height: 60px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .kopfzeile__innen {
+      height: 78px;
+    }
+    .kopfzeile__menueknopf {
+      display: none;
+    }
+    .kopfzeile__nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .kopfzeile__nav ul {
+      display: flex;
+      gap: 22px;
+    }
+    .kopfzeile__nav a:not(.btn) {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      padding-block: 6px;
+      border-bottom: 2px solid transparent;
+    }
+    .kopfzeile__nav a:not(.btn):hover,
+    .kopfzeile__nav a[aria-current='page'] {
+      opacity: 1;
+      border-bottom-color: var(--gelb);
+    }
+    .kopfzeile__cta {
+      min-height: 46px;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+    }
+  }
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .kopfzeile__nav ul {
+      gap: 14px;
+    }
+    .kopfzeile__nav a:not(.btn) {
+      font-size: 0.88rem;
+    }
+    :global(.logo__zusatz) {
+      display: none;
+    }
+  }
+</style>

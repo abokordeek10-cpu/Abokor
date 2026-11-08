@@ -1,0 +1,204 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Seitenkopf from '../components/Seitenkopf.astro';
+import Abschluss from '../components/Abschluss.astro';
+import Benachrichtigung from '../components/Benachrichtigung.astro';
+import { CTA_LINK, CTA_TEXT } from '../config';
+
+const schritte = [
+  {
+    titel: 'Erstgespräch',
+    untertitel: 'Kostenlos und unverbindlich',
+    text: 'Wir telefonieren oder treffen uns per Video. Du erzählst, wie dein Alltag aussieht und was im Büro am meisten nervt. Wir hören zu und stellen Fragen. Am Ende sagen wir dir ehrlich, ob und wo wir dir helfen können.',
+    punkte: ['Wie kommen Anfragen heute bei dir an?', 'Wo geht Zeit verloren?', 'Was soll zuerst laufen?'],
+  },
+  {
+    titel: 'Analyse',
+    untertitel: 'Wir schauen genau hin',
+    text: 'Wir sehen uns an, welche Wege deine Kunden nutzen und welche Programme du schon hast. Daraus wird ein klarer Vorschlag: welche Bausteine, in welcher Reihenfolge, zu welchem Preis.',
+    punkte: ['Klarer Vorschlag ohne Fachchinesisch', 'Fester Preis für den Aufbau', 'Du entscheidest in Ruhe'],
+  },
+  {
+    titel: 'Aufbau',
+    untertitel: 'Wir machen die Arbeit',
+    text: 'Wir richten alles ein und verbinden es mit deinem Telefon, deiner E-Mail, WhatsApp und deinem Kalender. Die Antworten klingen nach deinem Betrieb, nicht nach Maschine. Du musst dafür nichts installieren.',
+    punkte: ['Antworten in deinem Ton', 'Anbindung an das, was du schon nutzt', 'Kein neues Programm zum Lernen'],
+  },
+  {
+    titel: 'Start',
+    untertitel: 'Erst testen, dann loslegen',
+    text: 'In einer Testphase prüfen wir alles mit echten Beispielen aus deinem Betrieb. Erst wenn alles sitzt, geht es live. Wir zeigen dir in Ruhe, wie alles funktioniert und wo du was siehst.',
+    punkte: ['Testphase mit echten Beispielen', 'Einweisung für dich und dein Team', 'Start erst, wenn du zufrieden bist'],
+  },
+  {
+    titel: 'Betreuung',
+    untertitel: 'Wir bleiben dran',
+    text: 'Wir überwachen, dass alles läuft, und passen es an, wenn sich bei dir etwas ändert. Jeden Monat bekommst du einen kurzen Bericht: Was ist reingekommen, was wurde erledigt.',
+    punkte: ['Laufende Überwachung', 'Anpassungen inklusive', 'Monatlicher Kurzbericht'],
+  },
+];
+---
+
+<Basis
+  titel="So arbeiten wir"
+  beschreibung="So arbeitet Abora Automation: Erstgespräch, Analyse, Aufbau, Start und Betreuung. Du musst nichts installieren und nichts vorbereiten."
+>
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <Seitenkopf
+    dachzeile="So arbeiten wir"
+    titel='Vom ersten Gespräch bis <span class="gelb">es läuft</span>.'
+    text="Fünf Schritte, klar und ohne Überraschungen. Du sagst, was nervt. Wir bauen. Du arbeitest weiter wie bisher, nur mit weniger Büro."
+    motiv="Handwerker und Berater sitzen am Werkstatttisch, Kaffeebecher, Handy und Notizblock, Blick auf die Hände"
+  />
+
+  <section class="abschnitt abschnitt--hell">
+    <div class="container">
+      <ol class="zeitstrahl">
+        {
+          schritte.map((s, i) => (
+            <li class="zeitstrahl__schritt" data-reveal>
+              <span class="zeitstrahl__nummer" aria-hidden="true">{i + 1}</span>
+              <div class="zeitstrahl__inhalt">
+                <p class="zeitstrahl__unter">{s.untertitel}</p>
+                <h2>{s.titel}</h2>
+                <p>{s.text}</p>
+                <ul>
+                  {s.punkte.map((p) => <li>{p}</li>)}
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--dunkel">
+    <div class="container du-musst">
+      <div data-reveal>
+        <p class="dachzeile">Dein Aufwand</p>
+        <h2>Was du tun musst? Fast nichts.</h2>
+        <p class="einleitung">
+          Ein Gespräch, ein paar Fragen beantworten, Zugänge freigeben und am Ende einmal alles mit uns durchgehen. Den Rest
+          machen wir.
+        </p>
+        <a href={CTA_LINK} class="btn btn--gelb btn--gross btn--block-mobil">{CTA_TEXT}</a>
+      </div>
+      <div class="du-musst__meldungen" aria-hidden="true" data-reveal>
+        <Benachrichtigung titel="Testphase gestartet" text="Wir prüfen alles mit Beispielen aus deinem Betrieb" zeit="Mo." />
+        <Benachrichtigung titel="Alles läuft ✓" text="Deine Automatisierung ist live" zeit="Fr." />
+        <Benachrichtigung titel="Dein Monatsbericht" text="Was reinkam und was erledigt wurde" zeit="1. d. M." />
+      </div>
+    </div>
+  </section>
+
+  <Abschluss />
+</Basis>
+
+<style>
+  .zeitstrahl {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 860px;
+    position: relative;
+  }
+  .zeitstrahl::before {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 30px;
+    bottom: 30px;
+    width: 2px;
+    background: linear-gradient(var(--dunkel), rgba(20, 32, 46, 0.15));
+  }
+  .zeitstrahl__schritt {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 20px;
+    padding-bottom: 48px;
+    position: relative;
+  }
+  .zeitstrahl__schritt:last-child {
+    padding-bottom: 0;
+  }
+  .zeitstrahl__nummer {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--gelb);
+    color: var(--dunkel);
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 1.3rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 6px var(--hell);
+  }
+  .zeitstrahl__unter {
+    margin: 4px 0 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blaugrau);
+  }
+  .zeitstrahl__inhalt h2 {
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+  }
+  .zeitstrahl__inhalt > p {
+    color: var(--text-gedaempft-hell);
+    font-size: 1.05rem;
+  }
+  .zeitstrahl__inhalt ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .zeitstrahl__inhalt li {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--linie-hell);
+  }
+  @media (min-width: 700px) {
+    .zeitstrahl__schritt {
+      grid-template-columns: 72px 1fr;
+      gap: 28px;
+    }
+    .zeitstrahl::before {
+      left: 35px;
+    }
+    .zeitstrahl__nummer {
+      width: 72px;
+      height: 72px;
+      font-size: 1.6rem;
+    }
+  }
+
+  .du-musst {
+    display: grid;
+    gap: 40px;
+  }
+  .du-musst .einleitung {
+    margin-bottom: 28px;
+  }
+  .du-musst__meldungen {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+  }
+  @media (min-width: 960px) {
+    .du-musst {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+    }
+  }
+</style>

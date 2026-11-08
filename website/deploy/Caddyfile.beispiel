@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────
+#  VORSCHLAG für Caddy – NICHT blind übernehmen.
+#  Erst prüfen, wie n8n heute ausgeliefert wird (siehe README, Schritt 1).
+#  Nur der Block für die Website kommt NEU dazu. Den bestehenden
+#  n8n-Block NICHT verändern.
+#  Vorher Backup:  cp /etc/caddy/Caddyfile /etc/caddy/Caddyfile.backup-$(date +%F)
+# ─────────────────────────────────────────────────────────────
+
+# www → ohne www umleiten
+www.abora-automation.de {
+	redir https://abora-automation.de{uri} permanent
+}
+
+abora-automation.de {
+	root * /var/www/abora-automation.de
+	encode zstd gzip
+
+	# /leistungen → leistungen.html
+	try_files {path} {path}.html {path}/index.html
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "SAMEORIGIN"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	# Bilder, Schriften, JS/CSS mit Hash im Namen dürfen lange gecacht werden
+	@statisch path /_astro/* /fonts/*
+	header @statisch Cache-Control "public, max-age=31536000, immutable"
+
+	handle_errors {
+		@404 expression {err.status_code} == 404
+		rewrite @404 /404.html
+		file_server
+	}
+
+	file_server
+}
+
+# Bestehender n8n-Block bleibt unverändert, z. B.:
+# n8n.abora-automation.de {
+# 	reverse_proxy localhost:5678
+# }

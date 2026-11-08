@@ -1,0 +1,498 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Icon from '../components/Icon.astro';
+import Benachrichtigung from '../components/Benachrichtigung.astro';
+import { N8N_WEBHOOK_URL, KALENDER_URL, KONTAKT, GEWERKE } from '../config';
+
+const ablauf = [
+  { icon: 'telefon', text: 'Wir rufen dich zu deiner Wunschzeit an.' },
+  { icon: 'chat', text: 'Du erzählst, was im Büro am meisten nervt. Wir hören zu und fragen nach.' },
+  { icon: 'werkzeug', text: 'Wir sagen dir ehrlich, welche Bausteine sich bei dir lohnen, und welche nicht.' },
+  { icon: 'handschlag', text: 'Danach entscheidest du in Ruhe. Kein Verkaufsdruck, keine Verpflichtung.' },
+] as const;
+---
+
+<Basis
+  titel="Kostenloses Erstgespräch"
+  beschreibung="Buche dein kostenloses Erstgespräch mit Abora Automation. Wir rufen dich an, hören zu und sagen dir ehrlich, was sich in deinem Handwerksbetrieb automatisieren lässt."
+  ohneLeiste
+  artikel
+>
+  <section class="kontakt">
+    <div class="container kontakt__raster">
+      <div class="kontakt__info">
+        <p class="dachzeile">Kostenloses Erstgespräch</p>
+        <h1>Erzähl uns, <span class="gelb">was nervt.</span></h1>
+        <p class="einleitung">
+          Füll das kurze Formular aus. Wir melden uns zu deiner Wunschzeit und schauen gemeinsam, wo wir dir Arbeit abnehmen
+          können.
+        </p>
+
+        <h2 class="kontakt__unter">Was im Gespräch passiert</h2>
+        <ol class="kontakt__ablauf">
+          {
+            ablauf.map((a) => (
+              <li>
+                <span class="kontakt__icon"><Icon name={a.icon} /></span>
+                {a.text}
+              </li>
+            ))
+          }
+        </ol>
+
+        {/* TODO: KALENDER – Link in src/config.ts (KALENDER_URL) eintragen, dann erscheint dieser Block. */}
+        {
+          KALENDER_URL && (
+            <div class="kontakt__kalender">
+              <p><strong>Lieber direkt einen Termin buchen?</strong></p>
+              <a href={KALENDER_URL} class="btn btn--rahmen" rel="noopener">
+                <Icon name="kalender" /> Termin im Kalender wählen
+              </a>
+            </div>
+          )
+        }
+
+        <div class="kontakt__meldung" aria-hidden="true">
+          <Benachrichtigung titel="Rückruf vereinbart" text="Wir melden uns zu deiner Wunschzeit" />
+        </div>
+      </div>
+
+      <div class="formular-karte">
+        <form id="erstgespraech" class="formular" data-formular data-webhook={N8N_WEBHOOK_URL} novalidate>
+          <div class="formular__zeile">
+            <div class="feld">
+              <label for="f-name">Dein Name <span aria-hidden="true">*</span></label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="feld">
+              <label for="f-betrieb">Name deines Betriebs <span aria-hidden="true">*</span></label>
+              <input id="f-betrieb" name="betrieb" type="text" autocomplete="organization" required />
+            </div>
+          </div>
+
+          <div class="feld">
+            <label for="f-gewerk">Gewerk <span aria-hidden="true">*</span></label>
+            <select id="f-gewerk" name="gewerk" required>
+              <option value="">Bitte auswählen</option>
+              {GEWERKE.map((g) => <option value={g}>{g}</option>)}
+            </select>
+          </div>
+
+          <div class="formular__zeile">
+            <div class="feld">
+              <label for="f-telefon">Telefon <span aria-hidden="true">*</span></label>
+              <input id="f-telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" required />
+            </div>
+            <div class="feld">
+              <label for="f-email">E-Mail <span aria-hidden="true">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required />
+            </div>
+          </div>
+
+          <div class="feld">
+            <label for="f-nervt">Was nervt dich im Büro am meisten?</label>
+            <textarea
+              id="f-nervt"
+              name="nervt"
+              rows="4"
+              placeholder="z. B. „Ich verpasse ständig Anrufe“ oder „Angebote schreibe ich erst am Wochenende“"
+            ></textarea>
+          </div>
+
+          <fieldset class="feld">
+            <legend>Wann dürfen wir dich anrufen?</legend>
+            <div class="auswahl">
+              <label><input type="radio" name="rueckruf" value="Vormittags (8–12 Uhr)" /> Vormittags</label>
+              <label><input type="radio" name="rueckruf" value="Mittags (12–14 Uhr)" /> Mittags</label>
+              <label><input type="radio" name="rueckruf" value="Nachmittags (14–17 Uhr)" /> Nachmittags</label>
+              <label><input type="radio" name="rueckruf" value="Abends (17–19 Uhr)" checked /> Abends</label>
+            </div>
+          </fieldset>
+
+          <!-- Spamschutz: Dieses Feld ist für Menschen unsichtbar. Bots füllen es aus. -->
+          <div class="honig" aria-hidden="true">
+            <label for="f-website">Website (bitte leer lassen)</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="feld feld--check">
+            <input id="f-datenschutz" name="datenschutz" type="checkbox" required />
+            <label for="f-datenschutz">
+              Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert werden. Details in der{' '}
+              <a href="/datenschutz" target="_blank">Datenschutzerklärung</a>. <span aria-hidden="true">*</span>
+            </label>
+          </div>
+
+          <p class="formular__fehler" data-fehlerliste role="alert" hidden></p>
+
+          <button type="submit" class="btn btn--gelb btn--gross formular__senden">
+            <span data-knopftext>Kostenloses Erstgespräch</span>
+            <Icon name="pfeil" />
+          </button>
+          <p class="formular__klein">* Pflichtfeld. Kostenlos und unverbindlich.</p>
+        </form>
+
+        <div class="meldung meldung--erfolg" data-erfolg tabindex="-1" hidden>
+          <span class="meldung__icon"><Icon name="haken" /></span>
+          <h2>Danke! Deine Anfrage ist da.</h2>
+          <p>Wir melden uns zu deiner Wunschzeit. Bis dahin kannst du ganz normal weiterarbeiten.</p>
+          <a href="/" class="textlink">Zurück zur Startseite</a>
+        </div>
+
+        <div class="meldung meldung--fehler" data-fehler tabindex="-1" hidden>
+          <h2>Das hat leider nicht geklappt.</h2>
+          <p>
+            Deine Anfrage konnte gerade nicht gesendet werden. Bitte versuch es gleich noch einmal oder schreib uns direkt an
+            <!-- TODO: KONTAKT – E-Mail in src/config.ts eintragen -->
+            <span class="platzhalter">{KONTAKT.email}</span>.
+          </p>
+          <button type="button" class="btn btn--rahmen" data-nochmal>Nochmal versuchen</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Basis>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-formular]')!;
+  const erfolg = document.querySelector<HTMLElement>('[data-erfolg]')!;
+  const fehler = document.querySelector<HTMLElement>('[data-fehler]')!;
+  const fehlerliste = form.querySelector<HTMLElement>('[data-fehlerliste]')!;
+  const knopf = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+  const knopftext = form.querySelector<HTMLElement>('[data-knopftext]')!;
+  const webhook = form.dataset.webhook || '';
+
+  const zeigen = (el: HTMLElement) => {
+    form.hidden = true;
+    el.hidden = false;
+    el.focus();
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Pflichtfelder prüfen und Fehler verständlich anzeigen
+    const ungueltig = Array.from(form.querySelectorAll<HTMLInputElement>('input, select, textarea')).filter(
+      (f) => !f.checkValidity(),
+    );
+    form.querySelectorAll('[aria-invalid]').forEach((f) => f.removeAttribute('aria-invalid'));
+    if (ungueltig.length) {
+      ungueltig.forEach((f) => f.setAttribute('aria-invalid', 'true'));
+      fehlerliste.textContent = 'Bitte fülle alle Pflichtfelder aus (mit * markiert) und prüfe deine E-Mail-Adresse.';
+      fehlerliste.hidden = false;
+      ungueltig[0].focus();
+      return;
+    }
+    fehlerliste.hidden = true;
+
+    const daten = new FormData(form);
+
+    // Honeypot: Wenn ausgefüllt, war es ein Bot. Wir tun so, als hätte es geklappt.
+    if (String(daten.get('website') || '').trim() !== '') {
+      zeigen(erfolg);
+      return;
+    }
+
+    const nutzlast = {
+      name: daten.get('name'),
+      betrieb: daten.get('betrieb'),
+      gewerk: daten.get('gewerk'),
+      telefon: daten.get('telefon'),
+      email: daten.get('email'),
+      nervt: daten.get('nervt'),
+      rueckruf: daten.get('rueckruf'),
+      datenschutz: daten.get('datenschutz') === 'on',
+      quelle: window.location.href,
+      gesendet_am: new Date().toISOString(),
+    };
+
+    knopf.disabled = true;
+    knopftext.textContent = 'Wird gesendet …';
+
+    try {
+      if (!/^https:\/\//.test(webhook)) throw new Error('N8N_WEBHOOK_URL ist noch nicht eingetragen');
+      const antwort = await fetch(webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nutzlast),
+      });
+      if (!antwort.ok) throw new Error('Status ' + antwort.status);
+      zeigen(erfolg);
+    } catch (err) {
+      console.error(err);
+      zeigen(fehler);
+    } finally {
+      knopf.disabled = false;
+      knopftext.textContent = 'Kostenloses Erstgespräch';
+    }
+  });
+
+  fehler.querySelector('[data-nochmal]')!.addEventListener('click', () => {
+    fehler.hidden = true;
+    form.hidden = false;
+    knopf.focus();
+  });
+</script>
+
+<style>
+  .kontakt {
+    padding: 120px 0 var(--abschnitt);
+    background:
+      radial-gradient(ellipse 60% 50% at 90% 0%, rgba(255, 170, 70, 0.12), transparent 70%),
+      var(--dunkel);
+  }
+  @media (min-width: 900px) {
+    .kontakt {
+      padding-top: 160px;
+    }
+  }
+  .kontakt__raster {
+    display: grid;
+    gap: 40px;
+  }
+  @media (min-width: 980px) {
+    .kontakt__raster {
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 64px;
+      align-items: start;
+    }
+  }
+  .kontakt h1 {
+    font-size: clamp(2.4rem, 7vw, 4rem);
+  }
+  .kontakt__unter {
+    font-size: 1.2rem;
+    margin: 36px 0 16px;
+  }
+  .kontakt__ablauf {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .kontakt__ablauf li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    color: #dfe3e8;
+  }
+  .kontakt__icon {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 200, 61, 0.14);
+    color: var(--gelb);
+    display: grid;
+    place-items: center;
+  }
+  .kontakt__icon :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+  .kontakt__kalender {
+    margin-top: 32px;
+    padding: 20px;
+    border: 1px solid var(--linie-dunkel);
+    border-radius: var(--radius);
+  }
+  .kontakt__meldung {
+    margin-top: 36px;
+    display: none;
+  }
+  @media (min-width: 980px) {
+    .kontakt__meldung {
+      display: block;
+    }
+  }
+
+  .formular-karte {
+    background: var(--hell);
+    color: var(--text);
+    border-radius: var(--radius-gross);
+    padding: 26px 20px;
+    box-shadow: var(--schatten);
+  }
+  @media (min-width: 600px) {
+    .formular-karte {
+      padding: 36px;
+    }
+  }
+  .formular {
+    display: grid;
+    gap: 20px;
+  }
+  .formular__zeile {
+    display: grid;
+    gap: 20px;
+  }
+  @media (min-width: 600px) {
+    .formular__zeile {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .feld {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  .feld label,
+  .feld legend {
+    font-weight: 700;
+    font-size: 0.98rem;
+  }
+  .feld legend {
+    padding: 0;
+    margin-bottom: 8px;
+  }
+  input[type='text'],
+  input[type='tel'],
+  input[type='email'],
+  select,
+  textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--text);
+    background: #fff;
+    border: 2px solid rgba(17, 17, 17, 0.18);
+    border-radius: 12px;
+    padding: 13px 14px;
+    min-height: 52px;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--dunkel);
+    box-shadow: 0 0 0 3px rgba(255, 200, 61, 0.6);
+  }
+  [aria-invalid='true'] {
+    border-color: #b42318 !important;
+  }
+  .auswahl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (min-width: 600px) {
+    .auswahl {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .auswahl label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    padding: 12px;
+    min-height: 48px;
+    background: #fff;
+    border: 2px solid rgba(17, 17, 17, 0.14);
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .auswahl label:has(input:checked) {
+    border-color: var(--dunkel);
+    background: rgba(255, 200, 61, 0.25);
+  }
+  .auswahl input,
+  .feld--check input {
+    accent-color: var(--dunkel);
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex: none;
+  }
+  .feld--check {
+    grid-template-columns: 20px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .feld--check input {
+    margin-top: 3px;
+  }
+  .feld--check label {
+    font-weight: 500;
+    font-size: 0.92rem;
+    color: var(--text-gedaempft-hell);
+  }
+  .feld--check a {
+    color: var(--text);
+    font-weight: 700;
+  }
+  .honig {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .formular__fehler {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #fdecea;
+    color: #8a1c12;
+    font-weight: 600;
+  }
+  .formular__senden {
+    width: 100%;
+  }
+  .formular__senden:disabled {
+    opacity: 0.7;
+    cursor: wait;
+  }
+  .formular__klein {
+    margin: -6px 0 0;
+    font-size: 0.85rem;
+    color: var(--text-gedaempft-hell);
+    text-align: center;
+  }
+
+  .meldung {
+    text-align: center;
+    padding: 24px 8px;
+    outline: none;
+  }
+  .meldung h2 {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+  }
+  .meldung p {
+    color: var(--text-gedaempft-hell);
+  }
+  .meldung__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--gelb);
+    color: var(--dunkel);
+    margin-bottom: 18px;
+  }
+  .meldung__icon :global(svg) {
+    width: 32px;
+    height: 32px;
+  }
+  .meldung--fehler h2 {
+    color: #8a1c12;
+  }
+  .meldung .textlink {
+    color: var(--text);
+    border-bottom-color: var(--gelb);
+  }
+  .meldung .btn--rahmen {
+    color: var(--text);
+    border-color: var(--linie-hell);
+  }
+</style>

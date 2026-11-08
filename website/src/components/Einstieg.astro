@@ -1,0 +1,265 @@
+---
+import { Picture } from 'astro:assets';
+import einstiegBild from '../../bilder/einstieg.jpg';
+import Benachrichtigung from './Benachrichtigung.astro';
+import Icon from './Icon.astro';
+import { CTA_LINK, CTA_TEXT, FIRMA } from '../config';
+---
+
+<section class="einstieg" aria-labelledby="einstieg-titel">
+  <div class="einstieg__bild">
+    <Picture
+      src={einstiegBild}
+      alt="Nahaufnahme: Handwerkerhände setzen mit einem Hammer einen Nagel an, dunkle Werkstatt"
+      formats={['avif', 'webp']}
+      widths={[480, 720, 960, 1280, 1600]}
+      sizes="(min-width: 900px) 46vw, 160vw"
+      loading="eager"
+      fetchpriority="high"
+      class="einstieg__foto"
+    />
+  </div>
+
+  <div class="container einstieg__raster">
+    <div class="einstieg__text">
+      <p class="dachzeile">Automatisierung für Handwerksbetriebe</p>
+      <h1 id="einstieg-titel">
+        Du machst das Handwerk. <span class="gelb">Wir machen den Rest.</span>
+      </h1>
+      <p class="einstieg__satz">
+        Deine KI beantwortet Anfragen, bucht Termine und fasst Angebote nach, während du auf der Baustelle bist.
+      </p>
+      <div class="einstieg__aktionen">
+        <a href={CTA_LINK} class="btn btn--gelb btn--gross btn--block-mobil" data-cta-haupt>
+          {CTA_TEXT}
+          <Icon name="pfeil" />
+        </a>
+        <a href="#loesung" class="einstieg__mehr">So funktioniert's</a>
+      </div>
+      <p class="einstieg__klein">Kostenlos und unverbindlich. Ohne Technik-Kauderwelsch.</p>
+    </div>
+
+    <div class="einstieg__meldungen" aria-hidden="true" data-meldungen>
+      <Benachrichtigung class="meldung" titel="Neue Anfrage" text="Automatisch beantwortet: Badsanierung in Mannheim" />
+      <Benachrichtigung class="meldung" titel="Termin gebucht" text="Besichtigung Do., 8:00 Uhr – Dachreparatur" zeit="vor 1 Min." />
+      <Benachrichtigung class="meldung" titel="Angebot angenommen ✓" text="Elektroinstallation Altbau – Kunde hat zugesagt" zeit="vor 3 Min." />
+    </div>
+  </div>
+</section>
+
+<script>
+  // Benachrichtigungen erscheinen nacheinander. Bei „Bewegung reduzieren“ stehen sie still da.
+  const box = document.querySelector<HTMLElement>('[data-meldungen]');
+  const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (box && !ruhig) {
+    const karten = Array.from(box.querySelectorAll<HTMLElement>('.meldung'));
+    box.classList.add('animiert');
+    let laeuft = false;
+    let timer: number[] = [];
+
+    const runde = () => {
+      karten.forEach((k) => k.classList.remove('an', 'zuletzt'));
+      karten.forEach((k, i) => {
+        timer.push(
+          window.setTimeout(() => {
+            karten.forEach((x) => x.classList.remove('zuletzt'));
+            k.classList.add('an', 'zuletzt');
+          }, 700 + i * 1700),
+        );
+      });
+      timer.push(window.setTimeout(() => karten.forEach((k) => k.classList.remove('an', 'zuletzt')), 700 + karten.length * 1700 + 3200));
+      timer.push(window.setTimeout(runde, 700 + karten.length * 1700 + 4000));
+    };
+    const stopp = () => {
+      timer.forEach(clearTimeout);
+      timer = [];
+    };
+
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !laeuft) {
+        laeuft = true;
+        runde();
+      } else if (!e.isIntersecting && laeuft) {
+        laeuft = false;
+        stopp();
+      }
+    }).observe(box);
+  }
+</script>
+
+<style>
+  .einstieg {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--dunkel);
+    min-height: 100svh;
+    display: flex;
+  }
+
+  /* ── Handy: Foto über den ganzen Bildschirm ── */
+  .einstieg__bild {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .einstieg__bild :global(picture) {
+    display: contents;
+  }
+  .einstieg__bild :global(.einstieg__foto) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 40%;
+  }
+  .einstieg__bild::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(20, 32, 46, 0.55) 0%,
+      rgba(20, 32, 46, 0.05) 22%,
+      rgba(20, 32, 46, 0.1) 38%,
+      rgba(20, 32, 46, 0.82) 58%,
+      rgba(20, 32, 46, 0.97) 78%,
+      #14202e 100%
+    );
+  }
+
+  .einstieg__raster {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    padding-top: 88px;
+    padding-bottom: 36px;
+  }
+  .einstieg__text {
+    order: 2;
+  }
+  .einstieg__meldungen {
+    order: 1;
+  }
+
+  h1 {
+    font-size: clamp(2.45rem, 11vw, 5rem);
+    margin-bottom: 18px;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  }
+  .einstieg__satz {
+    font-size: clamp(1.08rem, 2vw, 1.3rem);
+    line-height: 1.5;
+    color: #e4e7eb;
+    max-width: 34rem;
+    margin-bottom: 26px;
+  }
+  .einstieg__aktionen {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 26px;
+  }
+  .einstieg__mehr {
+    font-weight: 700;
+    color: var(--text-hell);
+    text-decoration: none;
+    border-bottom: 2px solid var(--gelb);
+    padding-bottom: 2px;
+  }
+  .einstieg__klein {
+    margin: 18px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-gedaempft);
+  }
+  @media (max-width: 479px) {
+    .einstieg__mehr {
+      margin-inline: auto;
+    }
+    .einstieg__klein {
+      text-align: center;
+    }
+  }
+
+  /* Benachrichtigungen: auf dem Handy erscheint immer die neueste an derselben Stelle */
+  .einstieg__meldungen {
+    display: grid;
+    justify-items: end;
+  }
+  .einstieg__meldungen :global(.meldung) {
+    grid-area: 1 / 1;
+    max-width: 300px;
+  }
+  .einstieg__meldungen:not(.animiert) :global(.meldung:not(:first-child)) {
+    display: none;
+  }
+  .einstieg__meldungen.animiert :global(.meldung) {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.96);
+    transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1.1);
+  }
+  .einstieg__meldungen.animiert :global(.meldung.zuletzt) {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── Desktop: Foto rechts, läuft nach links weich in #14202E aus ── */
+  @media (min-width: 900px) {
+    .einstieg {
+      min-height: min(100vh, 940px);
+      min-height: min(100svh, 940px);
+    }
+    .einstieg__bild {
+      inset: 0 0 0 auto;
+      height: 100%;
+      aspect-ratio: 4 / 5;
+      max-width: 60%;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 18%, #000 42%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 18%, #000 42%);
+    }
+    .einstieg__bild :global(.einstieg__foto) {
+      object-position: 50% 50%;
+    }
+    .einstieg__bild::after {
+      background:
+        linear-gradient(180deg, rgba(20, 32, 46, 0.5) 0%, transparent 18%, transparent 80%, #14202e 100%);
+    }
+    .einstieg__raster {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      align-items: center;
+      gap: 40px;
+      padding-top: 130px;
+      padding-bottom: 90px;
+    }
+    .einstieg__text {
+      order: 0;
+      max-width: 39rem;
+    }
+    /* unten links über dem Unterarm, damit Hände und Hammer frei bleiben */
+    .einstieg__meldungen {
+      order: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+      align-self: end;
+      margin-left: -90px;
+      margin-bottom: -30px;
+    }
+    .einstieg__meldungen :global(.meldung) {
+      max-width: 290px;
+    }
+    .einstieg__meldungen :global(.meldung:nth-child(2)) {
+      margin-left: 24px;
+    }
+    .einstieg__meldungen:not(.animiert) :global(.meldung:not(:first-child)) {
+      display: flex;
+    }
+    .einstieg__meldungen.animiert :global(.meldung.an) {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

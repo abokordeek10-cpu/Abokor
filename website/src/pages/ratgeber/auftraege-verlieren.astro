@@ -1,0 +1,166 @@
+---
+import Basis from '../../layouts/Basis.astro';
+import Abschluss from '../../components/Abschluss.astro';
+import Benachrichtigung from '../../components/Benachrichtigung.astro';
+import { ARTIKEL } from '../../artikel';
+
+const artikel = ARTIKEL[0];
+---
+
+<Basis
+  titel={artikel.titel}
+  beschreibung="Viele Handwerksbetriebe verlieren Aufträge, weil Anfragen zu spät beantwortet werden. Warum das passiert und fünf Dinge, die du dagegen tun kannst."
+  artikel
+>
+  <article>
+    <header class="artikel-kopf">
+      <div class="container">
+        <p class="dachzeile"><a href="/ratgeber">Ratgeber</a> · {artikel.kategorie}</p>
+        <h1>{artikel.titel}</h1>
+        <p class="einleitung">{artikel.anreisser}</p>
+        <p class="artikel-meta">{artikel.lesezeit} Minuten Lesezeit · Abora Automation</p>
+      </div>
+    </header>
+
+    <div class="abschnitt abschnitt--hell artikel-text">
+      <div class="container">
+        <div class="fliesstext">
+          <p>
+            Montagmorgen, halb acht. Du stehst im Rohbau, verlegst Leitungen für eine neue Elektroinstallation. In der
+            Jackentasche vibriert das Handy. Du hast die Hände voll, also lässt du es klingeln. Gegen Mittag siehst du:
+            verpasster Anruf, unbekannte Nummer. Du rufst zurück, keiner geht ran. Abends probierst du es nochmal. Nichts.
+          </p>
+          <p>
+            Was du nicht weißt: Der Anrufer wollte eine komplette Badsanierung. Er hat noch am selben Vormittag zwei andere
+            Betriebe angerufen. Einer hat abgenommen. <strong>Den Auftrag hast du verloren, bevor du wusstest, dass es ihn gab.</strong>
+          </p>
+
+          <h2>Wer zuerst antwortet, hat die besten Karten</h2>
+          <p>
+            Wer heute einen Handwerker sucht, fragt selten nur einen. Er googelt, schreibt zwei, drei Betrieben eine
+            Nachricht oder ruft der Reihe nach an. Und dann nimmt er oft den, der sich zuerst meldet. Nicht unbedingt den
+            günstigsten oder besten, sondern den, der greifbar ist.
+          </p>
+          <p>
+            Das ist kein Vorwurf an die Kunden. Wer ein tropfendes Rohr oder ein undichtes Dach hat, will wissen, dass sich
+            jemand kümmert. Je länger es still bleibt, desto eher sucht er weiter.
+          </p>
+
+          <h2>Wo Anfragen im Alltag verloren gehen</h2>
+          <p>In fast jedem Betrieb sind es die gleichen Stellen:</p>
+          <ul>
+            <li><strong>Verpasste Anrufe:</strong> Du bist auf dem Dach, im Keller oder am Steuer. Zurückrufen klappt erst Stunden später.</li>
+            <li><strong>WhatsApp nebenbei:</strong> Nachrichten werden gelesen, aber nicht beantwortet, weil gerade keine Zeit ist. Dann rutschen sie nach unten.</li>
+            <li><strong>E-Mails im Postfach:</strong> Zwischen Lieferantenrechnungen und Werbung geht die Anfrage einfach unter.</li>
+            <li><strong>Das Kontaktformular auf der Website:</strong> Es landet in einem Postfach, in das selten jemand schaut.</li>
+            <li><strong>Zettel und Kopf:</strong> „Ruf den Herrn Schneider zurück wegen dem Dach.“ Welcher Herr Schneider? Welche Nummer?</li>
+          </ul>
+          <p>
+            Jede dieser Stellen ist für sich harmlos. Zusammen sorgen sie dafür, dass jede Woche ein paar Anfragen einfach
+            versanden. Und du merkst es nicht, weil verlorene Aufträge keine Rechnung schicken.
+          </p>
+
+          <div class="artikel-meldung" aria-hidden="true">
+            <Benachrichtigung titel="3 verpasste Anrufe" text="Unbekannte Nummern – 9:12, 11:40, 14:05" zeit="heute" />
+          </div>
+
+          <h2>Fünf Dinge, die du sofort tun kannst</h2>
+          <p>Du brauchst dafür keine KI. Ein paar Gewohnheiten helfen schon:</p>
+          <ol>
+            <li>
+              <strong>Eine Mailbox-Ansage, die weiterhilft.</strong> Sag nicht nur „Bitte hinterlassen Sie eine Nachricht“,
+              sondern wann du zurückrufst und dass Kunden dir auch per WhatsApp ein Foto schicken können.
+            </li>
+            <li>
+              <strong>Feste Zeiten für Rückrufe.</strong> Zum Beispiel in der Mittagspause und direkt nach Feierabend. Kurz,
+              aber jeden Tag.
+            </li>
+            <li>
+              <strong>Ein Ort für alle Anfragen.</strong> Ob Notizbuch, Liste oder App: Jede Anfrage kommt an dieselbe
+              Stelle, mit Name, Nummer und worum es geht.
+            </li>
+            <li>
+              <strong>Eine schnelle Erstantwort.</strong> Schon ein „Danke, ich melde mich morgen früh“ hält viele Kunden
+              davon ab, weiterzusuchen.
+            </li>
+            <li>
+              <strong>Gleich nach dem Wichtigsten fragen.</strong> Ort, was genau gemacht werden soll, ein Foto. Dann weißt
+              du schneller, ob sich der Weg lohnt.
+            </li>
+          </ol>
+
+          <h2>Und wo hilft Automatisierung?</h2>
+          <p>
+            Diese Tipps funktionieren, solange du sie durchhältst. Genau da wird es im Alltag schwer: Wenn die Baustelle
+            länger dauert, der Kunde vor Ort Fragen hat oder du abends einfach platt bist.
+          </p>
+          <p>
+            Hier kann eine KI übernehmen. Sie beantwortet jede Anfrage sofort, egal ob Anruf, WhatsApp oder E-Mail. Sie fragt
+            nach Ort, Umfang und Fotos, sortiert nach Dringlichkeit und bietet passenden Kunden direkt einen Termin an. Du
+            bekommst nur noch das, was wirklich zu dir passt.
+          </p>
+          <blockquote>Der Unterschied: Du musst nicht mehr dran denken. Es läuft automatisch, auch wenn du auf der Baustelle bist.</blockquote>
+          <p>
+            Wie viel dich liegengebliebene Anfragen ungefähr kosten, kannst du mit unserem
+            <a href="/#rechner">Rechner auf der Startseite</a> mit deinen eigenen Zahlen ausrechnen.
+          </p>
+
+          <h2>Fazit</h2>
+          <p>
+            Die meisten verlorenen Aufträge scheitern nicht an Preis oder Qualität, sondern an der Zeit bis zur ersten
+            Antwort. Wer schnell und freundlich reagiert, hat einen Vorsprung, ganz egal ob mit festen Rückrufzeiten oder mit
+            einer KI, die das für dich übernimmt.
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <Abschluss
+    titel='Keine Anfrage mehr <span class="gelb">verpassen</span>.'
+    text="Im kostenlosen Erstgespräch schauen wir, wo bei dir Anfragen verloren gehen und was sich automatisieren lässt."
+  />
+</Basis>
+
+<style>
+  .artikel-kopf {
+    padding: 130px 0 56px;
+    background:
+      radial-gradient(ellipse 60% 70% at 85% 10%, rgba(255, 170, 70, 0.14), transparent 70%),
+      var(--dunkel);
+  }
+  @media (min-width: 900px) {
+    .artikel-kopf {
+      padding-top: 170px;
+    }
+  }
+  .artikel-kopf .dachzeile a {
+    color: inherit;
+  }
+  .artikel-kopf h1 {
+    font-size: clamp(2.1rem, 6vw, 3.8rem);
+    max-width: 16em;
+  }
+  .artikel-kopf .einleitung {
+    color: #d4dae1;
+  }
+  .artikel-meta {
+    margin: 22px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-gedaempft);
+  }
+  .artikel-text {
+    padding-top: clamp(48px, 7vw, 80px);
+  }
+  .artikel-text .fliesstext {
+    margin-inline: auto;
+  }
+  .artikel-meldung {
+    margin: 32px 0;
+    display: flex;
+    justify-content: center;
+    padding: 28px 16px;
+    background: var(--dunkel);
+    border-radius: var(--radius-gross);
+  }
+</style>

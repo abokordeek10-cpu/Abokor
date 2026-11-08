@@ -1,0 +1,58 @@
+---
+import Basis from '../layouts/Basis.astro';
+---
+
+<Basis titel="Datenschutz" beschreibung="Datenschutzerklärung von Abora Automation, Mannheim." artikel>
+  <section class="abschnitt abschnitt--hell recht">
+    <div class="container">
+      <div class="fliesstext">
+        <!-- TODO: RECHTLICH – Datenschutzerklärung mit einem Generator erstellen oder vom Anwalt schreiben lassen.
+             Die Gliederung unten zeigt, was auf dieser Website tatsächlich passiert. -->
+        <p class="hinweis-beispiel">Platzhalter – wird noch ausgefüllt</p>
+        <h1>Datenschutzerklärung</h1>
+
+        <h2>1. Verantwortlicher</h2>
+        <p>
+          <span class="platzhalter">[Name, Anschrift, Telefon, E-Mail des Verantwortlichen]</span>
+        </p>
+
+        <h2>2. Allgemeines zur Datenverarbeitung</h2>
+        <p><span class="platzhalter">[Allgemeine Hinweise und Rechtsgrundlagen – vom Generator/Anwalt]</span></p>
+
+        <h2>3. Hosting und Server-Logfiles</h2>
+        <p>Für den Generator bzw. Anwalt: Die Website liegt auf einem eigenen Server bei Hetzner (Deutschland).</p>
+        <p><span class="platzhalter">[Text zu Hosting bei Hetzner, Server-Logfiles, Speicherdauer, Auftragsverarbeitung]</span></p>
+
+        <h2>4. Kontaktformular</h2>
+        <p>
+          Für den Generator bzw. Anwalt: Das Formular überträgt Name, Betrieb, Gewerk, Telefon, E-Mail, Freitext und
+          Rückrufwunsch per verschlüsselter Verbindung an eine eigene n8n-Installation auf demselben Server.
+        </p>
+        <p><span class="platzhalter">[Text zu Zweck, Rechtsgrundlage, Speicherdauer und Weiterverarbeitung der Formulardaten]</span></p>
+
+        <h2>5. Cookies, Tracking und externe Dienste</h2>
+        <p>
+          Für den Generator bzw. Anwalt: Diese Website setzt keine Cookies, nutzt kein Tracking und lädt keine externen
+          Skripte. Schriften und Bilder werden vom eigenen Server ausgeliefert.
+        </p>
+        <p><span class="platzhalter">[Passender Text vom Generator/Anwalt]</span></p>
+
+        <h2>6. Deine Rechte</h2>
+        <p><span class="platzhalter">[Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch, Datenübertragbarkeit, Beschwerderecht bei der Aufsichtsbehörde]</span></p>
+
+        <h2>7. Stand</h2>
+        <p><span class="platzhalter">[Datum]</span></p>
+      </div>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  .recht {
+    padding-top: 140px;
+  }
+  .recht h1 {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    margin-top: 16px;
+  }
+</style>

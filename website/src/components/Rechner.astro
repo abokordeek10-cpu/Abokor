@@ -1,0 +1,202 @@
+---
+// Rechner „Was kosten dich verlorene Anfragen?“
+// Startwerte sind bewusst niedrig und als Beispiel gekennzeichnet.
+const start = { anfragen: 1, quote: 20, wert: 800 };
+const proMonat = Math.round(start.anfragen * (52 / 12) * (start.quote / 100) * start.wert);
+const euro = (n: number) => n.toLocaleString('de-DE') + ' €';
+---
+
+<div class="rechner" data-rechner>
+  <form class="rechner__eingaben" onsubmit="return false" aria-label="Eingaben für den Rechner">
+    <p class="hinweis-beispiel">Beispielwerte</p>
+
+    <div class="feld">
+      <label for="r-anfragen">Wie viele Anfragen bleiben pro Woche liegen oder gehen verloren?</label>
+      <div class="feld__zeile">
+        <input id="r-anfragen" name="anfragen" type="range" min="0" max="20" step="1" value={start.anfragen} />
+        <output for="r-anfragen" class="feld__wert"><span data-wert="anfragen">{start.anfragen}</span> pro Woche</output>
+      </div>
+      <p class="feld__hilfe">Verpasste Anrufe, ungelesene WhatsApps, E-Mails, auf die nie jemand geantwortet hat.</p>
+    </div>
+
+    <div class="feld">
+      <label for="r-quote">Wie viele davon wären ein Auftrag geworden?</label>
+      <div class="feld__zeile">
+        <input id="r-quote" name="quote" type="range" min="0" max="100" step="5" value={start.quote} />
+        <output for="r-quote" class="feld__wert"><span data-wert="quote">{start.quote}</span> %</output>
+      </div>
+    </div>
+
+    <div class="feld">
+      <label for="r-wert">Was ist ein durchschnittlicher Auftrag bei dir wert?</label>
+      <div class="feld__eingabe">
+        <input id="r-wert" name="wert" type="number" inputmode="numeric" min="0" step="50" value={start.wert} />
+        <span aria-hidden="true">€</span>
+      </div>
+    </div>
+  </form>
+
+  <div class="rechner__ergebnis" aria-live="polite">
+    <p class="rechner__label">Geschätzter Umsatzverlust</p>
+    <p class="rechner__zahl"><span data-ergebnis="monat">{euro(proMonat)}</span><small> pro Monat</small></p>
+    <p class="rechner__jahr"><span data-ergebnis="jahr">{euro(proMonat * 12)}</span> pro Jahr</p>
+    <p class="rechner__hinweis">
+      <strong>Rechne mit deinen eigenen Zahlen.</strong> Das ist eine grobe Schätzung, kein Versprechen. Sie zeigt nur, was liegengebliebene Anfragen kosten können.
+    </p>
+    <a href="/kontakt" class="btn btn--gelb btn--block-mobil">Kostenloses Erstgespräch</a>
+  </div>
+</div>
+
+<script>
+  const r = document.querySelector<HTMLElement>('[data-rechner]');
+  if (r) {
+    const eingabe = (n: string) => r.querySelector<HTMLInputElement>(`[name="${n}"]`)!;
+    const euro = (n: number) => Math.round(n).toLocaleString('de-DE') + ' €';
+    const rechnen = () => {
+      const anfragen = Math.max(0, Number(eingabe('anfragen').value) || 0);
+      const quote = Math.min(100, Math.max(0, Number(eingabe('quote').value) || 0));
+      const wert = Math.max(0, Number(eingabe('wert').value) || 0);
+      const monat = anfragen * (52 / 12) * (quote / 100) * wert;
+      r.querySelector('[data-wert="anfragen"]')!.textContent = String(anfragen);
+      r.querySelector('[data-wert="quote"]')!.textContent = String(quote);
+      r.querySelector('[data-ergebnis="monat"]')!.textContent = euro(monat);
+      r.querySelector('[data-ergebnis="jahr"]')!.textContent = euro(monat * 12);
+    };
+    r.addEventListener('input', rechnen);
+    rechnen();
+  }
+</script>
+
+<style>
+  .rechner {
+    display: grid;
+    gap: 20px;
+  }
+  @media (min-width: 900px) {
+    .rechner {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+  }
+  .rechner__eingaben {
+    background: #fff;
+    border: 1px solid var(--linie-hell);
+    border-radius: var(--radius-gross);
+    padding: 26px 22px;
+    display: grid;
+    gap: 28px;
+    align-content: start;
+  }
+  .rechner__eingaben .hinweis-beispiel {
+    justify-self: start;
+    margin: 0;
+  }
+  .feld label {
+    display: block;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .feld__zeile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .feld__wert {
+    flex: none;
+    min-width: 7.5em;
+    text-align: right;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+  .feld__hilfe {
+    margin: 8px 0 0;
+    font-size: 0.88rem;
+    color: var(--text-gedaempft-hell);
+  }
+  input[type='range'] {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    accent-color: var(--dunkel);
+    cursor: pointer;
+  }
+  .feld__eingabe {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 240px;
+  }
+  .feld__eingabe input {
+    width: 100%;
+    font: inherit;
+    font-size: 1.2rem;
+    font-weight: 800;
+    padding: 12px 14px;
+    border: 2px solid var(--linie-hell);
+    border-radius: 12px;
+    background: var(--hell);
+    color: var(--text);
+  }
+  .feld__eingabe input:focus {
+    border-color: var(--dunkel);
+    outline: none;
+  }
+  .feld__eingabe span {
+    font-weight: 800;
+    font-size: 1.2rem;
+  }
+
+  .rechner__ergebnis {
+    background: var(--dunkel);
+    color: var(--text-hell);
+    border-radius: var(--radius-gross);
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .rechner__label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gelb);
+    margin-bottom: 8px;
+  }
+  .rechner__zahl {
+    font-size: clamp(2.6rem, 9vw, 3.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .rechner__zahl small {
+    font-size: 1rem;
+    letter-spacing: 0;
+    font-weight: 600;
+    color: var(--text-gedaempft);
+  }
+  .rechner__jahr {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-gedaempft);
+    margin-bottom: 22px;
+  }
+  .rechner__jahr span {
+    color: var(--text-hell);
+  }
+  .rechner__hinweis {
+    font-size: 0.92rem;
+    color: var(--text-gedaempft);
+    border-top: 1px solid var(--linie-dunkel);
+    padding-top: 18px;
+    margin-bottom: 22px;
+  }
+  .rechner__hinweis strong {
+    color: var(--gelb);
+  }
+</style>

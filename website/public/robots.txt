@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abora-automation.de/sitemap-index.xml

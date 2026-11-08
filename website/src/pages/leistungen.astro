@@ -1,0 +1,173 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Seitenkopf from '../components/Seitenkopf.astro';
+import Benachrichtigung from '../components/Benachrichtigung.astro';
+import Abschluss from '../components/Abschluss.astro';
+import Icon from '../components/Icon.astro';
+import { BAUSTEINE } from '../inhalte';
+---
+
+<Basis
+  titel="Leistungen"
+  beschreibung="Die 6 Bausteine von Abora Automation: Anfragen beantworten, vorsortieren, Termine buchen, Angebote vorbereiten, nachfassen und Bewertungen einholen. Automatisch, für Handwerksbetriebe."
+>
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <Seitenkopf
+    dachzeile="Leistungen"
+    titel='Sechs Bausteine. <span class="gelb">Ein Weg</span> von der Anfrage bis zur Bewertung.'
+    text="Jeder Baustein nimmt dir eine Aufgabe ab, die heute im Büro liegen bleibt. Du kannst mit einem anfangen oder alle zusammen nutzen."
+    motiv="Handwerker im Transporter, Handy in der Hand, schaut auf eine Nachricht, Werkzeug auf dem Beifahrersitz"
+  >
+    <nav class="sprungmarken" aria-label="Bausteine">
+      {BAUSTEINE.map((b, i) => <a href={`#${b.id}`}>{i + 1}. {b.titel}</a>)}
+    </nav>
+  </Seitenkopf>
+
+  {
+    BAUSTEINE.map((b, i) => (
+      <section id={b.id} class:list={['abschnitt', 'baustein', i % 2 === 0 ? 'abschnitt--hell' : 'abschnitt--dunkel']}>
+        <div class="container baustein__raster">
+          <div class="baustein__kopf" data-reveal>
+            <p class="dachzeile">Baustein {i + 1} von 6</p>
+            <h2>
+              <span class="baustein__icon"><Icon name={b.icon} /></span>
+              {b.titel}
+            </h2>
+            <p class="einleitung">{b.kurz}</p>
+            <div class="baustein__meldung" aria-hidden="true">
+              <Benachrichtigung titel={b.meldung.titel} text={b.meldung.text} />
+            </div>
+          </div>
+          <div class="vergleich">
+            <div class="vergleich__karte vergleich__karte--ohne" data-reveal>
+              <p class="vergleich__label">
+                <Icon name="kreuz" /> Ohne uns
+              </p>
+              <p>{b.ohne}</p>
+            </div>
+            <div class="vergleich__karte vergleich__karte--mit" data-reveal style="--delay:.1s">
+              <p class="vergleich__label">
+                <Icon name="haken" /> Mit uns
+              </p>
+              <p>{b.mit}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <Abschluss
+    titel='Welcher Baustein bringt <span class="gelb">dir</span> am meisten?'
+    text="Das finden wir im kostenlosen Erstgespräch gemeinsam raus. Ehrlich, auch wenn die Antwort „erst mal nur einer“ ist."
+  />
+</Basis>
+
+<style>
+  .sprungmarken {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+  }
+  .sprungmarken a {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--linie-dunkel);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .sprungmarken a:hover {
+    border-color: var(--gelb);
+  }
+
+  .baustein {
+    padding-block: clamp(64px, 9vw, 112px);
+    scroll-margin-top: 60px;
+  }
+  .baustein__raster {
+    display: grid;
+    gap: 32px;
+  }
+  @media (min-width: 960px) {
+    .baustein__raster {
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 64px;
+      align-items: center;
+    }
+  }
+  .baustein h2 {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .baustein__icon {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--gelb);
+    color: var(--dunkel);
+    display: grid;
+    place-items: center;
+  }
+  .baustein__icon :global(svg) {
+    width: 28px;
+    height: 28px;
+  }
+  .baustein__meldung {
+    margin-top: 24px;
+  }
+
+  .vergleich {
+    display: grid;
+    gap: 14px;
+  }
+  .vergleich__karte {
+    border-radius: var(--radius-gross);
+    padding: 24px;
+  }
+  .vergleich__karte p:last-child {
+    margin: 0;
+  }
+  .vergleich__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .vergleich__label :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .vergleich__karte--ohne {
+    border: 1px dashed currentColor;
+    opacity: 0.85;
+  }
+  .abschnitt--hell .vergleich__karte--ohne {
+    border-color: rgba(17, 17, 17, 0.3);
+    color: var(--text-gedaempft-hell);
+  }
+  .abschnitt--dunkel .vergleich__karte--ohne {
+    border-color: var(--linie-dunkel);
+    color: var(--text-gedaempft);
+  }
+  .vergleich__karte--mit {
+    background: var(--dunkel);
+    color: var(--text-hell);
+    border: 2px solid var(--gelb);
+    font-size: 1.05rem;
+  }
+  .vergleich__karte--mit .vergleich__label {
+    color: var(--gelb);
+  }
+  .abschnitt--dunkel .vergleich__karte--mit {
+    background: rgba(255, 200, 61, 0.07);
+  }
+</style>

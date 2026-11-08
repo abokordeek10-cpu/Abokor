@@ -1,0 +1,118 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Seitenkopf from '../components/Seitenkopf.astro';
+import Abschluss from '../components/Abschluss.astro';
+import Icon from '../components/Icon.astro';
+
+const werte = [
+  { icon: 'handschlag', titel: 'Ehrlich', text: 'Wir sagen dir, was sich lohnt und was nicht. Auch wenn die Antwort mal „brauchst du nicht“ ist.' },
+  { icon: 'chat', titel: 'Verständlich', text: 'Kein Fachchinesisch. Wir erklären alles so, dass es in der Mittagspause verständlich ist.' },
+  { icon: 'werkzeug', titel: 'Bodenständig', text: 'Keine Spielereien. Nur das, was dir im Alltag wirklich Arbeit abnimmt.' },
+];
+---
+
+<Basis
+  titel="Über uns"
+  beschreibung="Wer hinter Abora Automation aus Mannheim steht und warum wir Automatisierung speziell für Handwerksbetriebe bauen."
+>
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <Seitenkopf
+    dachzeile="Über uns"
+    titel='Wir bauen die Technik. <span class="gelb">Du bleibst beim Handwerk.</span>'
+    text="Abora Automation sitzt in Mannheim. Wir automatisieren für Handwerksbetriebe alles rund um Anfragen, Termine und Angebote."
+    motiv="Porträt des Gründers in der Werkstatt eines befreundeten Handwerksbetriebs, natürliches Licht, kein Anzug"
+  />
+
+  <section class="abschnitt abschnitt--hell">
+    <div class="container geschichte">
+      <div class="geschichte__bild" data-reveal>
+        <!-- TODO: BILD – Foto vom Gründer bzw. Team -->
+        <div class="bild-platzhalter" role="img" aria-label="Platzhalter für Foto: Gründer von Abora Automation in einer Werkstatt">
+          <Icon name="person" />
+          <span>Foto folgt</span>
+        </div>
+      </div>
+      <div class="fliesstext" data-reveal>
+        <!-- TODO: TEXT – Die folgenden Absätze sind Platzhalter. Bitte mit deiner eigenen Geschichte ersetzen. -->
+        <p class="dachzeile">Wer dahintersteht</p>
+        <h2>Hallo, ich bin <span class="platzhalter">[NAME]</span>.</h2>
+        <p>
+          <span class="platzhalter">[TEXT: Wer bist du? Was hast du vorher gemacht? Ein, zwei Sätze zu dir.]</span>
+        </p>
+        <h3>Warum Handwerk?</h3>
+        <p>
+          <span class="platzhalter">[TEXT: Deine persönliche Verbindung zum Handwerk, z. B. Familie, Freunde, eigene Erfahrung. Was hast du gesehen, das dich auf die Idee gebracht hat?]</span>
+        </p>
+        <h3>Was uns antreibt</h3>
+        <p>
+          <span class="platzhalter">[TEXT: Was willst du für Handwerksbetriebe erreichen? Warum jetzt, warum mit KI?]</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--dunkel">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Wie wir arbeiten</p>
+        <h2>Drei Dinge, auf die du dich verlassen kannst</h2>
+      </div>
+      <div class="raster raster--3">
+        {
+          werte.map((w, i) => (
+            <article class="karte" data-reveal style={`--delay:${i * 0.08}s`}>
+              <div class="icon-kreis">
+                <Icon name={w.icon} />
+              </div>
+              <h3>{w.titel}</h3>
+              <p style="margin:0;color:var(--text-gedaempft)">{w.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Abschluss
+    titel='Lern uns kennen. <span class="gelb">Ganz unverbindlich.</span>'
+    text="Im kostenlosen Erstgespräch merkst du schnell, ob wir zusammenpassen."
+  />
+</Basis>
+
+<style>
+  .geschichte {
+    display: grid;
+    gap: 40px;
+  }
+  @media (min-width: 900px) {
+    .geschichte {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .geschichte__bild {
+      position: sticky;
+      top: 110px;
+    }
+  }
+  .bild-platzhalter {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-gross);
+    background:
+      radial-gradient(ellipse 70% 60% at 70% 20%, rgba(255, 170, 70, 0.18), transparent 70%),
+      linear-gradient(160deg, #1b2a3b, var(--dunkel) 60%, var(--dunkel-tief));
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 10px;
+    color: rgba(246, 244, 239, 0.5);
+    font-weight: 700;
+  }
+  .bild-platzhalter :global(svg) {
+    width: 56px;
+    height: 56px;
+  }
+  .fliesstext h2 {
+    margin-top: 0;
+  }
+</style>

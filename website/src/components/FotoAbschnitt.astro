@@ -1,0 +1,111 @@
+---
+// Abschnitt mit Hintergrundfoto und dunklem Verlauf in #14202E.
+// Fehlt das Foto, erscheint ein warmer, dunkler Verlauf als Platzhalter.
+// Das gewünschte Motiv steht beim Aufruf im Prop `motiv` (markiert mit TODO: BILD).
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  bild?: ImageMetadata;
+  /** Bildbeschreibung (alt-Text) bzw. gewünschtes Motiv, solange das Foto fehlt */
+  motiv: string;
+  /** Bildausschnitt, z. B. '60% 40%' */
+  position?: string;
+  /** 'normal' | 'stark' – wie dunkel der Verlauf über dem Foto ist */
+  abdunkeln?: 'normal' | 'stark';
+  id?: string;
+  class?: string;
+  ausrichtung?: 'oben' | 'mitte';
+}
+
+const { bild, motiv, position = '50% 50%', abdunkeln = 'normal', id, class: klasse } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={['foto-abschnitt', 'abschnitt', `foto-abschnitt--${abdunkeln}`, { 'foto-abschnitt--ohne-bild': !bild }, klasse]}
+>
+  {
+    bild ? (
+      <Picture
+        src={bild}
+        alt={motiv}
+        formats={['avif', 'webp']}
+        widths={[480, 800, 1200, 1600]}
+        sizes="100vw"
+        loading="lazy"
+        decoding="async"
+        class="foto-abschnitt__bild"
+        style={`object-position:${position}`}
+      />
+    ) : (
+      <div class="foto-abschnitt__platzhalter" role="img" aria-label={`Platzhalter für Foto: ${motiv}`} />
+    )
+  }
+  <div class="foto-abschnitt__verlauf" aria-hidden="true"></div>
+  <div class="foto-abschnitt__inhalt">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .foto-abschnitt {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--dunkel);
+  }
+  .foto-abschnitt :global(.foto-abschnitt__bild),
+  .foto-abschnitt__platzhalter,
+  .foto-abschnitt__verlauf {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+  .foto-abschnitt :global(.foto-abschnitt__bild) {
+    object-fit: cover;
+  }
+  .foto-abschnitt :global(picture) {
+    display: contents;
+  }
+
+  /* Platzhalter: dunkel und warm, damit es nicht nach leerer Fläche aussieht */
+  .foto-abschnitt__platzhalter {
+    background:
+      radial-gradient(ellipse 70% 55% at 78% 22%, rgba(255, 170, 70, 0.16), transparent 70%),
+      radial-gradient(ellipse 60% 50% at 10% 90%, rgba(61, 88, 117, 0.5), transparent 70%),
+      linear-gradient(160deg, #1b2a3b 0%, var(--dunkel) 45%, var(--dunkel-tief) 100%);
+  }
+  .foto-abschnitt__platzhalter::after {
+    /* leichtes Korn wie bei einem Foto */
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .foto-abschnitt__verlauf {
+    z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(20, 32, 46, 0.92) 0%, rgba(20, 32, 46, 0.55) 35%, rgba(20, 32, 46, 0.7) 70%, rgba(20, 32, 46, 0.96) 100%);
+  }
+  .foto-abschnitt--stark .foto-abschnitt__verlauf {
+    background: linear-gradient(180deg, rgba(20, 32, 46, 0.94), rgba(20, 32, 46, 0.86) 50%, rgba(20, 32, 46, 0.96));
+  }
+  .foto-abschnitt--ohne-bild .foto-abschnitt__verlauf {
+    background: linear-gradient(180deg, rgba(20, 32, 46, 0.35), transparent 30%, transparent 70%, rgba(20, 32, 46, 0.5));
+  }
+  @media (min-width: 900px) {
+    .foto-abschnitt__verlauf {
+      background:
+        linear-gradient(90deg, rgba(20, 32, 46, 0.94) 0%, rgba(20, 32, 46, 0.72) 50%, rgba(20, 32, 46, 0.45) 100%),
+        linear-gradient(180deg, rgba(20, 32, 46, 0.6) 0%, transparent 25%, transparent 75%, rgba(20, 32, 46, 0.85) 100%);
+    }
+  }
+  .foto-abschnitt__inhalt {
+    position: relative;
+  }
+</style>

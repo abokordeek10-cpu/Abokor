@@ -1,0 +1,86 @@
+---
+import Icon from './Icon.astro';
+import { BAUSTEINE } from '../inhalte';
+
+interface Props {
+  kompakt?: boolean;
+}
+const { kompakt = false } = Astro.props;
+---
+
+<ol class:list={['weg', { 'weg--kompakt': kompakt }]}>
+  {
+    BAUSTEINE.map((b, i) => (
+      <li class="weg__schritt" data-reveal style={`--delay:${i * 0.08}s`}>
+        <span class="weg__punkt" aria-hidden="true">
+          <Icon name={b.icon} />
+        </span>
+        <div>
+          <span class="weg__nummer">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="weg__titel">{b.titel}</h3>
+          <p class="weg__text">{b.kurz}</p>
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .weg {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: grid;
+    gap: 6px;
+  }
+  /* durchgehende Linie von „Anfrage“ bis „Bewertung“ */
+  .weg::before {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 24px;
+    bottom: 24px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gelb), rgba(255, 200, 61, 0.25));
+  }
+  .weg__schritt {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 18px;
+    padding: 10px 0 14px;
+    position: relative;
+  }
+  .weg__punkt {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--dunkel);
+    border: 2px solid var(--gelb);
+    color: var(--gelb);
+    display: grid;
+    place-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .weg__punkt :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .weg__nummer {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--gelb);
+  }
+  .weg__titel {
+    margin: 2px 0 4px;
+    font-size: 1.3rem;
+  }
+  .weg__text {
+    margin: 0;
+    color: var(--text-gedaempft);
+    font-size: 0.98rem;
+    max-width: 30rem;
+  }
+</style>

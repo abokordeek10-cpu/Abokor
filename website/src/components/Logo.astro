@@ -1,0 +1,42 @@
+---
+interface Props {
+  dunkel?: boolean;
+}
+const { dunkel = false } = Astro.props;
+---
+
+<span class:list={['logo', { 'logo--dunkel': dunkel }]}>
+  <span class="logo__icon" aria-hidden="true">A</span>
+  <span class="logo__text">Abora<span class="logo__zusatz"> Automation</span></span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.03em;
+    color: var(--text-hell);
+  }
+  .logo--dunkel {
+    color: var(--text);
+  }
+  .logo__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: var(--gelb);
+    color: var(--dunkel);
+    display: grid;
+    place-items: center;
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+  .logo__zusatz {
+    font-weight: 500;
+    opacity: 0.75;
+  }
+</style>

@@ -1,0 +1,288 @@
+---
+// Animierter Beispiel-Chat. Deutlich als Beispiel gekennzeichnet.
+// Der Betrieb siezt seine Kundin, wie im echten Handwerksalltag üblich.
+const nachrichten = [
+  { von: 'kunde', text: 'Hallo, mein Wasserhahn tropft. In der Küche, seit gestern. Können Sie vorbeikommen?', zeit: '18:42' },
+  { von: 'ki', text: 'Guten Abend! Danke für Ihre Nachricht. In welchem Ort wohnen Sie? Und schicken Sie gern ein Foto vom Wasserhahn.', zeit: '18:42' },
+  { von: 'kunde', foto: true, text: 'Mannheim-Neckarau. Hier das Foto.', zeit: '18:44' },
+  { von: 'ki', text: 'Danke, das sieht nach einer schnellen Reparatur aus. Passt Ihnen Donnerstag um 8:00 Uhr oder Freitag um 14:00 Uhr?', zeit: '18:44' },
+  { von: 'kunde', text: 'Donnerstag 8 Uhr passt!', zeit: '18:45' },
+  { von: 'ki', text: 'Ist eingetragen ✓ Sie bekommen am Mittwoch eine kurze Erinnerung. Bis Donnerstag!', zeit: '18:45' },
+];
+---
+
+<figure class="chat" data-chat>
+  <figcaption class="chat__beispiel">
+    <span class="hinweis-beispiel">Beispiel</span>
+    <span>So könnte ein Chat mit deiner KI aussehen. Du warst dabei auf der Baustelle.</span>
+  </figcaption>
+
+  <div class="chat__handy">
+    <div class="chat__kopf">
+      <span class="chat__avatar" aria-hidden="true">M</span>
+      <div>
+        <strong>Müller Sanitär</strong>
+        <span class="chat__status">antwortet sofort</span>
+      </div>
+    </div>
+
+    <ol class="chat__verlauf" aria-label="Beispiel-Chat zwischen einer Kundin und der KI eines Sanitärbetriebs">
+      {
+        nachrichten.map((n) => (
+          <li class:list={['blase', `blase--${n.von}`]}>
+            <span class="sr-only">{n.von === 'kunde' ? 'Kundin:' : 'KI des Betriebs:'}</span>
+            {n.foto && (
+              <span class="blase__foto" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <circle cx="9" cy="10" r="2" />
+                  <path d="m21 16-5-5-8 8" />
+                </svg>
+                Foto
+              </span>
+            )}
+            <span>{n.text}</span>
+            <span class="blase__zeit" aria-hidden="true">
+              {n.zeit}
+              {n.von === 'ki' && ' ✓✓'}
+            </span>
+          </li>
+        ))
+      }
+      <li class="tippt" aria-hidden="true"><span></span><span></span><span></span></li>
+    </ol>
+  </div>
+  <button type="button" class="chat__nochmal" data-chat-nochmal hidden>Nochmal abspielen</button>
+</figure>
+
+<script>
+  const chat = document.querySelector<HTMLElement>('[data-chat]');
+  const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (chat && !ruhig) {
+    const blasen = Array.from(chat.querySelectorAll<HTMLElement>('.blase'));
+    const tippt = chat.querySelector<HTMLElement>('.tippt')!;
+    const verlauf = chat.querySelector<HTMLElement>('.chat__verlauf')!;
+    const knopf = chat.querySelector<HTMLButtonElement>('[data-chat-nochmal]')!;
+    let timer: number[] = [];
+
+    chat.classList.add('animiert');
+
+    const zeigen = (el: HTMLElement) => {
+      el.classList.add('da');
+      verlauf.scrollTo({ top: verlauf.scrollHeight, behavior: 'smooth' });
+    };
+
+    const abspielen = () => {
+      timer.forEach(clearTimeout);
+      timer = [];
+      knopf.hidden = true;
+      blasen.forEach((b) => b.classList.remove('da'));
+      verlauf.scrollTop = 0;
+      let t = 400;
+      blasen.forEach((b) => {
+        const istKi = b.classList.contains('blase--ki');
+        if (istKi) {
+          timer.push(window.setTimeout(() => { verlauf.appendChild(tippt); zeigen(tippt); }, t));
+          t += 1300;
+          timer.push(window.setTimeout(() => tippt.classList.remove('da'), t));
+        }
+        timer.push(window.setTimeout(() => { verlauf.insertBefore(b, tippt); zeigen(b); }, t));
+        t += istKi ? 1500 : 1700;
+      });
+      timer.push(window.setTimeout(() => (knopf.hidden = false), t));
+    };
+
+    knopf.addEventListener('click', abspielen);
+
+    const beobachter = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          abspielen();
+          beobachter.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+    beobachter.observe(chat);
+  }
+</script>
+
+<style>
+  .chat {
+    margin: 0;
+    display: grid;
+    gap: 16px;
+    justify-items: center;
+  }
+  .chat__beispiel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 12px;
+    font-size: 0.9rem;
+    color: var(--text-gedaempft);
+    text-align: center;
+    max-width: 380px;
+  }
+  .chat__handy {
+    width: 100%;
+    max-width: 380px;
+    border-radius: 30px;
+    background: #0b141a;
+    border: 8px solid #05090c;
+    box-shadow: var(--schatten), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+  .chat__kopf {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #1f2c34;
+    color: #e9edef;
+    line-height: 1.25;
+  }
+  .chat__kopf strong {
+    display: block;
+    font-size: 0.98rem;
+  }
+  .chat__status {
+    font-size: 0.78rem;
+    color: #8696a0;
+  }
+  .chat__avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--blaugrau);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+  }
+  .chat__verlauf {
+    list-style: none;
+    margin: 0;
+    padding: 16px 12px 20px;
+    height: 430px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.03), transparent 40%),
+      #0b141a;
+    scrollbar-width: none;
+  }
+  .chat:not(.animiert) .chat__verlauf {
+    height: auto;
+  }
+  .chat__verlauf::-webkit-scrollbar {
+    display: none;
+  }
+  .blase {
+    max-width: 84%;
+    padding: 8px 10px 6px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    line-height: 1.38;
+    color: #e9edef;
+    display: grid;
+    gap: 4px;
+  }
+  .blase--kunde {
+    align-self: flex-start;
+    background: #202c33;
+    border-top-left-radius: 2px;
+  }
+  .blase--ki {
+    align-self: flex-end;
+    background: #005c4b;
+    border-top-right-radius: 2px;
+  }
+  .blase__zeit {
+    justify-self: end;
+    font-size: 0.68rem;
+    color: rgba(233, 237, 239, 0.6);
+  }
+  .blase__foto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 110px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #3d5875, #22323f);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+  }
+  .blase__foto svg {
+    width: 26px;
+    height: 26px;
+  }
+  .tippt {
+    display: none;
+  }
+  .chat.animiert .tippt {
+    display: flex;
+    align-self: flex-end;
+    gap: 4px;
+    padding: 12px 14px;
+    background: #005c4b;
+    border-radius: 10px;
+    border-top-right-radius: 2px;
+  }
+  .chat.animiert .tippt:not(.da) {
+    display: none;
+  }
+  .tippt span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(233, 237, 239, 0.75);
+    animation: tippen 1s infinite ease-in-out;
+  }
+  .tippt span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .tippt span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  @keyframes tippen {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    30% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+  .chat.animiert .blase {
+    display: none;
+  }
+  .chat.animiert .blase.da {
+    display: grid;
+    animation: rein 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @keyframes rein {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.97);
+    }
+  }
+  .chat__nochmal {
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-hell);
+    background: none;
+    border: 0;
+    border-bottom: 2px solid var(--gelb);
+    padding: 4px 0;
+    cursor: pointer;
+  }
+</style>

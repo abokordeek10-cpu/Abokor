@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import Kopfzeile from '../components/Kopfzeile.astro';
+import Fusszeile from '../components/Fusszeile.astro';
+import MobilLeiste from '../components/MobilLeiste.astro';
+import { FIRMA, KONTAKT } from '../config';
+
+interface Props {
+  titel: string;
+  beschreibung: string;
+  /** Feste Button-Leiste auf dem Handy ausblenden (z. B. auf /kontakt) */
+  ohneLeiste?: boolean;
+  ogBild?: string;
+  /** Kopfzeile von Anfang an mit Hintergrund (für Seiten mit hellem Einstieg) */
+  artikel?: boolean;
+}
+
+const { titel, beschreibung, ohneLeiste = false, ogBild = '/og-bild.jpg', artikel = false } = Astro.props;
+const seitenTitel = Astro.url.pathname === '/' ? `${FIRMA.name} – ${FIRMA.slogan}` : `${titel} | ${FIRMA.name}`;
+const kanonisch = new URL(Astro.url.pathname, FIRMA.url).href;
+const ogUrl = new URL(ogBild, FIRMA.url).href;
+
+// Strukturierte Daten für Google. TODO: KONTAKT – Adresse/Telefon in src/config.ts ergänzen.
+const strukturierteDaten = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: FIRMA.name,
+  url: FIRMA.url,
+  slogan: FIRMA.slogan,
+  description:
+    'Automatisierung für Handwerksbetriebe: Anfragen beantworten und vorsortieren, Termine buchen, Angebote vorbereiten und nachfassen, Bewertungen einholen.',
+  image: ogUrl,
+  email: KONTAKT.email,
+  telephone: KONTAKT.telefon,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: KONTAKT.strasse,
+    postalCode: KONTAKT.plz,
+    addressLocality: KONTAKT.ort,
+    addressCountry: 'DE',
+  },
+  areaServed: { '@type': 'Country', name: 'Deutschland' },
+};
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{seitenTitel}</title>
+    <meta name="description" content={beschreibung} />
+    <link rel="canonical" href={kanonisch} />
+    <meta name="theme-color" content="#14202E" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content={FIRMA.name} />
+    <meta property="og:title" content={seitenTitel} />
+    <meta property="og:description" content={beschreibung} />
+    <meta property="og:url" content={kanonisch} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(strukturierteDaten)} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body class:list={[{ 'ohne-leiste': ohneLeiste }]}>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <Kopfzeile artikel={artikel} />
+    <main id="inhalt">
+      <slot />
+    </main>
+    <Fusszeile />
+    {!ohneLeiste && <MobilLeiste />}
+
+    <script>
+      import '../scripts/basis.js';
+    </script>
+  </body>
+</html>

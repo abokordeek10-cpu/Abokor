@@ -1,0 +1,102 @@
+---
+import Logo from './Logo.astro';
+import { NAVIGATION, FIRMA, CTA_LINK, CTA_TEXT } from '../config';
+const jahr = new Date().getFullYear();
+---
+
+<footer class="fusszeile">
+  <div class="container">
+    <div class="fusszeile__oben">
+      <div class="fusszeile__marke">
+        <a href="/" aria-label="Abora Automation – zur Startseite" style="text-decoration:none"><Logo /></a>
+        <p class="fusszeile__slogan">{FIRMA.slogan}</p>
+        <p class="fusszeile__ort">Automatisierung für Handwerksbetriebe aus Mannheim.</p>
+      </div>
+      <nav aria-label="Seiten">
+        <h2 class="fusszeile__titel">Seiten</h2>
+        <ul>
+          {NAVIGATION.map((p) => <li><a href={p.href}>{p.text}</a></li>)}
+          <li><a href={CTA_LINK}>{CTA_TEXT}</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Rechtliches">
+        <h2 class="fusszeile__titel">Rechtliches</h2>
+        <ul>
+          <li><a href="/impressum">Impressum</a></li>
+          <li><a href="/datenschutz">Datenschutz</a></li>
+        </ul>
+        <p class="fusszeile__klein">Keine Cookies. Kein Tracking.</p>
+      </nav>
+    </div>
+    <div class="fusszeile__unten">
+      <span>© {jahr} {FIRMA.name}</span>
+      <span>{FIRMA.domain}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .fusszeile {
+    background: var(--dunkel-tief);
+    padding: 64px 0 28px;
+    font-size: 0.95rem;
+    border-top: 1px solid var(--linie-dunkel);
+  }
+  .fusszeile__oben {
+    display: grid;
+    gap: 40px;
+  }
+  @media (min-width: 800px) {
+    .fusszeile__oben {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+  .fusszeile__slogan {
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    margin: 20px 0 6px;
+    max-width: 20rem;
+    line-height: 1.25;
+  }
+  .fusszeile__ort,
+  .fusszeile__klein {
+    color: var(--text-gedaempft);
+  }
+  .fusszeile__klein {
+    font-size: 0.85rem;
+    margin-top: 16px;
+  }
+  .fusszeile__titel {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gelb);
+    margin-bottom: 14px;
+  }
+  .fusszeile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .fusszeile li a {
+    display: inline-block;
+    padding: 6px 0;
+    color: var(--text-gedaempft);
+    text-decoration: none;
+  }
+  .fusszeile li a:hover {
+    color: var(--text-hell);
+  }
+  .fusszeile__unten {
+    margin-top: 48px;
+    padding-top: 22px;
+    border-top: 1px solid var(--linie-dunkel);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--text-gedaempft);
+    font-size: 0.85rem;
+  }
+</style>

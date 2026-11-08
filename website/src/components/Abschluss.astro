@@ -1,0 +1,49 @@
+---
+// Abschluss jeder Seite: Slogan + Button, mit Hintergrundfoto.
+import FotoAbschnitt from './FotoAbschnitt.astro';
+import Icon from './Icon.astro';
+import einstiegBild from '../../bilder/einstieg.jpg';
+import { CTA_LINK, CTA_TEXT } from '../config';
+
+interface Props {
+  titel?: string;
+  text?: string;
+}
+const {
+  titel = 'Du machst das Handwerk. <span class="gelb">Wir machen den Rest.</span>',
+  text = 'Erzähl uns in einem kurzen Gespräch, was dich im Büro am meisten Zeit kostet. Wir sagen dir ehrlich, was sich bei dir automatisieren lässt.',
+} = Astro.props;
+---
+
+<FotoAbschnitt
+  bild={einstiegBild}
+  motiv="Handwerkerhände mit Hammer und Nagel in einer dunklen Werkstatt"
+  position="40% 55%"
+  class="abschluss"
+>
+  <div class="container abschluss__inhalt" data-reveal>
+    <h2 set:html={titel} />
+    <p class="einleitung">{text}</p>
+    <a href={CTA_LINK} class="btn btn--gelb btn--gross btn--block-mobil">
+      {CTA_TEXT}
+      <Icon name="pfeil" />
+    </a>
+  </div>
+</FotoAbschnitt>
+
+<style>
+  .abschluss__inhalt {
+    max-width: var(--max);
+  }
+  .abschluss__inhalt h2 {
+    font-size: clamp(2.3rem, 7vw, 4.6rem);
+    max-width: 12em;
+  }
+  .abschluss__inhalt .einleitung {
+    margin-bottom: 30px;
+    color: #d4dae1;
+  }
+  :global(.abschluss) {
+    padding-block: clamp(96px, 14vw, 180px) !important;
+  }
+</style>

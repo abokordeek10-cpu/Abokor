@@ -1,0 +1,100 @@
+---
+// Einstieg für Unterseiten: dunkler Bereich mit Foto oder warmem Platzhalter.
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  dachzeile: string;
+  titel: string;
+  text?: string;
+  bild?: ImageMetadata;
+  /** alt-Text bzw. gewünschtes Motiv (TODO: BILD, solange das Foto fehlt) */
+  motiv: string;
+  position?: string;
+}
+const { dachzeile, titel, text, bild, motiv, position = '50% 50%' } = Astro.props;
+---
+
+<section class:list={['seitenkopf', { 'seitenkopf--ohne-bild': !bild }]}>
+  {
+    bild ? (
+      <Picture
+        src={bild}
+        alt={motiv}
+        formats={['avif', 'webp']}
+        widths={[480, 800, 1200, 1600]}
+        sizes="100vw"
+        loading="eager"
+        class="seitenkopf__bild"
+        style={`object-position:${position}`}
+      />
+    ) : (
+      <div class="seitenkopf__platzhalter" role="img" aria-label={`Platzhalter für Foto: ${motiv}`} />
+    )
+  }
+  <div class="container seitenkopf__inhalt">
+    <p class="dachzeile">{dachzeile}</p>
+    <h1 set:html={titel} />
+    {text && <p class="einleitung">{text}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .seitenkopf {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--dunkel);
+    padding: 130px 0 clamp(56px, 8vw, 96px);
+  }
+  @media (min-width: 900px) {
+    .seitenkopf {
+      padding-top: 170px;
+    }
+  }
+  .seitenkopf :global(picture) {
+    display: contents;
+  }
+  .seitenkopf :global(.seitenkopf__bild),
+  .seitenkopf__platzhalter {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+  }
+  .seitenkopf::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(20, 32, 46, 0.8), rgba(20, 32, 46, 0.7) 50%, #14202e);
+  }
+  @media (min-width: 900px) {
+    .seitenkopf::after {
+      background: linear-gradient(90deg, rgba(20, 32, 46, 0.95) 0%, rgba(20, 32, 46, 0.7) 60%, rgba(20, 32, 46, 0.45)),
+        linear-gradient(180deg, transparent 70%, #14202e);
+    }
+  }
+  .seitenkopf--ohne-bild::after {
+    background: linear-gradient(180deg, transparent 60%, rgba(20, 32, 46, 0.6));
+  }
+  .seitenkopf__platzhalter {
+    background:
+      radial-gradient(ellipse 60% 70% at 85% 15%, rgba(255, 170, 70, 0.16), transparent 70%),
+      radial-gradient(ellipse 50% 60% at 0% 100%, rgba(61, 88, 117, 0.55), transparent 70%),
+      linear-gradient(160deg, #1b2a3b, var(--dunkel) 55%, var(--dunkel-tief));
+  }
+  .seitenkopf h1 {
+    font-size: clamp(2.3rem, 7vw, 4.4rem);
+    max-width: 15em;
+  }
+  .seitenkopf .einleitung {
+    color: #d4dae1;
+  }
+  .seitenkopf h1 :global(.gelb) {
+    color: var(--gelb);
+  }
+</style>

@@ -1,0 +1,309 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Seitenkopf from '../components/Seitenkopf.astro';
+import FAQ from '../components/FAQ.astro';
+import Abschluss from '../components/Abschluss.astro';
+import Icon from '../components/Icon.astro';
+import { PREISE, CTA_LINK, CTA_TEXT } from '../config';
+
+// TODO: PREIS – Beträge stehen zentral in src/config.ts (PREISE).
+const pakete = [
+  {
+    name: 'Start',
+    fuer: 'Für den Einstieg',
+    text: 'Die 1–2 Bausteine, die in deinem Betrieb am meisten bringen. Welche das sind, finden wir im Erstgespräch heraus.',
+    preis: PREISE.start,
+    enthalten: [
+      '1–2 Bausteine nach Wahl',
+      'Anbindung an Telefon, E-Mail, WhatsApp und Kalender (je nach Baustein)',
+      'Testphase und Einweisung',
+      'Laufende Betreuung und Support',
+      'Server- und KI-Kosten inklusive',
+      'Monatlicher Kurzbericht',
+    ],
+    hervorgehoben: false,
+  },
+  {
+    name: 'Komplett',
+    fuer: 'Für den ganzen Weg',
+    text: 'Alle 6 Bausteine, von der ersten Anfrage bis zur Bewertung. Für Betriebe, die das Büro so weit wie möglich loswerden wollen.',
+    preis: PREISE.komplett,
+    enthalten: [
+      'Alle 6 Bausteine',
+      'Anbindung an Telefon, E-Mail, WhatsApp und Kalender',
+      'Testphase und Einweisung für dich und dein Team',
+      'Laufende Betreuung und Support',
+      'Server- und KI-Kosten inklusive',
+      'Monatlicher Kurzbericht',
+    ],
+    hervorgehoben: true,
+  },
+];
+
+const fragen = [
+  {
+    frage: 'Warum einmal Aufbau und dann monatlich?',
+    antwort:
+      '<p>Der Aufbau ist die eigentliche Arbeit: Wir richten alles für deinen Betrieb ein und testen es. Danach muss es laufen, überwacht und gelegentlich angepasst werden. Außerdem fallen jeden Monat Kosten für Server und KI an. Die sind in der monatlichen Betreuung schon drin.</p>',
+  },
+  {
+    frage: 'Gibt es versteckte Kosten?',
+    antwort:
+      '<p>Nein. Server- und KI-Kosten sind in der Betreuung enthalten. Wenn du später zusätzliche Bausteine willst, bekommst du vorher einen festen Preis.</p>',
+  },
+  {
+    frage: 'Kann ich mit „Start“ anfangen und später erweitern?',
+    antwort:
+      '<p>Ja, genau dafür ist das Paket gedacht. Viele fangen mit dem Baustein an, der am meisten nervt, und nehmen später weitere dazu.</p>',
+  },
+  {
+    frage: 'Wie lange läuft der Vertrag?',
+    // TODO: KÜNDIGUNG – Laufzeit und Kündigungsfrist festlegen.
+    antwort: '<p><span class="platzhalter">[Laufzeit und Kündigungsfrist ergänzen]</span></p>',
+  },
+  {
+    frage: 'Lohnt sich das für meinen kleinen Betrieb?',
+    antwort:
+      '<p>Rechne es dir mit unserem <a href="/#rechner">Rechner auf der Startseite</a> mit deinen eigenen Zahlen aus. Im Erstgespräch sagen wir dir ehrlich, ob es sich für dich lohnt, auch wenn die Antwort „noch nicht“ ist.</p>',
+  },
+];
+---
+
+<Basis
+  titel="Preise"
+  beschreibung="Preise von Abora Automation: einmaliger Aufbau plus monatliche Betreuung. Pakete Start und Komplett für Handwerksbetriebe, Server- und KI-Kosten inklusive."
+>
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <Seitenkopf
+    dachzeile="Preise"
+    titel='Einmal aufbauen. <span class="gelb">Dauerhaft entlastet.</span>'
+    text="Du zahlst einmal für den Aufbau und danach einen festen Betrag im Monat. Server, KI, Betreuung und Anpassungen sind drin."
+    motiv="Werkbank mit Taschenrechner, Bleistift und Zollstock auf einem ausgedruckten Angebot, warmes Licht"
+  />
+
+  <section class="abschnitt abschnitt--hell">
+    <div class="container">
+      <div class="modell" data-reveal>
+        <div class="modell__teil">
+          <span class="modell__icon"><Icon name="werkzeug" /></span>
+          <div>
+            <h2 class="modell__titel">Aufbau <small>einmalig</small></h2>
+            <p>Analyse im Erstgespräch, Einrichtung der Automatisierungen, Anbindung an Telefon, E-Mail, WhatsApp und Kalender, Testphase, Einweisung.</p>
+          </div>
+        </div>
+        <span class="modell__plus" aria-hidden="true">+</span>
+        <div class="modell__teil">
+          <span class="modell__icon"><Icon name="schild" /></span>
+          <div>
+            <h2 class="modell__titel">Betreuung <small>monatlich</small></h2>
+            <p>Laufender Betrieb und Überwachung, Anpassungen, Support, Server- und KI-Kosten, monatlicher Kurzbericht.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pakete">
+        {
+          pakete.map((p, i) => (
+            <article class:list={['paket', { 'paket--hervor': p.hervorgehoben }]} data-reveal style={`--delay:${i * 0.1}s`}>
+              <p class="paket__fuer">{p.fuer}</p>
+              <h3 class="paket__name">{p.name}</h3>
+              <p class="paket__text">{p.text}</p>
+              <div class="paket__preis">
+                {/* TODO: PREIS */}
+                <p class="platzhalter">{p.preis.aufbau}</p>
+                <p class="platzhalter">{p.preis.monat}</p>
+              </div>
+              <ul>
+                {p.enthalten.map((e) => (
+                  <li>
+                    <Icon name="haken" />
+                    {e}
+                  </li>
+                ))}
+              </ul>
+              <a href={CTA_LINK} class:list={['btn', p.hervorgehoben ? 'btn--gelb' : 'btn--rahmen']}>
+                {CTA_TEXT}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+      {/* TODO: PREIS – Hinweis zu MwSt. bzw. Kleinunternehmerregelung */}
+      <p class="preis-hinweis"><span class="platzhalter">{PREISE.hinweis}</span></p>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--hell abschnitt--faq">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Fragen zu Kosten</p>
+        <h2>Was du über die Preise wissen willst</h2>
+      </div>
+      <FAQ fragen={fragen} />
+    </div>
+  </section>
+
+  <Abschluss
+    titel='Was kostet es <span class="gelb">bei dir</span>?'
+    text="Im kostenlosen Erstgespräch schauen wir, welche Bausteine sich für deinen Betrieb lohnen. Danach bekommst du einen festen Preis."
+  />
+</Basis>
+
+<style>
+  .modell {
+    display: grid;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: clamp(40px, 6vw, 72px);
+  }
+  @media (min-width: 900px) {
+    .modell {
+      grid-template-columns: 1fr auto 1fr;
+      gap: 24px;
+    }
+  }
+  .modell__teil {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid var(--linie-hell);
+    border-radius: var(--radius-gross);
+    padding: 24px;
+    height: 100%;
+  }
+  .modell__teil p {
+    margin: 0;
+    color: var(--text-gedaempft-hell);
+  }
+  .modell__icon {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--dunkel);
+    color: var(--gelb);
+    display: grid;
+    place-items: center;
+  }
+  .modell__icon :global(svg) {
+    width: 26px;
+    height: 26px;
+  }
+  .modell__titel {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+  .modell__titel small {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blaugrau);
+    margin-left: 6px;
+  }
+  .modell__plus {
+    justify-self: center;
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--blaugrau);
+  }
+
+  .pakete {
+    display: grid;
+    gap: 18px;
+  }
+  @media (min-width: 860px) {
+    .pakete {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+  .paket {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #fff;
+    border: 1px solid var(--linie-hell);
+    border-radius: var(--radius-gross);
+    padding: 30px 24px;
+  }
+  .paket--hervor {
+    background: var(--dunkel);
+    color: var(--text-hell);
+    border: 2px solid var(--gelb);
+  }
+  .paket__fuer {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blaugrau);
+  }
+  .paket--hervor .paket__fuer {
+    color: var(--gelb);
+  }
+  .paket__name {
+    font-size: 2.4rem;
+    margin: 0;
+    letter-spacing: -0.04em;
+  }
+  .paket__text {
+    margin: 0;
+    color: var(--text-gedaempft-hell);
+  }
+  .paket--hervor .paket__text {
+    color: var(--text-gedaempft);
+  }
+  .paket__preis {
+    display: grid;
+    gap: 8px;
+    justify-items: start;
+    padding: 16px 0;
+    border-block: 1px solid var(--linie-hell);
+  }
+  .paket--hervor .paket__preis {
+    border-color: var(--linie-dunkel);
+  }
+  .paket__preis p {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .paket ul {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+    flex: 1;
+  }
+  .paket li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .paket li :global(svg) {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    color: var(--blaugrau);
+  }
+  .paket--hervor li :global(svg) {
+    color: var(--gelb);
+  }
+  .paket--hervor .btn--rahmen {
+    color: var(--text-hell);
+  }
+  .preis-hinweis {
+    margin: 24px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-gedaempft-hell);
+  }
+  .abschnitt--faq {
+    padding-top: 0;
+  }
+</style>

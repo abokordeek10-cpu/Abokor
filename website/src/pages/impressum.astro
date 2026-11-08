@@ -1,0 +1,57 @@
+---
+import Basis from '../layouts/Basis.astro';
+---
+
+<Basis titel="Impressum" beschreibung="Impressum von Abora Automation, Mannheim." artikel>
+  <section class="abschnitt abschnitt--hell recht">
+    <div class="container">
+      <div class="fliesstext">
+        <!-- TODO: RECHTLICH – Impressum vollständig ausfüllen (z. B. mit einem Impressum-Generator oder durch einen Anwalt prüfen lassen). -->
+        <p class="hinweis-beispiel">Platzhalter – wird noch ausgefüllt</p>
+        <h1>Impressum</h1>
+
+        <h2>Angaben gemäß § 5 DDG</h2>
+        <p>
+          <span class="platzhalter">[Vollständiger Name bzw. Firmenname mit Rechtsform]</span><br />
+          Abora Automation<br />
+          <span class="platzhalter">[Straße und Hausnummer]</span><br />
+          <span class="platzhalter">[PLZ]</span> Mannheim
+        </p>
+
+        <h2>Vertreten durch</h2>
+        <p><span class="platzhalter">[Name des Inhabers / Geschäftsführers]</span></p>
+
+        <h2>Kontakt</h2>
+        <p>
+          Telefon: <span class="platzhalter">[Telefonnummer]</span><br />
+          E-Mail: <span class="platzhalter">[E-Mail-Adresse]</span>
+        </p>
+
+        <h2>Registereintrag</h2>
+        <p><span class="platzhalter">[Falls vorhanden: Registergericht und Registernummer]</span></p>
+
+        <h2>Umsatzsteuer-ID</h2>
+        <p><span class="platzhalter">[Falls vorhanden: Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG]</span></p>
+
+        <h2>Verantwortlich für den Inhalt</h2>
+        <p><span class="platzhalter">[Name und Anschrift der verantwortlichen Person]</span></p>
+
+        <h2>Verbraucherstreitbeilegung</h2>
+        <p><span class="platzhalter">[Hinweis zur Teilnahme an Streitbeilegungsverfahren – vom Generator/Anwalt übernehmen]</span></p>
+
+        <h2>Haftung für Inhalte und Links</h2>
+        <p><span class="platzhalter">[Optionaler Haftungshinweis – vom Generator/Anwalt übernehmen]</span></p>
+      </div>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  .recht {
+    padding-top: 140px;
+  }
+  .recht h1 {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    margin-top: 16px;
+  }
+</style>

@@ -1,0 +1,41 @@
+---
+import { CTA_LINK, CTA_TEXT } from '../config';
+import Icon from './Icon.astro';
+---
+
+<div class="mobil-leiste">
+  <a href={CTA_LINK} class="btn btn--gelb mobil-leiste__btn">
+    {CTA_TEXT}
+    <Icon name="pfeil" />
+  </a>
+</div>
+
+<style>
+  .mobil-leiste {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 90;
+    padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
+    background: rgba(13, 22, 32, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--linie-dunkel);
+    transition: transform 0.3s ease, visibility 0.3s;
+  }
+  .mobil-leiste:global(.versteckt) {
+    transform: translateY(110%);
+    visibility: hidden;
+  }
+  .mobil-leiste__btn {
+    width: 100%;
+    min-height: 56px;
+  }
+  @media (min-width: 900px) {
+    .mobil-leiste {
+      display: none;
+    }
+  }
+  :global(.menue-offen) .mobil-leiste {
+    display: none;
+  }
+</style>

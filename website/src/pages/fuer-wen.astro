@@ -1,0 +1,176 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Seitenkopf from '../components/Seitenkopf.astro';
+import Abschluss from '../components/Abschluss.astro';
+import Icon from '../components/Icon.astro';
+
+const gewerke = [
+  {
+    icon: 'tropfen',
+    name: 'Sanitär, Heizung, Klima',
+    problem: 'Im Winter fällt die Heizung aus, und alle rufen gleichzeitig an. Notfall und „Bad irgendwann mal neu“ landen im selben Stapel.',
+    hilfe: 'Notfälle werden sofort erkannt und nach oben sortiert, Badanfragen bekommen Fotos und Maße mitgeliefert.',
+  },
+  {
+    icon: 'blitz',
+    name: 'Elektro',
+    problem: 'Kunden fragen nach Wallbox, Photovoltaik oder Altbausanierung. Jede Anfrage braucht erst mal fünf Rückfragen, bevor du was sagen kannst.',
+    hilfe: 'Die Rückfragen stellt die KI: Baujahr, Zählerschrank, Fotos. Du siehst gleich, worum es geht.',
+  },
+  {
+    icon: 'dach',
+    name: 'Dachdecker',
+    problem: 'Nach dem Sturm klingelt das Telefon ununterbrochen, und du stehst selbst auf dem Dach.',
+    hilfe: 'Jede Anfrage wird beantwortet, Fotos vom Schaden kommen direkt mit, und dringende Fälle siehst du zuerst.',
+  },
+  {
+    icon: 'pinsel',
+    name: 'Maler und Lackierer',
+    problem: 'Viele Anfragen sind kleine Aufträge oder reine Preisvergleiche. Trotzdem fährst du zu jeder Besichtigung.',
+    hilfe: 'Quadratmeter, Räume und Fotos werden vorab abgefragt. Manches Angebot geht dann ganz ohne Besichtigung raus.',
+  },
+  {
+    icon: 'saege',
+    name: 'Tischler und Schreiner',
+    problem: 'Für eine Einbauküche oder einen Schrank nach Maß schreibst du lange Angebote, und dann meldet sich keiner mehr.',
+    hilfe: 'Offene Angebote werden freundlich nachgefasst. Du erfährst, ob noch Interesse besteht, ohne selbst hinterherzutelefonieren.',
+  },
+  {
+    icon: 'blatt',
+    name: 'Garten- und Landschaftsbau',
+    problem: 'Im Frühjahr kommen alle Anfragen auf einmal. Wer nicht schnell antwortet, ist raus.',
+    hilfe: 'Jede Anfrage bekommt sofort eine Antwort und einen Besichtigungstermin, auch in der Hochsaison.',
+  },
+  {
+    icon: 'fliese',
+    name: 'Fliesenleger',
+    problem: 'Du bist den ganzen Tag auf den Knien im Bad, und Nachrichten liest du erst abends.',
+    hilfe: 'Kunden schicken Fotos und Maße vom Bad, die KI fragt nach, was fehlt. Abends liegt alles sortiert bereit.',
+  },
+  {
+    icon: 'wand',
+    name: 'Trockenbau und Innenausbau',
+    problem: 'Angebote hängen an Aufmaßen, Aufmaße hängen an Terminen, und Termine finden ist ein eigenes Projekt.',
+    hilfe: 'Kunden buchen ihren Aufmaßtermin direkt in deinem Kalender. Die Erinnerung am Vortag geht automatisch raus.',
+  },
+  {
+    icon: 'balken',
+    name: 'Zimmerei',
+    problem: 'Carport, Dachstuhl, Anbau: Große Aufträge brauchen lange, bis sie entschieden sind, und gehen dabei leicht unter.',
+    hilfe: 'Angebote werden über Wochen hinweg freundlich nachgefasst, ohne dass du daran denken musst.',
+  },
+] as const;
+---
+
+<Basis
+  titel="Für wen"
+  beschreibung="Für Handwerksbetriebe aller Gewerke: Sanitär, Heizung, Elektro, Dach, Maler, Tischler, Garten- und Landschaftsbau und mehr. Typische Probleme im Büro und wie Automatisierung hilft."
+>
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <Seitenkopf
+    dachzeile="Für wen"
+    titel='Für Betriebe, die <span class="gelb">lieber arbeiten</span> als Büro machen.'
+    text="Egal ob Bad, Dach oder Garten: Die Anfragen kommen überall gleich. Per Telefon, WhatsApp und E-Mail, meistens dann, wenn du gerade keine Hand frei hast."
+    motiv="Mehrere Werkzeuge verschiedener Gewerke auf einer Werkbank: Rohrzange, Pinsel, Wasserwaage, Hammer, warmes Seitenlicht"
+  />
+
+  <section class="abschnitt abschnitt--hell">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Gewerke</p>
+        <h2>Erkennst du deinen Alltag?</h2>
+        <p class="einleitung">Ein paar typische Situationen. Dein Gewerk ist nicht dabei? Die Bausteine passen trotzdem, sprich uns an.</p>
+      </div>
+      <div class="raster raster--3">
+        {
+          gewerke.map((g, i) => (
+            <article class="karte gewerk" data-reveal style={`--delay:${(i % 3) * 0.08}s`}>
+              <div class="icon-kreis">
+                <Icon name={g.icon} />
+              </div>
+              <h3>{g.name}</h3>
+              <p class="gewerk__problem">„{g.problem}“</p>
+              <p class="gewerk__hilfe">
+                <strong>Mit uns:</strong> {g.hilfe}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--dunkel">
+    <div class="container passt">
+      <div data-reveal>
+        <p class="dachzeile">Passt das zu dir?</p>
+        <h2>Wahrscheinlich ja, wenn …</h2>
+      </div>
+      <ul class="passt__liste" data-reveal>
+        <li><Icon name="haken" /> du tagsüber auf der Baustelle bist und das Büro abends machst</li>
+        <li><Icon name="haken" /> du Anrufe verpasst und nicht weißt, wer dran war</li>
+        <li><Icon name="haken" /> Angebote bei dir liegen bleiben, weil die Zeit fehlt</li>
+        <li><Icon name="haken" /> du keine Lust hast, dich selbst in Software einzuarbeiten</li>
+        <li><Icon name="haken" /> du einen kleinen oder mittleren Betrieb führst, mit oder ohne Bürokraft</li>
+      </ul>
+    </div>
+  </section>
+
+  <Abschluss />
+</Basis>
+
+<style>
+  .gewerk {
+    display: flex;
+    flex-direction: column;
+  }
+  .gewerk h3 {
+    margin-bottom: 12px;
+  }
+  .gewerk__problem {
+    font-style: italic;
+    color: var(--text-gedaempft-hell);
+  }
+  .gewerk__hilfe {
+    margin: auto 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--linie-hell);
+    font-size: 0.96rem;
+  }
+  .passt {
+    display: grid;
+    gap: 24px;
+  }
+  @media (min-width: 960px) {
+    .passt {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 64px;
+      align-items: center;
+    }
+  }
+  .passt__liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .passt__liste li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 1.12rem;
+    font-weight: 600;
+    padding: 16px 18px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--linie-dunkel);
+  }
+  .passt__liste :global(svg) {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--gelb);
+    margin-top: 2px;
+  }
+</style>

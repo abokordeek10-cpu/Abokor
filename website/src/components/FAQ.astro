@@ -1,0 +1,88 @@
+---
+// Häufige Fragen zum Aufklappen. <details> ist von Haus aus per Tastatur bedienbar.
+interface Props {
+  fragen: { frage: string; antwort: string }[];
+}
+const { fragen } = Astro.props;
+---
+
+<div class="faq">
+  {
+    fragen.map((f) => (
+      <details class="faq__eintrag">
+        <summary>
+          <span>{f.frage}</span>
+          <span class="faq__plus" aria-hidden="true" />
+        </summary>
+        <div class="faq__antwort" set:html={f.antwort} />
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    border-top: 1px solid var(--linie-hell);
+    max-width: 52rem;
+  }
+  .faq__eintrag {
+    border-bottom: 1px solid var(--linie-hell);
+  }
+  summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 0;
+    font-weight: 800;
+    font-size: clamp(1.08rem, 2vw, 1.25rem);
+    letter-spacing: -0.015em;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__plus {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--dunkel);
+    position: relative;
+    transition: transform 0.25s, background-color 0.25s;
+  }
+  .faq__plus::before,
+  .faq__plus::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    margin: -1px 0 0 -7px;
+    background: var(--gelb);
+    border-radius: 1px;
+  }
+  .faq__plus::after {
+    transform: rotate(90deg);
+  }
+  details[open] .faq__plus {
+    transform: rotate(45deg);
+  }
+  .faq__antwort {
+    padding: 0 0 24px;
+    max-width: 44rem;
+    color: var(--text-gedaempft-hell);
+  }
+  .faq__antwort :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .faq__antwort :global(a) {
+    color: var(--text);
+    font-weight: 700;
+    text-decoration-color: var(--gelb);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+</style>

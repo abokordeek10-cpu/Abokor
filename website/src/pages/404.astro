@@ -1,0 +1,27 @@
+---
+import Basis from '../layouts/Basis.astro';
+import { CTA_LINK, CTA_TEXT } from '../config';
+---
+
+<Basis titel="Seite nicht gefunden" beschreibung="Diese Seite gibt es nicht.">
+  <section class="abschnitt abschnitt--dunkel nicht-gefunden">
+    <div class="container">
+      <p class="dachzeile">Fehler 404</p>
+      <h1>Hier ist nichts. <span class="gelb">Noch nicht mal Staub.</span></h1>
+      <p class="einleitung">Die Seite gibt es nicht oder nicht mehr. Probier's über die Startseite.</p>
+      <p style="display:flex;flex-wrap:wrap;gap:14px;margin-top:28px">
+        <a href="/" class="btn btn--rahmen">Zur Startseite</a>
+        <a href={CTA_LINK} class="btn btn--gelb">{CTA_TEXT}</a>
+      </p>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  .nicht-gefunden {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding-top: 140px;
+  }
+</style>

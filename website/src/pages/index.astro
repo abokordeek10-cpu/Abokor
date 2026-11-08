@@ -1,0 +1,370 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Einstieg from '../components/Einstieg.astro';
+import FotoAbschnitt from '../components/FotoAbschnitt.astro';
+import BausteineWeg from '../components/BausteineWeg.astro';
+import WhatsAppChat from '../components/WhatsAppChat.astro';
+import Rechner from '../components/Rechner.astro';
+import AblaufSchritte from '../components/AblaufSchritte.astro';
+import FAQ from '../components/FAQ.astro';
+import Abschluss from '../components/Abschluss.astro';
+import Icon from '../components/Icon.astro';
+import Benachrichtigung from '../components/Benachrichtigung.astro';
+import { ABLAUF_KURZ } from '../inhalte';
+import { CTA_LINK, CTA_TEXT } from '../config';
+
+const probleme = [
+  {
+    icon: 'telefon',
+    titel: 'Anfragen bleiben liegen',
+    text: 'Du stehst auf dem Dach, das Handy klingelt. Abends hast du drei verpasste Anrufe und keine Ahnung, wer was wollte.',
+  },
+  {
+    icon: 'auto',
+    titel: 'Fahrten zu Kunden, die nicht passen',
+    text: 'Eine Stunde hin und zurück für eine Besichtigung, und dann will der Kunde nur einen Vergleichspreis.',
+  },
+  {
+    icon: 'angebot',
+    titel: 'Angebote ohne Antwort',
+    text: 'Das Angebot für die Badsanierung ist seit zwei Wochen raus. Gehört hast du nichts. Nachhaken? Keine Zeit.',
+  },
+  {
+    icon: 'mond',
+    titel: 'Büro frisst den Feierabend',
+    text: 'Rückrufe, Angebote, Rechnungen: Das Büro machst du nach Feierabend, statt bei deiner Familie zu sein.',
+  },
+] as const;
+
+const fragen = [
+  {
+    frage: 'Was kostet das?',
+    // TODO: PREIS – Antwort ergänzen, sobald die Preise feststehen.
+    antwort:
+      '<p>Du zahlst einmal für den Aufbau und danach einen festen Betrag pro Monat für Betrieb, Betreuung, Server- und KI-Kosten. Das Paket „Start“ gibt es <span class="platzhalter">ab [PREIS] € einmalig</span> und <span class="platzhalter">ab [PREIS] € / Monat</span>. Was genau bei dir sinnvoll ist, klären wir im kostenlosen Erstgespräch. <a href="/preise">Mehr zu den Preisen</a></p>',
+  },
+  {
+    frage: 'Muss ich mich mit Technik auskennen?',
+    antwort:
+      '<p>Nein. Wir richten alles ein und verbinden es mit dem, was du schon nutzt: Telefon, E-Mail, WhatsApp und Kalender. Du bekommst eine Einweisung und kannst uns jederzeit anrufen, wenn etwas nicht passt.</p>',
+  },
+  {
+    frage: 'Was passiert mit den Daten meiner Kunden?',
+    // TODO: DATENSCHUTZ – Serverstandort und eingesetzte KI-Dienste konkret benennen.
+    antwort:
+      '<p>Die Daten deiner Kunden gehören dir. Wir nutzen sie nur, um deine Anfragen zu bearbeiten, und schließen mit dir einen Vertrag zur Auftragsverarbeitung. <span class="platzhalter">[Serverstandort und eingesetzte KI-Dienste ergänzen]</span></p>',
+  },
+  {
+    frage: 'Wie lange dauert der Aufbau?',
+    // TODO: DAUER – realistische Zeitspanne eintragen.
+    antwort:
+      '<p>Das hängt davon ab, wie viele Bausteine du willst. Ein Start mit ein, zwei Bausteinen geht deutlich schneller als das Komplettpaket. Üblich sind <span class="platzhalter">[X–Y Wochen]</span>. Den genauen Zeitplan bekommst du nach dem Erstgespräch.</p>',
+  },
+  {
+    frage: 'Kann ich jederzeit kündigen?',
+    // TODO: KÜNDIGUNG – Laufzeit und Kündigungsfrist festlegen.
+    antwort:
+      '<p>Die monatliche Betreuung hat eine <span class="platzhalter">[Laufzeit / Kündigungsfrist]</span>. Wir wollen, dass du bleibst, weil es dir Arbeit abnimmt, nicht wegen eines langen Vertrags.</p>',
+  },
+];
+---
+
+<Basis
+  titel="Startseite"
+  beschreibung="Abora Automation aus Mannheim: Deine KI beantwortet Anfragen, bucht Termine und fasst Angebote nach, während du auf der Baustelle bist. Für Handwerksbetriebe aller Gewerke."
+>
+  <!-- 1. Einstieg -->
+  <Einstieg />
+
+  <!-- Reel: vorerst ausgeblendet. TODO: REEL – Video unter /public/media/abora-reel.mp4 ablegen
+       und hier <Reel /> einbinden (Hochformat, Vorschaubild, kein Autoplay mit Ton). -->
+
+  <!-- 2. Problem -->
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <FotoAbschnitt
+    id="problem"
+    motiv="Handwerker auf der Baustelle zieht das klingelnde Handy aus der Arbeitshose, Hände voller Staub, warmes Abendlicht"
+  >
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Ohne KI</p>
+        <h2>Kommt dir das bekannt vor?</h2>
+        <p class="einleitung">Du bist gut in deinem Handwerk. Aber das Büro drumherum kostet dich Aufträge und Feierabende.</p>
+      </div>
+      <div class="raster raster--4">
+        {
+          probleme.map((p, i) => (
+            <article class="karte problem" data-reveal style={`--delay:${i * 0.08}s`}>
+              <div class="icon-kreis"><Icon name={p.icon} /></div>
+              <h3>{p.titel}</h3>
+              <p>{p.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </FotoAbschnitt>
+
+  <!-- 3. Lösung -->
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <FotoAbschnitt
+    id="loesung"
+    motiv="Handy liegt auf einer offenen Werkzeugkiste, auf dem Display eine neue Nachricht, Werkstatt im Hintergrund unscharf"
+  >
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Mit KI</p>
+        <h2>Von der Anfrage bis zur Bewertung. <span class="gelb">Läuft automatisch.</span></h2>
+        <p class="einleitung">
+          Sechs Bausteine, die ineinandergreifen. Du entscheidest, wo du anfängst. Wir bauen es für dich.
+        </p>
+      </div>
+      <div class="loesung">
+        <div class="loesung__weg">
+          <BausteineWeg />
+          <a href="/leistungen" class="textlink loesung__link">Alle Bausteine im Detail</a>
+        </div>
+        <div class="loesung__chat" data-reveal>
+          <WhatsAppChat />
+        </div>
+      </div>
+    </div>
+  </FotoAbschnitt>
+
+  <!-- 4. Rechner -->
+  <section class="abschnitt abschnitt--hell" id="rechner">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Rechner</p>
+        <h2>Was kosten dich verlorene Anfragen?</h2>
+        <p class="einleitung">Drei Fragen, eine ehrliche Schätzung. Schieb die Regler auf die Zahlen aus deinem Betrieb.</p>
+      </div>
+      <div data-reveal>
+        <Rechner />
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Ablauf -->
+  <section class="abschnitt abschnitt--dunkel" id="ablauf">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">So läuft's</p>
+        <h2>In 4 Schritten zu weniger Büro</h2>
+        <p class="einleitung">Du musst nichts vorbereiten und nichts installieren. Wir kümmern uns.</p>
+      </div>
+      <AblaufSchritte schritte={ABLAUF_KURZ} />
+      <p class="mehr-link" data-reveal><a href="/ablauf" class="textlink">Genauer ansehen: So arbeiten wir</a></p>
+    </div>
+  </section>
+
+  <!-- 6. Zusammenarbeit -->
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <FotoAbschnitt
+    id="zusammenarbeit"
+    motiv="Handschlag zwischen Handwerksmeister und Kunde in einer hellen Werkstatt, nur Hände und Arbeitskleidung im Bild"
+  >
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Zusammenarbeit</p>
+        <h2>Einmal aufbauen, <span class="gelb">dauerhaft entlastet</span></h2>
+        <p class="einleitung">Kein Software-Abo, um das du dich selbst kümmern musst. Wir bauen es auf und halten es am Laufen.</p>
+      </div>
+      <div class="raster raster--2 modell">
+        <article class="karte" data-reveal>
+          <div class="icon-kreis"><Icon name="werkzeug" /></div>
+          <p class="modell__art">Einmalig</p>
+          <h3>Aufbau</h3>
+          <ul class="liste">
+            <li>Analyse im Erstgespräch</li>
+            <li>Einrichtung der Automatisierungen</li>
+            <li>Anbindung an Telefon, E-Mail, WhatsApp und Kalender</li>
+            <li>Testphase und Einweisung</li>
+          </ul>
+        </article>
+        <article class="karte" data-reveal style="--delay:.1s">
+          <div class="icon-kreis"><Icon name="schild" /></div>
+          <p class="modell__art">Monatlich</p>
+          <h3>Betreuung</h3>
+          <ul class="liste">
+            <li>Laufender Betrieb und Überwachung</li>
+            <li>Anpassungen, wenn sich bei dir etwas ändert</li>
+            <li>Support, wenn du Fragen hast</li>
+            <li>Server- und KI-Kosten inklusive</li>
+            <li>Monatlicher Kurzbericht</li>
+          </ul>
+        </article>
+      </div>
+      <p class="mehr-link" data-reveal><a href="/preise" class="textlink">Pakete und Preise ansehen</a></p>
+    </div>
+  </FotoAbschnitt>
+
+  <!-- 7. Pilotkunden-Angebot -->
+  <!-- TODO: BILD – Motiv siehe `motiv` -->
+  <FotoAbschnitt
+    id="pilot"
+    motiv="Kleiner Handwerksbetrieb von außen am frühen Morgen: Transporter mit offener Hecktür, Werkzeug, warmes Licht aus der Werkstatt"
+  >
+    <div class="container pilot">
+      <div data-reveal>
+        <p class="dachzeile">Pilotkunden gesucht</p>
+        <h2>Wir suchen die ersten Handwerksbetriebe, mit denen wir gemeinsam starten.</h2>
+        <p class="einleitung">
+          Wir sind neu und sagen das offen. Deshalb haben wir noch keine Kundenstimmen. Wir suchen ein paar Betriebe, die
+          mit uns anfangen, uns ehrlich sagen, was funktioniert, und dafür besondere Konditionen bekommen.
+        </p>
+      </div>
+      <div class="karte pilot__karte" data-reveal style="--delay:.1s">
+        <p class="pilot__label">Dein Vorteil als Pilotkunde</p>
+        <!-- TODO: PILOTANGEBOT – konkreten Vorteil eintragen (z. B. Rabatt auf den Aufbau, verlängerte Testphase) -->
+        <p class="pilot__vorteil"><span class="platzhalter">[PILOTANGEBOT: konkreter Vorteil]</span></p>
+        <ul class="liste">
+          <li>Wir nehmen uns besonders viel Zeit für deinen Betrieb</li>
+          <li>Du gestaltest mit, wie die Bausteine funktionieren</li>
+          <li>Direkter Draht zu den Leuten, die alles bauen</li>
+        </ul>
+        <a href={CTA_LINK} class="btn btn--gelb btn--block-mobil">{CTA_TEXT}</a>
+      </div>
+    </div>
+  </FotoAbschnitt>
+
+  <!-- 8. FAQ -->
+  <section class="abschnitt abschnitt--hell" id="faq">
+    <div class="container faq-raster">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Häufige Fragen</p>
+        <h2>Was du wissen willst</h2>
+        <p class="einleitung">Deine Frage ist nicht dabei? Stell sie uns im Erstgespräch.</p>
+        <div class="faq-meldung" aria-hidden="true">
+          <Benachrichtigung titel="Rückruf gewünscht" text="Frage zu Preisen – heute ab 17 Uhr" />
+        </div>
+      </div>
+      <div data-reveal>
+        <FAQ fragen={fragen} />
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Abschluss -->
+  <Abschluss />
+</Basis>
+
+<style>
+  .problem h3 {
+    margin-bottom: 10px;
+  }
+  .problem p {
+    margin: 0;
+    color: var(--text-gedaempft);
+  }
+
+  .loesung {
+    display: grid;
+    gap: 56px;
+  }
+  @media (min-width: 960px) {
+    .loesung {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .loesung__chat {
+      position: sticky;
+      top: 110px;
+    }
+  }
+  .loesung__link {
+    display: inline-block;
+    margin: 18px 0 0 66px;
+  }
+
+  .mehr-link {
+    margin: 36px 0 0;
+  }
+
+  .modell__art {
+    margin: 0 0 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gelb);
+  }
+  .liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .liste li {
+    position: relative;
+    padding-left: 30px;
+    color: #dfe3e8;
+  }
+  .liste li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.45em;
+    width: 14px;
+    height: 8px;
+    border-left: 2.5px solid var(--gelb);
+    border-bottom: 2.5px solid var(--gelb);
+    transform: rotate(-45deg);
+  }
+
+  .pilot {
+    display: grid;
+    gap: 36px;
+  }
+  @media (min-width: 960px) {
+    .pilot {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 64px;
+      align-items: center;
+    }
+  }
+  .pilot h2 {
+    font-size: clamp(1.9rem, 4.6vw, 3.1rem);
+  }
+  .pilot__karte {
+    border-color: rgba(255, 200, 61, 0.45);
+    display: grid;
+    gap: 18px;
+  }
+  .pilot__label {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gelb);
+  }
+  .pilot__vorteil {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  .faq-raster {
+    display: grid;
+    gap: 8px;
+  }
+  @media (min-width: 960px) {
+    .faq-raster {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 64px;
+      align-items: start;
+    }
+  }
+  .faq-meldung {
+    margin-top: 28px;
+    display: none;
+  }
+  @media (min-width: 960px) {
+    .faq-meldung {
+      display: block;
+    }
+  }
+</style>

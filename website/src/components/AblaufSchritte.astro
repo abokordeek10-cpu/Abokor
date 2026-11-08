@@ -1,0 +1,84 @@
+---
+interface Props {
+  schritte: { titel: string; text: string }[];
+  hell?: boolean;
+}
+const { schritte, hell = false } = Astro.props;
+---
+
+<ol class:list={['ablauf', { 'ablauf--hell': hell }]} style={`--anzahl:${schritte.length}`}>
+  {
+    schritte.map((s, i) => (
+      <li class="ablauf__schritt" data-reveal style={`--delay:${i * 0.1}s`}>
+        <span class="ablauf__nummer" aria-hidden="true">{i + 1}</span>
+        <h3>{s.titel}</h3>
+        <p>{s.text}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .ablauf {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+    counter-reset: schritt;
+  }
+  .ablauf__schritt {
+    position: relative;
+    padding: 24px 22px 22px;
+    border-radius: var(--radius-gross);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--linie-dunkel);
+  }
+  .ablauf--hell .ablauf__schritt {
+    background: #fff;
+    border-color: var(--linie-hell);
+  }
+  .ablauf__nummer {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--gelb);
+    color: var(--dunkel);
+    font-weight: 900;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+  .ablauf__schritt h3 {
+    margin-bottom: 8px;
+  }
+  .ablauf__schritt p {
+    margin: 0;
+    color: var(--text-gedaempft);
+  }
+  .ablauf--hell .ablauf__schritt p {
+    color: var(--text-gedaempft-hell);
+  }
+  @media (min-width: 640px) {
+    .ablauf {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1000px) {
+    .ablauf {
+      grid-template-columns: repeat(var(--anzahl), 1fr);
+      gap: 18px;
+    }
+    /* Verbindungslinie zwischen den Schritten */
+    .ablauf__schritt:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 46px;
+      right: -19px;
+      width: 20px;
+      height: 2px;
+      background: var(--gelb);
+    }
+  }
+</style>
