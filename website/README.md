@@ -54,9 +54,11 @@ Das Skript baut die Website neu und lädt sie per `rsync` auf den Server. n8n wi
 ### Schritt 1: Nachsehen, was läuft (ändert nichts)
 
 ```bash
-ssh root@2.31.26.76
-docker ps 2>/dev/null; systemctl is-active caddy nginx traefik 2>/dev/null; ss -tlnp | grep -E ':80|:443'
+cd website
+ssh root@2.31.26.76 'bash -s' < deploy/server-pruefen.sh
 ```
+
+Das Skript liest nur. Passwörter und Schlüssel gibt es nicht aus.
 
 Die Ausgabe zeigt, ob Docker läuft und welcher Webserver (Caddy, Nginx oder Traefik) die Ports 80/443 belegt. **Danach entscheiden wir gemeinsam, welcher Weg passt.**
 
@@ -124,7 +126,7 @@ Das Formular sendet per `POST` ein JSON an `N8N_WEBHOOK_URL` (`src/config.ts`):
 ```json
 {
   "name": "…", "betrieb": "…", "gewerk": "…", "telefon": "…", "email": "…",
-  "nervt": "…", "rueckruf": "Abends (17–19 Uhr)", "datenschutz": true,
+  "nervt": "…", "rueckruf": "Abends (17–19 Uhr)", "datenschutz": true, "website": "",
   "quelle": "https://abora-automation.de/kontakt", "gesendet_am": "2026-…"
 }
 ```
@@ -133,3 +135,24 @@ In n8n:
 1. Workflow mit **Webhook**-Knoten anlegen, Methode `POST`, Antwort sofort mit Status 200.
 2. Unter *Options → Allowed Origins (CORS)* `https://abora-automation.de` eintragen, sonst blockiert der Browser die Anfrage.
 3. Die **Production URL** des Webhooks in `src/config.ts` eintragen und neu hochladen.
+
+### Spam aussortieren
+
+Das Formular hat ein unsichtbares Feld **`website`** (Honeypot). Menschen sehen es nicht und lassen es leer, viele Bots füllen es aus. Die Website schickt solche Anfragen gar nicht erst ab. Bots, die direkt an den Webhook senden, fängst du in n8n ab:
+
+1. Direkt nach dem Webhook-Knoten einen **If**-Knoten einfügen. Bedingungen (alle müssen zutreffen):
+   - `{{ $json.body.website }}` → *is empty*
+   - `{{ $json.body.datenschutz }}` → *is true*
+   - `{{ $json.body.name }}` → *is not empty*
+   - `{{ $json.body.email }}` → *matches regex* `^[^@\s]+@[^@\s]+\.[^@\s]+$`
+   - optional: `{{ $json.headers.origin }}` → *equals* `https://abora-automation.de`
+2. **true** → weiter zum E-Mail-Versand an dich.
+3. **false** → nichts tun (Ausgang leer lassen). Die Ausführung wird nach 14 Tagen automatisch gelöscht.
+
+## Offene TODOs
+
+| TODO | Was fehlt | Wo |
+|---|---|---|
+| `BILD` | Fotos für Problem, Lösung, Zusammenarbeit, Pilotangebot, die Seitenköpfe der Unterseiten und ein Foto von dir | `src/pages/*.astro`, Motiv steht jeweils im `motiv`-Text |
+| `KALENDER` | Link zur Online-Terminbuchung | `src/config.ts` |
+| `REEL` | Video, falls du es später einbauen willst | `src/pages/index.astro` |

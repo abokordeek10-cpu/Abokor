@@ -203,6 +203,7 @@ const ablauf = [
       nervt: daten.get('nervt'),
       rueckruf: daten.get('rueckruf'),
       datenschutz: daten.get('datenschutz') === 'on',
+      website: String(daten.get('website') || ''), // Honeypot – bei echten Menschen immer leer
       quelle: window.location.href,
       gesendet_am: new Date().toISOString(),
     };
