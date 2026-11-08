@@ -16,23 +16,14 @@ const werte = [
   titel="Über uns"
   beschreibung="Wer hinter Abora Automation aus Viernheim steht und warum wir Automatisierung speziell für Handwerksbetriebe bauen."
 >
-  <!-- TODO: BILD – Motiv siehe `motiv` -->
   <Seitenkopf
     dachzeile="Über uns"
     titel='Wir bauen die Technik. <span class="gelb">Du bleibst beim Handwerk.</span>'
     text="Abora Automation sitzt in Viernheim. Wir automatisieren für Handwerksbetriebe alles rund um Anfragen, Termine und Angebote."
-    motiv="Porträt des Gründers in der Werkstatt eines befreundeten Handwerksbetriebs, natürliches Licht, kein Anzug"
   />
 
   <section class="abschnitt abschnitt--hell">
     <div class="container geschichte">
-      <div class="geschichte__bild" data-reveal>
-        <!-- TODO: BILD – Foto vom Gründer bzw. Team -->
-        <div class="bild-platzhalter" role="img" aria-label="Platzhalter für Foto: Gründer von Abora Automation in einer Werkstatt">
-          <Icon name="person" />
-          <span>Foto folgt</span>
-        </div>
-      </div>
       <div class="fliesstext" data-reveal>
         <p class="dachzeile">Wer dahintersteht</p>
         <h2>{KONTAKT.inhaber}</h2>
@@ -77,38 +68,6 @@ const werte = [
 </Basis>
 
 <style>
-  .geschichte {
-    display: grid;
-    gap: 40px;
-  }
-  @media (min-width: 900px) {
-    .geschichte {
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 64px;
-      align-items: start;
-    }
-    .geschichte__bild {
-      position: sticky;
-      top: 110px;
-    }
-  }
-  .bild-platzhalter {
-    aspect-ratio: 4 / 5;
-    border-radius: var(--radius-gross);
-    background:
-      radial-gradient(ellipse 70% 60% at 70% 20%, rgba(255, 170, 70, 0.18), transparent 70%),
-      linear-gradient(160deg, #1b2a3b, var(--dunkel) 60%, var(--dunkel-tief));
-    display: grid;
-    place-content: center;
-    justify-items: center;
-    gap: 10px;
-    color: rgba(246, 244, 239, 0.5);
-    font-weight: 700;
-  }
-  .bild-platzhalter :global(svg) {
-    width: 56px;
-    height: 56px;
-  }
   .fliesstext h2 {
     margin-top: 0;
   }

@@ -11,12 +11,10 @@ import { BAUSTEINE } from '../inhalte';
   titel="Leistungen"
   beschreibung="Die 6 Bausteine von Abora Automation: Anfragen beantworten, vorsortieren, Termine buchen, Angebote vorbereiten, nachfassen und Bewertungen einholen. Automatisch, für Handwerksbetriebe."
 >
-  <!-- TODO: BILD – Motiv siehe `motiv` -->
   <Seitenkopf
     dachzeile="Leistungen"
     titel='Sechs Bausteine. <span class="gelb">Ein Weg</span> von der Anfrage bis zur Bewertung.'
     text="Jeder Baustein nimmt dir eine Aufgabe ab, die heute im Büro liegen bleibt. Du kannst mit einem anfangen oder alle zusammen nutzen."
-    motiv="Handwerker im Transporter, Handy in der Hand, schaut auf eine Nachricht, Werkzeug auf dem Beifahrersitz"
   >
     <nav class="sprungmarken" aria-label="Bausteine">
       {BAUSTEINE.map((b, i) => <a href={`#${b.id}`}>{i + 1}. {b.titel}</a>)}

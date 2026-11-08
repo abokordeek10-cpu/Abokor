@@ -1,14 +1,13 @@
 ---
 // Abschnitt mit Hintergrundfoto und dunklem Verlauf in #14202E.
-// Fehlt das Foto, erscheint ein warmer, dunkler Verlauf als Platzhalter.
-// Das gewünschte Motiv steht beim Aufruf im Prop `motiv` (markiert mit TODO: BILD).
+// Ohne Foto erscheint ein warmer, dunkler Verlauf als Hintergrund.
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
   bild?: ImageMetadata;
-  /** Bildbeschreibung (alt-Text) bzw. gewünschtes Motiv, solange das Foto fehlt */
-  motiv: string;
+  /** Bildbeschreibung (alt-Text), nur mit Foto nötig */
+  motiv?: string;
   /** Bildausschnitt, z. B. '60% 40%' */
   position?: string;
   /** 'normal' | 'stark' – wie dunkel der Verlauf über dem Foto ist */
@@ -29,7 +28,7 @@ const { bild, motiv, position = '50% 50%', abdunkeln = 'normal', id, class: klas
     bild ? (
       <Picture
         src={bild}
-        alt={motiv}
+        alt={motiv ?? ''}
         formats={['avif', 'webp']}
         widths={[480, 800, 1200, 1600]}
         sizes="100vw"
@@ -39,7 +38,7 @@ const { bild, motiv, position = '50% 50%', abdunkeln = 'normal', id, class: klas
         style={`object-position:${position}`}
       />
     ) : (
-      <div class="foto-abschnitt__platzhalter" role="img" aria-label={`Platzhalter für Foto: ${motiv}`} />
+      <div class="foto-abschnitt__platzhalter" aria-hidden="true" />
     )
   }
   <div class="foto-abschnitt__verlauf" aria-hidden="true"></div>

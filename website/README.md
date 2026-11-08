@@ -128,6 +128,4 @@ Das Formular hat ein unsichtbares Feld **`website`** (Honeypot). Menschen sehen 
 
 | TODO | Was fehlt | Wo |
 |---|---|---|
-| `BILD` | Fotos für Problem, Lösung, Zusammenarbeit, Pilotangebot, die Seitenköpfe der Unterseiten und ein Foto von dir | `src/pages/*.astro`, Motiv steht jeweils im `motiv`-Text |
-| `KALENDER` | Link zur Online-Terminbuchung | `src/config.ts` |
-| `REEL` | Video, falls du es später einbauen willst | `src/pages/index.astro` |
+| `KALENDER` | Link zur Online-Terminbuchung (kommt später). Sobald er eingetragen ist, erscheint auf `/kontakt` ein Button. | `src/config.ts` → `KALENDER_URL` |

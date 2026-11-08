@@ -8,8 +8,8 @@ interface Props {
   titel: string;
   text?: string;
   bild?: ImageMetadata;
-  /** alt-Text bzw. gewünschtes Motiv (TODO: BILD, solange das Foto fehlt) */
-  motiv: string;
+  /** Bildbeschreibung (alt-Text), nur mit Foto nötig */
+  motiv?: string;
   position?: string;
 }
 const { dachzeile, titel, text, bild, motiv, position = '50% 50%' } = Astro.props;
@@ -20,7 +20,7 @@ const { dachzeile, titel, text, bild, motiv, position = '50% 50%' } = Astro.prop
     bild ? (
       <Picture
         src={bild}
-        alt={motiv}
+        alt={motiv ?? ''}
         formats={['avif', 'webp']}
         widths={[480, 800, 1200, 1600]}
         sizes="100vw"
@@ -29,7 +29,7 @@ const { dachzeile, titel, text, bild, motiv, position = '50% 50%' } = Astro.prop
         style={`object-position:${position}`}
       />
     ) : (
-      <div class="seitenkopf__platzhalter" role="img" aria-label={`Platzhalter für Foto: ${motiv}`} />
+      <div class="seitenkopf__platzhalter" aria-hidden="true" />
     )
   }
   <div class="container seitenkopf__inhalt">

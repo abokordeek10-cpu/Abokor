@@ -110,14 +110,14 @@ Keine Rechtstexte erfinden. Impressum und Datenschutz stammen vom Inhaber und we
 - Überschrift: „Du machst das Handwerk. Wir machen den Rest.“
 - Satz darunter: „Deine KI beantwortet Anfragen, bucht Termine und fasst Angebote nach, während du auf der Baustelle bist.“
 - Button: „Kostenloses Erstgespräch“, groß und gelb (`#FFC83D`).
-- Das Reel kommt direkt **unter** den Einstieg und startet nicht automatisch mit Ton. **Stand jetzt: Reel vorerst weggelassen** (Entscheidung des Inhabers). Die Stelle ist in `src/pages/index.astro` mit `TODO: REEL` markiert.
+- **Kein Reel** auf der Website (Entscheidung des Inhabers).
 
 **Bilder in den Abschnitten:**
 - Problem, Lösung, Zusammenarbeit, Pilotangebot und Abschluss bekommen jeweils ein eigenes Hintergrundfoto.
 - Rechner und FAQ bleiben ruhig: stark abgedunkeltes Foto oder helle Fläche.
 - Über jedem Foto liegt ein dunkler Verlauf in `#14202E`, damit der Text auch bei 375 px gut lesbar ist.
 - Fotos für Handy und Desktop optimieren und lokal ausliefern.
-- Fehlt ein Foto: vorerst dunkler Verlauf in `#14202E`, Stelle mit `TODO: BILD` markieren und am Ende genau nennen, welches Motiv fehlt.
+- **Keine weiteren Fotos** (Entscheidung des Inhabers). Einziges Foto ist `bilder/einstieg.jpg` (Einstieg und Abschluss). Alle anderen Abschnitte nutzen den warmen, dunklen Verlauf in `#14202E`. Keine Bild-Platzhalter und keine `TODO: BILD` mehr.
 
 **KI sichtbar machen:** KI zeigt sich durch das, was sie tut. Keine Roboter, keine Neuronen-Netze, keine glänzende Tech-Optik.
 - Im Einstieg erscheinen über dem Foto nacheinander animierte Handy-Benachrichtigungen: „Neue Anfrage: automatisch beantwortet“, „Termin gebucht“, „Angebot angenommen ✓“.
