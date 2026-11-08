@@ -85,7 +85,7 @@ Unter account.squarespace.com/domains → abora-automation.de → DNS → Benutz
 | A | `www` | `2.31.26.76` | Website (leitet auf ohne www weiter) |
 | A | `n8n` | `2.31.26.76` | n8n |
 | MX | `@` | `smtp.google.com` | E-Mail (Google Workspace) |
-| TXT | `@` | `v=spf1 include:_spf.google.com ~all` | E-Mail-Schutz |
+| TXT | `@` | `v=spf1 include:_spf.google.com …` | E-Mail-Schutz |
 | TXT | `google._domainkey` | `v=DKIM1; …` | E-Mail-Signatur |
 
 Die Gruppe „Squarespace-Standardeinstellung“ wurde gelöscht. Sie darf nicht wieder hinzugefügt werden, sonst zeigt die Domain wieder auf Squarespace.
