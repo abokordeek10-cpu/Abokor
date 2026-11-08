@@ -65,6 +65,10 @@ ssh root@2.31.26.76 'curl -fsSL https://raw.githubusercontent.com/abokordeek10-c
 - **Zusatzdatei:** `/root/n8n/docker-compose.override.yml`, Kopie im Repo: `deploy/docker-compose.override.yml`. Sie bindet den Website-Ordner nur lesend in Caddy ein. Die Original-`docker-compose.yml` ist unverändert.
 - **Backups vom 09.11.2026** in `/root/n8n/`: `Caddyfile.backup-2026-11-09`, `Caddyfile.backup-2026-11-09-b`, `docker-compose.yml.backup-2026-11-09`
 - **Caddy schreibt keine Zugriffs-Logs.** Es werden also keine Besucher-IPs gespeichert.
+- **Löschfristen (14 Tage):**
+  - Systemprotokoll: `/etc/systemd/journald.conf.d/14-tage.conf` mit `MaxRetentionSec=14day`
+  - Logs von Caddy und n8n gehen ins Systemprotokoll (`logging: driver: journald`) und fallen damit unter dieselbe Frist.
+  - n8n löscht Ausführungen nach 336 Stunden (`EXECUTIONS_DATA_PRUNE=true`, `EXECUTIONS_DATA_MAX_AGE=336`).
 
 Caddyfile ändern (auf dem Server):
 

@@ -4,3 +4,11 @@ services:
   caddy:
     volumes:
       - /var/www/abora-automation.de:/srv/abora:ro
+    logging:
+      driver: journald          # Logs ins Systemprotokoll (dort nach 14 Tagen gelöscht)
+  n8n:
+    environment:
+      EXECUTIONS_DATA_PRUNE: "true"
+      EXECUTIONS_DATA_MAX_AGE: "336"   # Ausführungen nach 14 Tagen (336 Stunden) löschen
+    logging:
+      driver: journald
