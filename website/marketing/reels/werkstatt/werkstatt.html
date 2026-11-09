@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-wght-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-ext-wght-normal.woff2') format('woff2'); unicode-range: U+0100-02BA, U+1E00-1E9F, U+20A0-20C0; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0b121b; font-family: 'Inter', sans-serif; color: #f6f4ef; -webkit-font-smoothing: antialiased; }
+  #c { position: absolute; inset: 0; }
+  .ui { position: absolute; will-change: opacity, transform; }
+  .logo { top: 90px; left: 70px; height: 74px; }
+  .tag { top: 104px; right: 70px; font-size: 24px; font-weight: 800; letter-spacing: .1em; color: #ffc83d; border: 2px solid rgba(255,200,61,.5); background: rgba(255,200,61,.12); padding: 9px 18px; border-radius: 999px; }
+  .cap { top: 230px; left: 60px; right: 60px; text-align: center; font-size: 70px; font-weight: 850; letter-spacing: -.035em; line-height: 1.08; text-shadow: 0 4px 30px rgba(0,0,0,.6); }
+  .cap b { color: #ffc83d; font-weight: 850; }
+  .uhr { top: 420px; left: 50%; transform: translateX(-50%); font-size: 30px; font-weight: 700; color: #b9c3cf; letter-spacing: .04em; display: flex; gap: 12px; align-items: center; }
+  .uhr i { width: 14px; height: 14px; border-radius: 50%; background: #e5484d; display: inline-block; }
+  .uhr.gut i { background: #3ccf7a; }
+  /* Handy */
+  .phone { left: 150px; width: 780px; top: 780px; height: 1060px; border-radius: 70px; background: #0b141a; border: 16px solid #05090c; box-shadow: 0 60px 140px -30px rgba(0,0,0,.9), 0 0 0 2px rgba(255,255,255,.08); overflow: hidden; }
+  .ph-kopf { display: flex; align-items: center; gap: 22px; padding: 30px 34px; background: #1f2c34; }
+  .ph-kopf .av { width: 76px; height: 76px; border-radius: 50%; background: #3d5875; display: grid; place-items: center; font-weight: 800; font-size: 36px; }
+  .ph-kopf b { display: block; font-size: 34px; } .ph-kopf small { font-size: 26px; color: #8696a0; }
+  .ph-body { padding: 30px 26px; display: flex; flex-direction: column; gap: 18px; }
+  .bl { max-width: 86%; padding: 16px 22px 10px; border-radius: 24px; font-size: 31px; line-height: 1.36; color: #e9edef; }
+  .bl.in { align-self: flex-start; background: #202c33; border-top-left-radius: 6px; }
+  .bl.out { align-self: flex-end; background: #005c4b; border-top-right-radius: 6px; }
+  .bl .z { display: block; text-align: right; font-size: 22px; color: rgba(233,237,239,.55); margin-top: 6px; }
+  .bl .ki { display: block; font-size: 20px; font-weight: 800; color: #ffc83d; letter-spacing: .06em; margin-bottom: 4px; }
+  .lock { padding: 40px 26px; display: flex; flex-direction: column; gap: 16px; }
+  .lock .zeit { text-align: center; font-size: 120px; font-weight: 300; letter-spacing: -.03em; margin-bottom: 20px; }
+  .nt { background: rgba(255,255,255,.12); border-radius: 30px; padding: 22px 26px; font-size: 30px; display: flex; gap: 20px; align-items: center; }
+  .nt .ic { width: 64px; height: 64px; border-radius: 16px; flex: none; display: grid; place-items: center; font-size: 34px; font-weight: 900; }
+  .nt b { display: block; font-size: 30px; } .nt span { color: #c7cdd4; font-size: 27px; }
+  .grau { filter: grayscale(1) brightness(.75); }
+  /* Karten */
+  .karte { left: 120px; right: 120px; background: #fff; color: #111; border-radius: 30px; padding: 26px 30px; display: flex; gap: 22px; align-items: center; box-shadow: 0 40px 90px -20px rgba(0,0,0,.75); font-size: 30px; }
+  .karte .ic { width: 84px; height: 84px; border-radius: 20px; background: #14202e; flex: none; display: grid; place-items: center; }
+  .karte .ic img { width: 76%; }
+  .karte small { display: block; font-size: 22px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #6b6f76; }
+  .karte b { display: block; font-size: 36px; letter-spacing: -.01em; }
+  .karte span { color: #3f444b; }
+  .papier { left: 150px; right: 150px; background: #f6f4ef; color: #111; border-radius: 18px; padding: 22px 28px; font-size: 32px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 30px 70px -20px rgba(0,0,0,.8); }
+  .papier em { font-style: normal; font-size: 24px; font-weight: 800; padding: 8px 14px; border-radius: 999px; }
+  .alt em { background: #fdecea; color: #b42318; }
+  .neu em { background: #ffc83d; color: #111; }
+  .trenner { inset: 0; display: grid; place-items: center; text-align: center; background: rgba(11,18,27,.88); }
+  .trenner h2 { font-size: 104px; font-weight: 850; letter-spacing: -.045em; line-height: 1.02; }
+  .trenner h2 span { color: #ffc83d; display: block; }
+  .ende { inset: 0; background: radial-gradient(ellipse 70% 40% at 80% 10%, rgba(255,170,70,.16), transparent 70%), linear-gradient(170deg,#1b2a3b,#14202e 45%,#0d1620); display: flex; flex-direction: column; justify-content: center; padding: 0 80px 200px; }
+  .ende img { width: 440px; margin-bottom: 70px; }
+  .ende h2 { font-size: 100px; font-weight: 850; letter-spacing: -.045em; line-height: 1.02; }
+  .ende h2 span { color: #ffc83d; display: block; }
+  .ende .kn { margin-top: 60px; align-self: flex-start; background: #ffc83d; color: #111; font-weight: 850; font-size: 46px; padding: 32px 48px; border-radius: 26px; }
+  .ende .url { margin-top: 32px; font-size: 40px; font-weight: 700; }
+  .hinweis { left: 70px; right: 70px; bottom: 90px; font-size: 24px; color: rgba(246,244,239,.55); }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<img class="ui logo" id="logo" src="logo/quer-hell.png" alt="">
+<div class="ui tag" id="tag">BEISPIEL</div>
+<div class="ui cap" id="cap"></div>
+<div class="ui uhr" id="uhr"><i></i><span></span></div>
+
+<!-- Papiere -->
+<div class="ui papier alt" id="p1"><span>Angebot Badsanierung</span><em>seit 4 Tagen</em></div>
+<div class="ui papier alt" id="p2"><span>Angebot Heizungstausch</span><em>seit 6 Tagen</em></div>
+<div class="ui papier alt" id="p3"><span>Angebot Dachrinne</span><em>seit 9 Tagen</em></div>
+<div class="ui papier neu" id="q1"><span>Angebot Badsanierung</span><em>Entwurf bereit ✓</em></div>
+<div class="ui papier neu" id="q2"><span>Angebot Heizungstausch</span><em>Entwurf bereit ✓</em></div>
+<div class="ui papier neu" id="q3"><span>Angebot Dachrinne</span><em>Entwurf bereit ✓</em></div>
+
+<!-- Sperrbildschirm -->
+<div class="ui phone" id="lock"><div class="lock">
+  <div class="zeit">21:47</div>
+  <div class="nt" id="n1"><div class="ic" style="background:#25d366">✆</div><div><b>WhatsApp</b><span>14 ungelesene Nachrichten</span></div></div>
+  <div class="nt" id="n2"><div class="ic" style="background:#e5484d">✆</div><div><b>Verpasste Anrufe</b><span>2 Anrufe, 1 Mailbox-Nachricht</span></div></div>
+  <div class="nt" id="n3"><div class="ic" style="background:#25d366">✆</div><div><b>Frau Weber</b><span>Hallo, unser Bad ist undicht. Können Sie …</span></div></div>
+</div></div>
+
+<!-- Chat ohne Abora -->
+<div class="ui phone" id="chat1">
+  <div class="ph-kopf"><div class="av">W</div><div><b>Frau Weber</b><small id="c1s">online</small></div></div>
+  <div class="ph-body">
+    <div class="bl in" id="c1a">Hallo, unser Bad ist undicht, es tropft unter dem Waschbecken. Können Sie diese Woche vorbeikommen?<span class="z">21:47</span></div>
+    <div class="bl out" id="c1b">Guten Morgen Frau Weber, wann passt es Ihnen?<span class="z">07:12 ✓✓</span></div>
+    <div class="bl in" id="c1c">Danke, hat sich erledigt. Habe schon jemanden gefunden.<span class="z">07:31</span></div>
+  </div>
+</div>
+
+<!-- Chat mit Abora -->
+<div class="ui phone" id="chat2">
+  <div class="ph-kopf"><div class="av">W</div><div><b>Frau Weber</b><small>online</small></div></div>
+  <div class="ph-body">
+    <div class="bl in" id="d1">Hallo, unser Bad ist undicht. Können Sie diese Woche vorbeikommen?<span class="z">21:47</span></div>
+    <div class="bl out" id="d2"><span class="ki">KI-ANTWORT</span>Guten Abend! Wo wohnen Sie? Und haben Sie ein Foto vom Schaden?<span class="z">21:47 ✓✓</span></div>
+    <div class="bl in" id="d3">Mannheim-Lindenhof. 📷 Foto<span class="z">21:49</span></div>
+    <div class="bl out" id="d4"><span class="ki">KI-ANTWORT</span>Danke! Passt Donnerstag um 8 Uhr für eine Besichtigung?<span class="z">21:49 ✓✓</span></div>
+    <div class="bl in" id="d5">Ja, perfekt!<span class="z">21:52</span></div>
+  </div>
+</div>
+
+<div class="ui karte" id="k1" style="top:500px"><div class="ic"><img src="logo/zeichen-hell.png" alt=""></div><div><small>Abora · 21:52</small><b>Termin gebucht</b><span>Do., 8:00 Uhr – Frau Weber, Badsanierung</span></div></div>
+<div class="ui karte" id="k2" style="top:1180px"><div class="ic"><img src="logo/zeichen-hell.png" alt=""></div><div><small>Abora · 06:30</small><b>Neuer Termin</b><span>Do., 8:00 Uhr – Frau Weber. Fotos liegen bei.</span></div></div>
+
+<div class="ui trenner" id="tr"><h2>Dieselbe Nacht.<span>Mit Abora.</span></h2></div>
+
+<div class="ui ende" id="ende">
+  <img src="logo/logo-hell.png" alt="">
+  <h2>Du machst das Handwerk.<span>Wir machen den Rest.</span></h2>
+  <div class="kn">Kostenloses Erstgespräch</div>
+  <div class="url">abora-automation.de · Link in Bio</div>
+</div>
+<div class="ui hinweis" id="hinweis">Beispielgeschichte mit erfundenen Personen. Stimme KI-generiert.</div>
+
+<script src="timing.js"></script>
+<script>
+const T = window.TIMING;
+const W = T.woerter;
+const at = (i) => W[i].s;
+// Szenen-Zeiten (Wortindex aus timing.json)
+const S = {
+  start: 0, werkstatt: at(19), handy: at(34), weber: at(46), morgen: at(66), abora: at(80),
+  schreibt: at(85), antwort: at(88), foto: at(98), donnerstag: at(102), bucht: at(107),
+  angebote: at(109), entwuerfe: at(122), zuhause: at(130), frueh: at(136), abokor: at(146),
+};
+S.ende = W[W.length - 1].e;
+const DAUER = S.ende + 2.8;
+window.DAUER = DAUER;
+
+// ---------- Hilfen ----------
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const ease = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const mix = (a, b, k) => a + (b - a) * k;
+function fenster(t, a, b, f = 0.35) { return clamp((t - a) / f) * clamp((b - t) / f); }
+function zeig(id, o, dy = 0, sc = 1) {
+  const el = document.getElementById(id);
+  el.style.opacity = o; el.style.visibility = o > 0.001 ? 'visible' : 'hidden';
+  const base = el.dataset.base || '';
+  el.style.transform = `${base} translateY(${(1 - o) * dy}px) scale(${mix(sc, 1, o)})`;
+}
+document.getElementById('uhr').dataset.base = 'translateX(-50%)';
+function farbe(a, b, k) {
+  const p = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const x = p(a), y = p(b);
+  return `rgb(${x.map((v, i) => Math.round(mix(v, y[i], k))).join(',')})`;
+}
+
+// ---------- Isometrie ----------
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const U = 60;
+const P = (x, y, z) => [(x - y) * U * 0.866, (x + y) * U * 0.5 - z * U];
+function poly(pts, fill, stroke) {
+  g.beginPath(); pts.forEach(([x, y, z], i) => { const [a, b] = P(x, y, z); i ? g.lineTo(a, b) : g.moveTo(a, b); });
+  g.closePath(); g.fillStyle = fill; g.fill(); if (stroke) { g.strokeStyle = stroke; g.lineWidth = 1.2; g.stroke(); }
+}
+function box(x, y, z, w, d, h, c) {
+  poly([[x, y, z + h], [x + w, y, z + h], [x + w, y + d, z + h], [x, y + d, z + h]], c[0]);
+  poly([[x + w, y, z], [x + w, y + d, z], [x + w, y + d, z + h], [x + w, y, z + h]], c[2]);
+  poly([[x, y + d, z], [x + w, y + d, z], [x + w, y + d, z + h], [x, y + d, z + h]], c[1]);
+}
+const tone = (hex, L) => farbe(hex, L >= 0 ? '#ffffff' : '#000000', Math.abs(L));
+const shades = (hex, licht) => [tone(hex, 0.12 * licht), tone(hex, -0.25), tone(hex, -0.1)];
+
+// ---------- Szene ----------
+const RW = 11, RD = 9, RH = 4.4;
+function zeichneRaum(z) {
+  // z: Zustand { licht 0..1, lampe 0..1, figur 0..1, morgen 0..1, phoneGlow 0..1, abora 0..1 }
+  const L = z.licht;
+  // Boden
+  poly([[0, 0, 0], [RW, 0, 0], [RW, RD, 0], [0, RD, 0]], farbe('#1a2532', '#3a4552', L * 0.7));
+  // Bodenfugen
+  g.globalAlpha = 0.18; for (let i = 1; i < RW; i++) poly([[i, 0, 0], [i + 0.02, 0, 0], [i + 0.02, RD, 0], [i, RD, 0]], '#000'); g.globalAlpha = 1;
+  // Wände
+  poly([[0, 0, 0], [0, RD, 0], [0, RD, RH], [0, 0, RH]], farbe('#16212d', '#4a5866', L * 0.75));
+  poly([[0, 0, 0], [RW, 0, 0], [RW, 0, RH], [0, 0, RH]], farbe('#1c2836', '#56636f', L * 0.75));
+  // Fenster in der Rückwand (Nacht / Morgen)
+  const himmel = farbe('#0a1830', '#f2b268', z.morgen);
+  poly([[6.4, 0, 1.6], [9.6, 0, 1.6], [9.6, 0, 3.6], [6.4, 0, 3.6]], himmel, '#05090c');
+  if (z.morgen < 0.6) { // Mond
+    const [mx, my] = P(8.8, 0, 3.15); g.globalAlpha = 1 - z.morgen / 0.6; g.fillStyle = '#f6f4ef'; g.beginPath(); g.arc(mx, my, 18, 0, 7); g.fill();
+    g.fillStyle = himmel; g.beginPath(); g.arc(mx + 8, my - 5, 16, 0, 7); g.fill(); g.globalAlpha = 1;
+  }
+  poly([[8, 0, 1.6], [8.05, 0, 1.6], [8.05, 0, 3.6], [8, 0, 3.6]], '#05090c');
+  // Rolltor (rechte Seite der Rückwand)
+  poly([[1.0, 0, 0], [4.8, 0, 0], [4.8, 0, 3.2], [1.0, 0, 3.2]], farbe('#222f3d', '#5b6874', L * 0.7));
+  g.globalAlpha = 0.35; for (let i = 0; i < 12; i++) { const zz = 0.25 * i + 0.1; poly([[1.0, 0, zz], [4.8, 0, zz], [4.8, 0, zz + 0.03], [1.0, 0, zz + 0.03]], '#000'); } g.globalAlpha = 1;
+  // Uhr an der Wand
+  const [ux, uy] = P(10.3, 0, 3.2); g.fillStyle = '#f6f4ef'; g.beginPath(); g.ellipse(ux, uy, 30, 34, 0, 0, 7); g.fill();
+  const std = z.uhr; g.strokeStyle = '#111'; g.lineWidth = 4; g.lineCap = 'round';
+  [[std / 12 * 2 * Math.PI, 16], [(std % 1) * 2 * Math.PI, 24]].forEach(([w, l]) => { g.beginPath(); g.moveTo(ux, uy); g.lineTo(ux + Math.sin(w) * l * 0.88, uy - Math.cos(w) * l); g.stroke(); });
+  // Lochwand mit Werkzeug (linke Wand)
+  poly([[0, 1.2, 1.5], [0, 5.6, 1.5], [0, 5.6, 3.4], [0, 1.2, 3.4]], farbe('#2a3644', '#8a7a5c', L * 0.6));
+  const werkzeug = [[1.6, 2.6, 0.9, '#c9cfd6'], [2.3, 2.4, 1.1, '#e5484d'], [3.0, 2.7, 0.7, '#c9cfd6'], [3.6, 2.5, 1.0, '#ffc83d'], [4.3, 2.6, 0.8, '#c9cfd6'], [4.9, 2.4, 1.1, '#3d5875']];
+  werkzeug.forEach(([y, zz, hh, c]) => poly([[0.02, y, zz], [0.02, y + 0.18, zz], [0.02, y + 0.18, zz + hh * 0.7], [0.02, y, zz + hh * 0.7]], farbe('#33404d', c, 0.3 + L * 0.6)));
+  // Regal an der Rückwand rechts
+  for (let i = 0; i < 3; i++) box(9.9, 0.05, 0.3 + i * 1.1, 1.0, 0.9, 0.08, shades('#3a2f22', L));
+  [[9.95, 0.38, '#3d5875'], [10.4, 0.38, '#b7791f'], [9.95, 1.48, '#7a8794'], [10.45, 1.48, '#3d5875'], [10.1, 2.58, '#b7791f']].forEach(([x, zz, c]) => box(x, 0.15, zz, 0.42, 0.7, 0.55, shades(c, L)));
+  // Werkbank an der linken Wand
+  box(0.05, 1.0, 0, 1.4, 5.0, 1.15, shades('#6b4f2e', L));
+  box(0.05, 1.0, 1.15, 1.45, 5.05, 0.12, shades('#8a6a40', L));
+  // Werkzeugkiste auf der Werkbank
+  box(0.3, 4.4, 1.27, 0.8, 1.1, 0.45, shades('#e5484d', L * 0.9));
+  // Handy auf der Werkbank
+  const glow = z.phoneGlow;
+  if (glow > 0) { const [hx, hy] = P(0.85, 2.3, 1.3); const gr = g.createRadialGradient(hx, hy, 0, hx, hy, 140); gr.addColorStop(0, `rgba(${z.abora > .5 ? '255,200,61' : '120,190,255'},${0.55 * glow})`); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(hx - 160, hy - 160, 320, 320); }
+  box(0.6, 2.1, 1.27, 0.5, 0.32, 0.04, ['#2b3b4d', '#0b121b', '#111a24']);
+  poly([[0.65, 2.14, 1.315], [1.05, 2.14, 1.315], [1.05, 2.38, 1.315], [0.65, 2.38, 1.315]], glow > 0 ? farbe('#0b121b', z.abora > .5 ? '#ffc83d' : '#8cc8ff', glow) : '#0b121b');
+  // Transporter (rechts vorne)
+  const vx = 6.6, vy = 4.6;
+  box(vx, vy, 0.25, 3.6, 1.6, 1.7, shades('#e9edf1', L * 0.8 + 0.1));
+  box(vx + 3.6, vy, 0.25, 0.9, 1.6, 1.15, shades('#e9edf1', L * 0.8 + 0.1));
+  poly([[vx + 4.5, vy + 0.15, 0.85], [vx + 4.5, vy + 1.45, 0.85], [vx + 4.5, vy + 1.45, 1.3], [vx + 4.5, vy + 0.15, 1.3]], farbe('#0b121b', '#3d5875', L * 0.5));
+  poly([[vx + 0.2, vy + 1.6, 0.9], [vx + 3.4, vy + 1.6, 0.9], [vx + 3.4, vy + 1.6, 1.25], [vx + 0.2, vy + 1.6, 1.25]], '#ffc83d');
+  [[vx + 0.8, vy + 1.6], [vx + 3.6, vy + 1.6]].forEach(([x, y]) => { const [a, b] = P(x, y, 0.25); g.fillStyle = '#05090c'; g.beginPath(); g.ellipse(a, b, 26, 20, 0, 0, 7); g.fill(); });
+  // Schreibtisch (Mitte)
+  const dx = 3.0, dy = 5.4;
+  box(dx, dy, 0, 2.6, 1.4, 1.05, shades('#4a3a28', L));
+  box(dx - 0.05, dy - 0.05, 1.05, 2.7, 1.5, 0.1, shades('#7a5c38', L));
+  // Papierstapel
+  for (let i = 0; i < 3; i++) box(dx + 0.3 + i * 0.7, dy + 0.25, 1.15, 0.55, 0.75, 0.06 + (z.abora > .5 ? 0.0 : 0.12), shades(z.abora > .5 && z.entwurf > i / 3 ? '#ffe7a3' : '#f6f4ef', 0.5));
+  // Schreibtischlampe
+  const lamp = z.lampe;
+  box(dx + 2.25, dy + 0.3, 1.15, 0.12, 0.12, 0.75, shades('#2b3b4d', L));
+  box(dx + 2.0, dy + 0.15, 1.85, 0.5, 0.42, 0.2, shades('#ffc83d', 0.4));
+  if (lamp > 0) { const [lx, ly] = P(dx + 1.4, dy + 0.6, 1.15); const gr = g.createRadialGradient(lx, ly, 0, lx, ly, 260); gr.addColorStop(0, `rgba(255,214,120,${0.42 * lamp})`); gr.addColorStop(1, 'rgba(255,214,120,0)'); g.fillStyle = gr; g.fillRect(lx - 280, ly - 280, 560, 560); }
+  // Stuhl
+  box(dx + 1.0, dy + 1.65, 0, 0.9, 0.9, 0.7, shades('#26313d', L));
+  box(dx + 1.0, dy + 2.45, 0.7, 0.9, 0.12, 1.0, shades('#26313d', L));
+  // Figur (Handwerker, sitzt am Tisch)
+  if (z.figur > 0) {
+    g.globalAlpha = z.figur;
+    const atem = Math.sin(z.t * 2.2) * 0.02;
+    box(dx + 1.12, dy + 1.75, 0.7, 0.66, 0.6, 1.05 + atem, shades('#3d5875', L * 0.8 + 0.1)); // Körper (Arbeitsjacke)
+    box(dx + 1.0, dy + 1.4, 1.45, 0.9, 0.4, 0.22, shades('#3d5875', L * 0.8 + 0.1)); // Arme
+    const [kx, ky] = P(dx + 1.45, dy + 2.05, 2.05 + atem); // Kopf
+    g.fillStyle = farbe('#5a3c28', '#c48a62', L * 0.8 + 0.1); g.beginPath(); g.arc(kx, ky, 30, 0, 7); g.fill();
+    g.fillStyle = '#2a1d14'; g.beginPath(); g.arc(kx, ky - 8, 30, Math.PI, 0); g.fill(); // Haare
+    g.globalAlpha = 1;
+  }
+  // Deckenlicht
+  if (L > 0.05) { const [ox, oy] = P(5.5, 4.5, RH); const gr = g.createRadialGradient(ox, oy + 300, 0, ox, oy + 300, 700); gr.addColorStop(0, `rgba(190,215,240,${0.10 * L})`); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(ox - 800, oy - 400, 1600, 1600); }
+}
+
+// Kamera: Fokuspunkt (Weltkoordinaten) + Zoom
+const CAM = [
+  { t: 0, p: [5.5, 4.5, 1.2], z: 1.0, y: 1120 },
+  { t: 5.5, p: [5.0, 4.5, 1.2], z: 1.12, y: 1120 },
+  { t: 8.3, p: [4.3, 6.1, 1.1], z: 1.55, y: 820 },          // Schreibtisch
+  { t: 12.2, p: [4.3, 6.1, 1.1], z: 1.6, y: 820 },
+  { t: 13.6, p: [0.85, 2.3, 1.3], z: 2.2, y: 600 },          // Handy
+  { t: 31.0, p: [0.85, 2.3, 1.3], z: 2.3, y: 600 },
+  { t: 32.6, p: [5.5, 4.5, 1.2], z: 1.0, y: 1120 },          // Gesamt, Nacht mit Abora
+  { t: 34.5, p: [0.85, 2.3, 1.3], z: 2.2, y: 600 },          // Handy
+  { t: 42.6, p: [0.85, 2.3, 1.3], z: 2.25, y: 600 },
+  { t: 44.0, p: [4.3, 6.1, 1.1], z: 1.55, y: 820 },          // Schreibtisch
+  { t: 49.3, p: [4.3, 6.1, 1.1], z: 1.6, y: 820 },
+  { t: 50.8, p: [5.5, 4.5, 1.2], z: 1.05, y: 1120 },           // leere Werkstatt
+  { t: 99, p: [5.5, 4.5, 1.2], z: 1.12, y: 1120 },
+];
+function kamera(t) {
+  let i = 0; while (i < CAM.length - 2 && t > CAM[i + 1].t) i++;
+  const a = CAM[i], b = CAM[i + 1], k = ease((t - a.t) / (b.t - a.t));
+  return { p: a.p.map((v, j) => mix(v, b.p[j], k)), z: mix(a.z, b.z, k), y: mix(a.y, b.y, k) };
+}
+
+// ---------- Untertitel ----------
+const WICHTIG = new Set(['zehn', 'sechs', 'notfall', 'werkstatt', 'drei', 'angebote', 'vierzehn', 'verpasste', 'weber', 'undicht', '21', '47', 'morgen', 'anderem', 'abora', 'sekunden', 'antwort', 'bucht', 'bereit', 'prüfst', 'hause', 'neuer', 'termin', 'abokor', 'bio']);
+const chunks = []; let cur = [];
+W.forEach((w, i) => { cur.push(w); const ende = /[.,?!:]$/.test(w.w) || cur.length >= 4; if (ende) { chunks.push(cur); cur = []; } });
+if (cur.length) chunks.push(cur);
+const capEl = document.getElementById('cap'); let lastChunk = -1;
+function untertitel(t) {
+  let idx = -1; for (let i = 0; i < chunks.length; i++) if (t >= chunks[i][0].s - 0.05) idx = i;
+  if (t > S.ende + 0.4 || t >= S.abokor - 0.05) idx = -2;
+  if (idx !== lastChunk) {
+    lastChunk = idx;
+    capEl.innerHTML = idx < 0 ? '' : chunks[idx].map((w) => { const k = w.w.toLowerCase().replace(/[.,?!:]/g, ''); const e = document.createElement('span'); e.textContent = w.w; return WICHTIG.has(k) ? `<b>${e.innerHTML}</b>` : e.innerHTML; }).join(' ');
+  }
+  const c = idx >= 0 ? chunks[idx] : null;
+  capEl.style.opacity = c ? clamp((t - c[0].s + 0.05) / 0.12) : 0;
+}
+
+// ---------- Bild ----------
+function render(t) {
+  // Zustände
+  const nachher = t >= S.abora + 0.6;
+  const z = {
+    t,
+    licht: nachher ? 0.24 + 0.32 * ease((t - S.frueh) / 2.5) : 0.75,
+    lampe: nachher ? 0 : 1,
+    figur: nachher ? 0 : 1,
+    morgen: ease((t - S.frueh) / 2.5),
+    phoneGlow: t > S.handy - 1 && t < S.morgen + 4 ? 0.6 + 0.4 * Math.sin(t * 6) * 0.5 : nachher ? 0.7 + 0.3 * Math.sin(t * 4) : 0,
+    abora: nachher ? 1 : 0,
+    entwurf: clamp((t - S.entwuerfe) / 1.5),
+    uhr: nachher ? (t < S.frueh ? 21.87 : 6.5) : 21.75 + clamp(t / 40) * 0.05,
+  };
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  const bg = g.createLinearGradient(0, 0, 0, 1920);
+  bg.addColorStop(0, farbe('#0b121b', '#2a2f3a', z.morgen * 0.6)); bg.addColorStop(1, '#070c12');
+  g.fillStyle = bg; g.fillRect(0, 0, 1080, 1920);
+  const cam = kamera(t); const [fx, fy] = P(...cam.p);
+  g.setTransform(cam.z, 0, 0, cam.z, 540 - fx * cam.z, cam.y - fy * cam.z);
+  zeichneRaum(z);
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  // Vignette
+  const vg = g.createRadialGradient(540, 1100, 300, 540, 1100, 1300); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.65)'); g.fillStyle = vg; g.fillRect(0, 0, 1080, 1920);
+
+  untertitel(t);
+  // Uhr-Anzeige
+  const uhrEl = document.getElementById('uhr');
+  let uhrText = '21:45', gut = false;
+  if (t >= S.weber) uhrText = '21:47';
+  if (t >= S.morgen) uhrText = '07:12 · am nächsten Morgen';
+  if (t >= S.abora) { uhrText = '21:47 · mit Abora'; gut = true; }
+  if (t >= S.bucht) uhrText = '21:52 · mit Abora';
+  if (t >= S.zuhause) uhrText = '22:30 · Werkstatt ist zu';
+  if (t >= S.frueh) uhrText = '06:30 · am nächsten Morgen';
+  uhrEl.querySelector('span').textContent = uhrText; uhrEl.classList.toggle('gut', gut);
+  zeig('uhr', t < S.abokor - 0.2 && !(t > S.abora - 0.2 && t < S.abora + 2.4) ? clamp((t - 0.4) / 0.4) : 0);
+
+  // Papiere vorher
+  const papAlt = fenster(t, S.werkstatt + 1.2, S.handy + 0.3);
+  ['p1', 'p2', 'p3'].forEach((id, i) => { const el = document.getElementById(id); el.style.top = (1150 + i * 130) + 'px'; zeig(id, papAlt * clamp((t - S.werkstatt - 1.2 - i * 0.35) / 0.3), 40); });
+  // Papiere nachher
+  ['q1', 'q2', 'q3'].forEach((id, i) => { const el = document.getElementById(id); el.style.top = (1150 + i * 130) + 'px'; zeig(id, fenster(t, S.angebote + 1.0, S.zuhause + 0.2) * clamp((t - S.entwuerfe - i * 0.45) / 0.3), 40, 0.94); });
+  // Sperrbildschirm
+  zeig('lock', fenster(t, S.handy + 1.0, S.weber + 2.2), 120);
+  zeig('n1', clamp((t - S.handy - 2.0) / 0.3), 30); zeig('n2', clamp((t - S.handy - 3.6) / 0.3), 30); zeig('n3', clamp((t - S.weber) / 0.3), 30);
+  // Chat ohne Abora
+  zeig('chat1', fenster(t, S.weber + 2.2, S.abora + 0.1), 120);
+  zeig('c1a', clamp((t - S.weber - 2.4) / 0.3), 20); zeig('c1b', clamp((t - S.morgen - 0.6) / 0.3), 20); zeig('c1c', clamp((t - S.morgen - 2.6) / 0.3), 20);
+  document.getElementById('chat1').classList.toggle('grau', t > S.morgen + 4.2);
+  // Trenner
+  zeig('tr', fenster(t, S.abora - 0.1, S.abora + 2.5, 0.4), 0, 0.96);
+  // Chat mit Abora
+  zeig('chat2', fenster(t, S.schreibt - 0.2, S.bucht + 0.9), 120);
+  zeig('d1', clamp((t - S.schreibt) / 0.3), 20); zeig('d2', clamp((t - S.antwort - 0.6) / 0.3), 20); zeig('d3', clamp((t - S.foto + 0.2) / 0.3), 20);
+  zeig('d4', clamp((t - S.donnerstag + 0.4) / 0.3), 20); zeig('d5', clamp((t - S.bucht + 0.1) / 0.3), 20);
+  zeig('k1', fenster(t, S.bucht + 0.7, S.angebote + 0.6), -120);
+  zeig('k2', fenster(t, S.frueh + 1.2, S.abokor + 0.2), -120);
+  // Ende
+  zeig('ende', clamp((t - S.abokor + 0.3) / 0.5), 0, 0.98);
+  zeig('logo', 1 - clamp((t - S.abokor + 0.3) / 0.4)); zeig('tag', 1 - clamp((t - S.abokor + 0.3) / 0.4));
+  zeig('hinweis', 1);
+}
+window.render = render;
+window.bereit = document.fonts.ready.then(() => Promise.all([...document.images].map((i) => i.complete ? 1 : new Promise((r) => (i.onload = r)))));
+</script>
+</body>
+</html>
