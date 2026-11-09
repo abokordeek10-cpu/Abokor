@@ -4,6 +4,7 @@ Legt <id>.mp3 und <id>.woerter.json im Ausgabeordner ab (Standard: ausgabe/)."""
 import base64, json, os, re, sys, urllib.request
 
 STIMME = 'd0sz7I0K0CRY3FtLuSu0'  # "meine stimme"
+TEMPO = 1.10  # Tonspur danach zusätzlich schneller (Tonhöhe bleibt gleich)
 g = json.load(open(sys.argv[1], encoding='utf-8'))
 aus = sys.argv[2] if len(sys.argv) > 2 else 'ausgabe'
 os.makedirs(aus, exist_ok=True)
@@ -12,7 +13,7 @@ if os.path.exists(ziel + '.woerter.json') and json.load(open(ziel + '.woerter.js
     print('Stimme schon vorhanden:', g['id']); sys.exit()
 
 body = json.dumps({'text': g['text'], 'model_id': 'eleven_v4', 'language_code': 'de',
-                   'voice_settings': {'stability': 0.5, 'similarity_boost': 0.8, 'style': 0.15, 'speed': 1.03}}).encode()
+                   'voice_settings': {'stability': 0.5, 'similarity_boost': 0.8, 'style': 0.15, 'speed': 1.15}}).encode()
 req = urllib.request.Request(
     f'https://api.elevenlabs.io/v1/text-to-speech/{STIMME}/with-timestamps?output_format=mp3_44100_128',
     data=body, headers={'xi-api-key': os.environ.get('ELEVENLABS_API_KEY', 'proxy-injected'), 'Content-Type': 'application/json'})
@@ -30,5 +31,10 @@ for c, s, e in zip(zeichen, st, en):
     else: akt['w'] += c; akt['e'] = e
 if akt: woerter.append(akt)
 woerter = [w for w in woerter if re.search(r'\w', w['w'])]
+if TEMPO != 1:
+    import subprocess
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', ziel + '.mp3', '-filter:a', f'atempo={TEMPO}', '-b:a', '192k', ziel + '.tmp.mp3'], check=True)
+    os.replace(ziel + '.tmp.mp3', ziel + '.mp3')
+    for w in woerter: w['s'] /= TEMPO; w['e'] /= TEMPO
 json.dump({'text': g['text'], 'woerter': woerter}, open(ziel + '.woerter.json', 'w'), ensure_ascii=False)
 print(g['id'], len(woerter), 'Wörter,', round(woerter[-1]['e'], 1), 's')

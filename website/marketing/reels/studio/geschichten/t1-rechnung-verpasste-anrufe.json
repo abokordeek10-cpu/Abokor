@@ -3,19 +3,126 @@
   "serie": "RECHNE MAL NACH",
   "stil": "papier",
   "hinweis": "Beispielrechnung. Stimme KI-generiert.",
-  "text": "Rechne mal kurz mit mir. Du verpasst pro Woche nur zwei Anrufe. Klingt nach wenig. Im Jahr sind das über hundert. Sagen wir, nur jeder fünfte davon wäre ein Auftrag geworden. Das sind zwanzig Aufträge. Bei, sagen wir, achthundert Euro pro Auftrag sind das: sechzehntausend Euro. Im Jahr. Für Anrufe, die du nie angenommen hast. Das ist nur ein Beispiel. Rechne mit deinen eigenen Zahlen. Aber eins ist klar: Ein verpasster Anruf ist kein kleines Problem. Meine KI nimmt jede Anfrage an, auch wenn du gerade nicht kannst. Link in der Bio.",
+  "text": "Rechne mal kurz mit mir. Du brauchst nur einen Taschenrechner und eine Minute. Du verpasst pro Woche nur zwei Anrufe. Weil du auf dem Dach stehst, im Keller bist oder am Steuer sitzt. Klingt nach wenig. Ist es aber nicht. Aber im Jahr sind das über hundert verpasste Anrufe. Und die meisten Kunden rufen nicht ein zweites Mal an. Sie rufen einfach den nächsten Betrieb an. Sagen wir, nur jeder fünfte davon wäre ein Auftrag geworden. Das sind zwanzig Aufträge. Bei, sagen wir, achthundert Euro pro Auftrag sind das: sechzehntausend Euro. Im Jahr. Für Anrufe, die du nie angenommen hast. Und da ist noch nicht drin, dass zufriedene Kunden dich weiterempfehlen. Wichtig: Das ist nur ein Beispiel. Rechne mit deinen eigenen Zahlen. Schreib mir gern in die Kommentare, was bei dir rauskommt. Aber eins ist klar: Ein verpasster Anruf ist kein kleines Problem. Meine KI nimmt jede Anfrage an, auch wenn du gerade nicht kannst. Sie fragt, worum es geht, und bucht direkt einen Termin. Folg mir, morgen rechnen wir die nächste Sache durch. Link in der Bio.",
   "szenen": [
-    { "typ": "titel", "zeilen": ["Rechne mal", "<b>kurz mit mir.</b>"] },
-    { "typ": "zahl", "bei": "du", "wert": 2, "label": "verpasste Anrufe pro Woche", "notiz": "Klingt nach wenig.", "notizBei": "klingt" },
-    { "typ": "zahl", "bei": "im", "wert": 104, "vor": "", "label": "verpasste Anrufe im Jahr", "notiz": "2 × 52 Wochen" },
-    { "typ": "zahl", "bei": "sagen", "wert": 20, "label": "Aufträge", "notiz": "wenn nur jeder 5. ein Auftrag wäre", "zaehlBei": "das" },
-    { "typ": "zahl", "bei": "bei", "wert": 16000, "nach": " €", "label": "im Jahr", "notiz": "20 × 800 € pro Auftrag", "zaehlBei": "sechzehntausend", "gross": true },
-    { "typ": "titel", "bei": "das ist", "zeilen": ["Nur ein Beispiel.", "<b>Rechne mit deinen Zahlen.</b>"] },
-    { "typ": "karte", "bei": "aber", "klein": "Fazit", "titel": "Kein kleines Problem", "text": "Jeder verpasste Anruf kann ein Auftrag sein.", "icon": "✆" },
-    { "typ": "meldungen", "bei": "meine", "zeit": "14:32", "liste": [
-      { "bei": "meine", "titel": "Anruf verpasst → Anfrage beantwortet", "text": "Die KI hat sich sofort gemeldet" },
-      { "bei": "auch", "titel": "Termin gebucht", "text": "Mi. 8:00 · Besichtigung" } ] },
-    { "typ": "ende", "bei": "link", "zeilen": ["Jede Anfrage.", "<b>Sofort beantwortet.</b>"] }
+    {
+      "typ": "titel",
+      "zeilen": [
+        "Rechne mal",
+        "<b>kurz mit mir.</b>"
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "du brauchst",
+      "klein": "Du brauchst",
+      "titel": "1 Minute",
+      "text": "und einen Taschenrechner.",
+      "icon": "🧮"
+    },
+    {
+      "typ": "zahl",
+      "bei": "du verpasst",
+      "wert": 2,
+      "label": "verpasste Anrufe pro Woche",
+      "notiz": "Dach · Keller · Steuer",
+      "notizBei": "weil"
+    },
+    {
+      "typ": "zahl",
+      "bei": "aber im",
+      "wert": 104,
+      "label": "verpasste Anrufe im Jahr",
+      "notiz": "2 × 52 Wochen"
+    },
+    {
+      "typ": "karte",
+      "bei": "und die meisten",
+      "klein": "Und dann?",
+      "titel": "Der Kunde ruft den Nächsten an.",
+      "text": "Ein zweiter Anruf bei dir? Eher selten.",
+      "icon": "↪"
+    },
+    {
+      "typ": "zahl",
+      "bei": "sagen",
+      "wert": 20,
+      "label": "Aufträge",
+      "notiz": "wenn nur jeder 5. ein Auftrag wäre",
+      "zaehlBei": "das sind"
+    },
+    {
+      "typ": "zahl",
+      "bei": "bei",
+      "wert": 16000,
+      "nach": " €",
+      "label": "im Jahr",
+      "notiz": "20 × 800 € pro Auftrag",
+      "zaehlBei": "sechzehntausend",
+      "gross": true
+    },
+    {
+      "typ": "karte",
+      "bei": "und da ist",
+      "klein": "Noch nicht eingerechnet",
+      "titel": "Weiterempfehlungen",
+      "text": "Zufriedene Kunden erzählen es weiter.",
+      "icon": "★"
+    },
+    {
+      "typ": "titel",
+      "bei": "wichtig",
+      "zeilen": [
+        "Nur ein Beispiel.",
+        "<b>Rechne mit deinen Zahlen.</b>"
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "schreib mir",
+      "zeilen": [
+        "Was kommt bei dir raus?",
+        "<b>Ab in die Kommentare.</b>"
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "aber eins",
+      "klein": "Fazit",
+      "titel": "Kein kleines Problem",
+      "text": "Jeder verpasste Anruf kann ein Auftrag sein.",
+      "icon": "✆"
+    },
+    {
+      "typ": "meldungen",
+      "bei": "meine ki",
+      "zeit": "14:32",
+      "liste": [
+        {
+          "bei": "meine ki",
+          "titel": "Anruf verpasst → Anfrage beantwortet",
+          "text": "Die KI hat sich sofort gemeldet"
+        },
+        {
+          "bei": "sie fragt",
+          "titel": "Worum geht's?",
+          "text": "„Heizung macht Geräusche“"
+        },
+        {
+          "bei": "bucht",
+          "titel": "Termin gebucht",
+          "text": "Mi. 8:00 · Besichtigung"
+        }
+      ]
+    },
+    {
+      "typ": "ende",
+      "bei": "link",
+      "zeilen": [
+        "Jede Anfrage.",
+        "<b>Sofort beantwortet.</b>"
+      ]
+    }
   ],
   "bildunterschrift": "Rechne mal kurz mit:\n\n2 verpasste Anrufe pro Woche\n→ über 100 im Jahr\n→ wenn nur jeder 5. ein Auftrag wäre: 20 Aufträge\n→ bei 800 € pro Auftrag: 16.000 € im Jahr\n\nDas ist nur eine Beispielrechnung. Rechne mit deinen eigenen Zahlen und schreib mir in die Kommentare, was rauskommt. 👇\n\nKostenloses Erstgespräch: Link in der Bio.\n\n(Stimme KI-generiert)",
   "hashtags": "#handwerk #handwerker #selbstständig #unternehmer #kiimhandwerk #automatisierung #handwerksbetrieb #abora"

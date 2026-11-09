@@ -61,7 +61,7 @@
   .ph-kopf .av { width: 80px; height: 80px; border-radius: 50%; background: #14202e; display: grid; place-items: center; overflow: hidden; }
   .ph-kopf .av img { width: 78%; }
   .ph-kopf b { display: block; font-size: 36px; } .ph-kopf small { font-size: 27px; color: #8696a0; }
-  .ph-body { padding: 30px 28px; display: flex; flex-direction: column; gap: 18px; }
+  .ph-body { padding: 30px 28px; height: calc(100% - 140px); justify-content: flex-end; overflow: hidden; display: flex; flex-direction: column; gap: 18px; }
   .bl { max-width: 84%; padding: 18px 24px 10px; border-radius: 26px; font-size: 34px; line-height: 1.36; }
   .bl.out { align-self: flex-end; background: #005c4b; border-top-right-radius: 6px; }
   .bl.in { align-self: flex-start; background: #202c33; border-top-left-radius: 6px; }
@@ -372,7 +372,7 @@ window.bereit = (async () => {
     SZ.push(b); buehne.appendChild(b.el);
   });
   baueUntertitel(); bereiteRausch();
-  DAUER = W.at(-1).e + 2.6;
+  DAUER = Math.max(W.at(-1).e + 2.6, G.mindestDauer ?? 61.5);
   window.DAUER = DAUER;
   await document.fonts.ready;
   await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));

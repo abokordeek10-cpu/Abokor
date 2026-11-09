@@ -13,6 +13,10 @@ So sieht dein Profil nie gleich aus, und Zuschauer erkennen die Serien wieder.
 | **Schlag die Konkurrenz** | Du gegen den Betrieb nebenan | kinetisch | 7:00 (im Wechsel) |
 | **Mythos oder Wahrheit** | Ein Vorurteil über KI auflösen | papier | 18:30 (im Wechsel) |
 
+**Länge: jedes Reel mindestens 61 Sekunden** (für das TikTok-Creator-Programm). Das sind etwa 175–195 Wörter Sprechertext.
+Tempo: Stimme 1,15 bei ElevenLabs plus 10 % schneller danach (`TEMPO` in `stimme.py`).
+Jedes Reel endet mit „Folg mir …“, damit Follower dazukommen.
+
 Regeln: Geschichten sind ausgedacht und als „Beispielgeschichte“ markiert. Zahlen sind „Beispielrechnung“.
 Keine erfundenen Kundenstimmen. Bei KI-Stimme auf TikTok/Instagram immer das KI-Label anmachen.
 

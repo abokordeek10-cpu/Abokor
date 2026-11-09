@@ -3,24 +3,168 @@
   "serie": "MEHR AUFTRÄGE · TEIL 1",
   "stil": "kinetisch",
   "hinweis": "Stimme KI-generiert.",
-  "text": "Drei Dinge, mit denen du mehr Aufträge bekommst. Ohne einen Euro Werbung. Erstens: Antworte schnell. Viele Kunden schreiben mehreren Betrieben gleichzeitig. Wer zuerst antwortet, ist oft schon im Rennen. Zweitens: Frag nach Fotos. Dann weißt du vor der Fahrt, ob sich der Termin überhaupt lohnt. Drittens: Fass nach. Ein Angebot ohne Nachfrage geht oft einfach unter. Ein kurzer Satz nach drei Tagen reicht. Und wenn du dafür keine Zeit hast? Genau das macht meine KI für dich. Automatisch. Ich bin Abokor. Link in der Bio.",
+  "text": "Drei Dinge, mit denen du mehr Aufträge bekommst. Ohne einen Euro Werbung. Bleib bis zum Ende, Nummer drei vergessen fast alle. Erstens: Antworte schnell. Viele Kunden schreiben mehreren Betrieben gleichzeitig. Wer zuerst antwortet, ist oft schon im Rennen. Und zwar nicht mit einem langen Text. Ein kurzes: Danke für Ihre Anfrage, wo genau ist das Problem? Reicht völlig. Je schneller, desto besser. Am besten in den ersten Minuten. Zweitens: Frag nach Fotos. Ein Foto vom Schaden sagt dir mehr als zehn Minuten Telefon. Dann weißt du vor der Fahrt, ob sich der Termin überhaupt lohnt. Und welches Material du mitnehmen musst. Drittens: Fass nach. Ein Angebot ohne Nachfrage geht oft einfach unter. Der Kunde hat es nicht abgelehnt. Er hat es nur vergessen. Ein kurzer Satz nach drei Tagen reicht: Haben Sie noch Fragen zum Angebot? Klingt alles einfach. Aber wann sollst du das machen? Auf dem Dach? Im Keller? Abends um zehn? Genau das macht meine KI für dich. Sie antwortet sofort, fragt nach Fotos und fasst nach. Automatisch. Ich bin Abokor. Folg mir, Teil zwei kommt morgen. Link in der Bio.",
   "szenen": [
-    { "typ": "titel", "zeilen": ["<b>3 Dinge</b>,", "mit denen du mehr", "Aufträge bekommst."], "unter": "Ohne einen Euro Werbung.", "unterBei": "ohne" },
-    { "typ": "liste", "bei": "erstens", "nr": "1", "titel": "Schnell antworten", "punkte": [
-      { "bei": "viele", "icon": "✉", "text": "Kunde schreibt 3 Betrieben" },
-      { "bei": "wer", "icon": "⚡", "text": "Wer zuerst antwortet, ist im Rennen", "gut": true } ] },
-    { "typ": "liste", "bei": "zweitens", "nr": "2", "titel": "Nach Fotos fragen", "punkte": [
-      { "bei": "dann", "icon": "📷", "text": "Foto vom Schaden vorab" },
-      { "bei": "lohnt", "icon": "✓", "text": "Keine Fahrt umsonst", "gut": true } ] },
-    { "typ": "liste", "bei": "drittens", "nr": "3", "titel": "Nachfassen", "punkte": [
-      { "bei": "angebot", "icon": "📄", "text": "Angebot geht unter" },
-      { "bei": "kurzer", "icon": "↻", "text": "Tag 3: kurze Nachfrage", "gut": true } ] },
-    { "typ": "titel", "bei": "und", "zeilen": ["Keine Zeit", "<b>dafür?</b>"] },
-    { "typ": "meldungen", "bei": "genau", "zeit": "06:58", "liste": [
-      { "bei": "genau", "titel": "Anfrage beantwortet", "text": "Antwort nach Sekunden, rund um die Uhr" },
-      { "bei": "ki", "titel": "Foto erhalten", "text": "Kunde hat 2 Fotos geschickt" },
-      { "bei": "automatisch", "titel": "Nachfrage gesendet", "text": "Angebot Badsanierung, Tag 3" } ] },
-    { "typ": "ende", "bei": "ich", "zeilen": ["Weniger Büro.", "<b>Mehr Aufträge.</b>"] }
+    {
+      "typ": "titel",
+      "zeilen": [
+        "<b>3 Dinge</b>,",
+        "mit denen du mehr",
+        "Aufträge bekommst."
+      ],
+      "unter": "Ohne einen Euro Werbung.",
+      "unterBei": "ohne"
+    },
+    {
+      "typ": "titel",
+      "bei": "bleib",
+      "zeilen": [
+        "Bleib bis zum Ende.",
+        "<b>Nr. 3</b> vergessen",
+        "fast alle."
+      ]
+    },
+    {
+      "typ": "liste",
+      "bei": "erstens",
+      "nr": "1",
+      "titel": "Schnell antworten",
+      "punkte": [
+        {
+          "bei": "viele",
+          "icon": "✉",
+          "text": "Kunde schreibt 3 Betrieben"
+        },
+        {
+          "bei": "wer",
+          "icon": "⚡",
+          "text": "Wer zuerst antwortet, ist im Rennen",
+          "gut": true
+        }
+      ]
+    },
+    {
+      "typ": "chat",
+      "bei": "ein kurzes",
+      "name": "Dein Betrieb",
+      "status": "online",
+      "nachrichten": [
+        {
+          "von": "out",
+          "text": "Hallo, bei uns tropft der Wasserhahn in der Küche. Haben Sie Zeit?",
+          "zeit": "16:02",
+          "vorher": true
+        },
+        {
+          "von": "in",
+          "bei": "danke",
+          "text": "Danke für Ihre Anfrage! Wo genau ist das Problem?",
+          "zeit": "16:03"
+        }
+      ]
+    },
+    {
+      "typ": "liste",
+      "bei": "zweitens",
+      "nr": "2",
+      "titel": "Nach Fotos fragen",
+      "punkte": [
+        {
+          "bei": "ein foto",
+          "icon": "📷",
+          "text": "Foto vom Schaden vorab"
+        },
+        {
+          "bei": "dann",
+          "icon": "✓",
+          "text": "Keine Fahrt umsonst",
+          "gut": true
+        },
+        {
+          "bei": "und welches",
+          "icon": "🧰",
+          "text": "Richtiges Material dabei",
+          "gut": true
+        }
+      ]
+    },
+    {
+      "typ": "liste",
+      "bei": "drittens",
+      "nr": "3",
+      "titel": "Nachfassen",
+      "punkte": [
+        {
+          "bei": "ein angebot",
+          "icon": "📄",
+          "text": "Angebot geht unter"
+        },
+        {
+          "bei": "der kunde",
+          "icon": "?",
+          "text": "Nicht abgelehnt, nur vergessen"
+        },
+        {
+          "bei": "ein kurzer",
+          "icon": "↻",
+          "text": "Tag 3: kurze Nachfrage",
+          "gut": true
+        }
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "haben sie noch",
+      "klein": "Nachricht an den Kunden",
+      "titel": "„Haben Sie noch Fragen zum Angebot?“",
+      "text": "Ein Satz. Mehr nicht.",
+      "icon": "✉"
+    },
+    {
+      "typ": "titel",
+      "bei": "klingt",
+      "zeilen": [
+        "Klingt einfach.",
+        "Aber <b>wann?</b>"
+      ]
+    },
+    {
+      "typ": "uhr",
+      "bei": "auf dem",
+      "zeit": "Abends 22:00",
+      "text": "Dach · Keller · Schreibtisch",
+      "textBei": "im keller"
+    },
+    {
+      "typ": "meldungen",
+      "bei": "genau",
+      "zeit": "06:58",
+      "liste": [
+        {
+          "bei": "genau",
+          "titel": "Anfrage beantwortet",
+          "text": "Antwort nach Sekunden, rund um die Uhr"
+        },
+        {
+          "bei": "fragt",
+          "titel": "Foto erhalten",
+          "text": "Kunde hat 2 Fotos geschickt"
+        },
+        {
+          "bei": "fasst",
+          "titel": "Nachfrage gesendet",
+          "text": "Angebot Badsanierung, Tag 3"
+        }
+      ]
+    },
+    {
+      "typ": "ende",
+      "bei": "ich bin",
+      "zeilen": [
+        "Weniger Büro.",
+        "<b>Mehr Aufträge.</b>"
+      ]
+    }
   ],
   "bildunterschrift": "3 Dinge, mit denen du als Handwerksbetrieb mehr Aufträge bekommst, ganz ohne Werbung:\n\n1️⃣ Schnell antworten\n2️⃣ Nach Fotos fragen\n3️⃣ Nachfassen\n\nKlingt einfach. Im Alltag bleibt es trotzdem liegen. Genau das übernimmt meine KI für dich.\n\nKostenloses Erstgespräch: Link in der Bio.\n\n(Stimme KI-generiert)",
   "hashtags": "#handwerk #handwerker #mehrkunden #selbstständig #kiimhandwerk #automatisierung #handwerksbetrieb #abora"
