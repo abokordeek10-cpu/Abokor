@@ -21,7 +21,7 @@ if (ids[0] === 'alle') ids = fs.readdirSync('geschichten').filter(f => f.endsWit
     }
     const ff = spawn('ffmpeg', ['-v', 'error', '-y', '-f', 'image2pipe', '-framerate', String(fps), '-c:v', 'mjpeg', '-i', '-',
       '-i', `ausgabe/${id}.mp3`, '-filter_complex', '[1:a]adelay=300|300,loudnorm=I=-14:TP=-1.5:LRA=11,apad[a]',
-      '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-maxrate', '10M', '-bufsize', '20M', '-pix_fmt', 'yuv420p',
+      '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-maxrate', '5M', '-bufsize', '10M', '-pix_fmt', 'yuv420p',
       '-c:a', 'aac', '-b:a', '192k', '-t', String(n / fps), '-movflags', '+faststart', `ausgabe/${id}.mp4`], { stdio: ['pipe', 'inherit', 'inherit'] });
     const t0 = Date.now();
     for (let i = 0; i < n; i++) {
