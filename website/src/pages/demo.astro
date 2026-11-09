@@ -252,7 +252,10 @@ import { DEMO_WEBHOOK_URL } from '../config';
     const icon = document.createElement('span');
     icon.className = 'meldung__icon';
     icon.setAttribute('aria-hidden', 'true');
-    icon.textContent = 'A';
+    const logo = document.createElement('img');
+    logo.src = '/logo/abora-zeichen-hell.webp';
+    logo.alt = '';
+    icon.append(logo);
     const inhalt = document.createElement('div');
     const kopf = document.createElement('div');
     kopf.className = 'meldung__zeile';
@@ -1012,11 +1015,13 @@ import { DEMO_WEBHOOK_URL } from '../config';
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: var(--gelb);
-    color: var(--dunkel);
+    background: var(--dunkel);
     display: grid;
     place-items: center;
-    font-weight: 900;
+  }
+  .meldungen :global(.meldung__icon img) {
+    width: 76%;
+    height: auto;
   }
   .meldungen :global(.meldung > div) {
     display: grid;

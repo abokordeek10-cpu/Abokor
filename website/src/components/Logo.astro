@@ -1,42 +1,35 @@
 ---
+// Logo von Abora Automation (helle Variante für dunkle Hintergründe).
 interface Props {
-  dunkel?: boolean;
+  groesse?: 'normal' | 'gross';
 }
-const { dunkel = false } = Astro.props;
+const { groesse = 'normal' } = Astro.props;
 ---
 
-<span class:list={['logo', { 'logo--dunkel': dunkel }]}>
-  <span class="logo__icon" aria-hidden="true">A</span>
-  <span class="logo__text">Abora<span class="logo__zusatz"> Automation</span></span>
-</span>
+<img
+  src="/logo/abora-quer-hell.webp"
+  alt="Abora Automation"
+  width="604"
+  height="150"
+  class:list={['logo', `logo--${groesse}`]}
+  decoding="async"
+/>
 
 <style>
   .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 800;
-    font-size: 1.15rem;
-    letter-spacing: -0.03em;
-    color: var(--text-hell);
+    display: block;
+    height: 40px;
+    width: auto;
   }
-  .logo--dunkel {
-    color: var(--text);
+  .logo--gross {
+    height: 56px;
   }
-  .logo__icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 9px;
-    background: var(--gelb);
-    color: var(--dunkel);
-    display: grid;
-    place-items: center;
-    font-size: 1.15rem;
-    font-weight: 900;
-    letter-spacing: 0;
-  }
-  .logo__zusatz {
-    font-weight: 500;
-    opacity: 0.75;
+  @media (min-width: 900px) {
+    .logo {
+      height: 46px;
+    }
+    .logo--gross {
+      height: 64px;
+    }
   }
 </style>

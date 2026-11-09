@@ -19,9 +19,10 @@
   .szene.an { opacity: 1; }
 
   /* Marke & Demo-Kennzeichnung */
-  .marke { position: absolute; top: 120px; left: 70px; display: flex; align-items: center; gap: 18px; font-weight: 800; font-size: 40px; letter-spacing: -.03em; z-index: 5; }
+  .marke { transition: opacity .4s; position: absolute; top: 120px; left: 70px; display: flex; align-items: center; gap: 18px; font-weight: 800; font-size: 40px; letter-spacing: -.03em; z-index: 5; }
   .marke i { font-style: normal; width: 64px; height: 64px; border-radius: 16px; background: var(--gelb); color: var(--dunkel); display: grid; place-items: center; font-size: 40px; font-weight: 900; }
   .marke span { font-weight: 500; opacity: .75; }
+  .marke img { height: 84px; width: auto; display: block; }
   .demo-tag { position: absolute; top: 132px; right: 160px; z-index: 5; font-size: 26px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
     color: var(--gelb); border: 2px solid rgba(255,200,61,.5); background: rgba(255,200,61,.12); padding: 10px 20px; border-radius: 999px; }
 
@@ -69,7 +70,8 @@
     transform: translateY(-140%); opacity: 0; transition: all .55s cubic-bezier(.2,.9,.25,1.15); }
   .bn.an { transform: none; opacity: 1; }
   .bn.notfall { outline: 8px solid #e5484d; }
-  .bn i { font-style: normal; width: 88px; height: 88px; flex: none; border-radius: 22px; background: var(--gelb); color: var(--dunkel); display: grid; place-items: center; font-weight: 900; font-size: 50px; }
+  .bn i img { width: 76%; height: auto; }
+  .bn i { font-style: normal; width: 88px; height: 88px; flex: none; border-radius: 22px; background: var(--dunkel); color: var(--dunkel); display: grid; place-items: center; font-weight: 900; font-size: 50px; }
   .bn div { flex: 1; display: grid; gap: 4px; }
   .bn small { display: flex; justify-content: space-between; font-size: 24px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #6b6f76; }
   .bn b { font-size: 38px; letter-spacing: -.01em; }
@@ -98,6 +100,7 @@
 
   /* Abschluss */
   .ende { display: flex; flex-direction: column; justify-content: center; padding: 0 80px 260px; }
+  .ende-logo { width: 420px; height: auto; margin-bottom: 70px; }
   .ende h2 { font-size: 104px; line-height: 1.02; letter-spacing: -.045em; font-weight: 850; }
   .ende h2 span { color: var(--gelb); display: block; }
   .ende p { font-size: 44px; margin-top: 50px; color: #d4dae1; line-height: 1.3; }
@@ -108,18 +111,19 @@
 </head>
 <body>
 <div class="buehne" id="b">
-  <div class="marke"><i>A</i>Abora<span>&nbsp;Automation</span></div>
+  <div class="marke"><img src="logo/quer-hell.png" alt="Abora Automation"></div>
   <div class="demo-tag">Echte KI · Demo</div>
 
   <section class="szene hook" id="s-hook"><div class="strich"></div><h1 id="hook"></h1></section>
 
   <section class="szene" id="s-haupt">
     <div class="zeile" id="zeile"></div>
-    <div class="bn" id="bn"><i>A</i><div><small><span>Abora</span><span>jetzt</span></small><b></b><span></span></div></div>
+    <div class="bn" id="bn"><i><img src="logo/zeichen-hell.png" alt=""></i><div><small><span>Abora</span><span>jetzt</span></small><b></b><span></span></div></div>
     <div id="inhalt"></div>
   </section>
 
   <section class="szene ende" id="s-ende">
+    <img class="ende-logo" src="logo/logo-hell.png" alt="Abora Automation">
     <h2>Du machst das Handwerk. <span>Wir machen den Rest.</span></h2>
     <p>KI für Handwerksbetriebe:<br>Anfragen, Termine, Angebote.<br>Läuft automatisch.</p>
     <div class="knopf">Kostenloses Erstgespräch</div>
@@ -130,7 +134,7 @@
 <script>
 const warte = (ms) => new Promise(r => setTimeout(r, ms));
 const $ = (s) => document.querySelector(s);
-const zeigen = (id) => { document.querySelectorAll('.szene').forEach(s => s.classList.toggle('an', s.id === id)); };
+const zeigen = (id) => { document.querySelectorAll('.szene').forEach(s => s.classList.toggle('an', s.id === id)); document.querySelector('.marke').style.opacity = id === 's-ende' ? '0' : '1'; };
 const zeit = () => new Date(2026, 10, 9, 10, 42).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
 
 async function zeile(text) {

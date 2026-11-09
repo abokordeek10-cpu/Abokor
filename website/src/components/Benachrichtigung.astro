@@ -11,7 +11,7 @@ const { titel, text, zeit = 'jetzt', class: klasse, style } = Astro.props;
 ---
 
 <div class:list={['bn', klasse]} style={style}>
-  <span class="bn__icon" aria-hidden="true">A</span>
+  <span class="bn__icon" aria-hidden="true"><img src="/logo/abora-zeichen-hell.webp" alt="" width="152" height="120" /></span>
   <div class="bn__inhalt">
     <div class="bn__zeile">
       <span class="bn__app">Abora</span>
@@ -42,12 +42,13 @@ const { titel, text, zeit = 'jetzt', class: klasse, style } = Astro.props;
     width: 38px;
     height: 38px;
     border-radius: 10px;
-    background: var(--gelb);
-    color: var(--dunkel);
+    background: var(--dunkel);
     display: grid;
     place-items: center;
-    font-weight: 900;
-    font-size: 1.15rem;
+  }
+  .bn__icon img {
+    width: 76%;
+    height: auto;
   }
   .bn__inhalt {
     display: grid;

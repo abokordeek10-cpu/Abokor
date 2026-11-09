@@ -87,6 +87,7 @@ Keine Rechtstexte erfinden. Impressum und Datenschutz stammen vom Inhaber und we
 
 ## Design
 
+- **Logo:** Das offizielle Logo des Inhabers (dunkelblaues „A“ mit blauem Pfeil und Schaltkreis-Linien, darunter „ABORA / AUTOMATION“). Original und alle Varianten liegen in `marketing/logo/`; auf der Website wird die helle Variante für dunkle Hintergründe genutzt (`public/logo/`). Überall dieses Logo verwenden, kein selbst gebautes „A“ mehr.
 - **Farben:**
   - Dunkelblau (Hauptfarbe, Hintergründe dunkler Abschnitte): `#14202E`
   - Blau-Grau (Flächen): `#3D5875`
