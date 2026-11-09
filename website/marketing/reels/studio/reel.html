@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<!--
+  Abora Reel-Studio: baut aus einer Geschichte (geschichten/<id>.json) und den
+  Wort-Zeitstempeln (ausgabe/<id>.woerter.json) ein Reel. Aufruf: reel.html?g=<id>
+  window.render(t) zeichnet den Zeitpunkt t (Sekunden). Drei Schnitt-Stile:
+  kinetisch (harte Schnitte, Blitz, Wort-für-Wort), kino (Überblendungen, ruhig),
+  papier (heller Notizblock-Look, Wischer, Textmarker).
+-->
+<style>
+  @font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-wght-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-ext-wght-normal.woff2') format('woff2'); unicode-range: U+0100-02BA, U+1E00-1E9F, U+20A0-20C0; }
+  * { box-sizing: border-box; margin: 0; }
+  :root { --bg: #0b121b; --text: #f6f4ef; --gedaempft: #9aa6b4; --gelb: #ffc83d; --karte: #fff; --karte-text: #111; --flaeche: rgba(255,255,255,.06); --linie: rgba(255,255,255,.12); }
+  body.papier { --bg: #f2ede3; --text: #14202e; --gedaempft: #5d6773; --karte: #14202e; --karte-text: #f6f4ef; --flaeche: rgba(20,32,46,.06); --linie: rgba(20,32,46,.14); }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+  #bg { position: absolute; inset: 0; }
+  .abs { position: absolute; }
+  #logo { top: 92px; left: 70px; height: 70px; z-index: 5; }
+  #serie { top: 104px; right: 70px; font-size: 23px; font-weight: 800; letter-spacing: .12em; color: var(--gelb); border: 2px solid rgba(255,200,61,.5); background: rgba(255,200,61,.12); padding: 9px 18px; border-radius: 999px; z-index: 5; }
+  body.papier #serie { color: #14202e; background: var(--gelb); border-color: var(--gelb); }
+  #fortschritt { top: 0; left: 0; height: 10px; background: var(--gelb); z-index: 6; }
+  #hinweis { left: 70px; right: 70px; bottom: 70px; font-size: 23px; color: var(--gedaempft); opacity: .8; z-index: 5; }
+  #blitz { inset: 0; background: var(--gelb); opacity: 0; z-index: 8; pointer-events: none; }
+
+  .szene { position: absolute; left: 0; right: 0; top: 260px; height: 1180px; display: flex; flex-direction: column; justify-content: center; padding: 0 80px; will-change: transform, opacity; }
+
+  /* Titel */
+  .titel h1 { font-size: 118px; font-weight: 900; letter-spacing: -.05em; line-height: 1.0; }
+  .titel h1 span { display: block; }
+  .titel b, .ende b { color: var(--gelb); font-weight: 900; }
+  body.papier .titel b, body.papier .ende b { color: #14202e; background: linear-gradient(transparent 55%, var(--gelb) 55%); }
+  .titel p { margin-top: 44px; font-size: 52px; font-weight: 700; color: var(--gedaempft); }
+
+  /* Liste */
+  .liste .nr { font-size: 300px; font-weight: 900; line-height: .85; color: var(--gelb); letter-spacing: -.06em; }
+  body.papier .liste .nr { color: transparent; -webkit-text-stroke: 6px #14202e; }
+  .liste h2 { font-size: 104px; font-weight: 900; letter-spacing: -.045em; line-height: 1.02; margin: 20px 0 60px; }
+  .punkt { display: flex; gap: 28px; align-items: center; background: var(--flaeche); border: 2px solid var(--linie); border-radius: 30px; padding: 28px 32px; font-size: 42px; font-weight: 700; margin-bottom: 22px; }
+  .punkt i { font-style: normal; width: 84px; height: 84px; flex: none; border-radius: 22px; display: grid; place-items: center; font-size: 42px; background: rgba(229,72,77,.18); }
+  .punkt.gut { border-color: rgba(255,200,61,.6); }
+  .punkt.gut i { background: var(--gelb); color: #111; }
+
+  /* Rennen */
+  .rennen h3 { font-size: 46px; font-weight: 800; color: var(--gedaempft); margin-bottom: 40px; letter-spacing: -.01em; }
+  .zeile { display: flex; align-items: center; gap: 30px; background: var(--flaeche); border: 2px solid var(--linie); border-radius: 30px; padding: 34px 36px; margin-bottom: 26px; }
+  .zeile .av { width: 96px; height: 96px; border-radius: 50%; background: #2a3b4f; display: grid; place-items: center; font-size: 42px; font-weight: 900; flex: none; }
+  .zeile b { display: block; font-size: 46px; letter-spacing: -.02em; }
+  .zeile span { font-size: 36px; color: var(--gedaempft); }
+  .zeile em { margin-left: auto; font-style: normal; width: 80px; height: 80px; border-radius: 50%; display: grid; place-items: center; font-size: 46px; font-weight: 900; flex: none; }
+  .zeile.nein em { background: rgba(229,72,77,.2); color: #ff6b6f; }
+  .zeile.ja { border-color: var(--gelb); background: rgba(255,200,61,.1); }
+  .zeile.ja em { background: var(--gelb); color: #111; }
+  .zeile.ja span { color: var(--text); }
+
+  /* Chat */
+  .phone { margin: 0 auto; width: 840px; height: 1120px; border-radius: 74px; background: #0b141a; border: 16px solid #05090c; box-shadow: 0 60px 140px -30px rgba(0,0,0,.8), 0 0 0 2px rgba(255,255,255,.08); overflow: hidden; color: #e9edef; }
+  .ph-kopf { display: flex; align-items: center; gap: 22px; padding: 34px 36px 26px; background: #1f2c34; }
+  .ph-kopf .av { width: 80px; height: 80px; border-radius: 50%; background: #14202e; display: grid; place-items: center; overflow: hidden; }
+  .ph-kopf .av img { width: 78%; }
+  .ph-kopf b { display: block; font-size: 36px; } .ph-kopf small { font-size: 27px; color: #8696a0; }
+  .ph-body { padding: 30px 28px; display: flex; flex-direction: column; gap: 18px; }
+  .bl { max-width: 84%; padding: 18px 24px 10px; border-radius: 26px; font-size: 34px; line-height: 1.36; }
+  .bl.out { align-self: flex-end; background: #005c4b; border-top-right-radius: 6px; }
+  .bl.in { align-self: flex-start; background: #202c33; border-top-left-radius: 6px; }
+  .bl .z { display: block; text-align: right; font-size: 23px; color: rgba(233,237,239,.55); margin-top: 6px; }
+  .bl .ki { display: block; font-size: 21px; font-weight: 800; color: var(--gelb); letter-spacing: .06em; margin-bottom: 4px; }
+  .tippt { align-self: flex-start; background: #202c33; border-radius: 26px; padding: 22px 28px; display: flex; gap: 10px; }
+  .tippt i { width: 14px; height: 14px; border-radius: 50%; background: #8696a0; display: block; }
+
+  /* Zahl */
+  .zahl { align-items: flex-start; }
+  .zahl .wert { font-size: 300px; font-weight: 900; letter-spacing: -.06em; line-height: .95; font-variant-numeric: tabular-nums; }
+  .zahl .wert { white-space: nowrap; }
+  .zahl.gross .wert { font-size: 200px; color: #14202e; background: linear-gradient(transparent 58%, var(--gelb) 58%); padding: 0 12px; margin-left: -12px; }
+  .zahl .label { font-size: 64px; font-weight: 800; letter-spacing: -.03em; margin-top: 18px; }
+  .zahl .notiz { margin-top: 50px; font-size: 44px; font-weight: 600; color: var(--gedaempft); border-left: 8px solid var(--gelb); padding-left: 28px; }
+
+  /* Uhr */
+  .uhr { align-items: center; text-align: center; }
+  .uhr .zeit { font-size: 230px; font-weight: 200; letter-spacing: -.05em; line-height: 1; }
+  .uhr .zeit b { font-weight: 900; color: var(--gelb); }
+  .uhr p { margin-top: 50px; font-size: 56px; font-weight: 800; background: var(--flaeche); border: 2px solid var(--linie); padding: 24px 40px; border-radius: 999px; }
+
+  /* Karte */
+  .karte-gross { background: var(--karte); color: var(--karte-text); border-radius: 44px; padding: 64px 60px; box-shadow: 0 60px 120px -30px rgba(0,0,0,.6); }
+  .karte-gross i { font-style: normal; width: 130px; height: 130px; border-radius: 34px; background: var(--gelb); color: #111; display: grid; place-items: center; font-size: 70px; margin-bottom: 44px; }
+  .karte-gross small { display: block; font-size: 30px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; opacity: .55; }
+  .karte-gross b { display: block; font-size: 84px; letter-spacing: -.04em; line-height: 1.04; margin: 14px 0 22px; }
+  .karte-gross span { font-size: 44px; opacity: .75; line-height: 1.3; }
+
+  /* Meldungen (Sperrbildschirm) */
+  .sperr { margin: 0 auto; width: 840px; height: 1120px; border-radius: 74px; border: 16px solid #05090c; background: radial-gradient(ellipse at 30% 0%, #3a4c63, #14202e 60%, #0b121b); overflow: hidden; padding: 60px 30px; color: #f6f4ef; box-shadow: 0 60px 140px -30px rgba(0,0,0,.8); }
+  .sperr .z { text-align: center; font-size: 150px; font-weight: 300; letter-spacing: -.04em; margin-bottom: 50px; }
+  .nt { background: rgba(255,255,255,.14); border-radius: 34px; padding: 26px 28px; display: flex; gap: 22px; align-items: center; margin-bottom: 18px; }
+  .nt .ic { width: 80px; height: 80px; border-radius: 20px; background: #14202e; display: grid; place-items: center; flex: none; }
+  .nt .ic img { width: 76%; }
+  .nt b { display: block; font-size: 33px; } .nt span { font-size: 29px; color: #c7cdd4; }
+
+  /* Ende */
+  .ende img { width: 440px; margin-bottom: 70px; }
+  .ende h1 { font-size: 112px; font-weight: 900; letter-spacing: -.05em; line-height: 1.02; }
+  .ende h1 span { display: block; }
+  .ende .kn { margin-top: 64px; align-self: flex-start; background: var(--gelb); color: #111; font-weight: 850; font-size: 46px; padding: 32px 48px; border-radius: 26px; }
+  .ende .url { margin-top: 30px; font-size: 40px; font-weight: 700; }
+
+  /* Untertitel */
+  #ut { left: 60px; right: 60px; top: 1470px; text-align: center; z-index: 7; }
+  #ut .w { display: inline-block; margin: 0 .13em; }
+  body.kinetisch #ut { font-size: 84px; font-weight: 900; letter-spacing: -.035em; text-transform: uppercase; line-height: 1.05; text-shadow: 0 6px 30px rgba(0,0,0,.7); }
+  body.kinetisch #ut .w.an { color: var(--gelb); }
+  body.kino #ut { font-size: 56px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; text-shadow: 0 4px 24px rgba(0,0,0,.8); top: 1520px; }
+  body.kino #ut .w { opacity: .38; } body.kino #ut .w.da { opacity: 1; }
+  body.papier #ut { font-size: 64px; font-weight: 850; letter-spacing: -.03em; line-height: 1.25; }
+  body.papier #ut .w.an { background: var(--gelb); border-radius: 8px; box-shadow: 0 0 0 6px var(--gelb); }
+</style>
+</head>
+<body>
+<canvas id="bg" width="1080" height="1920"></canvas>
+<div id="buehne"></div>
+<img id="logo" class="abs" alt="">
+<div id="serie" class="abs"></div>
+<div id="fortschritt" class="abs"></div>
+<div id="ut" class="abs"></div>
+<div id="hinweis" class="abs"></div>
+<div id="blitz" class="abs"></div>
+<script>
+const qs = new URLSearchParams(location.search);
+const ID = qs.get('g');
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const ease = x => 1 - Math.pow(1 - clamp(x), 3);
+const back = x => { x = clamp(x); const c = 1.6; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const norm = s => s.toLowerCase().normalize('NFC').replace(/[^\p{L}\p{N}]/gu, '');
+const $ = (h) => { const d = document.createElement('div'); d.innerHTML = h.trim(); return d.firstChild; };
+
+let G, W, STIL, SZ = [], DAUER, UT = [];
+let wortIndex = 0;
+
+// Anker: ein oder mehrere Wörter, gesucht ab Index "ab"
+function finde(anker, ab) {
+  const teile = anker.split(/\s+/).map(norm);
+  for (let i = ab; i < W.length; i++) {
+    if (teile.every((t, k) => W[i + k] && norm(W[i + k].w).startsWith(t))) return i;
+  }
+  throw new Error('Anker nicht gefunden: "' + anker + '" ab Wort ' + ab);
+}
+const zeitVon = (anker, ab) => W[finde(anker, ab)].s;
+
+function baueSzene(s, ab) {
+  const z = a => (a ? zeitVon(a, ab) : null);
+  let el, teile = [];
+  switch (s.typ) {
+    case 'titel':
+      el = $(`<div class="szene titel"><h1>${s.zeilen.map(l => `<span>${l}</span>`).join('')}</h1>${s.unter ? `<p>${s.unter}</p>` : ''}</div>`);
+      [...el.querySelectorAll('h1 span')].forEach((e, i) => teile.push({ e, ab: i * 0.12, art: 'hoch' }));
+      if (s.unter) teile.push({ e: el.querySelector('p'), t: z(s.unterBei), art: 'hoch' });
+      break;
+    case 'liste':
+      el = $(`<div class="szene liste"><div class="nr">${s.nr}</div><h2>${s.titel}</h2>${s.punkte.map(p => `<div class="punkt${p.gut ? ' gut' : ''}"><i>${p.icon}</i><span>${p.text}</span></div>`).join('')}</div>`);
+      teile.push({ e: el.querySelector('.nr'), ab: 0, art: 'pop' }, { e: el.querySelector('h2'), ab: 0.1, art: 'hoch' });
+      [...el.querySelectorAll('.punkt')].forEach((e, i) => teile.push({ e, t: z(s.punkte[i].bei), art: 'rechts' }));
+      break;
+    case 'rennen':
+      el = $(`<div class="szene rennen"><h3>${s.titel}</h3>${s.zeilen.map((r, i) => `<div class="zeile ${r.ok ? 'ja' : 'nein'}"><div class="av">${i + 1}</div><div><b>${r.name}</b><span>${r.status}</span></div><em>${r.ok ? '✓' : '✕'}</em></div>`).join('')}</div>`);
+      teile.push({ e: el.querySelector('h3'), ab: 0, art: 'hoch' });
+      [...el.querySelectorAll('.zeile')].forEach((e, i) => teile.push({ e, t: z(s.zeilen[i].bei), art: 'rechts' }));
+      break;
+    case 'chat': {
+      el = $(`<div class="szene chat"><div class="phone"><div class="ph-kopf"><div class="av"><img src="logo/zeichen-hell.png"></div><div><b>${s.name}</b><small>${s.status}</small></div></div><div class="ph-body"></div></div></div>`);
+      const body = el.querySelector('.ph-body');
+      s.nachrichten.forEach(n => {
+        const t = n.vorher ? null : z(n.bei);
+        if (n.von === 'in' && t != null) {
+          const tp = $(`<div class="tippt"><i></i><i></i><i></i></div>`); body.appendChild(tp);
+          teile.push({ e: tp, t: t - 0.7, bis: t, art: 'tippen' });
+        }
+        const b = $(`<div class="bl ${n.von}">${n.ki ? '<span class="ki">KI-ASSISTENT</span>' : ''}${n.text}<span class="z">${n.zeit}</span></div>`);
+        body.appendChild(b);
+        teile.push(n.vorher ? { e: b, ab: 0.15, art: 'blase' } : { e: b, t, art: 'blase' });
+      });
+      teile.push({ e: el.querySelector('.phone'), ab: 0, art: 'hochGross' });
+      break;
+    }
+    case 'zahl':
+      el = $(`<div class="szene zahl${s.gross ? ' gross' : ''}"><div class="wert"></div><div class="label">${s.label}</div>${s.notiz ? `<div class="notiz">${s.notiz}</div>` : ''}</div>`);
+      el._zahl = { e: el.querySelector('.wert'), wert: s.wert, vor: s.vor || '', nach: s.nach || '', t: s.zaehlBei ? z(s.zaehlBei) : null };
+      teile.push({ e: el.querySelector('.label'), ab: 0.15, art: 'hoch' });
+      if (s.notiz) teile.push({ e: el.querySelector('.notiz'), t: s.notizBei ? z(s.notizBei) : null, ab: 0.45, art: 'rechts' });
+      break;
+    case 'uhr': {
+      const [tag, zeit] = s.zeit.includes(' ') ? s.zeit.split(' ') : ['', s.zeit];
+      el = $(`<div class="szene uhr"><div class="zeit">${tag ? `<b>${tag}</b> ` : ''}${zeit}</div><p>${s.text}</p></div>`);
+      teile.push({ e: el.querySelector('.zeit'), ab: 0, art: 'pop' }, { e: el.querySelector('p'), t: z(s.textBei), art: 'hoch' });
+      break;
+    }
+    case 'karte':
+      el = $(`<div class="szene"><div class="karte-gross"><i>${s.icon || '✓'}</i><small>${s.klein}</small><b>${s.titel}</b><span>${s.text}</span></div></div>`);
+      teile.push({ e: el.querySelector('.karte-gross'), ab: 0, art: 'hochGross' });
+      break;
+    case 'meldungen':
+      el = $(`<div class="szene"><div class="sperr"><div class="z">${s.zeit.split(' ').pop()}</div>${s.liste.map(m => `<div class="nt"><div class="ic"><img src="logo/zeichen-hell.png"></div><div><b>${m.titel}</b><span>${m.text}</span></div></div>`).join('')}</div></div>`);
+      teile.push({ e: el.querySelector('.sperr'), ab: 0, art: 'hochGross' });
+      [...el.querySelectorAll('.nt')].forEach((e, i) => teile.push({ e, t: z(s.liste[i].bei), ab: 0.25, art: 'fallen' }));
+      break;
+    case 'ende':
+      el = $(`<div class="szene ende"><img src="logo/${STIL === 'papier' ? 'quer-dunkel' : 'quer-hell'}.png"><h1>${s.zeilen.map(l => `<span>${l}</span>`).join('')}</h1><div class="kn">Kostenloses Erstgespräch →</div><div class="url">abora-automation.de</div></div>`);
+      [...el.children].forEach((e, i) => teile.push({ e, ab: i * 0.1, art: 'hoch' }));
+      break;
+    default: throw new Error('Unbekannter Szenentyp ' + s.typ);
+  }
+  return { el, teile, untertitel: s.untertitel ?? !['titel', 'ende'].includes(s.typ), typ: s.typ };
+}
+
+// Untertitel in kurze Stücke teilen
+function baueUntertitel() {
+  const max = { kinetisch: 3, kino: 6, papier: 4 }[STIL];
+  let stueck = [];
+  W.forEach((w, i) => {
+    stueck.push(i);
+    const ende = /[.,:;?!]$/.test(w.w) || stueck.length >= max;
+    if (ende) { UT.push(stueck); stueck = []; }
+  });
+  if (stueck.length) UT.push(stueck);
+}
+
+// Hintergrund
+const bg = document.getElementById('bg'), cx = bg.getContext('2d');
+const rausch = [];
+function bereiteRausch() {
+  for (let k = 0; k < 4; k++) {
+    const c = document.createElement('canvas'); c.width = 540; c.height = 960;
+    const x = c.getContext('2d'), d = x.createImageData(540, 960);
+    let s = 1234 + k * 99;
+    for (let i = 0; i < d.data.length; i += 4) { s = (s * 16807) % 2147483647; const v = s % 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 22; }
+    x.putImageData(d, 0, 0); rausch.push(c);
+  }
+}
+function zeichneHintergrund(t, schnitt) {
+  if (STIL === 'papier') {
+    cx.fillStyle = '#f2ede3'; cx.fillRect(0, 0, 1080, 1920);
+    cx.strokeStyle = 'rgba(20,32,46,.07)'; cx.lineWidth = 2;
+    const v = (t * 6) % 60;
+    for (let y = -60 + v; y < 1920; y += 60) { cx.beginPath(); cx.moveTo(0, y); cx.lineTo(1080, y); cx.stroke(); }
+    for (let x = 0; x < 1080; x += 60) { cx.beginPath(); cx.moveTo(x, 0); cx.lineTo(x, 1920); cx.stroke(); }
+    cx.fillStyle = 'rgba(229,72,77,.35)'; cx.fillRect(110, 0, 3, 1920);
+    return;
+  }
+  if (STIL === 'kino') {
+    const g = cx.createLinearGradient(0, 0, 0, 1920); g.addColorStop(0, '#16263a'); g.addColorStop(1, '#070c12');
+    cx.fillStyle = g; cx.fillRect(0, 0, 1080, 1920);
+    const gx = 540 + Math.sin(t * 0.25) * 320, gy = 500 + Math.cos(t * 0.18) * 220;
+    const r = cx.createRadialGradient(gx, gy, 0, gx, gy, 900); r.addColorStop(0, 'rgba(255,170,70,.20)'); r.addColorStop(1, 'rgba(255,170,70,0)');
+    cx.fillStyle = r; cx.fillRect(0, 0, 1080, 1920);
+    const r2 = cx.createRadialGradient(200, 1600, 0, 200, 1600, 800); r2.addColorStop(0, 'rgba(70,120,200,.18)'); r2.addColorStop(1, 'rgba(70,120,200,0)');
+    cx.fillStyle = r2; cx.fillRect(0, 0, 1080, 1920);
+    cx.drawImage(rausch[Math.floor(t * 24) % 4], 0, 0, 1080, 1920);
+    const v = cx.createRadialGradient(540, 960, 500, 540, 960, 1250); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.55)');
+    cx.fillStyle = v; cx.fillRect(0, 0, 1080, 1920);
+    return;
+  }
+  // kinetisch
+  cx.fillStyle = '#0b121b'; cx.fillRect(0, 0, 1080, 1920);
+  cx.save(); cx.translate(540, 960); cx.rotate(-0.35);
+  const p = (t * 140) % 520;
+  for (let i = -6; i < 6; i++) {
+    cx.fillStyle = i % 2 ? 'rgba(255,200,61,.035)' : 'rgba(255,255,255,.02)';
+    cx.fillRect(-1600, i * 520 + p - 1300 + 0, 3200, 260);
+  }
+  cx.restore();
+  cx.fillStyle = 'rgba(255,255,255,.08)';
+  for (let y = 40; y < 1920; y += 80) for (let x = 40; x < 1080; x += 80) cx.fillRect(x, y, 3, 3);
+  const puls = Math.exp(-schnitt * 6);
+  const r = cx.createRadialGradient(540, 960, 0, 540, 960, 1000); r.addColorStop(0, `rgba(255,200,61,${0.05 + 0.12 * puls})`); r.addColorStop(1, 'rgba(255,200,61,0)');
+  cx.fillStyle = r; cx.fillRect(0, 0, 1080, 1920);
+}
+
+// Teil-Animationen
+function animiereTeil(p, lt, start) {
+  const t0 = (p.t != null ? Math.max(p.t - start, 0) : 0) + (p.ab || 0);
+  const tt = lt - t0;
+  const k = STIL === 'kinetisch' ? 1.6 : STIL === 'kino' ? 0.75 : 1;
+  const x = tt * 3.2 * k;
+  const e = p.e.style;
+  if (p.art === 'tippen') {
+    const bis = p.bis - start;
+    e.display = lt >= p.t - start && lt < bis ? 'flex' : 'none';
+    [...p.e.children].forEach((d, i) => d.style.opacity = 0.35 + 0.65 * Math.abs(Math.sin(lt * 6 - i * 0.8)));
+    return;
+  }
+  if (p.art === 'blase') { e.display = tt >= 0 ? '' : 'none'; e.transform = `scale(${0.85 + 0.15 * back(x * 1.3)})`; e.opacity = clamp(x * 2); e.transformOrigin = p.e.classList.contains('out') ? '100% 100%' : '0 100%'; return; }
+  const v = ease(x);
+  e.opacity = clamp(x * 1.5);
+  if (p.art === 'hoch') e.transform = `translateY(${(1 - v) * 60}px)`;
+  else if (p.art === 'rechts') e.transform = `translateX(${(1 - v) * 120}px)`;
+  else if (p.art === 'pop') e.transform = `scale(${0.6 + 0.4 * back(x)})`;
+  else if (p.art === 'hochGross') e.transform = `translateY(${(1 - v) * 160}px) scale(${0.94 + 0.06 * v})`;
+  else if (p.art === 'fallen') e.transform = `translateY(${(1 - v) * -60}px) scale(${0.96 + 0.04 * v})`;
+}
+
+function zahlFormat(n) { return Math.round(n).toLocaleString('de-DE'); }
+
+function zeigeSzene(i, t, rolle, f) {
+  const s = SZ[i], lt = t - s.start, st = s.el.style;
+  st.display = 'flex';
+  s.teile.forEach(p => animiereTeil(p, lt, s.start));
+  if (s.el._zahl) {
+    const z = s.el._zahl, tz = (z.t != null ? z.t - s.start : 0.1);
+    const q = ease((lt - tz) / (STIL === 'papier' ? 1.1 : 0.8));
+    z.e.textContent = z.vor + zahlFormat(z.wert * clamp(q)) + z.nach;
+  }
+  // Übergänge je Stil
+  let tr = '', op = 1;
+  if (STIL === 'kinetisch') {
+    const q = ease(lt / 0.22);
+    tr = `scale(${1.1 - 0.1 * q})`; op = clamp(lt / 0.06);
+    tr += ` translateY(${Math.sin(lt * 1.3) * 6}px)`;
+  } else if (STIL === 'kino') {
+    if (rolle === 'neu') op = ease(f);
+    tr = `scale(${1 + Math.min(lt, 12) * 0.004}) translateY(${(1 - ease(lt / 0.9)) * 30}px)`;
+  } else {
+    if (rolle === 'neu') tr = `translateX(${(1 - ease(f)) * 1080}px) rotate(${(1 - ease(f)) * 3}deg)`;
+    else if (rolle === 'alt') { tr = `translateX(${-ease(f) * 1080}px) rotate(${-ease(f) * 3}deg)`; }
+  }
+  st.transform = tr; st.opacity = op;
+}
+
+window.render = function (t) {
+  const akt = SZ.reduce((a, s, i) => (t >= s.start ? i : a), 0);
+  const s = SZ[akt], lt = t - s.start;
+  const ueber = STIL === 'kino' ? 0.6 : STIL === 'papier' ? 0.45 : 0;
+  zeichneHintergrund(t, lt);
+  SZ.forEach(x => x.el.style.display = 'none');
+  const f = ueber ? clamp(lt / ueber) : 1;
+  if (akt > 0 && f < 1) zeigeSzene(akt - 1, t, 'alt', f);
+  zeigeSzene(akt, t, f < 1 ? 'neu' : 'nur', f);
+  // Blitz bei harten Schnitten
+  document.getElementById('blitz').style.opacity = STIL === 'kinetisch' && akt > 0 ? clamp(0.55 - lt * 5) : 0;
+  // Fortschritt
+  document.getElementById('fortschritt').style.width = (clamp(t / DAUER) * 1080) + 'px';
+  // Untertitel
+  const ut = document.getElementById('ut');
+  const sichtbar = s.untertitel;
+  let u = -1;
+  for (let k = 0; k < UT.length; k++) if (t >= W[UT[k][0]].s - 0.05) u = k;
+  if (u >= 0 && sichtbar && t < W[UT[u].at(-1)].e + 0.6) {
+    const stueck = UT[u];
+    if (ut._u !== u) { ut.innerHTML = stueck.map(i => `<span class="w">${W[i].w.replace(/[.,:;]$/, '')}</span>`).join(''); ut._u = u; }
+    [...ut.children].forEach((e, k) => { const w = W[stueck[k]]; e.classList.toggle('an', t >= w.s - 0.03 && t < w.e + 0.08); e.classList.toggle('da', t >= w.s - 0.03); });
+    const lu = t - W[stueck[0]].s;
+    ut.style.opacity = 1;
+    ut.style.transform = STIL === 'kinetisch' ? `scale(${0.85 + 0.15 * back(lu * 6)})` : STIL === 'papier' ? `translateY(${(1 - ease(lu * 5)) * 20}px)` : '';
+  } else ut.style.opacity = 0;
+};
+
+window.bereit = (async () => {
+  G = await (await fetch(`geschichten/${ID}.json`)).json();
+  W = (await (await fetch(`ausgabe/${ID}.woerter.json`)).json()).woerter;
+  STIL = G.stil;
+  document.body.classList.add(STIL);
+  document.getElementById('logo').src = `logo/${STIL === 'papier' ? 'quer-dunkel' : 'quer-hell'}.png`;
+  document.getElementById('serie').textContent = G.serie;
+  document.getElementById('hinweis').textContent = G.hinweis || '';
+  const buehne = document.getElementById('buehne');
+  let ab = 0;
+  G.szenen.forEach((s, i) => {
+    const idx = s.bei ? finde(s.bei, ab) : 0;
+    ab = idx;
+    const b = baueSzene(s, idx);
+    b.start = i === 0 ? 0 : W[idx].s - 0.12;
+    SZ.push(b); buehne.appendChild(b.el);
+  });
+  baueUntertitel(); bereiteRausch();
+  DAUER = W.at(-1).e + 2.6;
+  window.DAUER = DAUER;
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+  window.render(0);
+  return true;
+})();
+</script>
+</body>
+</html>

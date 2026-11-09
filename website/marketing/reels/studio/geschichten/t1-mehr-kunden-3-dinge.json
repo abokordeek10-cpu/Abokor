@@ -1,0 +1,27 @@
+{
+  "id": "t1-mehr-kunden-3-dinge",
+  "serie": "MEHR AUFTRÄGE · TEIL 1",
+  "stil": "kinetisch",
+  "hinweis": "Stimme KI-generiert.",
+  "text": "Drei Dinge, mit denen du mehr Aufträge bekommst. Ohne einen Euro Werbung. Erstens: Antworte schnell. Viele Kunden schreiben mehreren Betrieben gleichzeitig. Wer zuerst antwortet, ist oft schon im Rennen. Zweitens: Frag nach Fotos. Dann weißt du vor der Fahrt, ob sich der Termin überhaupt lohnt. Drittens: Fass nach. Ein Angebot ohne Nachfrage geht oft einfach unter. Ein kurzer Satz nach drei Tagen reicht. Und wenn du dafür keine Zeit hast? Genau das macht meine KI für dich. Automatisch. Ich bin Abokor. Link in der Bio.",
+  "szenen": [
+    { "typ": "titel", "zeilen": ["<b>3 Dinge</b>,", "mit denen du mehr", "Aufträge bekommst."], "unter": "Ohne einen Euro Werbung.", "unterBei": "ohne" },
+    { "typ": "liste", "bei": "erstens", "nr": "1", "titel": "Schnell antworten", "punkte": [
+      { "bei": "viele", "icon": "✉", "text": "Kunde schreibt 3 Betrieben" },
+      { "bei": "wer", "icon": "⚡", "text": "Wer zuerst antwortet, ist im Rennen", "gut": true } ] },
+    { "typ": "liste", "bei": "zweitens", "nr": "2", "titel": "Nach Fotos fragen", "punkte": [
+      { "bei": "dann", "icon": "📷", "text": "Foto vom Schaden vorab" },
+      { "bei": "lohnt", "icon": "✓", "text": "Keine Fahrt umsonst", "gut": true } ] },
+    { "typ": "liste", "bei": "drittens", "nr": "3", "titel": "Nachfassen", "punkte": [
+      { "bei": "angebot", "icon": "📄", "text": "Angebot geht unter" },
+      { "bei": "kurzer", "icon": "↻", "text": "Tag 3: kurze Nachfrage", "gut": true } ] },
+    { "typ": "titel", "bei": "und", "zeilen": ["Keine Zeit", "<b>dafür?</b>"] },
+    { "typ": "meldungen", "bei": "genau", "zeit": "06:58", "liste": [
+      { "bei": "genau", "titel": "Anfrage beantwortet", "text": "Antwort nach Sekunden, rund um die Uhr" },
+      { "bei": "ki", "titel": "Foto erhalten", "text": "Kunde hat 2 Fotos geschickt" },
+      { "bei": "automatisch", "titel": "Nachfrage gesendet", "text": "Angebot Badsanierung, Tag 3" } ] },
+    { "typ": "ende", "bei": "ich", "zeilen": ["Weniger Büro.", "<b>Mehr Aufträge.</b>"] }
+  ],
+  "bildunterschrift": "3 Dinge, mit denen du als Handwerksbetrieb mehr Aufträge bekommst, ganz ohne Werbung:\n\n1️⃣ Schnell antworten\n2️⃣ Nach Fotos fragen\n3️⃣ Nachfassen\n\nKlingt einfach. Im Alltag bleibt es trotzdem liegen. Genau das übernimmt meine KI für dich.\n\nKostenloses Erstgespräch: Link in der Bio.\n\n(Stimme KI-generiert)",
+  "hashtags": "#handwerk #handwerker #mehrkunden #selbstständig #kiimhandwerk #automatisierung #handwerksbetrieb #abora"
+}

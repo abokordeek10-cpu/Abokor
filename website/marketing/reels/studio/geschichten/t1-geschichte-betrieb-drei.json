@@ -1,0 +1,27 @@
+{
+  "id": "t1-geschichte-betrieb-drei",
+  "serie": "GESCHICHTE",
+  "stil": "kino",
+  "hinweis": "Beispielgeschichte mit erfundenen Personen. Stimme KI-generiert.",
+  "text": "Samstag, neun Uhr vierzehn. Familie Yilmaz hat einen Wasserfleck an der Decke. Sie schreiben drei Betrieben. Betrieb eins: Mailbox. Betrieb zwei: keine Antwort bis Montag. Betrieb drei antwortet nach einer Minute. Wo genau ist der Fleck? Haben Sie ein Foto? Wir können Montag um sieben vorbeikommen. Passt das? Familie Yilmaz bucht. Das Verrückte: Betrieb drei hat am Wochenende gar nicht gearbeitet. Der Chef war mit seinen Kindern im Schwimmbad. Seine KI hat geantwortet. Und am Montag hat er einen Auftrag mehr im Kalender. Willst du Betrieb drei sein? Link in der Bio.",
+  "szenen": [
+    { "typ": "uhr", "zeit": "Sa. 9:14", "text": "Wasserfleck an der Decke", "textBei": "familie" },
+    { "typ": "rennen", "bei": "sie", "titel": "Anfrage an 3 Betriebe", "zeilen": [
+      { "bei": "eins", "name": "Betrieb 1", "status": "Mailbox", "ok": false },
+      { "bei": "zwei", "name": "Betrieb 2", "status": "Keine Antwort bis Montag", "ok": false },
+      { "bei": "drei", "name": "Betrieb 3", "status": "Antwort nach 1 Minute", "ok": true } ] },
+    { "typ": "chat", "bei": "wo", "name": "Betrieb 3", "status": "online", "nachrichten": [
+      { "von": "out", "text": "Hallo, wir haben einen Wasserfleck an der Decke im Bad. Können Sie sich das ansehen?", "zeit": "9:14", "vorher": true },
+      { "von": "in", "ki": true, "bei": "wo", "text": "Guten Morgen! Wo genau ist der Fleck? Haben Sie ein Foto?", "zeit": "9:15" },
+      { "von": "out", "bei": "haben", "text": "📷 Foto", "zeit": "9:16" },
+      { "von": "in", "ki": true, "bei": "wir", "text": "Danke! Wir können Montag um 7:00 vorbeikommen. Passt das?", "zeit": "9:16" },
+      { "von": "out", "bei": "bucht", "text": "Ja, perfekt 👍", "zeit": "9:17" } ] },
+    { "typ": "titel", "bei": "das verrückte", "zeilen": ["Betrieb 3 hat", "am Wochenende", "<b>nicht gearbeitet.</b>"] },
+    { "typ": "karte", "bei": "der", "klein": "Samstag, 9:14", "titel": "Chef im Schwimmbad", "text": "Mit den Kindern. Handy im Spind.", "icon": "☀" },
+    { "typ": "meldungen", "bei": "und", "zeit": "Mo. 6:45", "liste": [
+      { "bei": "und", "titel": "Neuer Termin", "text": "Mo. 7:00 · Familie Yilmaz · Fotos liegen bei" } ] },
+    { "typ": "ende", "bei": "willst", "zeilen": ["Willst du", "<b>Betrieb 3 sein?</b>"] }
+  ],
+  "bildunterschrift": "Samstagmorgen, Wasserfleck an der Decke. Familie Yilmaz schreibt drei Betrieben.\n\nBetrieb 1: Mailbox.\nBetrieb 2: meldet sich am Montag.\nBetrieb 3: antwortet nach einer Minute, obwohl der Chef im Schwimmbad ist.\n\nWer bekommt den Auftrag? 😉\n\nWillst du Betrieb 3 sein? Link in der Bio.\n\n(Beispielgeschichte mit erfundenen Personen, Stimme KI-generiert)",
+  "hashtags": "#handwerk #handwerker #sanitär #kundengewinnung #kiimhandwerk #automatisierung #storytime #abora"
+}

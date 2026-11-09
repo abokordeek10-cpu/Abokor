@@ -1,0 +1,22 @@
+{
+  "id": "t1-rechnung-verpasste-anrufe",
+  "serie": "RECHNE MAL NACH",
+  "stil": "papier",
+  "hinweis": "Beispielrechnung. Stimme KI-generiert.",
+  "text": "Rechne mal kurz mit mir. Du verpasst pro Woche nur zwei Anrufe. Klingt nach wenig. Im Jahr sind das über hundert. Sagen wir, nur jeder fünfte davon wäre ein Auftrag geworden. Das sind zwanzig Aufträge. Bei, sagen wir, achthundert Euro pro Auftrag sind das: sechzehntausend Euro. Im Jahr. Für Anrufe, die du nie angenommen hast. Das ist nur ein Beispiel. Rechne mit deinen eigenen Zahlen. Aber eins ist klar: Ein verpasster Anruf ist kein kleines Problem. Meine KI nimmt jede Anfrage an, auch wenn du gerade nicht kannst. Link in der Bio.",
+  "szenen": [
+    { "typ": "titel", "zeilen": ["Rechne mal", "<b>kurz mit mir.</b>"] },
+    { "typ": "zahl", "bei": "du", "wert": 2, "label": "verpasste Anrufe pro Woche", "notiz": "Klingt nach wenig.", "notizBei": "klingt" },
+    { "typ": "zahl", "bei": "im", "wert": 104, "vor": "", "label": "verpasste Anrufe im Jahr", "notiz": "2 × 52 Wochen" },
+    { "typ": "zahl", "bei": "sagen", "wert": 20, "label": "Aufträge", "notiz": "wenn nur jeder 5. ein Auftrag wäre", "zaehlBei": "das" },
+    { "typ": "zahl", "bei": "bei", "wert": 16000, "nach": " €", "label": "im Jahr", "notiz": "20 × 800 € pro Auftrag", "zaehlBei": "sechzehntausend", "gross": true },
+    { "typ": "titel", "bei": "das ist", "zeilen": ["Nur ein Beispiel.", "<b>Rechne mit deinen Zahlen.</b>"] },
+    { "typ": "karte", "bei": "aber", "klein": "Fazit", "titel": "Kein kleines Problem", "text": "Jeder verpasste Anruf kann ein Auftrag sein.", "icon": "✆" },
+    { "typ": "meldungen", "bei": "meine", "zeit": "14:32", "liste": [
+      { "bei": "meine", "titel": "Anruf verpasst → Anfrage beantwortet", "text": "Die KI hat sich sofort gemeldet" },
+      { "bei": "auch", "titel": "Termin gebucht", "text": "Mi. 8:00 · Besichtigung" } ] },
+    { "typ": "ende", "bei": "link", "zeilen": ["Jede Anfrage.", "<b>Sofort beantwortet.</b>"] }
+  ],
+  "bildunterschrift": "Rechne mal kurz mit:\n\n2 verpasste Anrufe pro Woche\n→ über 100 im Jahr\n→ wenn nur jeder 5. ein Auftrag wäre: 20 Aufträge\n→ bei 800 € pro Auftrag: 16.000 € im Jahr\n\nDas ist nur eine Beispielrechnung. Rechne mit deinen eigenen Zahlen und schreib mir in die Kommentare, was rauskommt. 👇\n\nKostenloses Erstgespräch: Link in der Bio.\n\n(Stimme KI-generiert)",
+  "hashtags": "#handwerk #handwerker #selbstständig #unternehmer #kiimhandwerk #automatisierung #handwerksbetrieb #abora"
+}
