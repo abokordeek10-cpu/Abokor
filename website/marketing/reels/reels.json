@@ -1,0 +1,99 @@
+{
+ "notfall": {
+  "betrieb": "Musterbetrieb Sanitär & Heizung (Demo)",
+  "hook": [
+   "Heizung fällt aus.",
+   "Du stehst auf dem Dach."
+  ],
+  "kunde": "Hilfe, unsere Heizung ist komplett ausgefallen und es ist eiskalt im Haus! Wir wohnen in Viernheim.",
+  "ki": "Oh je, das tut mir leid – das ist ein Notfall, der Chef ist sofort informiert und meldet sich gleich telefonisch bei Ihnen. Bitte schauen Sie kurz, ob an der Heizung eine Störungsanzeige leuchtet, und verraten Sie mir Ihren Namen und Ihre Telefonnummer, falls die abweicht. Falls es nach Gas riecht: Fenster auf, keine Schalter betätigen, Haus verlassen und den Notruf des Gasversorgers wählen.",
+  "meldung": {
+   "titel": "NOTFALL – bitte zurückrufen",
+   "text": "Heizungsausfall in Viernheim, Haus eiskalt",
+   "notfall": true
+  },
+  "zeilen": [
+   "Die KI antwortet in Sekunden.",
+   "Erkennt den Notfall.",
+   "Und du kriegst sofort Bescheid."
+  ]
+ },
+ "termin": {
+  "betrieb": "Musterbetrieb Sanitär & Heizung (Demo)",
+  "hook": [
+   "Kunde fragt nach Termin.",
+   "Du bist auf der Baustelle."
+  ],
+  "kunde": "Hallo, mein Wasserhahn in der Küche tropft seit gestern. Anna Schneider aus Viernheim. Wann könnten Sie kommen?",
+  "ki": "Hallo Frau Schneider, danke für Ihre Nachricht! Wir könnten uns den tropfenden Wasserhahn am Di., 10.11., um 14:00 Uhr oder am Mi., 11.11., um 9:00 Uhr anschauen – welcher Termin passt Ihnen besser? Gern können Sie vorab auch ein Foto vom Hahn schicken 🙂",
+  "kunde2": "Mittwoch 9 Uhr passt perfekt!",
+  "ki2": "Super, Frau Schneider, dann ist der Termin am Mi., 11.11., um 9:00 Uhr für Sie eingetragen! Am Vortag bekommen Sie noch eine kurze Erinnerung von uns 🙂",
+  "meldung": {
+   "titel": "Termin gebucht",
+   "text": "Besichtigung Mi., 11.11., 9:00 Uhr – Anna Schneider",
+   "notfall": false
+  },
+  "zeilen": [
+   "Die KI bietet freie Termine an.",
+   "Der Kunde bucht selbst.",
+   "Du musst nichts tun."
+  ]
+ },
+ "angebot": {
+  "betrieb": "Musterbetrieb Sanitär & Heizung (Demo)",
+  "hook": [
+   "Angebote schreiben",
+   "am Wochenende?"
+  ],
+  "notiz": "Küche Frau Schneider, Viernheim. Einhebelmischer tauschen, alter ist verkalkt und undicht. Kundin will einen mit Brause. Eckventile beide auch tauschen. Ca. 1,5 Stunden. Alte Armatur entsorgen.",
+  "titel": "Austausch Küchenarmatur",
+  "positionen": [
+   {
+    "bezeichnung": "Anfahrtspauschale",
+    "menge": 1,
+    "einheit": "pauschal",
+    "einzelpreis_netto": 45
+   },
+   {
+    "bezeichnung": "Küchen-Einhebelmischer mit herausziehbarer Brause, Markenqualität, verchromt, inkl. Anschlussschläuche",
+    "menge": 1,
+    "einheit": "Stück",
+    "einzelpreis_netto": 189
+   },
+   {
+    "bezeichnung": "Eckventil 1/2\" x 3/8\" mit Rosette",
+    "menge": 2,
+    "einheit": "Stück",
+    "einzelpreis_netto": 18
+   },
+   {
+    "bezeichnung": "Kleinmaterial (Dichtungen, Dichtmittel, Befestigungsmaterial)",
+    "menge": 1,
+    "einheit": "pauschal",
+    "einzelpreis_netto": 15
+   },
+   {
+    "bezeichnung": "Arbeitszeit Monteur: Wasser absperren, alte Armatur und Eckventile demontieren, neue Eckventile und Armatur montieren, anschließen, Dichtheitsprüfung und Funktionskontrolle",
+    "menge": 1.5,
+    "einheit": "Std.",
+    "einzelpreis_netto": 68
+   },
+   {
+    "bezeichnung": "Entsorgung der Altarmatur und Eckventile",
+    "menge": 1,
+    "einheit": "pauschal",
+    "einzelpreis_netto": 10
+   }
+  ],
+  "meldung": {
+   "titel": "Angebot vorbereitet",
+   "text": "Entwurf aus deiner Sprachnotiz – bitte prüfen",
+   "notfall": false
+  },
+  "zeilen": [
+   "Sprachnotiz nach der Besichtigung …",
+   "… daraus wird ein fertiger Angebotsentwurf.",
+   "Du prüfst nur noch und schickst ab."
+  ]
+ }
+}
