@@ -1,0 +1,165 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Seitenkopf from '../components/Seitenkopf.astro';
+import BausteineWeg from '../components/BausteineWeg.astro';
+import AblaufSchritte from '../components/AblaufSchritte.astro';
+import Benachrichtigung from '../components/Benachrichtigung.astro';
+import FAQ from '../components/FAQ.astro';
+import Abschluss from '../components/Abschluss.astro';
+import Icon from '../components/Icon.astro';
+import { ABLAUF_KURZ } from '../inhalte';
+import { CTA_LINK, CTA_TEXT, PREISE, PILOTANGEBOT } from '../config';
+
+const probleme = [
+  {
+    icon: 'auto',
+    titel: 'Stau statt Besichtigung',
+    text: 'Zwischen Sachsenhausen, Bockenheim und Offenbach sitzt du schnell eine Stunde im Auto. Jede Fahrt zu einem Kunden, der nicht passt, kostet doppelt.',
+  },
+  {
+    icon: 'telefon',
+    titel: 'Viele Anfragen, wenig Zeit',
+    text: 'In einer großen Stadt kommen viele Anfragen rein. Wer nicht schnell antwortet, verliert sie an den nächsten Betrieb in der Liste.',
+  },
+  {
+    icon: 'mond',
+    titel: 'Büro nach Feierabend',
+    text: 'Rückrufe, Angebote, Rechnungen: Das Büro bleibt liegen, bis du abends nach Hause kommst.',
+  },
+] as const;
+
+const fragen = [
+  {
+    frage: 'Arbeitet ihr auch für Betriebe in Frankfurt?',
+    antwort:
+      '<p>Ja. Wir sitzen in Viernheim und arbeiten für Handwerksbetriebe in Frankfurt und im ganzen Rhein-Main-Gebiet, zum Beispiel in Offenbach, Darmstadt, Bad Homburg und im Main-Taunus-Kreis. Erstgespräch, Einrichtung und Betreuung laufen per Telefon und Video.</p>',
+  },
+  {
+    frage: 'Was kostet das?',
+    antwort: `<p>Das Paket „Start“ gibt es ${PREISE.start.aufbau} und ${PREISE.start.monat}, das Paket „Komplett“ ${PREISE.komplett.aufbau} und ${PREISE.komplett.monat}. ${PREISE.hinweis} <a href="/preise">Mehr zu den Preisen</a></p>`,
+  },
+  {
+    frage: 'Muss ich mich mit Technik auskennen?',
+    antwort:
+      '<p>Nein. Wir richten alles ein und verbinden es mit dem, was du schon nutzt: Telefon, E-Mail, WhatsApp und Kalender.</p>',
+  },
+  {
+    frage: 'Wie lange dauert der Aufbau?',
+    antwort: '<p>Meist 2 bis 4 Wochen. Den genauen Zeitplan bekommst du nach dem Erstgespräch.</p>',
+  },
+];
+---
+
+<Basis
+  titel="KI für Handwerksbetriebe in Frankfurt"
+  beschreibung="Abora Automation automatisiert für Handwerksbetriebe in Frankfurt am Main und im Rhein-Main-Gebiet Anfragen, Termine und Angebote. Kostenloses Erstgespräch per Telefon oder Video."
+>
+  <Seitenkopf
+    dachzeile="Frankfurt am Main und Rhein-Main"
+    titel='KI für Handwerksbetriebe in Frankfurt. <span class="gelb">Läuft automatisch.</span>'
+    text="Deine KI beantwortet Anfragen, bucht Besichtigungstermine und fasst Angebote nach, während du auf der Baustelle oder im Stau auf der A661 stehst."
+  >
+    <p style="margin-top:28px">
+      <a href={CTA_LINK} class="btn btn--gelb btn--gross btn--block-mobil">{CTA_TEXT} <Icon name="pfeil" /></a>
+    </p>
+  </Seitenkopf>
+
+  <section class="abschnitt abschnitt--hell">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Handwerk in der Großstadt</p>
+        <h2>Viel zu tun, wenig Zeit fürs Büro</h2>
+      </div>
+      <div class="raster raster--3">
+        {
+          probleme.map((p, i) => (
+            <article class="karte" data-reveal style={`--delay:${i * 0.08}s`}>
+              <div class="icon-kreis"><Icon name={p.icon} /></div>
+              <h3>{p.titel}</h3>
+              <p style="margin:0;color:var(--text-gedaempft-hell)">{p.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--dunkel">
+    <div class="container ff-loesung">
+      <div>
+        <div class="kopf" data-reveal>
+          <p class="dachzeile">Die Lösung</p>
+          <h2>Von der Anfrage bis zur Bewertung</h2>
+          <p class="einleitung">Sechs Bausteine, die ineinandergreifen. Du entscheidest, wo du anfängst.</p>
+        </div>
+        <BausteineWeg />
+      </div>
+      <div class="ff-meldungen" aria-hidden="true" data-reveal>
+        <Benachrichtigung titel="Neue Anfrage" text="Automatisch beantwortet: Badsanierung in Frankfurt-Bornheim" />
+        <Benachrichtigung titel="Termin gebucht" text="Besichtigung Do., 8:00 Uhr – Offenbach" zeit="vor 1 Min." />
+        <Benachrichtigung titel="Angebot angenommen ✓" text="Elektroinstallation Altbau – Kunde hat zugesagt" zeit="vor 3 Min." />
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--hell">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">So läuft's</p>
+        <h2>Alles per Telefon und Video</h2>
+        <p class="einleitung">Wir sitzen in Viernheim, eine knappe Stunde von Frankfurt. Für die Zusammenarbeit musst du nirgendwo hinfahren.</p>
+      </div>
+      <AblaufSchritte schritte={ABLAUF_KURZ} hell />
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--dunkel">
+    <div class="container ff-pilot" data-reveal>
+      <p class="dachzeile">Pilotkunden gesucht</p>
+      <h2>Wir suchen die ersten Handwerksbetriebe, mit denen wir gemeinsam starten.</h2>
+      <p class="einleitung">{PILOTANGEBOT}</p>
+      <a href={CTA_LINK} class="btn btn--gelb btn--block-mobil">{CTA_TEXT}</a>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--hell">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Häufige Fragen</p>
+        <h2>Was Betriebe aus Frankfurt fragen</h2>
+      </div>
+      <FAQ fragen={fragen} />
+    </div>
+  </section>
+
+  <Abschluss
+    titel='Weniger Büro, <span class="gelb">mehr Aufträge.</span> Auch in Frankfurt.'
+    text="Erzähl uns in einem kurzen Gespräch, was dich im Büro am meisten Zeit kostet. Kostenlos und unverbindlich."
+  />
+</Basis>
+
+<style>
+  .ff-loesung {
+    display: grid;
+    gap: 48px;
+  }
+  .ff-meldungen {
+    display: grid;
+    gap: 14px;
+    justify-items: center;
+    align-content: center;
+  }
+  @media (min-width: 960px) {
+    .ff-loesung {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+    }
+  }
+  .ff-pilot {
+    max-width: 52rem;
+  }
+  .ff-pilot .einleitung {
+    margin-bottom: 28px;
+  }
+</style>
