@@ -277,8 +277,9 @@ function zeichneHintergrund(t, schnitt) {
 }
 
 // Teil-Animationen
-function animiereTeil(p, lt, start) {
-  const t0 = (p.t != null ? Math.max(p.t - start, 0) : 0) + (p.ab || 0);
+function animiereTeil(p, lt, start, erste) {
+  // In der ersten Szene steht alles ohne Wort-Anker schon im ersten Bild (Vorschaubild!)
+  const t0 = p.t != null ? Math.max(p.t - start, 0) + (p.ab || 0) : (erste ? -10 : (p.ab || 0));
   const tt = lt - t0;
   const k = STIL === 'kinetisch' ? 1.6 : STIL === 'kino' ? 0.75 : 1;
   const x = tt * 3.2 * k;
@@ -304,7 +305,7 @@ function zahlFormat(n) { return Math.round(n).toLocaleString('de-DE'); }
 function zeigeSzene(i, t, rolle, f) {
   const s = SZ[i], lt = t - s.start, st = s.el.style;
   st.display = 'flex';
-  s.teile.forEach(p => animiereTeil(p, lt, s.start));
+  s.teile.forEach(p => animiereTeil(p, lt, s.start, i === 0));
   if (s.el._zahl) {
     const z = s.el._zahl, tz = (z.t != null ? z.t - s.start : 0.1);
     const q = ease((lt - tz) / (STIL === 'papier' ? 1.1 : 0.8));
@@ -314,10 +315,11 @@ function zeigeSzene(i, t, rolle, f) {
   let tr = '', op = 1;
   if (STIL === 'kinetisch') {
     const q = ease(lt / 0.22);
-    tr = `scale(${1.1 - 0.1 * q})`; op = clamp(lt / 0.06);
+    tr = i === 0 ? '' : `scale(${1.1 - 0.1 * q})`; op = i === 0 ? 1 : clamp(lt / 0.06);
     tr += ` translateY(${Math.sin(lt * 1.3) * 6}px)`;
   } else if (STIL === 'kino') {
     if (rolle === 'neu') op = ease(f);
+    if (i === 0) tr = `scale(${1 + Math.min(lt, 12) * 0.004})`;
     tr = `scale(${1 + Math.min(lt, 12) * 0.004}) translateY(${(1 - ease(lt / 0.9)) * 30}px)`;
   } else {
     if (rolle === 'neu') tr = `translateX(${(1 - ease(f)) * 1080}px) rotate(${(1 - ease(f)) * 3}deg)`;
@@ -332,7 +334,7 @@ window.render = function (t) {
   const ueber = STIL === 'kino' ? 0.6 : STIL === 'papier' ? 0.45 : 0;
   zeichneHintergrund(t, lt);
   SZ.forEach(x => x.el.style.display = 'none');
-  const f = ueber ? clamp(lt / ueber) : 1;
+  const f = ueber && akt > 0 ? clamp(lt / ueber) : 1;
   if (akt > 0 && f < 1) zeigeSzene(akt - 1, t, 'alt', f);
   zeigeSzene(akt, t, f < 1 ? 'neu' : 'nur', f);
   // Blitz bei harten Schnitten
