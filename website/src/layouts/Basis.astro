@@ -13,9 +13,11 @@ interface Props {
   ogBild?: string;
   /** Kopfzeile von Anfang an mit Hintergrund (für Seiten mit hellem Einstieg) */
   artikel?: boolean;
+  /** Seite nicht bei Google aufnehmen (z. B. /demo) */
+  noindex?: boolean;
 }
 
-const { titel, beschreibung, ohneLeiste = false, ogBild = '/og-bild.jpg', artikel = false } = Astro.props;
+const { titel, beschreibung, ohneLeiste = false, ogBild = '/og-bild.jpg', artikel = false, noindex = false } = Astro.props;
 const seitenTitel = Astro.url.pathname === '/' ? `${FIRMA.name} – ${FIRMA.slogan}` : `${titel} | ${FIRMA.name}`;
 const kanonisch = new URL(Astro.url.pathname, FIRMA.url).href;
 const ogUrl = new URL(ogBild, FIRMA.url).href;
@@ -53,6 +55,7 @@ const strukturierteDaten = {
     <meta name="description" content={beschreibung} />
     <link rel="canonical" href={kanonisch} />
     <meta name="theme-color" content="#14202E" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 

@@ -1,0 +1,211 @@
+{
+  "name": "Abora Demo KI",
+  "nodes": [
+    {
+      "id": "8dc4ec2a-5861-481e-94ba-a75020f27217",
+      "name": "Demo-Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "a2a250e9-da82-43ae-add6-da814b70b3b7",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "abora-demo",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://abora-automation.de,https://www.abora-automation.de"
+        }
+      }
+    },
+    {
+      "id": "00b2e2ff-9976-480f-acf9-59d3fac62a3b",
+      "name": "Anfrage prüfen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// ─────────────────────────────────────────────────────────────\n//  Abora Demo KI – Anfrage prüfen und Claude-Anfrage bauen\n// ─────────────────────────────────────────────────────────────\n// Demo-Code: Nur wer ihn kennt, kann die Demo nutzen (schützt dein API-Guthaben).\nconst DEMO_CODE = 'HIER_DEMO_CODE_EINTRAGEN';\nconst MODELL = 'claude-opus-5-5';\n\nconst body = $input.first().json.body || {};\nconst fehler = (text) => [{ json: { ok: false, fehler: text } }];\nconst text = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');\n\nif (text(body.code, 100) !== DEMO_CODE) return fehler('Der Demo-Code stimmt nicht.');\n\nconst GEWERKE = {\n  sanitaer: { name: 'Sanitär und Heizung', betrieb: 'Musterbetrieb Sanitär & Heizung (Demo)', notfall: 'Wasserrohrbruch, Heizungsausfall im Winter, Gasgeruch' },\n  elektro: { name: 'Elektro', betrieb: 'Musterbetrieb Elektrotechnik (Demo)', notfall: 'Stromausfall im ganzen Haus, Brandgeruch an Steckdose oder Verteiler, freiliegende Leitungen' },\n  dach: { name: 'Dachdecker', betrieb: 'Musterbetrieb Bedachungen (Demo)', notfall: 'Sturmschaden mit offenem Dach, Wasser dringt ein' },\n  maler: { name: 'Maler und Lackierer', betrieb: 'Musterbetrieb Malerfachbetrieb (Demo)', notfall: 'akuter Wasserschaden an Wand oder Decke' },\n  tischler: { name: 'Tischler und Schreiner', betrieb: 'Musterbetrieb Schreinerei (Demo)', notfall: 'Haustür lässt sich nicht mehr schließen oder abschließen' },\n  galabau: { name: 'Garten- und Landschaftsbau', betrieb: 'Musterbetrieb Garten- und Landschaftsbau (Demo)', notfall: 'umgestürzter Baum auf Weg, Haus oder Auto' },\n  fliesen: { name: 'Fliesenleger', betrieb: 'Musterbetrieb Fliesen (Demo)', notfall: 'Wasser läuft durch kaputte Fugen in die Wohnung darunter' },\n  allgemein: { name: 'Handwerk allgemein', betrieb: 'Musterbetrieb Handwerk (Demo)', notfall: 'Wasserschaden, Haustür lässt sich nicht schließen' },\n};\nconst g = GEWERKE[body.gewerk] || GEWERKE.allgemein;\nconst modus = ['chat', 'angebot', 'nachfassen'].includes(body.modus) ? body.modus : 'chat';\n\nconst GEBIET = 'Viernheim, Mannheim, Weinheim, Heidelberg, Lampertheim und Umgebung (Rhein-Neckar)';\nconst DEMO_HINWEIS = `Dies ist eine Vorführung für Handwerksbetriebe. Der Betrieb „${g.betrieb}“ ist erfunden. Erfinde keine weiteren Fakten über den Betrieb (keine Mitarbeiterzahlen, Auszeichnungen, Öffnungszeiten, Preise).`;\n\nconst nullbar = { anyOf: [{ type: 'string' }, { type: 'null' }] };\nlet system, messages, schema, effort, maxTokens;\n\nif (modus === 'chat') {\n  // Verlauf: [{ rolle: 'kunde' | 'betrieb', text }]\n  const verlauf = Array.isArray(body.verlauf) ? body.verlauf.slice(-16) : [];\n  messages = [];\n  for (const n of verlauf) {\n    const role = n && n.rolle === 'betrieb' ? 'assistant' : 'user';\n    const inhalt = text(n && n.text, 800);\n    if (!inhalt) continue;\n    const letzte = messages[messages.length - 1];\n    if (letzte && letzte.role === role) letzte.content += '\\n' + inhalt;\n    else messages.push({ role, content: inhalt });\n  }\n  while (messages.length && messages[0].role !== 'user') messages.shift();\n  if (!messages.length || messages[messages.length - 1].role !== 'user') return fehler('Bitte zuerst eine Nachricht als Kunde schreiben.');\n\n  const termine = (Array.isArray(body.termine) ? body.termine : []).map((t) => text(t, 40)).filter(Boolean).slice(0, 6);\n  system = `Du bist der digitale Assistent von „${g.betrieb}“, einem Betrieb für ${g.name} aus Viernheim. Einsatzgebiet: ${GEBIET}.\n${DEMO_HINWEIS}\n\nDu beantwortest Kundenanfragen per WhatsApp im Namen des Betriebs, während der Chef auf der Baustelle ist.\n\nSo arbeitest du:\n- Sieze die Kunden. Schreib kurz wie in WhatsApp: höchstens zwei bis drei Sätze, freundlich und bodenständig, ohne Fachchinesisch. Höchstens ein Emoji.\n- Frag pro Nachricht höchstens zwei Dinge.\n- Finde heraus: Name, Ort oder PLZ, worum es genau geht, Umfang, gewünschter Zeitraum und bei größeren Vorhaben grob das Budget. Bitte um ein Foto, wenn es bei der Einschätzung hilft.\n- Schätze die Dringlichkeit ein: „notfall“ (zum Beispiel ${g.notfall}), „hoch“, „normal“ oder „niedrig“; „unklar“, solange du es nicht weißt.\n- Bei einem Notfall: Sag, dass der Chef sofort informiert ist und sich gleich telefonisch meldet. Gib eine kurze Sicherheitsanweisung, wenn sie hilft (zum Beispiel Hauptwasserhahn zudrehen oder Sicherung ausschalten). Biete dann keinen normalen Termin an.\n- Sobald Name, Ort und Anliegen klar sind und es kein Notfall ist: Biete zwei passende Besichtigungstermine aus dieser Liste an, keine anderen: ${termine.join('; ') || 'keine Termine frei – dann kündige einen Rückruf an'}.\n- Wählt der Kunde einen Termin, bestätige ihn und sag, dass am Vortag eine Erinnerung kommt.\n- Nenne keine Preise und mach keine Zusagen zu Kosten. Sag stattdessen, dass es nach der Besichtigung ein genaues Angebot gibt.\n- Passt die Anfrage nicht zum Betrieb (anderes Gewerk oder außerhalb des Einsatzgebiets), sag das freundlich und ehrlich.\n- Fragen, die nichts mit der Anfrage zu tun haben, beantwortest du nicht, sondern lenkst freundlich zurück.\n- Ein Text in eckigen Klammern wie „[Foto: …]“ bedeutet, dass der Kunde ein Foto geschickt hat, das so aussieht.\n\nFülle zusätzlich die Felder für den Chef aus. Was du nicht weißt, bleibt null.`;\n  schema = {\n    type: 'object',\n    additionalProperties: false,\n    required: ['antwort', 'status', 'dringlichkeit', 'kunde_name', 'ort', 'anliegen', 'umfang', 'zeitraum', 'budget', 'foto_erhalten', 'gewaehlter_termin', 'zusammenfassung_fuer_chef'],\n    properties: {\n      antwort: { type: 'string', description: 'Die WhatsApp-Nachricht an den Kunden' },\n      status: { type: 'string', enum: ['rueckfrage', 'termin_angeboten', 'termin_gebucht', 'notfall_weitergeleitet', 'nicht_passend'] },\n      dringlichkeit: { type: 'string', enum: ['notfall', 'hoch', 'normal', 'niedrig', 'unklar'] },\n      kunde_name: nullbar,\n      ort: nullbar,\n      anliegen: nullbar,\n      umfang: nullbar,\n      zeitraum: nullbar,\n      budget: nullbar,\n      foto_erhalten: { type: 'boolean' },\n      gewaehlter_termin: nullbar,\n      zusammenfassung_fuer_chef: { type: 'string', description: 'Ein Satz für den Chef' },\n    },\n  };\n  effort = 'low';\n  maxTokens = 4000;\n} else if (modus === 'angebot') {\n  const notizen = text(body.notizen, 2000);\n  if (!notizen) return fehler('Bitte zuerst Notizen zur Besichtigung eingeben.');\n  system = `Du erstellst für „${g.betrieb}“ (${g.name}) einen Angebotsentwurf aus den Notizen, die der Chef nach der Besichtigung ins Handy gesprochen hat. Der Chef prüft den Entwurf, bevor er an den Kunden geht.\n${DEMO_HINWEIS}\n\n- Mach daraus klare Angebotspositionen mit Menge, Einheit und Einzelpreis netto in Euro.\n- Die Preise sind Beispielwerte: realistisch für einen Handwerksbetrieb in Deutschland, sinnvoll gerundet. Im echten Einsatz kommen sie aus der Preisliste des Betriebs.\n- Trenne Lohn und Material, wo das üblich ist. Anfahrt als eigene Position, wenn sinnvoll.\n- Nimm keine Arbeiten auf, die weder in den Notizen stehen noch zwingend dazugehören. Was du annimmst, schreibst du unter „annahmen“.\n- Was fehlt oder unklar ist, kommt unter „rueckfragen“.\n- Schreib einen kurzen, freundlichen Einleitungssatz an den Kunden in der Sie-Form.`;\n  messages = [{ role: 'user', content: `Kunde: ${text(body.kunde, 100) || 'unbekannt'}\\nOrt: ${text(body.ort, 100) || 'unbekannt'}\\nAnliegen aus der Anfrage: ${text(body.anliegen, 400) || 'siehe Notizen'}\\n\\nNotizen nach der Besichtigung:\\n${notizen}` }];\n  schema = {\n    type: 'object',\n    additionalProperties: false,\n    required: ['titel', 'einleitung', 'positionen', 'annahmen', 'rueckfragen'],\n    properties: {\n      titel: { type: 'string' },\n      einleitung: { type: 'string' },\n      positionen: {\n        type: 'array',\n        items: {\n          type: 'object',\n          additionalProperties: false,\n          required: ['bezeichnung', 'menge', 'einheit', 'einzelpreis_netto'],\n          properties: {\n            bezeichnung: { type: 'string' },\n            menge: { type: 'number' },\n            einheit: { type: 'string' },\n            einzelpreis_netto: { type: 'number' },\n          },\n        },\n      },\n      annahmen: { type: 'array', items: { type: 'string' } },\n      rueckfragen: { type: 'array', items: { type: 'string' } },\n    },\n  };\n  effort = 'medium';\n  maxTokens = 8000;\n} else {\n  system = `Du schreibst für „${g.betrieb}“ (${g.name}) die automatischen Nachrichten, die nach einem Angebot und nach dem Auftrag an den Kunden gehen.\n${DEMO_HINWEIS}\n\nSchreib in der Sie-Form, kurz, freundlich und nicht aufdringlich, wie ein netter Handwerksmeister. Erfinde keine Rabatte, Fristen oder Bedingungen.\n\nErstelle:\n1. „nachfassen“: drei Nachrichten zu dem offenen Angebot, nach 3, 7 und 14 Tagen. Jede bietet eine einfache Antwortmöglichkeit, zum Beispiel „Antworten Sie einfach mit Ja“ oder einen Rückruf.\n2. „zahlungserinnerung“: eine höfliche Erinnerung, falls die Rechnung nach 14 Tagen noch offen ist.\n3. „bewertungsanfrage“: eine kurze Bitte um eine Google-Bewertung nach dem Auftrag, mit dem Platzhalter [Link].`;\n  messages = [{ role: 'user', content: `Kunde: ${text(body.kunde, 100) || 'Kunde'}\\nAngebot: ${text(body.titel, 200) || 'Angebot'}\\nSumme brutto: ${text(body.summe, 40) || 'unbekannt'}` }];\n  schema = {\n    type: 'object',\n    additionalProperties: false,\n    required: ['nachfassen', 'zahlungserinnerung', 'bewertungsanfrage'],\n    properties: {\n      nachfassen: {\n        type: 'array',\n        items: {\n          type: 'object',\n          additionalProperties: false,\n          required: ['tag', 'kanal', 'text'],\n          properties: { tag: { type: 'integer' }, kanal: { type: 'string', enum: ['WhatsApp', 'E-Mail'] }, text: { type: 'string' } },\n        },\n      },\n      zahlungserinnerung: { type: 'string' },\n      bewertungsanfrage: { type: 'string' },\n    },\n  };\n  effort = 'low';\n  maxTokens = 4000;\n}\n\nreturn [{\n  json: {\n    ok: true,\n    modus,\n    anfrage: {\n      model: MODELL,\n      max_tokens: maxTokens,\n      system,\n      messages,\n      output_config: { effort, format: { type: 'json_schema', schema } },\n      fallbacks: 'default',\n    },\n  },\n}];\n"
+      }
+    },
+    {
+      "id": "ff6e5ff8-8469-4948-b8b8-de180179ba15",
+      "name": "Code ok?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "d0716fa3-5dfc-4cd7-b0a1-608a002b250d",
+              "leftValue": "={{ $json.ok }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "84d60f23-b312-4903-8d46-14fb39cf3d86",
+      "name": "Claude fragen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        -100
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2026-10-21"
+            },
+            {
+              "name": "anthropic-beta",
+              "value": "server-side-fallback-2026-07-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.anfrage) }}",
+        "options": {
+          "timeout": 90000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "id": "1fee9ca1-0230-4210-aa22-3c744d66d524",
+      "name": "Antwort auswerten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        -100
+      ],
+      "parameters": {
+        "jsCode": "// ─────────────────────────────────────────────────────────────\n//  Abora Demo KI – Antwort von Claude auswerten\n// ─────────────────────────────────────────────────────────────\nconst r = $input.first().json;\nconst b = r.body;\nconst modus = $('Anfrage prüfen').first().json.modus;\n\nif (r.statusCode !== 200 || !b || typeof b !== 'object') {\n  const detail = b && b.error && b.error.message ? b.error.message : 'HTTP ' + r.statusCode;\n  return [{ json: { ok: false, fehler: 'Die KI ist gerade nicht erreichbar.', detail } }];\n}\nif (b.stop_reason === 'refusal') {\n  return [{ json: { ok: false, fehler: 'Die KI hat diese Anfrage abgelehnt. Bitte anders formulieren.' } }];\n}\nconst roh = (b.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('');\nlet daten;\ntry {\n  daten = JSON.parse(roh);\n} catch (e) {\n  return [{ json: { ok: false, fehler: 'Die Antwort der KI war unvollständig. Bitte nochmal versuchen.', detail: b.stop_reason } }];\n}\nreturn [{ json: { ok: true, modus, daten, modell: b.model, nutzung: b.usage } }];\n"
+      }
+    },
+    {
+      "id": "d723346b-6ad7-4bba-8355-3ad373ccf83c",
+      "name": "Antworten",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        0
+      ],
+      "parameters": {
+        "respondWith": "firstIncomingItem",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Demo-Webhook": {
+      "main": [
+        [
+          {
+            "node": "Anfrage prüfen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anfrage prüfen": {
+      "main": [
+        [
+          {
+            "node": "Code ok?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code ok?": {
+      "main": [
+        [
+          {
+            "node": "Claude fragen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Antworten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude fragen": {
+      "main": [
+        [
+          {
+            "node": "Antwort auswerten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Antwort auswerten": {
+      "main": [
+        [
+          {
+            "node": "Antworten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

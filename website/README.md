@@ -131,3 +131,18 @@ Das Formular hat ein unsichtbares Feld **`website`** (Honeypot). Menschen sehen 
 | TODO | Was fehlt | Wo |
 |---|---|---|
 | `KALENDER` | Link zur Online-Terminbuchung (kommt später). Sobald er eingetragen ist, erscheint auf `/kontakt` ein Button. | `src/config.ts` → `KALENDER_URL` |
+
+## Live-Demo (`/demo`)
+
+Für Erstgespräche: Ein erfundener Musterbetrieb (Gewerk umschaltbar) beantwortet Anfragen live mit Claude, erstellt aus einer Sprachnotiz einen Angebotsentwurf und schreibt die Nachfass-Nachrichten. Die Seite ist nicht verlinkt, steht nicht in der Sitemap, ist auf `noindex` gestellt und nur mit Demo-Code nutzbar.
+
+- Seite: `src/pages/demo.astro`, Gewerke und Beispiele: `src/demo-gewerke.ts`
+- n8n-Workflow „Abora Demo KI“: `n8n/abora-demo-workflow.json` (Quellcode der Code-Knoten in `n8n/quellcode/`, neu erzeugen mit `python3 n8n/baue-workflow.py`)
+- Webhook-URL: `DEMO_WEBHOOK_URL` in `src/config.ts`
+
+Einrichtung in n8n:
+1. Bei console.anthropic.com einen API-Schlüssel anlegen und ein **monatliches Ausgabenlimit** setzen.
+2. In n8n unter *Credentials* → *Header Auth* anlegen: Name `Anthropic API`, Header-Name `x-api-key`, Wert = API-Schlüssel.
+3. Workflow importieren (*Import from File*), im Knoten „Anfrage prüfen“ den `DEMO_CODE` setzen, im Knoten „Claude fragen“ die Credential „Anthropic API“ wählen, veröffentlichen.
+
+Kosten: Claude Opus 5.5 ($4 / $20 pro Million Tokens). Eine Chat-Antwort kostet grob 1 bis 3 Cent, ein ganzer Demo-Durchlauf meist unter 30 Cent.

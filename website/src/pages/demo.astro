@@ -1,0 +1,1334 @@
+---
+// Live-Demo für Erstgespräche: echte KI (Claude über n8n), erfundener Musterbetrieb.
+// Nicht in Navigation und Sitemap, noindex, nur mit Demo-Code nutzbar.
+import Basis from '../layouts/Basis.astro';
+import Icon from '../components/Icon.astro';
+import { DEMO_GEWERKE } from '../demo-gewerke';
+import { DEMO_WEBHOOK_URL } from '../config';
+---
+
+<Basis
+  titel="Live-Demo"
+  beschreibung="Live-Demo von Abora Automation mit einem erfundenen Musterbetrieb."
+  ohneLeiste
+  noindex
+  artikel
+>
+  <section class="demo" data-demo data-url={DEMO_WEBHOOK_URL}>
+    <script type="application/json" id="demo-gewerke" set:html={JSON.stringify(DEMO_GEWERKE)} />
+
+    <div class="container">
+      <header class="demo-kopf">
+        <div>
+          <p class="dachzeile">Live-Demo</p>
+          <h1>So läuft es in deinem Betrieb</h1>
+          <p class="demo-hinweis">
+            <span class="hinweis-beispiel">Demo</span>
+            Der Betrieb ist erfunden, die KI antwortet echt. Bitte keine echten Kundendaten eingeben: Eingaben werden zur
+            Beantwortung an Claude (Anthropic) übermittelt.
+          </p>
+        </div>
+        <div class="demo-steuerung">
+          <label class="feld-klein">
+            <span>Gewerk</span>
+            <select data-gewerk>
+              {DEMO_GEWERKE.map((g) => <option value={g.key}>{g.name}</option>)}
+            </select>
+          </label>
+          <button type="button" class="btn btn--rahmen btn--klein" data-neu>Neu starten</button>
+        </div>
+      </header>
+
+      <div class="reiter" role="tablist" aria-label="Schritte der Demo">
+        <button type="button" role="tab" id="reiter-1" aria-controls="schritt-1" aria-selected="true" data-reiter="1">
+          <span>1</span> Anfrage
+        </button>
+        <button type="button" role="tab" id="reiter-2" aria-controls="schritt-2" aria-selected="false" data-reiter="2" tabindex="-1">
+          <span>2</span> Angebot
+        </button>
+        <button type="button" role="tab" id="reiter-3" aria-controls="schritt-3" aria-selected="false" data-reiter="3" tabindex="-1">
+          <span>3</span> Nachfassen<em class="reiter__zusatz">&nbsp;&amp; Bewertung</em>
+        </button>
+      </div>
+
+      <!-- Schritt 1: Anfrage -->
+      <div class="schritt" id="schritt-1" role="tabpanel" aria-labelledby="reiter-1" data-schritt="1">
+        <div class="spalte">
+          <div class="handy">
+            <div class="handy__kopf">
+              <span class="handy__avatar" aria-hidden="true">M</span>
+              <div>
+                <strong data-betrieb>Musterbetrieb</strong>
+                <span class="handy__status" data-tippt-status>antwortet sofort</span>
+              </div>
+            </div>
+            <ol class="verlauf" data-verlauf aria-live="polite" aria-label="Chatverlauf"></ol>
+            <div class="vorschlaege" data-vorschlaege></div>
+            <form class="eingabe" data-eingabe>
+              <button type="button" class="eingabe__foto" data-foto aria-label="Beispielfoto als Kunde senden" title="Beispielfoto senden">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"></rect><circle cx="12" cy="13" r="3.5"></circle><path d="M8 6l1.5-2h5L16 6"></path></svg>
+              </button>
+              <label class="sr-only" for="demo-nachricht">Nachricht als Kunde</label>
+              <input id="demo-nachricht" type="text" autocomplete="off" maxlength="600" placeholder="Als Kunde schreiben …" data-nachricht />
+              <button type="submit" class="eingabe__senden" aria-label="Senden">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20l18-8L3 4v6l12 2-12 2z"></path></svg>
+              </button>
+            </form>
+          </div>
+          <p class="unterschrift">Du schreibst als Kunde. Die KI antwortet im Namen des Betriebs.</p>
+        </div>
+
+        <div class="spalte">
+          <h2 class="spalte__titel">Das siehst du als Chef</h2>
+          <div class="meldungen" data-meldungen aria-live="polite"></div>
+          <article class="karte-hell anfrage">
+            <div class="anfrage__kopf">
+              <h3>Anfrage</h3>
+              <span class="dringlichkeit" data-dringlichkeit data-wert="unklar">noch unklar</span>
+            </div>
+            <dl class="felder">
+              <div><dt>Kunde</dt><dd data-feld="kunde_name">–</dd></div>
+              <div><dt>Ort</dt><dd data-feld="ort">–</dd></div>
+              <div><dt>Anliegen</dt><dd data-feld="anliegen">–</dd></div>
+              <div><dt>Umfang</dt><dd data-feld="umfang">–</dd></div>
+              <div><dt>Zeitraum</dt><dd data-feld="zeitraum">–</dd></div>
+              <div><dt>Budget</dt><dd data-feld="budget">–</dd></div>
+              <div><dt>Foto</dt><dd data-feld="foto_erhalten">–</dd></div>
+            </dl>
+            <p class="zusammenfassung" data-zusammenfassung>Sobald ein Kunde schreibt, erscheint hier die Zusammenfassung.</p>
+          </article>
+          <article class="karte-hell kalender">
+            <h3>Dein Kalender: freie Besichtigungstermine</h3>
+            <ul class="termine" data-termine></ul>
+          </article>
+          <button type="button" class="btn btn--gelb" data-gehe="2">Weiter: Angebot erstellen <Icon name="pfeil" /></button>
+        </div>
+      </div>
+
+      <!-- Schritt 2: Angebot -->
+      <div class="schritt" id="schritt-2" role="tabpanel" aria-labelledby="reiter-2" data-schritt="2" hidden>
+        <div class="spalte">
+          <form class="karte-hell notiz" data-angebot-form>
+            <h2 class="spalte__titel spalte__titel--dunkel">Sprachnotiz nach der Besichtigung</h2>
+            <p class="klein">Im echten Einsatz sprichst du sie ins Handy. Hier steht sie abgetippt und lässt sich ändern.</p>
+            <div class="zwei">
+              <label class="feld-klein feld-klein--hell"><span>Kunde</span><input type="text" maxlength="100" data-angebot-kunde placeholder="z. B. Familie Schneider" /></label>
+              <label class="feld-klein feld-klein--hell"><span>Ort</span><input type="text" maxlength="100" data-angebot-ort placeholder="z. B. Viernheim" /></label>
+            </div>
+            <label class="feld-klein feld-klein--hell">
+              <span>Notiz</span>
+              <textarea rows="8" maxlength="2000" data-notiz></textarea>
+            </label>
+            <button type="submit" class="btn btn--gelb" data-angebot-knopf>Angebot erstellen</button>
+          </form>
+        </div>
+        <div class="spalte">
+          <h2 class="spalte__titel">Angebotsentwurf zum Prüfen</h2>
+          <article class="dokument" data-angebot aria-live="polite">
+            <p class="leer">Hier erscheint der Angebotsentwurf.</p>
+          </article>
+          <button type="button" class="btn btn--gelb" data-gehe="3">Weiter: Nachfassen &amp; Bewertung <Icon name="pfeil" /></button>
+        </div>
+      </div>
+
+      <!-- Schritt 3: Nachfassen & Bewertung -->
+      <div class="schritt" id="schritt-3" role="tabpanel" aria-labelledby="reiter-3" data-schritt="3" hidden>
+        <div class="schritt3-kopf">
+          <p>Das Angebot ist raus. Was jetzt automatisch passiert, ohne dass du daran denken musst:</p>
+          <button type="button" class="btn btn--gelb" data-nachfassen-knopf>Nachrichten erstellen</button>
+        </div>
+        <ol class="zeitstrahl" data-zeitstrahl aria-live="polite"></ol>
+      </div>
+
+      <p class="demo-fehler" data-fehler role="alert" hidden></p>
+    </div>
+
+    <!-- Demo-Code -->
+    <div class="sperre" data-sperre hidden>
+      <form class="sperre__karte" data-sperre-form>
+        <h2>Demo-Code eingeben</h2>
+        <p>Die Live-Demo ist für Erstgespräche gedacht und durch einen Code geschützt.</p>
+        <label class="feld-klein feld-klein--hell">
+          <span>Demo-Code</span>
+          <input type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" data-code-eingabe required />
+        </label>
+        <p class="sperre__fehler" data-sperre-fehler hidden></p>
+        <button type="submit" class="btn btn--gelb">Demo öffnen</button>
+      </form>
+    </div>
+  </section>
+</Basis>
+
+<script>
+  type Gewerk = { key: string; name: string; betrieb: string; beispiele: string[]; foto: string; notiz: string };
+  type Nachricht = { rolle: 'kunde' | 'betrieb'; text: string; foto?: boolean };
+
+  const wurzel = document.querySelector<HTMLElement>('[data-demo]')!;
+  const URL_WEBHOOK = wurzel.dataset.url!;
+  const GEWERKE: Gewerk[] = JSON.parse(document.getElementById('demo-gewerke')!.textContent || '[]');
+  const $ = <T extends HTMLElement = HTMLElement>(s: string) => wurzel.querySelector<T>(s)!;
+
+  const speicher = {
+    lesen(k: string) {
+      try { return localStorage.getItem(k); } catch { return null; }
+    },
+    schreiben(k: string, v: string) {
+      try { localStorage.setItem(k, v); } catch { /* egal */ }
+    },
+    loeschen(k: string) {
+      try { localStorage.removeItem(k); } catch { /* egal */ }
+    },
+  };
+
+  const euro = (n: number) => n.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+
+  // Freie Termine: die nächsten drei Werktage, je zwei Zeiten
+  function freieTermine() {
+    const tage = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+    const zeiten = [['7:30', '14:00'], ['9:00', '15:30'], ['8:00', '13:00']];
+    const d = new Date();
+    const liste: string[] = [];
+    let i = 0;
+    while (liste.length < 6) {
+      d.setDate(d.getDate() + 1);
+      const w = d.getDay();
+      if (w === 0 || w === 6) continue;
+      for (const z of zeiten[i % 3]) {
+        liste.push(`${tage[w]}., ${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}., ${z} Uhr`);
+      }
+      i++;
+    }
+    return liste;
+  }
+
+  let zustand = neuerZustand();
+  function neuerZustand() {
+    return {
+      verlauf: [] as Nachricht[],
+      erfasst: {} as Record<string, unknown>,
+      termine: freieTermine(),
+      gebucht: '' as string,
+      gemeldet: new Set<string>(),
+      angebot: null as null | { titel: string; summe: string; kunde: string },
+      laeuft: false,
+    };
+  }
+  let code = speicher.lesen('abora-demo-code') || '';
+  let gewerk: Gewerk = GEWERKE.find((g) => g.key === speicher.lesen('abora-demo-gewerk')) || GEWERKE[0];
+
+  // ───────── Hilfen ─────────
+  const fehlerBox = $('[data-fehler]');
+  function zeigeFehler(text: string) {
+    fehlerBox.textContent = text;
+    fehlerBox.hidden = false;
+  }
+  function versteckeFehler() {
+    fehlerBox.hidden = true;
+  }
+
+  async function frageKi(daten: Record<string, unknown>) {
+    const antwort = await fetch(URL_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...daten, code, gewerk: gewerk.key }),
+    });
+    if (!antwort.ok) throw new Error('Die Demo ist gerade nicht erreichbar (HTTP ' + antwort.status + ').');
+    const j = await antwort.json();
+    if (!j.ok) {
+      if (/Demo-Code/.test(j.fehler || '')) {
+        code = '';
+        speicher.loeschen('abora-demo-code');
+        sperreZeigen('Der Demo-Code stimmt nicht.');
+      }
+      throw new Error(j.fehler || 'Unbekannter Fehler.');
+    }
+    return j.daten;
+  }
+
+  function meldung(titel: string, text: string, art: '' | 'notfall' = '') {
+    const box = $('[data-meldungen]');
+    const el = document.createElement('div');
+    el.className = 'meldung' + (art ? ' meldung--' + art : '');
+    const icon = document.createElement('span');
+    icon.className = 'meldung__icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = 'A';
+    const inhalt = document.createElement('div');
+    const kopf = document.createElement('div');
+    kopf.className = 'meldung__zeile';
+    kopf.innerHTML = '<span>Abora</span><span>jetzt</span>';
+    const t = document.createElement('strong');
+    t.textContent = titel;
+    const p = document.createElement('span');
+    p.className = 'meldung__text';
+    p.textContent = text;
+    inhalt.append(kopf, t, p);
+    el.append(icon, inhalt);
+    box.prepend(el);
+    while (box.children.length > 3) box.lastElementChild!.remove();
+  }
+
+  // ───────── Schritt 1: Chat ─────────
+  const verlaufEl = $('[data-verlauf]');
+  const tippt = document.createElement('li');
+  tippt.className = 'tippt';
+  tippt.innerHTML = '<span></span><span></span><span></span>';
+  tippt.setAttribute('aria-label', 'Die KI schreibt');
+
+  function blase(n: Nachricht) {
+    const li = document.createElement('li');
+    li.className = 'blase blase--' + n.rolle;
+    const wer = document.createElement('span');
+    wer.className = 'sr-only';
+    wer.textContent = n.rolle === 'kunde' ? 'Kunde:' : 'Betrieb (KI):';
+    li.append(wer);
+    if (n.foto) {
+      const f = document.createElement('span');
+      f.className = 'blase__foto';
+      f.textContent = '📷 Foto';
+      const cap = document.createElement('span');
+      cap.className = 'blase__fotoinfo';
+      cap.textContent = gewerk.foto;
+      li.append(f, cap);
+    } else {
+      const t = document.createElement('span');
+      t.textContent = n.text;
+      li.append(t);
+    }
+    const zeit = document.createElement('span');
+    zeit.className = 'blase__zeit';
+    zeit.textContent = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + (n.rolle === 'betrieb' ? ' ✓✓' : '');
+    li.append(zeit);
+    verlaufEl.append(li);
+    verlaufEl.scrollTop = verlaufEl.scrollHeight;
+  }
+
+  function vorschlaegeZeigen() {
+    const box = $('[data-vorschlaege]');
+    box.replaceChildren();
+    if (zustand.verlauf.length) return;
+    for (const b of gewerk.beispiele) {
+      const k = document.createElement('button');
+      k.type = 'button';
+      k.className = 'vorschlag';
+      k.textContent = b;
+      k.addEventListener('click', () => senden(b));
+      box.append(k);
+    }
+  }
+
+  function termineZeigen() {
+    const ul = $('[data-termine]');
+    ul.replaceChildren();
+    for (const t of zustand.termine) {
+      const li = document.createElement('li');
+      li.textContent = t;
+      const [, datum, zeit] = t.split(', ');
+      if (zustand.gebucht && zustand.gebucht.includes(datum) && zustand.gebucht.includes(zeit.replace(' Uhr', ''))) li.className = 'gebucht';
+      ul.append(li);
+    }
+  }
+
+  function chefAnsicht(d: Record<string, any>) {
+    for (const feld of ['kunde_name', 'ort', 'anliegen', 'umfang', 'zeitraum', 'budget']) {
+      if (d[feld]) zustand.erfasst[feld] = d[feld];
+      $(`[data-feld="${feld}"]`).textContent = (zustand.erfasst[feld] as string) || '–';
+    }
+    if (d.foto_erhalten) zustand.erfasst.foto_erhalten = true;
+    $('[data-feld="foto_erhalten"]').textContent = zustand.erfasst.foto_erhalten ? 'erhalten ✓' : '–';
+    const dr = $('[data-dringlichkeit]');
+    const namen: Record<string, string> = { notfall: 'Notfall', hoch: 'dringend', normal: 'normal', niedrig: 'kann warten', unklar: 'noch unklar' };
+    dr.dataset.wert = d.dringlichkeit;
+    dr.textContent = namen[d.dringlichkeit] || 'noch unklar';
+    if (d.zusammenfassung_fuer_chef) $('[data-zusammenfassung]').textContent = d.zusammenfassung_fuer_chef;
+    if (d.gewaehlter_termin) zustand.gebucht = d.gewaehlter_termin;
+    termineZeigen();
+
+    // Benachrichtigungen, jeweils nur einmal
+    const einmal = (k: string, f: () => void) => {
+      if (!zustand.gemeldet.has(k)) {
+        zustand.gemeldet.add(k);
+        f();
+      }
+    };
+    einmal('neu', () => meldung('Neue Anfrage', 'Automatisch beantwortet: ' + (d.anliegen || 'Kundenanfrage')));
+    if (d.dringlichkeit === 'notfall' || d.status === 'notfall_weitergeleitet')
+      einmal('notfall', () => meldung('Notfall – bitte zurückrufen', d.zusammenfassung_fuer_chef || 'Dringende Anfrage', 'notfall'));
+    if (d.status === 'termin_gebucht' && d.gewaehlter_termin)
+      einmal('termin', () => meldung('Termin gebucht', 'Besichtigung ' + d.gewaehlter_termin + (zustand.erfasst.kunde_name ? ' – ' + zustand.erfasst.kunde_name : '')));
+    if (d.status === 'nicht_passend') einmal('passt', () => meldung('Anfrage passt nicht', 'Freundlich abgesagt, du musst nichts tun'));
+
+    // Angebotsformular vorbefüllen
+    const kundeFeld = $<HTMLInputElement>('[data-angebot-kunde]');
+    const ortFeld = $<HTMLInputElement>('[data-angebot-ort]');
+    if (!kundeFeld.value && zustand.erfasst.kunde_name) kundeFeld.value = zustand.erfasst.kunde_name as string;
+    if (!ortFeld.value && zustand.erfasst.ort) ortFeld.value = zustand.erfasst.ort as string;
+  }
+
+  async function senden(text: string, foto = false) {
+    if (zustand.laeuft) return;
+    if (!code) return sperreZeigen();
+    versteckeFehler();
+    const n: Nachricht = { rolle: 'kunde', text: foto ? `[Foto: ${gewerk.foto}]` : text, foto };
+    zustand.verlauf.push(n);
+    blase(n);
+    vorschlaegeZeigen();
+    zustand.laeuft = true;
+    verlaufEl.append(tippt);
+    verlaufEl.scrollTop = verlaufEl.scrollHeight;
+    $('[data-tippt-status]').textContent = 'schreibt …';
+    try {
+      const d = await frageKi({
+        modus: 'chat',
+        termine: zustand.termine,
+        verlauf: zustand.verlauf.map((m) => ({ rolle: m.rolle, text: m.text })),
+      });
+      tippt.remove();
+      const antwort: Nachricht = { rolle: 'betrieb', text: d.antwort };
+      zustand.verlauf.push(antwort);
+      blase(antwort);
+      chefAnsicht(d);
+    } catch (e) {
+      tippt.remove();
+      zustand.verlauf.pop(); // Kundennachricht zurücknehmen, damit der Verlauf abwechselt
+      verlaufEl.lastElementChild?.remove();
+      vorschlaegeZeigen();
+      zeigeFehler((e as Error).message);
+    } finally {
+      zustand.laeuft = false;
+      $('[data-tippt-status]').textContent = 'antwortet sofort';
+    }
+  }
+
+  $<HTMLFormElement>('[data-eingabe]').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const feld = $<HTMLInputElement>('[data-nachricht]');
+    const t = feld.value.trim();
+    if (!t) return;
+    feld.value = '';
+    senden(t);
+  });
+  $('[data-foto]').addEventListener('click', () => senden('', true));
+
+  // ───────── Schritt 2: Angebot ─────────
+  $<HTMLFormElement>('[data-angebot-form]').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!code) return sperreZeigen();
+    versteckeFehler();
+    const knopf = $<HTMLButtonElement>('[data-angebot-knopf]');
+    const doc = $('[data-angebot]');
+    knopf.disabled = true;
+    knopf.textContent = 'KI schreibt das Angebot …';
+    doc.replaceChildren(Object.assign(document.createElement('p'), { className: 'leer', textContent: 'Die KI erstellt den Entwurf …' }));
+    const kunde = $<HTMLInputElement>('[data-angebot-kunde]').value.trim();
+    try {
+      const d = await frageKi({
+        modus: 'angebot',
+        kunde,
+        ort: $<HTMLInputElement>('[data-angebot-ort]').value.trim(),
+        anliegen: (zustand.erfasst.anliegen as string) || '',
+        notizen: $<HTMLTextAreaElement>('[data-notiz]').value,
+      });
+      angebotZeigen(d, kunde);
+      meldung('Angebot vorbereitet', 'Entwurf aus deiner Sprachnotiz – bitte prüfen');
+    } catch (err) {
+      doc.replaceChildren(Object.assign(document.createElement('p'), { className: 'leer', textContent: 'Kein Entwurf.' }));
+      zeigeFehler((err as Error).message);
+    } finally {
+      knopf.disabled = false;
+      knopf.textContent = 'Angebot erstellen';
+    }
+  });
+
+  function el<K extends keyof HTMLElementTagNameMap>(tag: K, klasse = '', text = '') {
+    const e = document.createElement(tag);
+    if (klasse) e.className = klasse;
+    if (text) e.textContent = text;
+    return e;
+  }
+
+  function angebotZeigen(d: any, kunde: string) {
+    const doc = $('[data-angebot]');
+    doc.replaceChildren();
+    const kopf = el('div', 'dokument__kopf');
+    kopf.append(el('strong', '', gewerk.betrieb), el('span', 'hinweis-beispiel', 'Beispielpreise'));
+    doc.append(kopf);
+    doc.append(el('h3', '', d.titel));
+    if (kunde) doc.append(el('p', 'dokument__kunde', 'Für: ' + kunde));
+    doc.append(el('p', '', d.einleitung));
+
+    const tabelle = el('table', 'positionen');
+    const thead = el('thead');
+    const kr = el('tr');
+    for (const [t, k] of [['Pos.', ''], ['Leistung', ''], ['Menge', 'r'], ['Einzelpreis', 'r'], ['Gesamt', 'r']]) kr.append(el('th', k, t));
+    thead.append(kr);
+    const tbody = el('tbody');
+    let netto = 0;
+    (d.positionen || []).forEach((p: any, i: number) => {
+      const summe = Math.round(Number(p.menge) * Number(p.einzelpreis_netto) * 100) / 100;
+      netto += summe;
+      const tr = el('tr');
+      tr.append(
+        el('td', '', String(i + 1)),
+        el('td', '', p.bezeichnung),
+        el('td', 'r', `${Number(p.menge).toLocaleString('de-DE')} ${p.einheit}`),
+        el('td', 'r', euro(Number(p.einzelpreis_netto))),
+        el('td', 'r', euro(summe)),
+      );
+      tbody.append(tr);
+    });
+    tabelle.append(thead, tbody);
+    const huelle = el('div', 'tabelle-huelle');
+    huelle.append(tabelle);
+    doc.append(huelle);
+
+    const mwst = Math.round(netto * 0.19 * 100) / 100;
+    const brutto = netto + mwst;
+    const summen = el('dl', 'summen');
+    for (const [t, w, k] of [['Netto', euro(netto), ''], ['zzgl. 19 % MwSt.', euro(mwst), ''], ['Gesamt brutto', euro(brutto), 'gesamt']]) {
+      const z = el('div', k);
+      z.append(el('dt', '', t), el('dd', '', w));
+      summen.append(z);
+    }
+    doc.append(summen);
+    doc.append(el('p', 'klein', 'Beispielpreise der KI. Im echten Einsatz kommen die Preise aus deiner eigenen Preisliste.'));
+
+    for (const [titel, liste] of [['Annahmen', d.annahmen], ['Rückfragen an den Kunden', d.rueckfragen]] as const) {
+      if (!liste || !liste.length) continue;
+      doc.append(el('h4', '', titel));
+      const ul = el('ul');
+      for (const t of liste) ul.append(el('li', '', t));
+      doc.append(ul);
+    }
+    zustand.angebot = { titel: d.titel, summe: euro(brutto), kunde: kunde || (zustand.erfasst.kunde_name as string) || '' };
+  }
+
+  // ───────── Schritt 3: Nachfassen & Bewertung ─────────
+  $('[data-nachfassen-knopf]').addEventListener('click', async () => {
+    if (!code) return sperreZeigen();
+    versteckeFehler();
+    const knopf = $<HTMLButtonElement>('[data-nachfassen-knopf]');
+    const ol = $('[data-zeitstrahl]');
+    knopf.disabled = true;
+    knopf.textContent = 'KI schreibt …';
+    try {
+      const a = zustand.angebot;
+      const d = await frageKi({
+        modus: 'nachfassen',
+        kunde: a?.kunde || (zustand.erfasst.kunde_name as string) || $<HTMLInputElement>('[data-angebot-kunde]').value || '',
+        titel: a?.titel || (zustand.erfasst.anliegen as string) || gewerk.name,
+        summe: a?.summe || '',
+      });
+      ol.replaceChildren();
+      const punkt = (wann: string, titel: string, text?: string, kanal?: string, art = '') => {
+        const li = el('li', 'zeit' + (art ? ' zeit--' + art : ''));
+        li.append(el('span', 'zeit__wann', wann));
+        const box = el('div', 'zeit__inhalt');
+        box.append(el('strong', '', titel + (kanal ? ' · ' + kanal : '')));
+        if (text) box.append(el('p', 'zeit__text', text));
+        li.append(box);
+        ol.append(li);
+      };
+      punkt('Tag 0', 'Angebot verschickt', a ? `${a.titel} (${a.summe})` : undefined);
+      for (const n of d.nachfassen || []) punkt('Tag ' + n.tag, 'Nachfassen', n.text, n.kanal);
+      punkt('', 'Kunde sagt zu', 'Der Auftrag landet in deinem Kalender.', '', 'erfolg');
+      punkt('Nach dem Auftrag', 'Rechnung verschickt', 'Automatisch, sobald du den Auftrag als erledigt markierst.');
+      punkt('+14 Tage', 'Zahlungserinnerung (nur falls offen)', d.zahlungserinnerung);
+      punkt('Danach', 'Bitte um Bewertung', d.bewertungsanfrage);
+      meldung('Angebot angenommen ✓', (a?.kunde ? a.kunde + ' hat ' : 'Der Kunde hat ') + 'nach der Erinnerung zugesagt');
+    } catch (e) {
+      zeigeFehler((e as Error).message);
+    } finally {
+      knopf.disabled = false;
+      knopf.textContent = 'Nachrichten neu erstellen';
+    }
+  });
+
+  // ───────── Reiter ─────────
+  const reiter = Array.from(wurzel.querySelectorAll<HTMLButtonElement>('[data-reiter]'));
+  function zeigeSchritt(n: string) {
+    for (const r of reiter) {
+      const aktiv = r.dataset.reiter === n;
+      r.setAttribute('aria-selected', String(aktiv));
+      r.tabIndex = aktiv ? 0 : -1;
+    }
+    wurzel.querySelectorAll<HTMLElement>('[data-schritt]').forEach((s) => (s.hidden = s.dataset.schritt !== n));
+    versteckeFehler();
+  }
+  reiter.forEach((r, i) => {
+    r.addEventListener('click', () => zeigeSchritt(r.dataset.reiter!));
+    r.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const ziel = reiter[(i + (e.key === 'ArrowRight' ? 1 : reiter.length - 1)) % reiter.length];
+      ziel.focus();
+      zeigeSchritt(ziel.dataset.reiter!);
+    });
+  });
+  wurzel.querySelectorAll<HTMLElement>('[data-gehe]').forEach((b) =>
+    b.addEventListener('click', () => {
+      zeigeSchritt(b.dataset.gehe!);
+      $('.reiter').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }),
+  );
+
+  // ───────── Gewerk & Neustart ─────────
+  function neuStarten() {
+    zustand = neuerZustand();
+    verlaufEl.replaceChildren();
+    $('[data-meldungen]').replaceChildren();
+    for (const f of ['kunde_name', 'ort', 'anliegen', 'umfang', 'zeitraum', 'budget', 'foto_erhalten']) $(`[data-feld="${f}"]`).textContent = '–';
+    const dr = $('[data-dringlichkeit]');
+    dr.dataset.wert = 'unklar';
+    dr.textContent = 'noch unklar';
+    $('[data-zusammenfassung]').textContent = 'Sobald ein Kunde schreibt, erscheint hier die Zusammenfassung.';
+    $('[data-betrieb]').textContent = gewerk.betrieb;
+    $<HTMLTextAreaElement>('[data-notiz]').value = gewerk.notiz;
+    $<HTMLInputElement>('[data-angebot-kunde]').value = '';
+    $<HTMLInputElement>('[data-angebot-ort]').value = '';
+    $('[data-angebot]').replaceChildren(Object.assign(document.createElement('p'), { className: 'leer', textContent: 'Hier erscheint der Angebotsentwurf.' }));
+    $('[data-zeitstrahl]').replaceChildren();
+    $('[data-nachfassen-knopf]').textContent = 'Nachrichten erstellen';
+    vorschlaegeZeigen();
+    termineZeigen();
+    versteckeFehler();
+    zeigeSchritt('1');
+  }
+  const auswahl = $<HTMLSelectElement>('[data-gewerk]');
+  auswahl.value = gewerk.key;
+  auswahl.addEventListener('change', () => {
+    gewerk = GEWERKE.find((g) => g.key === auswahl.value) || GEWERKE[0];
+    speicher.schreiben('abora-demo-gewerk', gewerk.key);
+    neuStarten();
+  });
+  $('[data-neu]').addEventListener('click', neuStarten);
+
+  // ───────── Demo-Code ─────────
+  const sperre = $('[data-sperre]');
+  function sperreZeigen(fehler = '') {
+    sperre.hidden = false;
+    const f = $('[data-sperre-fehler]');
+    f.textContent = fehler;
+    f.hidden = !fehler;
+    $<HTMLInputElement>('[data-code-eingabe]').focus();
+  }
+  $<HTMLFormElement>('[data-sperre-form]').addEventListener('submit', (e) => {
+    e.preventDefault();
+    code = $<HTMLInputElement>('[data-code-eingabe]').value.trim().toUpperCase();
+    if (!code) return;
+    speicher.schreiben('abora-demo-code', code);
+    sperre.hidden = true;
+  });
+
+  neuStarten();
+  if (!code) sperreZeigen();
+</script>
+
+<style>
+  .demo {
+    padding: 110px 0 var(--abschnitt);
+    background:
+      radial-gradient(ellipse 60% 50% at 90% 0%, rgba(255, 170, 70, 0.1), transparent 70%),
+      var(--dunkel);
+    min-height: 100vh;
+    position: relative;
+  }
+  @media (min-width: 900px) {
+    .demo {
+      padding-top: 130px;
+    }
+  }
+  .demo-kopf {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  @media (min-width: 900px) {
+    .demo-kopf {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+  }
+  .demo-kopf h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 12px;
+  }
+  .demo-hinweis {
+    margin: 0;
+    max-width: 44rem;
+    font-size: 0.92rem;
+    color: var(--text-gedaempft);
+  }
+  .demo-hinweis .hinweis-beispiel {
+    margin-right: 8px;
+  }
+  .demo-steuerung {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: end;
+  }
+  .feld-klein {
+    display: grid;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .feld-klein select,
+  .feld-klein input,
+  .feld-klein textarea {
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 2px solid var(--linie-dunkel);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-hell);
+    min-height: 48px;
+  }
+  .feld-klein select option {
+    color: var(--text);
+  }
+  .feld-klein--hell select,
+  .feld-klein--hell input,
+  .feld-klein--hell textarea {
+    background: #fff;
+    color: var(--text);
+    border-color: rgba(17, 17, 17, 0.18);
+  }
+  .feld-klein textarea {
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .btn--klein {
+    min-height: 48px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+  }
+
+  .reiter {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--linie-dunkel);
+    margin-bottom: 28px;
+    scroll-margin-top: 90px;
+  }
+  .reiter button {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: inherit;
+    font-weight: 700;
+    color: var(--text-gedaempft);
+    background: none;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    padding: 12px 10px;
+    cursor: pointer;
+  }
+  .reiter button span {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.85rem;
+  }
+  .reiter__zusatz {
+    font-style: normal;
+  }
+  @media (max-width: 479px) {
+    .reiter__zusatz {
+      display: none;
+    }
+    .reiter {
+      gap: 0;
+    }
+    .reiter button {
+      padding-inline: 4px;
+      gap: 6px;
+      font-size: 0.92rem;
+    }
+  }
+  .reiter button[aria-selected='true'] {
+    color: var(--text-hell);
+    border-bottom-color: var(--gelb);
+  }
+  .reiter button[aria-selected='true'] span {
+    background: var(--gelb);
+    color: var(--dunkel);
+  }
+
+  .schritt {
+    display: grid;
+    gap: 32px;
+  }
+  @media (min-width: 980px) {
+    .schritt[data-schritt='1'],
+    .schritt[data-schritt='2'] {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: start;
+    }
+  }
+  .spalte {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+  }
+  .spalte__titel {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  .spalte__titel--dunkel {
+    color: var(--text);
+  }
+  .unterschrift,
+  .klein {
+    font-size: 0.88rem;
+    color: var(--text-gedaempft);
+    margin: 0;
+  }
+  .karte-hell .klein {
+    color: var(--text-gedaempft-hell);
+  }
+
+  /* Handy mit Chat */
+  .handy {
+    width: 100%;
+    max-width: 440px;
+    justify-self: center;
+    border-radius: 30px;
+    background: #0b141a;
+    border: 8px solid #05090c;
+    box-shadow: var(--schatten), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .handy__kopf {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #1f2c34;
+    color: #e9edef;
+    line-height: 1.25;
+  }
+  .handy__kopf strong {
+    display: block;
+    font-size: 0.95rem;
+  }
+  .handy__status {
+    font-size: 0.78rem;
+    color: #8696a0;
+  }
+  .handy__avatar {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--blaugrau);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+  }
+  .verlauf {
+    list-style: none;
+    margin: 0;
+    padding: 14px 12px;
+    height: 420px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  @media (max-width: 479px) {
+    .verlauf {
+      height: 360px;
+    }
+  }
+  .verlauf :global(.blase) {
+    max-width: 84%;
+    padding: 8px 10px 6px;
+    border-radius: 10px;
+    font-size: 0.93rem;
+    line-height: 1.4;
+    color: #e9edef;
+    display: grid;
+    gap: 4px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .verlauf :global(.blase--kunde) {
+    align-self: flex-end;
+    background: #005c4b;
+    border-top-right-radius: 2px;
+  }
+  .verlauf :global(.blase--betrieb) {
+    align-self: flex-start;
+    background: #202c33;
+    border-top-left-radius: 2px;
+  }
+  .verlauf :global(.blase__zeit) {
+    justify-self: end;
+    font-size: 0.68rem;
+    color: rgba(233, 237, 239, 0.6);
+  }
+  .verlauf :global(.blase__foto) {
+    display: grid;
+    place-items: center;
+    height: 100px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #3d5875, #22323f);
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .verlauf :global(.blase__fotoinfo) {
+    font-size: 0.78rem;
+    color: rgba(233, 237, 239, 0.75);
+  }
+  .verlauf :global(.tippt) {
+    align-self: flex-start;
+    display: flex;
+    gap: 4px;
+    padding: 12px 14px;
+    background: #202c33;
+    border-radius: 10px;
+  }
+  .verlauf :global(.tippt span) {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(233, 237, 239, 0.75);
+    animation: tippen 1s infinite ease-in-out;
+  }
+  .verlauf :global(.tippt span:nth-child(2)) {
+    animation-delay: 0.15s;
+  }
+  .verlauf :global(.tippt span:nth-child(3)) {
+    animation-delay: 0.3s;
+  }
+  @keyframes tippen {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    30% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+  .vorschlaege {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 12px 10px;
+  }
+  .vorschlaege :global(.vorschlag) {
+    font: inherit;
+    font-size: 0.86rem;
+    text-align: left;
+    color: #e9edef;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 200, 61, 0.45);
+    border-radius: 12px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  .vorschlaege :global(.vorschlag:hover) {
+    background: rgba(255, 200, 61, 0.12);
+  }
+  .eingabe {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    background: #1f2c34;
+  }
+  .eingabe input {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    font-size: 1rem;
+    color: #e9edef;
+    background: #2a3942;
+    border: 0;
+    border-radius: 22px;
+    padding: 10px 14px;
+    min-height: 44px;
+  }
+  .eingabe button {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 0;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  .eingabe button svg {
+    width: 22px;
+    height: 22px;
+  }
+  .eingabe__foto {
+    background: transparent;
+    color: #8696a0;
+  }
+  .eingabe__senden {
+    background: #00a884;
+    color: #fff;
+  }
+
+  /* Chef-Ansicht */
+  .meldungen {
+    display: grid;
+    gap: 10px;
+  }
+  .meldungen:empty {
+    display: none;
+  }
+  .meldungen :global(.meldung) {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.97);
+    color: var(--text);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.6);
+    font-size: 0.9rem;
+    line-height: 1.3;
+    animation: rein 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .meldungen :global(.meldung--notfall) {
+    outline: 3px solid #e5484d;
+  }
+  .meldungen :global(.meldung__icon) {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--gelb);
+    color: var(--dunkel);
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+  }
+  .meldungen :global(.meldung > div) {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+  }
+  .meldungen :global(.meldung__zeile) {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6b6f76;
+  }
+  .meldungen :global(.meldung__text) {
+    color: #3f444b;
+  }
+  @keyframes rein {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.97);
+    }
+  }
+
+  .karte-hell {
+    background: var(--hell);
+    color: var(--text);
+    border-radius: var(--radius-gross);
+    padding: 22px;
+  }
+  .karte-hell h3 {
+    font-size: 1.1rem;
+    margin: 0 0 12px;
+  }
+  .anfrage__kopf {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .anfrage__kopf h3 {
+    margin: 0;
+  }
+  .dringlichkeit {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(17, 17, 17, 0.08);
+  }
+  .dringlichkeit[data-wert='notfall'] {
+    background: #e5484d;
+    color: #fff;
+  }
+  .dringlichkeit[data-wert='hoch'] {
+    background: #f5a524;
+    color: var(--text);
+  }
+  .dringlichkeit[data-wert='normal'] {
+    background: var(--gelb);
+  }
+  .dringlichkeit[data-wert='niedrig'] {
+    background: #d7e3ee;
+  }
+  .felder {
+    margin: 14px 0;
+    display: grid;
+    gap: 0;
+  }
+  .felder div {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--linie-hell);
+  }
+  .felder dt {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--text-gedaempft-hell);
+  }
+  .felder dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .zusammenfassung {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .termine {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+  }
+  .termine :global(li) {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--linie-hell);
+  }
+  .termine :global(li.gebucht) {
+    background: var(--dunkel);
+    color: var(--gelb);
+    font-weight: 700;
+  }
+
+  /* Angebot */
+  .notiz {
+    display: grid;
+    gap: 14px;
+  }
+  .zwei {
+    display: grid;
+    gap: 12px;
+  }
+  @media (min-width: 560px) {
+    .zwei {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .dokument {
+    background: #fff;
+    color: var(--text);
+    border-radius: 8px;
+    padding: 24px 22px;
+    box-shadow: var(--schatten);
+    min-height: 220px;
+    font-size: 0.95rem;
+  }
+  .dokument :global(.leer) {
+    color: var(--text-gedaempft-hell);
+    margin: 0;
+  }
+  .dokument :global(.dokument__kopf) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 2px solid var(--dunkel);
+  }
+  .dokument :global(.hinweis-beispiel) {
+    background: rgba(61, 88, 117, 0.1);
+    color: var(--blaugrau);
+    border-color: rgba(61, 88, 117, 0.3);
+  }
+  .dokument :global(h3) {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+  .dokument :global(h4) {
+    font-size: 1rem;
+    margin: 18px 0 6px;
+  }
+  .dokument :global(ul) {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+  .dokument :global(.dokument__kunde) {
+    color: var(--text-gedaempft-hell);
+    margin-bottom: 8px;
+  }
+  .dokument :global(.tabelle-huelle) {
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  .dokument :global(.positionen) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    min-width: 460px;
+  }
+  .dokument :global(.positionen th),
+  .dokument :global(.positionen td) {
+    padding: 8px 6px;
+    border-bottom: 1px solid var(--linie-hell);
+    vertical-align: top;
+    text-align: left;
+  }
+  .dokument :global(.positionen th) {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-gedaempft-hell);
+  }
+  .dokument :global(.r) {
+    text-align: right !important;
+    white-space: nowrap;
+  }
+  .dokument :global(.summen) {
+    margin: 0 0 10px auto;
+    max-width: 300px;
+  }
+  .dokument :global(.summen div) {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 4px 0;
+  }
+  .dokument :global(.summen dd) {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .dokument :global(.summen .gesamt) {
+    border-top: 2px solid var(--dunkel);
+    margin-top: 4px;
+    padding-top: 8px;
+    font-weight: 800;
+  }
+
+  /* Schritt 3 */
+  .schritt3-kopf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .schritt3-kopf p {
+    margin: 0;
+    max-width: 36rem;
+    color: #dfe3e8;
+  }
+  .zeitstrahl {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    max-width: 760px;
+  }
+  .zeitstrahl :global(.zeit) {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--linie-dunkel);
+    animation: rein 0.4s ease;
+  }
+  @media (max-width: 559px) {
+    .zeitstrahl :global(.zeit) {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+  }
+  .zeitstrahl :global(.zeit__wann) {
+    font-weight: 800;
+    color: var(--gelb);
+    font-size: 0.9rem;
+  }
+  .zeitstrahl :global(.zeit__text) {
+    margin: 6px 0 0;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    color: #e9edef;
+    white-space: pre-wrap;
+  }
+  .zeitstrahl :global(.zeit--erfolg strong) {
+    color: #7ee2a8;
+  }
+
+  .demo-fehler {
+    margin: 24px 0 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #fdecea;
+    color: #8a1c12;
+    font-weight: 600;
+  }
+
+  /* Code-Sperre */
+  .sperre {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(13, 22, 32, 0.92);
+    display: grid;
+    place-items: center;
+    padding: 20px;
+  }
+  .sperre__karte {
+    width: 100%;
+    max-width: 400px;
+    background: var(--hell);
+    color: var(--text);
+    border-radius: var(--radius-gross);
+    padding: 28px 24px;
+    display: grid;
+    gap: 14px;
+  }
+  .sperre__karte h2 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  .sperre__karte p {
+    margin: 0;
+    color: var(--text-gedaempft-hell);
+  }
+  .sperre__fehler {
+    color: #8a1c12 !important;
+    font-weight: 700;
+  }
+</style>

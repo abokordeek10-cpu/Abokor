@@ -6,6 +6,9 @@
 // URL des n8n-Webhooks für das Kontaktformular.
 export const N8N_WEBHOOK_URL = 'https://n8n.abora-automation.de/webhook/8b0fcd17-200f-4859-879c-613198143e88';
 
+// Live-Demo: n8n-Webhook des Workflows „Abora Demo KI“ (siehe n8n/abora-demo-workflow.json)
+export const DEMO_WEBHOOK_URL = 'https://n8n.abora-automation.de/webhook/abora-demo';
+
 // TODO: KALENDER – Link zur Online-Terminbuchung (z. B. Cal.com).
 // Leer lassen, solange es keinen gibt: Dann wird der Kalender-Block ausgeblendet.
 export const KALENDER_URL = '';
