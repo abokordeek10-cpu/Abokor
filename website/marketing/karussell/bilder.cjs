@@ -6,7 +6,7 @@ const fs = require('fs');
   const [datei, aus] = process.argv.slice(2);
   fs.mkdirSync(aus, { recursive: true });
   const b = await chromium.launch();
-  const p = await b.newPage({ viewport: { width: 1080, height: 1350 } });
+  const p = await b.newPage({ viewport: { width: 1080, height: Number(process.argv[4] || 1350) } });
   await p.goto('file://' + path.resolve(datei));
   await p.evaluate(() => document.fonts.ready);
   const s = await p.$$('section');

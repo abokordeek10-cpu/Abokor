@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<!-- Titelbilder (Cover) für Reels: Text mittig, damit Instagram (Raster 3:4) und TikTok nichts abschneiden.
+     Jede <section> = ein Titelbild 1080×1920. Ausgeben mit: node ../../karussell/bilder.cjs titelbild.html <ordner> (Viewport wird angepasst). -->
+<style>
+@font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-wght-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-ext-wght-normal.woff2') format('woff2'); unicode-range: U+0100-02BA, U+1E00-1E9F, U+20A0-20C0; }
+* { box-sizing: border-box; margin: 0; }
+body { font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; background: #000; }
+section { width: 1080px; height: 1920px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 170px; color: #f6f4ef;
+  background: radial-gradient(ellipse 70% 40% at 50% 35%, rgba(255,200,61,.16), transparent 70%), linear-gradient(170deg,#1b2a3b,#14202e 50%,#0b121b); }
+section.hell { background: #f2ede3; color: #14202e; }
+.serie { font-size: 34px; font-weight: 800; letter-spacing: .12em; color: #ffc83d; border: 3px solid rgba(255,200,61,.6); padding: 14px 28px; border-radius: 999px; margin-bottom: 60px; }
+.hell .serie { background: #ffc83d; color: #14202e; border-color: #ffc83d; }
+h1 { font-size: 118px; font-weight: 900; letter-spacing: -.05em; line-height: 1.0; }
+h1 b { color: #ffc83d; }
+.hell h1 b { color: #14202e; background: linear-gradient(transparent 58%, #ffc83d 58%); }
+.zeit { font-size: 190px; font-weight: 200; letter-spacing: -.05em; line-height: 1; margin-bottom: 40px; }
+.zeit b { font-weight: 900; color: #ffc83d; }
+.logo { position: absolute; bottom: 260px; height: 64px; }
+</style></head><body>
+<section><div class="serie">MEHR AUFTRÄGE · TEIL 1</div><h1><b>3 Dinge</b>, mit denen du mehr Aufträge bekommst.</h1><img class="logo" src="logo/quer-hell.png"></section>
+<section><div class="serie">GESCHICHTE</div><div class="zeit"><b>Sa.</b> 9:14</div><h1>Wer bekommt <b>den Auftrag?</b></h1><img class="logo" src="logo/quer-hell.png"></section>
+<section class="hell"><div class="serie">RECHNE MAL NACH</div><h1>2 verpasste Anrufe = <b>16.000 €?</b></h1><img class="logo" src="logo/quer-dunkel.png"></section>
+</body></html>
