@@ -1,0 +1,190 @@
+{
+  "id": "t2-konkurrenz-schneller",
+  "serie": "SCHLAG DIE KONKURRENZ · TEIL 1",
+  "stil": "kinetisch",
+  "hinweis": "Stimme KI-generiert.",
+  "text": "Dein Konkurrent ist nicht besser als du. Er ist nur schneller. Und genau das kostet dich gerade Aufträge. Pass auf. Ein Kunde hat ein Problem. Zum Beispiel: Die Heizung macht komische Geräusche. Er sucht bei Google und schreibt drei Betrieben. Du bist auf der Baustelle und antwortest abends um acht. Dein Konkurrent antwortet nach fünf Minuten. Wer bekommt den Termin? Meistens nicht der Beste. Sondern der Schnellste. Der Kunde kann deine Arbeit ja noch gar nicht beurteilen. Er sieht nur: Wer kümmert sich? Wer meldet sich? Wer wirkt zuverlässig? Und das entscheidet er in den ersten Minuten. Das heißt: Du musst nicht billiger werden. Du musst nicht mehr Werbung machen. Du musst nur schneller antworten als die anderen. Auch wenn du gerade auf dem Dach stehst. Genau dafür gibt es meine KI. Sie antwortet in Sekunden, fragt nach Fotos und Adresse und bietet direkt einen Termin an. Und du? Machst weiter deine Arbeit. Ich bin Abokor. Folg mir, in Teil zwei zeige ich dir, wie du mit Bewertungen an deiner Konkurrenz vorbeiziehst. Link in der Bio.",
+  "szenen": [
+    {
+      "typ": "titel",
+      "zeilen": [
+        "Dein Konkurrent",
+        "ist nicht besser.",
+        "<b>Nur schneller.</b>"
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "und genau",
+      "zeilen": [
+        "Und das kostet",
+        "dich <b>Aufträge.</b>"
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "ein kunde",
+      "klein": "Ein Kunde",
+      "titel": "Heizung macht Geräusche",
+      "text": "Er schreibt 3 Betrieben.",
+      "icon": "🔥"
+    },
+    {
+      "typ": "rennen",
+      "bei": "du bist",
+      "titel": "Wer antwortet zuerst?",
+      "zeilen": [
+        {
+          "bei": "du bist",
+          "name": "Du",
+          "status": "Antwort um 20:00",
+          "ok": false
+        },
+        {
+          "bei": "dein konkurrent antwortet",
+          "name": "Konkurrent",
+          "status": "Antwort nach 5 Minuten",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "wer bekommt",
+      "zeilen": [
+        "Wer bekommt",
+        "den <b>Termin?</b>"
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "meistens",
+      "zeilen": [
+        "Nicht der Beste.",
+        "<b>Der Schnellste.</b>"
+      ]
+    },
+    {
+      "typ": "liste",
+      "bei": "der kunde kann",
+      "nr": "?",
+      "titel": "Was der Kunde sieht",
+      "punkte": [
+        {
+          "bei": "wer kümmert",
+          "icon": "🤝",
+          "text": "Wer kümmert sich?"
+        },
+        {
+          "bei": "wer meldet",
+          "icon": "📲",
+          "text": "Wer meldet sich?"
+        },
+        {
+          "bei": "wer wirkt",
+          "icon": "✓",
+          "text": "Wer wirkt zuverlässig?",
+          "gut": true
+        }
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "und das entscheidet",
+      "klein": "Die Entscheidung fällt",
+      "titel": "in den ersten Minuten",
+      "text": "Nicht erst beim Angebot.",
+      "icon": "⏱"
+    },
+    {
+      "typ": "liste",
+      "bei": "das heißt",
+      "nr": "!",
+      "titel": "Was du brauchst",
+      "punkte": [
+        {
+          "bei": "billiger",
+          "icon": "✕",
+          "text": "Nicht billiger werden"
+        },
+        {
+          "bei": "mehr werbung",
+          "icon": "✕",
+          "text": "Nicht mehr Werbung"
+        },
+        {
+          "bei": "nur schneller",
+          "icon": "⚡",
+          "text": "Schneller antworten",
+          "gut": true
+        }
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "auch wenn",
+      "zeilen": [
+        "Auch wenn du",
+        "gerade auf dem",
+        "<b>Dach stehst.</b>"
+      ]
+    },
+    {
+      "typ": "chat",
+      "bei": "genau dafür",
+      "name": "Dein Betrieb",
+      "status": "online",
+      "nachrichten": [
+        {
+          "von": "out",
+          "text": "Hallo, unsere Heizung macht seit gestern komische Geräusche. Können Sie vorbeikommen?",
+          "zeit": "10:41",
+          "vorher": true
+        },
+        {
+          "von": "in",
+          "ki": true,
+          "bei": "sie antwortet",
+          "text": "Guten Tag! Das schauen wir uns an. Haben Sie ein Foto von der Heizung und Ihre Adresse?",
+          "zeit": "10:41"
+        },
+        {
+          "von": "in",
+          "ki": true,
+          "bei": "bietet",
+          "text": "Passt Ihnen morgen um 8:00 ein Termin?",
+          "zeit": "10:42"
+        }
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "und du",
+      "zeilen": [
+        "Und du?",
+        "<b>Machst deine Arbeit.</b>"
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "folg mir",
+      "klein": "Teil 2",
+      "titel": "Mit Bewertungen vorbeiziehen",
+      "text": "Folg mir, damit du ihn nicht verpasst.",
+      "icon": "★"
+    },
+    {
+      "typ": "ende",
+      "bei": "link",
+      "zeilen": [
+        "Schneller als",
+        "<b>die Konkurrenz.</b>"
+      ]
+    }
+  ],
+  "titelbild": {
+    "zeilen": "Dein Konkurrent ist <b>nur schneller.</b>"
+  },
+  "bildunterschrift": "Dein Konkurrent ist nicht besser als du. Er ist nur schneller. ⚡\n\nDer Kunde kann deine Arbeit am Anfang noch gar nicht beurteilen. Er sieht nur: Wer meldet sich zuerst? Wer wirkt zuverlässig?\n\nDu musst nicht billiger werden. Du musst nur schneller antworten, auch wenn du gerade auf dem Dach stehst.\n\nWie schnell antwortest du gerade auf neue Anfragen? Schreib's in die Kommentare 👇\n\nTeil 2: Mit Bewertungen an der Konkurrenz vorbei. Folg mir, damit du ihn nicht verpasst.",
+  "hashtags": "#handwerk #handwerker #konkurrenz #selbstständig #kundengewinnung #kiimhandwerk #meisterbetrieb"
+}

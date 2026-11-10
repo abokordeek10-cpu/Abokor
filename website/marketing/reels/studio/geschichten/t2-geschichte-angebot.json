@@ -1,0 +1,172 @@
+{
+  "id": "t2-geschichte-angebot",
+  "serie": "GESCHICHTE",
+  "stil": "kino",
+  "hinweis": "Beispielgeschichte mit erfundenen Personen. Stimme KI-generiert.",
+  "text": "Dienstag, sieben Uhr dreißig. Elektriker Marco steht in einem Altbau in Weinheim. Familie Becker will alles neu: Leitungen, Sicherungskasten, Steckdosen in jedem Zimmer. Ein richtig guter Auftrag. Marco schaut sich alles an, macht Fotos und sagt: Das Angebot schicke ich Ihnen bis Freitag. Mittwoch: Notfall bei einem Stammkunden. Donnerstag: zwei Baustellen gleichzeitig. Freitagabend sitzt Marco endlich am Schreibtisch. Aber er ist so müde, dass er sagt: Mach ich am Wochenende. Am Samstag hat seine Tochter Geburtstag. Am Sonntag ist er einfach nur kaputt. Am Montag ruft Herr Becker an. Wir haben uns für einen anderen Betrieb entschieden. Die waren schneller. Marco war nicht schlechter. Er hatte nur keine Zeit. Jetzt dieselbe Woche mit Abora. Dienstag, direkt nach der Besichtigung, spricht Marco im Auto zwei Minuten ins Handy: Was gemacht werden muss, wie viel Material, wie lange. Am Abend liegt der Angebotsentwurf bereit. Marco prüft ihn, ändert zwei Preise und schickt ihn ab. Mittwochfrüh hat Familie Becker das Angebot. Am Freitag sagen sie zu. Kein Wochenende am Schreibtisch. Kein verlorener Auftrag. Folg mir für mehr Geschichten aus dem Handwerk. Link in der Bio.",
+  "szenen": [
+    {
+      "typ": "uhr",
+      "zeit": "Di. 7:30",
+      "text": "Altbau in Weinheim",
+      "textBei": "elektriker"
+    },
+    {
+      "typ": "karte",
+      "bei": "familie becker",
+      "klein": "Familie Becker",
+      "titel": "Alles neu",
+      "text": "Leitungen, Sicherungskasten, Steckdosen in jedem Zimmer.",
+      "icon": "⚡"
+    },
+    {
+      "typ": "titel",
+      "bei": "ein richtig",
+      "zeilen": [
+        "Ein richtig",
+        "<b>guter Auftrag.</b>"
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "marco schaut",
+      "klein": "Marco verspricht",
+      "titel": "„Angebot bis Freitag.“",
+      "text": "Fotos gemacht, alles notiert.",
+      "icon": "📄"
+    },
+    {
+      "typ": "rennen",
+      "bei": "mittwoch",
+      "titel": "Marcos Woche",
+      "zeilen": [
+        {
+          "bei": "mittwoch",
+          "name": "Mittwoch",
+          "status": "Notfall bei Stammkunde",
+          "ok": false
+        },
+        {
+          "bei": "donnerstag",
+          "name": "Donnerstag",
+          "status": "Zwei Baustellen",
+          "ok": false
+        },
+        {
+          "bei": "freitagabend",
+          "name": "Freitag",
+          "status": "Zu müde: „Mach ich am Wochenende.“",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "typ": "rennen",
+      "bei": "am samstag",
+      "titel": "Das Wochenende",
+      "zeilen": [
+        {
+          "bei": "am samstag",
+          "name": "Samstag",
+          "status": "Geburtstag der Tochter",
+          "ok": false
+        },
+        {
+          "bei": "am sonntag",
+          "name": "Sonntag",
+          "status": "Einfach nur kaputt",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "typ": "meldungen",
+      "bei": "am montag",
+      "zeit": "Mo. 9:12",
+      "liste": [
+        {
+          "bei": "am montag",
+          "titel": "Anruf: Herr Becker",
+          "text": "„Wir haben uns für einen anderen Betrieb entschieden.“"
+        }
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "marco war",
+      "zeilen": [
+        "Marco war nicht",
+        "schlechter.",
+        "<b>Er hatte keine Zeit.</b>"
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "jetzt dieselbe",
+      "zeilen": [
+        "Dieselbe Woche.",
+        "<b>Mit Abora.</b>"
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "dienstag direkt",
+      "klein": "Dienstag · im Auto",
+      "titel": "2 Minuten Sprachnotiz",
+      "text": "Was gemacht wird, wie viel Material, wie lange.",
+      "icon": "🎙"
+    },
+    {
+      "typ": "meldungen",
+      "bei": "am abend",
+      "zeit": "18:30",
+      "liste": [
+        {
+          "bei": "am abend",
+          "titel": "Angebotsentwurf bereit",
+          "text": "Elektro Altbau Becker · bitte prüfen"
+        },
+        {
+          "bei": "schickt",
+          "titel": "Angebot verschickt",
+          "text": "An Familie Becker"
+        }
+      ]
+    },
+    {
+      "typ": "meldungen",
+      "bei": "am freitag",
+      "zeit": "Fr. 10:05",
+      "liste": [
+        {
+          "bei": "am freitag",
+          "titel": "Angebot angenommen ✓",
+          "text": "Familie Becker hat zugesagt"
+        }
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "kein wochenende",
+      "zeilen": [
+        "Kein Wochenende",
+        "am Schreibtisch.",
+        "<b>Kein verlorener Auftrag.</b>"
+      ]
+    },
+    {
+      "typ": "ende",
+      "bei": "folg",
+      "zeilen": [
+        "Weniger Büro.",
+        "<b>Mehr Aufträge.</b>"
+      ]
+    }
+  ],
+  "titelbild": {
+    "zeit": "<b>Di.</b> 7:30",
+    "zeilen": "Das Angebot, das <b>nie rausging.</b>"
+  },
+  "bildunterschrift": "Das Angebot, das nie rausging. 📄\n\nElektriker Marco hat einen richtig guten Auftrag in Aussicht. Er verspricht das Angebot bis Freitag. Dann kommt der Alltag dazwischen: Notfall, zwei Baustellen, Wochenende.\n\nAm Montag ruft der Kunde an: „Wir haben uns für einen anderen Betrieb entschieden.“\n\nMarco war nicht schlechter. Er hatte nur keine Zeit.\n\nKennst du das? Wie lange brauchst du im Schnitt für ein Angebot? 👇\n\n(Beispielgeschichte mit erfundenen Personen)",
+  "hashtags": "#handwerk #elektriker #handwerker #storytime #angebot #selbstständig #kiimhandwerk"
+}

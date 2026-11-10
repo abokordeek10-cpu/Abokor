@@ -1,0 +1,153 @@
+{
+  "id": "t2-mythos-roboter",
+  "serie": "MYTHOS ODER WAHRHEIT",
+  "stil": "papier",
+  "hinweis": "Beispiel-Chat. Stimme KI-generiert.",
+  "text": "Mythos oder Wahrheit? KI klingt wie ein Roboter, und meine Kunden merken das sofort. Viele Handwerker denken das. Und ehrlich: Vor ein paar Jahren stimmte das auch. Heute sieht es anders aus. Schau mal. Eine Kundin schreibt: Mein Wasserhahn in der Küche tropft seit gestern. Die KI antwortet: Guten Tag, Frau Schneider, danke für Ihre Nachricht. Tropft es am Auslauf oder unten am Anschluss? Schicken Sie mir gern ein Foto, dann sehen wir, was wir mitbringen müssen. Klingt das wie ein Roboter? Eher nicht. Aber jetzt kommt das Wichtige. Die KI soll nicht so tun, als wäre sie ein Mensch. Sie sagt offen: Ich bin der digitale Assistent von Ihrem Betrieb. Das ist ehrlich, und es ist auch Pflicht. Und für die meisten Kunden zählt vor allem eins: schnell eine Antwort. Und wenn es kompliziert wird? Dann gibt die KI an dich weiter. Das Gespräch, die Besichtigung und den Preis machst weiter du. Also: Mythos. KI muss nicht nach Roboter klingen. Sie kann in deinem Ton schreiben, freundlich und kurz. Willst du sehen, wie das für dein Gewerk klingt? Im kostenlosen Erstgespräch zeige ich es dir live. Link in der Bio.",
+  "szenen": [
+    {
+      "typ": "titel",
+      "zeilen": [
+        "<b>Mythos</b> oder",
+        "<b>Wahrheit?</b>"
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "ki klingt",
+      "klein": "Der Mythos",
+      "titel": "„KI klingt wie ein Roboter.“",
+      "text": "Und die Kunden merken das sofort.",
+      "icon": "?"
+    },
+    {
+      "typ": "titel",
+      "bei": "vor ein paar",
+      "zeilen": [
+        "Vor ein paar Jahren:",
+        "<b>Stimmte.</b>"
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "heute",
+      "zeilen": [
+        "Und heute?",
+        "<b>Schau mal.</b>"
+      ]
+    },
+    {
+      "typ": "chat",
+      "bei": "eine kundin",
+      "name": "Sanitär Müller",
+      "status": "online",
+      "nachrichten": [
+        {
+          "von": "out",
+          "bei": "eine kundin",
+          "text": "Mein Wasserhahn in der Küche tropft seit gestern.",
+          "zeit": "9:02"
+        },
+        {
+          "von": "in",
+          "ki": true,
+          "bei": "guten tag",
+          "text": "Guten Tag, Frau Schneider, danke für Ihre Nachricht! Tropft es am Auslauf oder unten am Anschluss?",
+          "zeit": "9:02"
+        },
+        {
+          "von": "in",
+          "ki": true,
+          "bei": "schicken",
+          "text": "Schicken Sie mir gern ein Foto, dann sehen wir, was wir mitbringen müssen.",
+          "zeit": "9:02"
+        }
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "klingt das",
+      "zeilen": [
+        "Klingt das wie",
+        "ein <b>Roboter?</b>"
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "aber jetzt",
+      "zeilen": [
+        "Aber jetzt",
+        "<b>das Wichtige:</b>"
+      ]
+    },
+    {
+      "typ": "karte",
+      "bei": "die ki soll",
+      "klein": "Ehrlich bleiben",
+      "titel": "„Ich bin der digitale Assistent.“",
+      "text": "Die KI gibt sich nicht als Mensch aus. Das ist auch Pflicht.",
+      "icon": "✓"
+    },
+    {
+      "typ": "karte",
+      "bei": "und für",
+      "klein": "Was Kunden wollen",
+      "titel": "Schnell eine Antwort.",
+      "text": "Das zählt am meisten.",
+      "icon": "⚡"
+    },
+    {
+      "typ": "liste",
+      "bei": "und wenn es kompliziert",
+      "nr": "→",
+      "titel": "Kompliziert? Dann du.",
+      "punkte": [
+        {
+          "bei": "das gespräch",
+          "icon": "☎",
+          "text": "Das Gespräch"
+        },
+        {
+          "bei": "die besichtigung",
+          "icon": "⌂",
+          "text": "Die Besichtigung"
+        },
+        {
+          "bei": "den preis",
+          "icon": "€",
+          "text": "Der Preis",
+          "gut": true
+        }
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "also",
+      "zeilen": [
+        "Also:",
+        "<b>Mythos.</b>"
+      ]
+    },
+    {
+      "typ": "titel",
+      "bei": "sie kann",
+      "zeilen": [
+        "In deinem Ton.",
+        "<b>Freundlich und kurz.</b>"
+      ]
+    },
+    {
+      "typ": "ende",
+      "bei": "willst",
+      "zeilen": [
+        "Wie klingt das",
+        "<b>für dein Gewerk?</b>"
+      ]
+    }
+  ],
+  "titelbild": {
+    "zeilen": "„KI klingt wie ein <b>Roboter.</b>“ Stimmt das?"
+  },
+  "bildunterschrift": "Mythos oder Wahrheit: „KI klingt wie ein Roboter.“ 🤔\n\nVor ein paar Jahren stimmte das. Heute kann eine KI freundlich, kurz und in deinem Ton antworten, und sie fragt genau das, was du wissen musst: Wo tropft es? Gibt es ein Foto?\n\nWichtig: Die KI sagt offen, dass sie ein digitaler Assistent ist. Und wenn es kompliziert wird, übernimmst du.\n\nWas denkst du: Würden deine Kunden den Unterschied merken? 👇\n\nIm kostenlosen Erstgespräch zeige ich dir live, wie das für dein Gewerk klingt. Link in der Bio.\n\n(Beispiel-Chat mit erfundenen Namen)",
+  "hashtags": "#handwerk #handwerker #kiimhandwerk #mythosoderwahrheit #künstlicheintelligenz #sanitär #selbstständig"
+}
