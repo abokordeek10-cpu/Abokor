@@ -5,6 +5,7 @@ services:
     restart: always             # startet nach einem Server-Neustart automatisch
     volumes:
       - /var/www/abora-automation.de:/srv/abora:ro
+      - /var/www/henry-tran.de:/srv/henry-tran:ro   # Website tran-koch.de
     logging:
       driver: journald          # Logs ins Systemprotokoll (dort nach 14 Tagen gelöscht)
   n8n:

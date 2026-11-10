@@ -37,3 +37,23 @@ abora-automation.de {
 www.abora-automation.de {
 	redir https://abora-automation.de{uri} permanent
 }
+
+# Website Tran Koch (Freund, gehostet auf diesem Server)
+# Dateien auf dem Server: /var/www/henry-tran.de (im Container /srv/henry-tran)
+tran-koch.de {
+	root * /srv/henry-tran
+	encode zstd gzip
+	try_files {path} {path}.html
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "SAMEORIGIN"
+		-Server
+	}
+	file_server
+}
+
+www.tran-koch.de {
+	redir https://tran-koch.de{uri} permanent
+}
