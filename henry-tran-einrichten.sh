@@ -47,7 +47,7 @@ EOF
 fi
 
 echo "4/5 Neue Konfiguration prüfen"
-if ! docker compose run --rm --no-deps caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile; then
+if ! docker compose run --rm --no-deps -T caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile </dev/null; then
   echo "FEHLER in der Konfiguration – setze alles zurück, nichts wurde geändert."
   cp "Caddyfile.backup-$STAMP" Caddyfile
   cp "docker-compose.override.yml.backup-$STAMP" docker-compose.override.yml
