@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-wght-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-ext-wght-normal.woff2') format('woff2'); unicode-range: U+0100-02BA, U+1E00-1E9F, U+20A0-20C0; }
+* { box-sizing: border-box; margin: 0; }
+body { font-family: Inter, sans-serif; background: #000; -webkit-font-smoothing: antialiased; }
+.s { width: 1080px; height: 1350px; position: relative; overflow: hidden; padding: 150px 90px 130px; display: flex; flex-direction: column; color: #f6f4ef;
+  background: radial-gradient(ellipse 80% 50% at 85% 0%, rgba(255,170,70,.18), transparent 70%), linear-gradient(165deg,#1b2a3b,#14202e 50%,#0d1620); }
+.s.hell { background: #f6f4ef; color: #14202e; }
+.logo { position: absolute; top: 60px; left: 90px; height: 54px; }
+.seite { position: absolute; top: 72px; right: 90px; font-size: 26px; font-weight: 800; color: #ffc83d; letter-spacing: .08em; }
+.hell .seite { color: #14202e; }
+.fuss { position: absolute; bottom: 56px; left: 90px; right: 90px; display: flex; justify-content: space-between; font-size: 26px; font-weight: 700; opacity: .6; }
+h1 { font-size: 100px; font-weight: 900; letter-spacing: -.05em; line-height: 1.0; margin-top: auto; }
+h1 b, h2 b { color: #ffc83d; }
+.hell h2 b { color: #14202e; background: linear-gradient(transparent 58%, #ffc83d 58%); }
+.unter { margin: 50px 0 auto; font-size: 40px; font-weight: 600; opacity: .75; line-height: 1.35; }
+.nr { margin-top: auto; font-size: 240px; font-weight: 900; line-height: .85; color: #ffc83d; letter-spacing: -.06em; }
+.hell .nr { color: transparent; -webkit-text-stroke: 6px #14202e; }
+h2 { font-size: 88px; font-weight: 900; letter-spacing: -.045em; line-height: 1.02; margin: 30px 0 36px; }
+p { font-size: 42px; line-height: 1.4; font-weight: 500; max-width: 860px; }
+.vergleich { margin: 46px 0 auto; display: grid; gap: 18px; }
+.zeile { display: flex; gap: 22px; align-items: center; font-size: 34px; font-weight: 700; padding: 24px 28px; border-radius: 24px; background: rgba(255,255,255,.06); border: 2px solid rgba(255,255,255,.12); }
+.hell .zeile { background: rgba(20,32,46,.05); border-color: rgba(20,32,46,.12); }
+.zeile i { font-style: normal; width: 60px; height: 60px; border-radius: 16px; display: grid; place-items: center; flex: none; font-size: 32px; font-weight: 900; }
+.nein i { background: rgba(229,72,77,.2); color: #e5484d; }
+.ja { border-color: #ffc83d !important; } .ja i { background: #ffc83d; color: #111; }
+.kn { margin-top: 50px; align-self: flex-start; background: #ffc83d; color: #111; font-weight: 850; font-size: 42px; padding: 30px 44px; border-radius: 24px; }
+.wisch { position: absolute; right: 90px; bottom: 130px; font-size: 34px; font-weight: 800; color: #ffc83d; }
+</style></head><body>
+
+<section class="s"><img class="logo" src="logo/quer-hell.png"><div class="seite">1/7</div>
+<h1>5 Büro-Aufgaben, die du als Handwerker <b>heute schon abgeben</b> kannst.</h1>
+<div class="unter">Ohne Bürokraft. Ohne Technik-Kenntnisse.</div>
+<div class="wisch">Wischen →</div>
+<div class="fuss"><span>abora-automation.de</span><span>Speichern für später</span></div></section>
+
+<section class="s hell"><img class="logo" src="logo/quer-dunkel.png"><div class="seite">2/7</div>
+<div class="nr">1</div><h2><b>Anfragen</b> beantworten</h2>
+<p>Auch nachts und am Wochenende. Die KI antwortet sofort und fragt Ort, Umfang und Fotos ab.</p>
+<div class="vergleich"><div class="zeile nein"><i>✕</i>Kunde wartet bis Montag</div><div class="zeile ja"><i>✓</i>Antwort nach Sekunden</div></div>
+<div class="fuss"><span>abora-automation.de</span><span>→</span></div></section>
+
+<section class="s"><img class="logo" src="logo/quer-hell.png"><div class="seite">3/7</div>
+<div class="nr">2</div><h2><b>Termine</b> vereinbaren</h2>
+<p>Der Kunde bucht selbst einen Besichtigungstermin, passend zu deinem Kalender.</p>
+<div class="vergleich"><div class="zeile nein"><i>✕</i>5 Nachrichten hin und her</div><div class="zeile ja"><i>✓</i>Termin steht im Kalender</div></div>
+<div class="fuss"><span>abora-automation.de</span><span>→</span></div></section>
+
+<section class="s hell"><img class="logo" src="logo/quer-dunkel.png"><div class="seite">4/7</div>
+<div class="nr">3</div><h2><b>Angebote</b> vorbereiten</h2>
+<p>Du sprichst auf der Baustelle kurz ins Handy. Abends liegt der Entwurf bereit. Du prüfst nur noch.</p>
+<div class="vergleich"><div class="zeile nein"><i>✕</i>Sonntags am Schreibtisch</div><div class="zeile ja"><i>✓</i>Entwurf aus deiner Sprachnotiz</div></div>
+<div class="fuss"><span>abora-automation.de</span><span>→</span></div></section>
+
+<section class="s"><img class="logo" src="logo/quer-hell.png"><div class="seite">5/7</div>
+<div class="nr">4</div><h2><b>Nachfassen</b></h2>
+<p>Nach ein paar Tagen geht eine freundliche Nachfrage zum Angebot raus. Automatisch.</p>
+<div class="vergleich"><div class="zeile nein"><i>✕</i>Angebot geht einfach unter</div><div class="zeile ja"><i>✓</i>„Haben Sie noch Fragen?“</div></div>
+<div class="fuss"><span>abora-automation.de</span><span>→</span></div></section>
+
+<section class="s hell"><img class="logo" src="logo/quer-dunkel.png"><div class="seite">6/7</div>
+<div class="nr">5</div><h2><b>Bewertungen</b> einholen</h2>
+<p>Nach dem Auftrag bekommt der Kunde eine kurze Bitte um eine Google-Bewertung.</p>
+<div class="vergleich"><div class="zeile nein"><i>✕</i>Im Alltag vergessen</div><div class="zeile ja"><i>✓</i>Geht nach jedem Auftrag raus</div></div>
+<div class="fuss"><span>abora-automation.de</span><span>→</span></div></section>
+
+<section class="s"><img class="logo" src="logo/quer-hell.png"><div class="seite">7/7</div>
+<h1>Und was bleibt bei dir?<br><b>Prüfen. Entscheiden. Handwerk.</b></h1>
+<div class="unter" style="margin-bottom:0">Welche Aufgabe würdest du zuerst abgeben? Schreib's in die Kommentare.</div>
+<div class="kn">Erstgespräch: Link in der Bio →</div>
+<div style="margin-bottom:auto"></div>
+<div class="fuss"><span>abora-automation.de</span><span>Folg mir für mehr</span></div></section>
+</body></html>
