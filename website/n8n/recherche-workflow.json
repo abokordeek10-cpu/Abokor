@@ -1,0 +1,310 @@
+{
+  "name": "Abora Recherche-Agent",
+  "nodes": [
+    {
+      "id": "1e5b6450-c34c-4e57-8c55-3f9728b324ac",
+      "name": "Jeden Werktag 6:30",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 6 * * 1-5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "e7cd5653-88d2-4d02-9d42-774a7c6900e4",
+      "name": "Zum Testen starten",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "49756ad4-9487-423b-bfc0-5ebc96ef45b8",
+      "name": "Ziel des Tages",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        100
+      ],
+      "parameters": {
+        "jsCode": "// Recherche-Agent, Schritt 1: Ziel des Tages festlegen und die Anfrage an Claude bauen.\n// Wechselt jeden Tag Ort und Gewerke, damit die Liste nicht immer gleich ist.\n// Merkt sich bereits vorgeschlagene Betriebe (Workflow-Static-Data), damit keiner doppelt kommt.\n\nconst ORTE = ['Viernheim', 'Mannheim', 'Weinheim', 'Lampertheim', 'Heidelberg', 'Bensheim',\n  'Ladenburg', 'Hemsbach', 'Lorsch', 'Heppenheim', 'Schriesheim', 'Ludwigshafen am Rhein',\n  'Bürstadt', 'Hirschberg an der Bergstraße', 'Schwetzingen'];\nconst GEWERKE = ['Sanitär und Heizung', 'Elektro', 'Dachdecker', 'Maler und Lackierer',\n  'Schreiner / Tischler', 'Trockenbau', 'Garten- und Landschaftsbau', 'Fliesenleger',\n  'Fenster und Türen', 'Bodenleger', 'Zimmerei', 'Klima und Lüftung'];\n\nconst heute = new Date();\nconst tag = Math.floor(heute.getTime() / 86400000);\nconst ort = ORTE[tag % ORTE.length];\nconst gewerk1 = GEWERKE[tag % GEWERKE.length];\nconst gewerk2 = GEWERKE[(tag + 5) % GEWERKE.length];\n\nconst speicher = $getWorkflowStaticData('global');\nconst bekannt = (speicher.bekannt || []).slice(-300);\n\nconst system = `Du bist Recherche-Assistent von Abora Automation (Abokor Osman, Viernheim).\nAbora richtet Handwerksbetrieben eine KI ein, die Anfragen sofort beantwortet, Termine bucht, Angebote vorbereitet und nachfasst.\nAbokor ruft Inhaber kleiner Handwerksbetriebe persönlich an (Geschäftskunden, Kaltakquise am Telefon).\n\nDeine Aufgabe: Finde mit der Websuche echte, aktive Handwerksbetriebe und bereite die Anrufe vor.\n\nRegeln:\n- Nur öffentlich verfügbare Firmenangaben: Firmenname, Ort, geschäftliche Telefonnummer und Website (am besten aus Impressum oder Google-Unternehmensprofil). Keine privaten Daten von Personen, keine privaten Handynummern aus Bewertungen o. Ä.\n- Erfinde nichts. Wenn du eine Telefonnummer nicht sicher findest, lass das Feld leer. Lieber weniger Betriebe als falsche.\n- Bevorzuge kleine Betriebe (Inhaber arbeitet selbst mit, 1 bis 15 Mitarbeiter). Keine großen Ketten, keine Vermittlungsportale, keine Callcenter mit 0800-Nummern.\n- Für jeden Betrieb brauchst du einen konkreten, sachlichen Grund, warum das Thema für ihn interessant sein könnte (z. B. Bewertungen erwähnen schwere Erreichbarkeit oder späte Rückmeldung, Stellenanzeige für Büro- oder Bürokraft, keine Online-Terminbuchung, Notdienst mit vielen Anrufen, sehr viele Leistungen). Ohne Grund: Betrieb weglassen.\n- Der Einstiegssatz ist ein kurzer, freundlicher Satz in Sie-Form, den Abokor am Telefon nach der Begrüßung sagen kann und der auf den Grund eingeht. Ohne Fachwörter, ohne \"KI\".\n- Priorität 1 = sehr passend, 2 = passend, 3 = vielleicht.\n\nAntworte am Ende NUR mit einem JSON-Objekt zwischen <json> und </json> in genau dieser Form:\n{\"strategie\":{\"fokus\":\"…\",\"warum\":\"…\",\"beste_anrufzeit\":\"…\",\"tipp\":\"…\"},\n \"betriebe\":[{\"name\":\"…\",\"gewerk\":\"…\",\"ort\":\"…\",\"telefon\":\"…\",\"website\":\"…\",\"grund\":\"…\",\"einstiegssatz\":\"…\",\"prioritaet\":1}]}\n\"strategie\" fasst in je 1 bis 2 Sätzen zusammen: worauf Abokor heute achten soll, warum diese Betriebe, wann anrufen, ein praktischer Tipp für die Gespräche.`;\n\nconst nutzer = `Heute: ${ort} und Umgebung (bis ca. 10 km).\nGewerke: ${gewerk1} und ${gewerk2}.\nFinde 12 bis 15 passende Betriebe, sortiert nach Priorität.\n${bekannt.length ? 'Diese Betriebe wurden schon vorgeschlagen und dürfen NICHT noch einmal vorkommen:\\n' + bekannt.join('; ') : ''}`;\n\nconst anfrage = {\n  model: 'claude-opus-5-5',\n  max_tokens: 16000,\n  fallbacks: 'default',\n  output_config: { effort: 'medium' },\n  system,\n  tools: [\n    { type: 'web_search_20260209', name: 'web_search', max_uses: 12,\n      user_location: { type: 'approximate', country: 'DE', city: ort, timezone: 'Europe/Berlin' } },\n    { type: 'web_fetch_20260209', name: 'web_fetch', max_uses: 15 },\n  ],\n  messages: [{ role: 'user', content: nutzer }],\n};\n\nreturn [{ json: { anfrage, ort, gewerke: `${gewerk1}, ${gewerk2}`, datum: heute.toLocaleDateString('de-DE', { timeZone: 'Europe/Berlin' }) } }];\n"
+      }
+    },
+    {
+      "id": "7f1653dd-efae-4bef-aa5a-a3ec773f73b5",
+      "name": "Claude recherchiert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        100
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2026-10-21"
+            },
+            {
+              "name": "anthropic-beta",
+              "value": "server-side-fallback-2026-07-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.anfrage) }}",
+        "options": {
+          "timeout": 600000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "id": "9fc09846-ff45-40f1-b921-4d2bc404e1c7",
+      "name": "Pause prüfen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        100
+      ],
+      "parameters": {
+        "jsCode": "// Recherche-Agent, Schritt 2: Hat Claude die Websuche pausiert (stop_reason \"pause_turn\")?\n// Dann dieselbe Unterhaltung noch einmal schicken, der Server macht dort weiter.\nconst antwort = $json.body || {};\nconst start = $('Ziel des Tages').first().json;\nconst pausiert = $json.statusCode === 200 && antwort.stop_reason === 'pause_turn';\nlet weiter = null;\nif (pausiert) {\n  weiter = { ...start.anfrage, messages: [\n    ...start.anfrage.messages,\n    { role: 'assistant', content: antwort.content },\n  ] };\n}\nreturn [{ json: { pausiert, weiter, statusCode: $json.statusCode, body: antwort } }];\n"
+      }
+    },
+    {
+      "id": "af634857-9452-4f78-b33e-d065c6456bf0",
+      "name": "Pausiert?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        960,
+        100
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "aee13fa7-8f39-476e-b2e4-38ecd12a8fa0",
+              "leftValue": "={{ $json.pausiert }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "964fce82-599b-43fb-99e6-b598291dc261",
+      "name": "Claude macht weiter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2026-10-21"
+            },
+            {
+              "name": "anthropic-beta",
+              "value": "server-side-fallback-2026-07-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.weiter) }}",
+        "options": {
+          "timeout": 600000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "id": "bd5f0a20-ebe6-406b-bf1f-dc618cbc2520",
+      "name": "Liste bauen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        100
+      ],
+      "parameters": {
+        "jsCode": "// Recherche-Agent, Schritt 3: Antwort auswerten und die E-Mail bauen.\nconst start = $('Ziel des Tages').first().json;\nconst status = $json.statusCode;\nconst antwort = $json.body || {};\nconst esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n\nlet fehler = '';\nlet daten = null;\nif (status !== 200) {\n  fehler = `Claude-Fehler (HTTP ${status}): ${esc(JSON.stringify(antwort).slice(0, 500))}`;\n} else if (antwort.stop_reason === 'refusal') {\n  fehler = 'Claude hat die Anfrage abgelehnt.';\n} else {\n  const text = (antwort.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('\\n');\n  const m = text.match(/<json>([\\s\\S]*?)<\\/json>/);\n  try { daten = JSON.parse(m ? m[1] : text); } catch (e) { fehler = 'Antwort war kein gültiges JSON.'; }\n}\n\nconst betriebe = (daten?.betriebe || []).filter((b) => b && b.name);\nbetriebe.sort((a, b) => (a.prioritaet || 3) - (b.prioritaet || 3));\n\n// Bereits vorgeschlagene Betriebe merken (nur bei echten Ausführungen gespeichert)\nconst speicher = $getWorkflowStaticData('global');\nspeicher.bekannt = [...(speicher.bekannt || []), ...betriebe.map((b) => `${b.name} (${b.ort})`)].slice(-500);\n\nconst s = daten?.strategie || {};\nconst zeilen = betriebe.map((b, i) => `\n  <tr style=\"border-top:1px solid #ddd;vertical-align:top\">\n    <td style=\"padding:8px\">${i + 1}<br><b style=\"color:${b.prioritaet === 1 ? '#c78a00' : '#666'}\">P${esc(b.prioritaet)}</b></td>\n    <td style=\"padding:8px\"><b>${esc(b.name)}</b><br>${esc(b.gewerk)} · ${esc(b.ort)}<br>\n      ${b.telefon ? `<a href=\"tel:${esc(String(b.telefon).replace(/[^+\\d]/g, ''))}\">${esc(b.telefon)}</a>` : '<i>Nummer selbst prüfen</i>'}<br>\n      ${b.website ? `<a href=\"${esc(b.website)}\">${esc(b.website)}</a>` : ''}</td>\n    <td style=\"padding:8px\"><b>Grund:</b> ${esc(b.grund)}<br><b>Einstieg:</b> „${esc(b.einstiegssatz)}“</td>\n  </tr>`).join('');\n\nconst html = `<div style=\"font-family:Arial,sans-serif;max-width:900px\">\n<h2 style=\"color:#14202e\">Anrufliste ${esc(start.datum)}: ${esc(start.ort)}</h2>\n<p style=\"color:#555\">Gewerke: ${esc(start.gewerke)} · ${betriebe.length} Betriebe</p>\n${fehler ? `<p style=\"color:#b42318\"><b>${fehler}</b></p>` : ''}\n<div style=\"background:#fff8e1;border-left:4px solid #ffc83d;padding:12px 16px;margin:16px 0\">\n<b>Strategie für heute</b><br>\n<b>Fokus:</b> ${esc(s.fokus)}<br><b>Warum:</b> ${esc(s.warum)}<br>\n<b>Beste Anrufzeit:</b> ${esc(s.beste_anrufzeit)}<br><b>Tipp:</b> ${esc(s.tipp)}</div>\n<table style=\"border-collapse:collapse;width:100%;font-size:14px\">${zeilen}</table>\n<p style=\"color:#888;font-size:12px;margin-top:20px\">Automatisch recherchiert. Angaben vor dem Anruf kurz prüfen.\nNur anrufen, wenn der Grund passt. Bei „Kein Interesse“ nicht mehr anrufen.</p></div>`;\n\nconst csv = ['Prioritaet;Betrieb;Gewerk;Ort;Telefon;Website;Grund;Einstiegssatz',\n  ...betriebe.map((b) => [b.prioritaet, b.name, b.gewerk, b.ort, b.telefon, b.website, b.grund, b.einstiegssatz]\n    .map((v) => `\"${String(v ?? '').replace(/\"/g, '\"\"')}\"`).join(';'))].join('\\n');\n\nreturn [{\n  json: { betreff: `Anrufliste ${start.datum}: ${start.ort} (${betriebe.length} Betriebe)`, html, anzahl: betriebe.length },\n  binary: { liste: { data: Buffer.from('﻿' + csv, 'utf8').toString('base64'), mimeType: 'text/csv', fileName: `anrufliste-${start.datum}.csv` } },\n}];\n"
+      }
+    },
+    {
+      "id": "75cb9797-66b9-42bd-afd3-13a23c28d62c",
+      "name": "E-Mail an Abokor",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1680,
+        100
+      ],
+      "parameters": {
+        "fromEmail": "abokorosman@abora-automation.de",
+        "toEmail": "abokorosman@abora-automation.de",
+        "subject": "={{ $json.betreff }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {
+          "attachments": "liste"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Jeden Werktag 6:30": {
+      "main": [
+        [
+          {
+            "node": "Ziel des Tages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zum Testen starten": {
+      "main": [
+        [
+          {
+            "node": "Ziel des Tages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ziel des Tages": {
+      "main": [
+        [
+          {
+            "node": "Claude recherchiert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude recherchiert": {
+      "main": [
+        [
+          {
+            "node": "Pause prüfen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pause prüfen": {
+      "main": [
+        [
+          {
+            "node": "Pausiert?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pausiert?": {
+      "main": [
+        [
+          {
+            "node": "Claude macht weiter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Liste bauen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude macht weiter": {
+      "main": [
+        [
+          {
+            "node": "Liste bauen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Berlin"
+  },
+  "active": false
+}
