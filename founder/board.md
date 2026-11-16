@@ -31,7 +31,7 @@ Nur ein Mitglied, aber gefährlich:
 - [ ] Business und Komplett erst verkaufen, wenn Start 3 dokumentierte Ergebnisse hat. (Angebot)
 
 **Produkt**
-- [ ] Bei jedem Pilot in Woche 1 messen: Über welche Kanäle kommen die Anfragen? Dominiert Telefon oder WhatsApp, wird dieser Kanal der Kern von Start. (Produkt, Angebot) → vorab schätzen mit `/founder-consumer`
+- [x] Hauptkanal klären. **Antwort der Gründer (16.11.2026): Die meisten Anfragen kommen per Anruf.** → Start wird um verpasste Anrufe gebaut. Bei jedem Pilot in Woche 1 trotzdem nachzählen (Anrufe, WhatsApp, E-Mail, Formular). (Produkt, Angebot)
 - [ ] Vor dem ersten Pilot: Fehlermeldungen, tägliche Prüfung jeder Verbindung, schriftliche Reaktionszeit bei Störungen. (Produkt)
 - [ ] Die ersten 5 Minuten des Handwerkers nach dem Start festlegen und mit einem echten Handwerker testen. (Produkt)
 
