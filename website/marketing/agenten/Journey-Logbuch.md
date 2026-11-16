@@ -32,6 +32,9 @@ Stand der Zahlen: wenn nicht anders angegeben, Tag des Eintrags.
 - **Preise neu:** Start 990 € + 149 €/Monat (Pilot: 495 €), Business und Komplett auf Anfrage.
 - Content-Plan geändert: 3–4 gute Videos pro Woche statt 3 pro Tag, dafür 10 Anrufe pro Werktag.
 
+- **Founder-Test mit KI:** Ein KI-Aufsichtsrat und 40 simulierte Handwerker haben die Idee geprüft. Ergebnis: Keiner würde kaufen, vor allem aus fehlendem Vertrauen und weil viele ausgebucht sind. Erkenntnis: Die meisten Anfragen kommen per Anruf. Neue Idee: Wer den Chef nicht erreicht, bekommt automatisch eine SMS/WhatsApp mit Rückruf-Zusage.
+- **Entscheidung: Erst mit echten Handwerkern sprechen, dann bauen.** Rollen: Abokor baut das Produkt und macht Content, Ali macht den Vertrieb. Ziel: 20 echte Gespräche bis 27.11.2026.
+
 ## Zahlen (laufend aktualisieren)
 | Datum | Follower TikTok | Follower Instagram | Anrufe gesamt | Erstgespräche | Kunden |
 |---|---|---|---|---|---|

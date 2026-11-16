@@ -25,16 +25,15 @@ Ein Angebot, ein Satz: **„Keine Anfrage bleibt mehr liegen. Jede bekommt sofor
 
 ## 3. Wer macht was (zwei Gründer)
 
-Zwei Leute, zwei klare Rollen. Sonst machen beide alles halb.
+Festgelegt am 16.11.2026:
 
-| Rolle | Aufgaben | Zahl, für die er verantwortlich ist |
+| | **Abokor Deek Osman** | **Ali Reza Ansari** |
 |---|---|---|
-| **Gründer A: Vertrieb und Gesicht** | Anrufe, Erstgespräche, Demos zeigen, Gesichts-Videos | Gespräche pro Woche |
-| **Gründer B: Produkt und Technik** | Automatisierungen bauen, Demo pflegen, Kunden einrichten, Bildschirm-Videos | Start-Paket läuft fehlerfrei |
+| Rolle | **Produkt und Content** | **Vertrieb** |
+| Aufgaben | baut alles (Demo, Automatisierungen, Website), macht Videos mit seiner Geschichte | spricht mit Handwerkern, führt Erstgespräche, bringt Kunden |
+| Wichtigste Zahl | Demo läuft, 3 Videos pro Woche | Gespräche pro Woche |
 
-Wer welche Rolle hat, entscheidet ihr. Wichtig ist nur: **Einer ruft jeden Werktag an.**
-
-Zeit pro Woche (Richtwert): **40 % Kundengewinnung · 30 % Produkt und Demo · 20 % Content · 10 % Auswertung.**
+**Gerade gilt: erst mit echten Kunden sprechen, dann bauen.** Ali führt bis 27.11.2026 20 Erkundungsgespräche (Leitfaden: `vertrieb/Gespraechsleitfaden-Ali.md`, Notizen: `vertrieb/gespraeche.csv`). Danach entscheiden beide, was Abokor baut. Jeden Freitag 30 Minuten gemeinsam: Zahlen und Zitate der Woche.
 
 ## 4. Die vier Kanäle
 
