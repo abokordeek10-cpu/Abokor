@@ -40,7 +40,7 @@ export const FIRMA = {
   slogan: 'Du machst das Handwerk. Wir machen den Rest.',
 };
 
-export const CTA_TEXT = 'Kostenloses Erstgespräch';
+export const CTA_TEXT = 'Kostenloser Büro-Check';
 export const CTA_LINK = '/kontakt';
 
 // Hauptmenü (oben). Weitere Seiten stehen in der Fußzeile.

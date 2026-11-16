@@ -42,6 +42,11 @@ const fragen = [
     antwort: `<p>Du zahlst einmal für die Einrichtung und danach einen festen Betrag pro Monat für Betrieb, Betreuung, Server- und KI-Kosten. Das Paket „Start“ kostet ${PREISE.start.aufbau} und ${PREISE.start.monat}. Die ersten 3 Pilotbetriebe zahlen für die Einrichtung nur ${PREISE.start.pilot}. ${PREISE.hinweis} <a href="/preise">Alle Pakete ansehen</a></p>`,
   },
   {
+    frage: 'Was ist der kostenlose Büro-Check?',
+    antwort:
+      '<p>Ein Gespräch von etwa 20 Minuten. Wir gehen deine Büro-Woche durch und finden heraus, wo die meiste Zeit draufgeht: Anrufe, Anfragen, Angebote, Termine oder Rechnungen. Dann zeigen wir dir an einem Beispiel aus deinem Gewerk, wie wir genau das automatisieren. Kostenlos und ohne Verpflichtung.</p>',
+  },
+  {
     frage: 'Muss ich mich mit Technik auskennen?',
     antwort:
       '<p>Nein. Wir richten alles ein und verbinden es mit dem, was du schon nutzt, zum Beispiel Website, E-Mail und Kalender. Du bekommst eine Einweisung und kannst uns jederzeit anrufen, wenn etwas nicht passt.</p>',
@@ -54,7 +59,7 @@ const fragen = [
   {
     frage: 'Habt ihr schon Kunden?',
     antwort:
-      '<p>Noch nicht. Wir sind neu und sagen das offen. Deshalb gibt es hier keine Kundenstimmen, sondern ein Pilotangebot für die ersten 3 Betriebe und eine Live-Demo, die wir dir im Erstgespräch mit deinem Gewerk zeigen.</p>',
+      '<p>Noch nicht. Wir sind neu und sagen das offen. Deshalb gibt es hier keine Kundenstimmen, sondern ein Pilotangebot für die ersten 3 Betriebe und eine Live-Demo, die wir dir im Büro-Check mit deinem Gewerk zeigen.</p>',
   },
   {
     frage: 'Was passiert mit den Daten meiner Kunden?',
@@ -64,7 +69,7 @@ const fragen = [
   {
     frage: 'Wie lange dauert der Aufbau?',
     antwort:
-      '<p>Meist 2 bis 4 Wochen. Den genauen Zeitplan bekommst du nach dem Erstgespräch.</p>',
+      '<p>Meist 2 bis 4 Wochen. Den genauen Zeitplan bekommst du nach dem Büro-Check.</p>',
   },
   {
     frage: 'Kann ich jederzeit kündigen?',
@@ -143,7 +148,7 @@ const fragen = [
           </article>
           <article class="karte demo__echt" data-reveal style="--delay:.1s">
             <h3>Mit deinem Gewerk ausprobieren</h3>
-            <p>Im Erstgespräch zeigen wir dir die Live-Demo mit einer echten Anfrage aus deinem Gewerk. Du siehst sofort, was die KI antwortet.</p>
+            <p>Im Büro-Check zeigen wir dir die Live-Demo mit einer echten Anfrage aus deinem Gewerk. Du siehst sofort, was die KI antwortet.</p>
             <a href={CTA_LINK} class="btn btn--gelb btn--block-mobil">{CTA_TEXT} <Icon name="pfeil" /></a>
           </article>
         </div>
@@ -239,7 +244,7 @@ const fragen = [
       <div class="kopf" data-reveal>
         <p class="dachzeile">Häufige Fragen</p>
         <h2>Was du wissen willst</h2>
-        <p class="einleitung">Deine Frage ist nicht dabei? Stell sie uns im Erstgespräch.</p>
+        <p class="einleitung">Deine Frage ist nicht dabei? Stell sie uns im Büro-Check.</p>
       </div>
       <div data-reveal>
         <FAQ fragen={fragen} />

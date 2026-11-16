@@ -5,30 +5,30 @@ import Benachrichtigung from '../components/Benachrichtigung.astro';
 import { N8N_WEBHOOK_URL, KALENDER_URL, KONTAKT, GEWERKE } from '../config';
 
 const ablauf = [
-  { icon: 'telefon', text: 'Wir rufen dich zu deiner Wunschzeit an.' },
-  { icon: 'chat', text: 'Du erzählst, was im Büro am meisten nervt. Wir hören zu und fragen nach.' },
-  { icon: 'werkzeug', text: 'Wir sagen dir ehrlich, welche Bausteine sich bei dir lohnen, und welche nicht.' },
+  { icon: 'telefon', text: 'Wir rufen dich zu deiner Wunschzeit an. Dauer: etwa 20 Minuten.' },
+  { icon: 'chat', text: 'Wir gehen deine Büro-Woche durch: Anrufe, Anfragen, Angebote, Termine, Rechnungen. Wo geht die meiste Zeit drauf?' },
+  { icon: 'werkzeug', text: 'Wir zeigen dir an einem Beispiel aus deinem Gewerk, wie wir genau diese Arbeit automatisieren, und sagen ehrlich, was sich lohnt und was nicht.' },
   { icon: 'handschlag', text: 'Danach entscheidest du in Ruhe. Kein Verkaufsdruck, keine Verpflichtung.' },
 ] as const;
 ---
 
 <Basis
-  titel="Kostenloses Erstgespräch"
-  beschreibung="Buche dein kostenloses Erstgespräch mit Abora Automation. Wir rufen dich an, hören zu und sagen dir ehrlich, was sich in deinem Handwerksbetrieb automatisieren lässt."
+  titel="Kostenloser Büro-Check"
+  beschreibung="Kostenloser Büro-Check von Abora Automation: In 20 Minuten finden wir heraus, welche Büroarbeit dich am meisten Zeit kostet, und zeigen dir, wie wir sie automatisieren."
   ohneLeiste
   artikel
 >
   <section class="kontakt">
     <div class="container kontakt__raster">
       <div class="kontakt__info">
-        <p class="dachzeile">Kostenloses Erstgespräch</p>
-        <h1>Erzähl uns, <span class="gelb">was nervt.</span></h1>
+        <p class="dachzeile">Kostenloser Büro-Check</p>
+        <h1>Wo frisst dein Büro <span class="gelb">die meiste Zeit?</span></h1>
         <p class="einleitung">
-          Füll das kurze Formular aus. Wir melden uns zu deiner Wunschzeit und schauen gemeinsam, wo wir dir Arbeit abnehmen
-          können.
+          In 20 Minuten finden wir gemeinsam heraus, welche Büroarbeit dich am meisten Zeit und Nerven kostet, und zeigen dir, wie
+          wir sie dir abnehmen. Kostenlos und unverbindlich.
         </p>
 
-        <h2 class="kontakt__unter">Was im Gespräch passiert</h2>
+        <h2 class="kontakt__unter">So läuft der Büro-Check</h2>
         <ol class="kontakt__ablauf">
           {
             ablauf.map((a) => (
@@ -126,7 +126,7 @@ const ablauf = [
           <p class="formular__fehler" data-fehlerliste role="alert" hidden></p>
 
           <button type="submit" class="btn btn--gelb btn--gross formular__senden">
-            <span data-knopftext>Kostenloses Erstgespräch</span>
+            <span data-knopftext>Kostenloser Büro-Check</span>
             <Icon name="pfeil" />
           </button>
           <p class="formular__klein">* Pflichtfeld. Kostenlos und unverbindlich.</p>
@@ -225,7 +225,7 @@ const ablauf = [
       zeigen(fehler);
     } finally {
       knopf.disabled = false;
-      knopftext.textContent = 'Kostenloses Erstgespräch';
+      knopftext.textContent = 'Kostenloser Büro-Check';
     }
   });
 
@@ -425,7 +425,7 @@ const ablauf = [
   .feld--check label {
     font-weight: 500;
     font-size: 0.92rem;
-    color: var(--text-gedaempft-hell);
+    color: #4a4f57;
   }
   .feld--check a {
     color: var(--text);
@@ -456,7 +456,7 @@ const ablauf = [
   .formular__klein {
     margin: -6px 0 0;
     font-size: 0.85rem;
-    color: var(--text-gedaempft-hell);
+    color: #4a4f57;
     text-align: center;
   }
 
@@ -469,7 +469,7 @@ const ablauf = [
     font-size: clamp(1.6rem, 4vw, 2.2rem);
   }
   .meldung p {
-    color: var(--text-gedaempft-hell);
+    color: #4a4f57;
   }
   .meldung__icon {
     display: inline-grid;
@@ -499,6 +499,6 @@ const ablauf = [
   }
   .meldung .btn--rahmen {
     color: var(--text);
-    border-color: var(--linie-hell);
+    border-color: rgba(17,17,17,.15);
   }
 </style>
