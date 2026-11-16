@@ -32,6 +32,12 @@ Telefonnummer, SMS und Gesprächsminuten hängen von der Nutzung ab. Dem Kunden 
 1. **Über uns:** Wir stellen die Nummer, rechnen die Kosten offen mit Aufpreis ab.
 2. **Auf seinen Namen:** Er kauft die Nummer selbst beim Anbieter und zahlt dort direkt. Wir verbinden sie nur mit seiner Automatisierung.
 
+**So ist es technisch geplant** (wichtig für den Preis):
+- Jeder Kunde bekommt bei uns eine eigene **Ortsnummer** (ca. 1,35 $ im Monat). Auf die leitet sein Handy weiter, wenn er nicht rangeht. Seine eigene Nummer bleibt.
+- Alle SMS an Anrufer gehen über **eine gemeinsame Abora-Nummer** (ca. 30 $ im Monat für alle zusammen). Die SMS nennt den Namen seines Betriebs.
+- Dazu pro SMS ca. 0,11 $ und pro Minute Ansage ca. 0,01 $.
+- Beispiel: ein Betrieb mit 40 verpassten Anrufen im Monat kostet uns ca. 1,35 $ + 40 × 0,11 $ + Anteil der gemeinsamen Nummer, also grob **5–10 € im Monat**. (Schätzung, wird mit dem ersten Kunden gemessen.)
+
 Auf Wunsch bauen wir einen **KI-Telefonassistenten**, der Anrufe annimmt (auf Basis von Claude). Der kostet pro Gesprächsminute, also immer vorher mit Abokor durchrechnen.
 
 ---
