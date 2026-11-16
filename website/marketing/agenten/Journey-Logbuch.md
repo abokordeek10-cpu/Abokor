@@ -26,7 +26,7 @@ Stand der Zahlen: wenn nicht anders angegeben, Tag des Eintrags.
 - Entscheidung: Abokor wird **Content Creator** und nimmt die Leute auf seinem Weg mit („Build in Public“).
 
 ## 16. November 2026
-- **Wir sind jetzt zu zweit.** Zwei Gründer, noch kein zahlender Kunde.
+- **Wir sind jetzt zu zweit:** Abokor Deek Osman und Ali Reza Ansari. Noch kein zahlender Kunde.
 - **Klares Ziel festgelegt:** 3 zahlende Pilotbetriebe bis 31. Januar 2027. Langfristige Vision: eigene Automatisierungsplattform, später auch für Industrie.
 - **Website neu gestaltet** (dunkles Navy, technisches Raster, Produkt-Übersicht statt Foto). Ehrlicher: Jeder Baustein zeigt, ob er heute schon im Start-Paket ist.
 - **Preise neu:** Start 990 € + 149 €/Monat (Pilot: 495 €), Business und Komplett auf Anfrage.

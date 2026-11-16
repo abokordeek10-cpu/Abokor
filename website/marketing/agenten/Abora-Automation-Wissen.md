@@ -72,7 +72,7 @@ Modell: **einmaliger Aufbau + monatliche Betreuung**
 | Betreuung (monatlich) | 149 € | 249 € | ab 399 € |
 
 - Aktiv verkauft wird zuerst nur **Start**. Business und Komplett gibt es als individuelles Angebot nach dem Erstgespräch.
-- Stand November 2026: **zwei Gründer, noch keine zahlenden Kunden.** Ziel: 3 zahlende Pilotbetriebe bis 31. Januar 2027.
+- Stand November 2026: **zwei Gründer (Abokor Deek Osman und Ali Reza Ansari), noch keine zahlenden Kunden.** Ziel: 3 zahlende Pilotbetriebe bis 31. Januar 2027.
 
 - Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Preise sind Endpreise).
 - Server- und KI-Kosten sind in der Betreuung enthalten.

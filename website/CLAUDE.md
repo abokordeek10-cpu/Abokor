@@ -157,7 +157,7 @@ Keine Rechtstexte erfinden. Impressum und Datenschutz stammen vom Inhaber und we
 
 Entscheidung des Inhabers. Ersetzt die älteren Angaben zu Farben, Fotos und Startseite.
 
-- **Stand:** zwei Gründer, noch keine zahlenden Kunden. Ziel: 3 zahlende Pilotbetriebe bis 31. Januar 2027. Langfristige Vision: eigene Automatisierungsplattform, später Mittelstand und Industrie. Auf der Website immer klar als „geplant“ kennzeichnen, nie als verfügbar.
+- **Stand:** zwei Gründer (Abokor Deek Osman und Ali Reza Ansari), noch keine zahlenden Kunden. Ziel: 3 zahlende Pilotbetriebe bis 31. Januar 2027. Langfristige Vision: eigene Automatisierungsplattform, später Mittelstand und Industrie. Auf der Website immer klar als „geplant“ kennzeichnen, nie als verfügbar.
 - **Design:** durchgehend dunkel. Tiefes Navy `#0A1424` (tief `#060D18`), Gelb `#FFC83D` als Akzent, feines technisches Raster (Klasse `.blaupause`, `.abschnitt--dunkel`, `.abschnitt--tafel`), Karten mit feiner Linie und gelber Ecke. Keine Fotos, keine Menschenbilder. Statt Foto im Einstieg eine Produkt-Übersicht mit „Beispieldaten“.
 - **Startseite:** Einstieg → Alltag (Problem) → sechs Bausteine (`BausteinRaster`) → Demo-Beispiel → Ablauf → Preise (`Pakete`) → Rechner → Vision und Gründer (`Vision`) → Pilotangebot → FAQ → gelbes Abschluss-Band.
 - **Ehrlichkeit:** Jeder Baustein trägt seinen Stand (`stand` in `src/inhalte.ts`): „Im Start-Paket“ oder „Mit Pilotbetrieben“. WhatsApp und Telefon nur „auf Anfrage / nach Absprache“. Kein „DSGVO-konform“ als Siegel, keine Kundenstimmen, keine Einsparzahlen.
