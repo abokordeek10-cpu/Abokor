@@ -100,6 +100,10 @@ import { DEMO_WEBHOOK_URL } from '../config';
           <article class="karte-hell kalender">
             <h3>Dein Kalender: freie Besichtigungstermine</h3>
             <ul class="termine" data-termine></ul>
+            <div class="erinnerung" data-erinnerung hidden>
+              <p class="erinnerung__titel">Geht automatisch am Vortag an den Kunden:</p>
+              <p class="erinnerung__text" data-erinnerung-text></p>
+            </div>
           </article>
           <button type="button" class="btn btn--gelb" data-gehe="2">Weiter: Angebot erstellen <Icon name="pfeil" /></button>
         </div>
@@ -309,7 +313,15 @@ import { DEMO_WEBHOOK_URL } from '../config';
   function vorschlaegeZeigen() {
     const box = $('[data-vorschlaege]');
     box.replaceChildren();
-    if (zustand.verlauf.length) return;
+    if (zustand.verlauf.some((m) => m.rolle === 'kunde')) return;
+    if (!zustand.verlauf.length) {
+      const anruf = document.createElement('button');
+      anruf.type = 'button';
+      anruf.className = 'vorschlag vorschlag--anruf';
+      anruf.textContent = '📞 Verpasster Anruf: Kunde ruft an, du gehst nicht ran';
+      anruf.addEventListener('click', verpassterAnruf);
+      box.append(anruf);
+    }
     for (const b of gewerk.beispiele) {
       const k = document.createElement('button');
       k.type = 'button';
@@ -320,7 +332,20 @@ import { DEMO_WEBHOOK_URL } from '../config';
     }
   }
 
+  function erinnerungZeigen() {
+    const box = $('[data-erinnerung]');
+    if (!zustand.gebucht) {
+      box.hidden = true;
+      return;
+    }
+    const name = zustand.erfasst.kunde_name ? ' ' + zustand.erfasst.kunde_name : '';
+    $('[data-erinnerung-text]').textContent =
+      `Hallo${name}, kurze Erinnerung von ${gewerk.betrieb.replace(' (Demo)', '')}: Wir kommen am ${zustand.gebucht} zur Besichtigung. Passt es noch? Antworten Sie einfach mit „Ja“ oder schreiben Sie uns einen anderen Wunschtermin. (Automatische Nachricht)`;
+    box.hidden = false;
+  }
+
   function termineZeigen() {
+    erinnerungZeigen();
     const ul = $('[data-termine]');
     ul.replaceChildren();
     for (const t of zustand.termine) {
@@ -366,6 +391,26 @@ import { DEMO_WEBHOOK_URL } from '../config';
     const ortFeld = $<HTMLInputElement>('[data-angebot-ort]');
     if (!kundeFeld.value && zustand.erfasst.kunde_name) kundeFeld.value = zustand.erfasst.kunde_name as string;
     if (!ortFeld.value && zustand.erfasst.ort) ortFeld.value = zustand.erfasst.ort as string;
+  }
+
+  // Telefon: Anruf verpasst → Anrufer bekommt sofort eine SMS/WhatsApp und kann schreiben
+  function verpassterAnruf() {
+    if (zustand.laeuft || zustand.verlauf.length) return;
+    if (!code) return sperreZeigen();
+    const zeit = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+    const hinweis = document.createElement('li');
+    hinweis.className = 'anrufhinweis';
+    hinweis.textContent = `📞 Verpasster Anruf um ${zeit}. Der Chef steht auf der Baustelle.`;
+    verlaufEl.append(hinweis);
+    const sms: Nachricht = {
+      rolle: 'betrieb',
+      text: `Hallo, hier ist ${gewerk.betrieb.replace(' (Demo)', '')}. Wir sind gerade auf einer Baustelle und melden uns schnell bei Ihnen zurück. Schreiben Sie uns gern kurz, worum es geht, auch per Sprachnachricht oder Foto. (Automatische Nachricht)`,
+    };
+    zustand.verlauf.push(sms);
+    blase(sms);
+    meldung('Verpasster Anruf', 'Anrufer hat automatisch eine Nachricht bekommen. Du musst nichts tun.');
+    vorschlaegeZeigen();
+    $<HTMLInputElement>('[data-nachricht]').focus();
   }
 
   async function senden(text: string, foto = false) {
@@ -1130,6 +1175,37 @@ import { DEMO_WEBHOOK_URL } from '../config';
     border-radius: 10px;
     background: #fff;
     border: 1px solid rgba(17, 17, 17, 0.12);
+  }
+  .erinnerung {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px dashed rgba(17, 17, 17, 0.25);
+  }
+  .erinnerung__titel {
+    margin: 0 0 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4a4f57;
+  }
+  .erinnerung__text {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .verlauf :global(.anrufhinweis) {
+    align-self: center;
+    font-size: 0.78rem;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(255, 200, 61, 0.18);
+    color: #ffe08a;
+    margin: 4px auto;
+    list-style: none;
+  }
+  .vorschlaege :global(.vorschlag--anruf) {
+    border-color: var(--gelb);
+    font-weight: 700;
   }
   .termine :global(li.gebucht) {
     background: var(--dunkel);

@@ -16,16 +16,23 @@ Ehrlichkeit vorweg: Wir haben noch keinen zahlenden Kunden. Viele Zahlen unten s
 
 | Nr. | Baustein | Stand heute |
 |---|---|---|
-| 1 | Anfragen: erfassen, erste Antwort vorbereiten | im Start-Paket |
+| 1 | Anfragen: Telefon, WhatsApp, E-Mail, Website; verpasster Anruf → Anrufer bekommt sofort SMS/WhatsApp | im Start-Paket |
 | 2 | Vorsortieren: Anliegen, Ort, Dringlichkeit, Fotos sammeln | im Start-Paket |
-| 3 | Termine koordinieren | mit Pilotbetrieben |
-| 4 | Angebotsentwürfe (Freigabe bleibt beim Chef) | mit Pilotbetrieben |
-| 5 | Offene Angebote nachfassen | mit Pilotbetrieben |
-| 6 | Um Bewertungen bitten | mit Pilotbetrieben |
+| 3 | Termine: freie Zeiten anbieten, buchen, Erinnerung am Vortag | live in der Demo |
+| 4 | Angebotsentwürfe aus Sprachnotiz (Freigabe bleibt beim Chef) | live in der Demo |
+| 5 | Offene Angebote nachfassen | live in der Demo |
+| 6 | Zahlungserinnerung und Bitte um Bewertung | live in der Demo |
 
-„Mit Pilotbetrieben“ heißt: **noch nicht fertig**, wir bauen es gemeinsam mit den ersten Kunden. So auch im Gespräch sagen. Nie versprechen, dass etwas schon läuft, was nicht läuft. Im Zweifel Abokor fragen.
+**Alle sechs kannst du in der Live-Demo mit echter KI zeigen.** In der Demo gibt es den Knopf „📞 Verpasster Anruf“: Damit zeigst du, was ein Anrufer bekommt, wenn der Chef nicht rangeht.
 
-WhatsApp und Telefon: „nach Absprache“. Noch nicht als fertiges Produkt verkaufen.
+Ehrlich bleiben: Bei einem echten Betrieb ist noch keiner der Bausteine im Alltag gelaufen, wir haben ja noch keine Kunden. Die Einrichtung (Anbindung an seine Nummer, sein E-Mail-Postfach, seinen Kalender, seine Preise) ist die Arbeit, die die Einrichtungsgebühr bezahlt. Also nie sagen „läuft schon bei vielen Betrieben“.
+
+### Telefon und WhatsApp: Kosten offen erklären
+Telefonnummer, SMS und Gesprächsminuten hängen von der Nutzung ab. Dem Kunden zwei Wege anbieten:
+1. **Über uns:** Wir stellen die Nummer, rechnen die Kosten offen mit Aufpreis ab.
+2. **Auf seinen Namen:** Er kauft die Nummer selbst beim Anbieter und zahlt dort direkt. Wir verbinden sie nur mit seiner Automatisierung.
+
+Auf Wunsch bauen wir einen **KI-Telefonassistenten**, der Anrufe annimmt (auf Basis von Claude). Der kostet pro Gesprächsminute, also immer vorher mit Abokor durchrechnen.
 
 ---
 
@@ -89,7 +96,7 @@ Dann kostet ein Kunde deutlich mehr, vor allem wegen der eigenen Telefonnummer:
 | Betreuung | 25 € |
 | **Summe** | **ca. 59 €** |
 
-Darum Telefon **nie als Gratis-Zusatz** versprechen. Abokor sucht eine günstigere Nummer.
+Darum Telefon **nie als Gratis-Zusatz** versprechen: Nummer und Minuten entweder mit Aufpreis über uns oder direkt auf den Namen des Kunden (siehe Abschnitt 1). Abokor sucht außerdem eine günstigere Nummer.
 
 ### Was der KI-Test zum Preis gesagt hat (nur simuliert!)
 Wir haben 20 KI-„Handwerker“ gefragt. Für sie war **15–99 € im Monat** in Ordnung, 149 € zu teuer, und die Einrichtung hat viele abgeschreckt. Das sind keine echten Kunden. **Deine Gespräche zeigen, ob das stimmt.** Notiere jede Preis-Reaktion wörtlich.

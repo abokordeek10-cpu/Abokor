@@ -12,7 +12,8 @@ const pakete = [
     pilot: `Pilotpreis für die ersten 3 Betriebe: Einrichtung ${PREISE.start.pilot}`,
     enthalten: [
       'Bausteine Anfragen und Vorsortieren',
-      'Anfragen über Website und E-Mail',
+      'Anfragen per Telefon, WhatsApp, E-Mail und Website',
+      'Verpasster Anruf: Anrufer bekommt sofort eine Nachricht',
       'Fertige Übersicht zu jeder Anfrage',
       'Testphase und Einweisung',
       'Betreuung, Server- und KI-Kosten inklusive',
@@ -34,7 +35,7 @@ const pakete = [
     fuer: 'Der ganze Weg',
     marke: 'Auf Anfrage',
     preis: PREISE.komplett,
-    enthalten: ['Alle sechs Bausteine', 'Angebotsentwürfe und Bewertungen', 'Individuelle Anpassung an deinen Betrieb', 'WhatsApp und Telefon nach Absprache'],
+    enthalten: ['Alle sechs Bausteine', 'Angebotsentwürfe und Bewertungen', 'Individuelle Anpassung an deinen Betrieb', 'Auf Wunsch KI-Telefonassistent, der Anrufe annimmt'],
     knopf: 'Angebot anfragen',
     hervor: false,
   },
@@ -71,8 +72,10 @@ const pakete = [
   }
 </div>
 <p class="pakete__hinweis">
-  {PREISE.hinweis} Business und Komplett bieten wir als individuelles Projekt an. Den genauen Umfang und einen festen Preis
-  bekommst du nach dem Büro-Check.
+  {PREISE.hinweis} <strong>Telefon und WhatsApp:</strong> Telefonnummer, SMS und Gesprächsminuten kosten je nach Nutzung extra.
+  Entweder läuft die Nummer über uns, dann rechnen wir die Kosten offen mit ab, oder du schließt sie auf deinen eigenen Namen ab
+  und zahlst direkt beim Anbieter. Wir verbinden sie nur mit deiner Automatisierung. Was das bei dir ungefähr kostet, rechnen wir
+  im Büro-Check gemeinsam aus. Business und Komplett bieten wir als individuelles Projekt an.
 </p>
 
 <style>
@@ -159,6 +162,9 @@ const pakete = [
   }
   .paket .btn {
     margin-top: auto;
+  }
+  .pakete__hinweis strong {
+    color: var(--text-hell);
   }
   .pakete__hinweis {
     margin: 20px 0 0;

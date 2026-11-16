@@ -6,9 +6,9 @@ export const BAUSTEINE = [
     stand: 'start',
     titel: 'Anfragen',
     icon: 'anfrage',
-    kurz: 'Kundenanfragen automatisch erfassen und erste Antworten vorbereiten.',
+    kurz: 'Anrufe, WhatsApp, E-Mails und Website-Anfragen erfassen und sofort eine erste Antwort geben. Wer dich nicht erreicht, bekommt automatisch eine Nachricht.',
     ohne: 'Das Handy klingelt, während du auf der Leiter stehst. Die WhatsApp liest du abends um zehn. Bis du zurückrufst, hat der Kunde schon den Nächsten gefragt.',
-    mit: 'Jede Anfrage über deine Website oder per E-Mail bekommt in Minuten eine freundliche erste Antwort. Alles landet an einem Ort, nichts geht verloren. WhatsApp und Telefon binden wir auf Anfrage an.',
+    mit: 'Verpasst du einen Anruf, bekommt der Anrufer sofort eine SMS oder WhatsApp in deinem Namen und kann schreiben, worum es geht. Anfragen per WhatsApp, E-Mail und über deine Website bekommen in Minuten eine freundliche erste Antwort. Alles landet an einem Ort.',
     meldung: { titel: 'Neue Anfrage', text: 'Automatisch beantwortet: Heizung fällt aus' },
   },
   {
@@ -23,7 +23,7 @@ export const BAUSTEINE = [
   },
   {
     id: 'termine',
-    stand: 'pilot',
+    stand: 'demo',
     titel: 'Termine',
     icon: 'kalender',
     kurz: 'Verfügbare Termine mit geeigneten Kunden koordinieren.',
@@ -33,7 +33,7 @@ export const BAUSTEINE = [
   },
   {
     id: 'angebote',
-    stand: 'pilot',
+    stand: 'demo',
     titel: 'Angebote',
     icon: 'angebot',
     kurz: 'Angebotsentwürfe aus strukturierten Informationen vorbereiten. Die Freigabe bleibt bei dir.',
@@ -43,7 +43,7 @@ export const BAUSTEINE = [
   },
   {
     id: 'nachfassen',
-    stand: 'pilot',
+    stand: 'demo',
     titel: 'Nachfassen',
     icon: 'nachfassen',
     kurz: 'Offene Vorgänge nach vereinbarten Regeln nachverfolgen.',
@@ -53,7 +53,7 @@ export const BAUSTEINE = [
   },
   {
     id: 'bewertungen',
-    stand: 'pilot',
+    stand: 'demo',
     titel: 'Bewertungen',
     icon: 'stern',
     kurz: 'Kunden nach abgeschlossenen Aufträgen um eine ehrliche Bewertung bitten.',

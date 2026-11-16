@@ -164,4 +164,5 @@ Entscheidung des Inhabers. Ersetzt die älteren Angaben zu Farben, Fotos und Sta
 - **Menü:** Lösungen (`/leistungen`), So funktioniert's (`/ablauf`), Preise, Über uns. „Für wen“ und „Ratgeber“ stehen in der Fußzeile.
 - **Sprache bleibt Du-Form.** Die Live-Demo `/demo` bleibt mit Code geschützt und wird im Erstgespräch gezeigt.
 - **Hauptbutton (16.11.2026):** „Kostenloser Büro-Check“ (`CTA_TEXT` in `src/config.ts`) statt „Kostenloses Erstgespräch“: ca. 20 Minuten, wir finden den größten Zeitfresser im Büro und zeigen an einem Beispiel aus dem Gewerk, wie wir ihn automatisieren. Preise bleiben 990 € + 149 € (Entscheidung des Inhabers).
+- **Bausteine-Stand (16.11.2026):** Anfragen (inkl. Telefon, WhatsApp, verpasster Anruf → SMS/WhatsApp) und Vorsortieren „Im Start-Paket“; Termine, Angebote, Nachfassen, Bewertungen „Live in der Demo“ (`stand: 'demo'`). Die Live-Demo hat den Knopf „Verpasster Anruf“ und eine Termin-Erinnerung. Telefon/WhatsApp-Kosten werden offen erklärt: Nummer über uns mit Aufpreis oder auf den Namen des Kunden.
 - Strategie und Content-Plan: `marketing/STRATEGIE-90-TAGE.md`.
