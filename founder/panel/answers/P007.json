@@ -1,0 +1,13 @@
+{
+  "id": "P007",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My order book is full for months and my office help answers the phone, so a missed call costs me next to nothing. Paying 990 euros plus 149 a month to collect more enquiries I can't take on makes no sense.",
+  "objection": "149 euros a month is a lot for an SMS, and I don't need more enquiries. I need fewer interruptions. On top of that it's a brand-new company with no customers.",
+  "would_change_my_mind": "If it sorted and turned down the enquiries for me, filtering out small jobs and tyre-kickers so my office spent less time on the phone, and it came from a company with other trade businesses already using it, at a much lower monthly price.",
+  "price_too_cheap": 10,
+  "price_cheap": 25,
+  "price_expensive": 50,
+  "price_too_expensive": 90
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P005",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "A brand-new company with two founders and not one customer, and they want to sit between me and my callers? Nobody I know uses it, so I'm not paying 990 euros to be their guinea pig.",
+  "objection": "If they go under or the forwarding breaks, my customers' calls end up nowhere and I don't even know it. And I don't like strangers fiddling with my phone and my number remotely.",
+  "would_change_my_mind": "A tradesman I know personally using it for a few months and telling me it works and didn't mess with his number.",
+  "price_too_cheap": 15,
+  "price_cheap": 39,
+  "price_expensive": 79,
+  "price_too_expensive": 149
+}

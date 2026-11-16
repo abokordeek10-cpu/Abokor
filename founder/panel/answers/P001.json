@@ -1,0 +1,13 @@
+{
+  "id": "P001",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My family already answers the phone part of the day and I call everyone back in the evening, so I don't see jobs slipping away. I'm not paying 990 euros plus 149 a month to fix a problem I don't have.",
+  "objection": "I don't lose jobs as it is, and my regular customers know me. A machine texting them for me feels impersonal, and two founders with no customers might not be around in two years.",
+  "would_change_my_mind": "Proof from my own phone that I'm actually losing calls I never get back to, say a month of missed-call numbers that never rang again, plus a free trial with no setup fee.",
+  "price_too_cheap": 15,
+  "price_cheap": 39,
+  "price_expensive": 89,
+  "price_too_expensive": 149
+}

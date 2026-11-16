@@ -1,0 +1,222 @@
+[
+ {
+  "id": "P001",
+  "name": "Finn",
+  "age": 60,
+  "segment": "Established business, 6-15 employees, partner or office help does the phone",
+  "income": 131000,
+  "behaviour": "Wife/partner does the office",
+  "behaviour_how": "A family member answers the phone part-time and does quotes in the evening.",
+  "objection": "I call back anyway in the evening, I don't lose jobs",
+  "habit": "you do quotes on Sunday evening at the kitchen table"
+ },
+ {
+  "id": "P002",
+  "name": "Callum",
+  "age": 60,
+  "segment": "Solo master craftsman (Ein-Mann-Betrieb)",
+  "income": 53000,
+  "behaviour": "Tech sceptic",
+  "behaviour_how": "Avoids new software, distrusts anything with 'KI', buys only what a colleague recommends.",
+  "objection": "149 euros a month is a lot for an SMS",
+  "habit": "you do quotes on Sunday evening at the kitchen table"
+ },
+ {
+  "id": "P003",
+  "name": "Lina",
+  "age": 38,
+  "segment": "Small business, 2-5 employees",
+  "income": 74000,
+  "behaviour": "Overbooked",
+  "behaviour_how": "Has more work than time; a missed call barely hurts because the order book is full for months.",
+  "objection": "My customers want to talk to a person, not get a text message",
+  "habit": "you use WhatsApp with suppliers and some customers"
+ },
+ {
+  "id": "P004",
+  "name": "Hana",
+  "age": 48,
+  "segment": "Solo master craftsman (Ein-Mann-Betrieb)",
+  "income": 50000,
+  "behaviour": "Penny pincher",
+  "behaviour_how": "Counts every monthly fee, cancels subscriptions he does not use.",
+  "objection": "I call back anyway in the evening, I don't lose jobs",
+  "habit": "you do quotes on Sunday evening at the kitchen table"
+ },
+ {
+  "id": "P005",
+  "name": "Aisha",
+  "age": 47,
+  "segment": "Small business, 2-5 employees",
+  "income": 61000,
+  "behaviour": "Tech sceptic",
+  "behaviour_how": "Avoids new software, distrusts anything with 'KI', buys only what a colleague recommends.",
+  "objection": "I don't want to change my phone setup or my number",
+  "habit": "you use WhatsApp with suppliers and some customers"
+ },
+ {
+  "id": "P006",
+  "name": "Sana",
+  "age": 33,
+  "segment": "Small business, 2-5 employees",
+  "income": 54000,
+  "behaviour": "Near retirement",
+  "behaviour_how": "Plans to stop or hand over within a few years and avoids new commitments.",
+  "objection": "I already have too much work",
+  "habit": "you are on a ladder or under a sink most of the day with dirty hands"
+ },
+ {
+  "id": "P007",
+  "name": "Ezra",
+  "age": 62,
+  "segment": "Established business, 6-15 employees, partner or office help does the phone",
+  "income": 131000,
+  "behaviour": "Overbooked",
+  "behaviour_how": "Has more work than time; a missed call barely hurts because the order book is full for months.",
+  "objection": "149 euros a month is a lot for an SMS",
+  "habit": "your customers find you via Google Maps and word of mouth"
+ },
+ {
+  "id": "P008",
+  "name": "Owen",
+  "age": 38,
+  "segment": "Established business, 6-15 employees, partner or office help does the phone",
+  "income": 91000,
+  "behaviour": "Penny pincher",
+  "behaviour_how": "Counts every monthly fee, cancels subscriptions he does not use.",
+  "objection": "Many callers are older people with a landline who can't receive SMS or WhatsApp",
+  "habit": "you listen to the mailbox in the van at lunch"
+ },
+ {
+  "id": "P009",
+  "name": "Jordan",
+  "age": 62,
+  "segment": "Solo master craftsman (Ein-Mann-Betrieb)",
+  "income": 58000,
+  "behaviour": "Growth-minded younger owner",
+  "behaviour_how": "Took over or founded the business recently, uses WhatsApp and Google, wants more and better jobs.",
+  "objection": "I don't want to change my phone setup or my number",
+  "habit": "you do quotes on Sunday evening at the kitchen table"
+ },
+ {
+  "id": "P010",
+  "name": "Farah",
+  "age": 53,
+  "segment": "Small business, 2-5 employees",
+  "income": 95000,
+  "behaviour": "Emergency trade",
+  "behaviour_how": "Many urgent calls (burst pipe, heating failure); a slow reply loses the job to the next number on Google.",
+  "objection": "Never heard of you, two guys without customers",
+  "habit": "your customers find you via Google Maps and word of mouth"
+ },
+ {
+  "id": "P011",
+  "name": "Rosa",
+  "age": 61,
+  "segment": "Established business, 6-15 employees, partner or office help does the phone",
+  "income": 106000,
+  "behaviour": "Overbooked",
+  "behaviour_how": "Has more work than time; a missed call barely hurts because the order book is full for months.",
+  "objection": "I don't want to change my phone setup or my number",
+  "habit": "you listen to the mailbox in the van at lunch"
+ },
+ {
+  "id": "P012",
+  "name": "Sara",
+  "age": 32,
+  "segment": "Small business, 2-5 employees",
+  "income": 65000,
+  "behaviour": "Overbooked",
+  "behaviour_how": "Has more work than time; a missed call barely hurts because the order book is full for months.",
+  "objection": "I don't want to change my phone setup or my number",
+  "habit": "you use WhatsApp with suppliers and some customers"
+ },
+ {
+  "id": "P013",
+  "name": "Sienna",
+  "age": 42,
+  "segment": "Solo master craftsman (Ein-Mann-Betrieb)",
+  "income": 35000,
+  "behaviour": "Growth-minded younger owner",
+  "behaviour_how": "Took over or founded the business recently, uses WhatsApp and Google, wants more and better jobs.",
+  "objection": "My customers want to talk to a person, not get a text message",
+  "habit": "you listen to the mailbox in the van at lunch"
+ },
+ {
+  "id": "P014",
+  "name": "Luca",
+  "age": 32,
+  "segment": "Small business, 2-5 employees",
+  "income": 91000,
+  "behaviour": "Tech sceptic",
+  "behaviour_how": "Avoids new software, distrusts anything with 'KI', buys only what a colleague recommends.",
+  "objection": "Never heard of you, two guys without customers",
+  "habit": "you are on a ladder or under a sink most of the day with dirty hands"
+ },
+ {
+  "id": "P015",
+  "name": "Oscar",
+  "age": 60,
+  "segment": "Solo master craftsman (Ein-Mann-Betrieb)",
+  "income": 42000,
+  "behaviour": "Wife/partner does the office",
+  "behaviour_how": "A family member answers the phone part-time and does quotes in the evening.",
+  "objection": "I already have too much work",
+  "habit": "you listen to the mailbox in the van at lunch"
+ },
+ {
+  "id": "P016",
+  "name": "Rohan",
+  "age": 62,
+  "segment": "Established business, 6-15 employees, partner or office help does the phone",
+  "income": 81000,
+  "behaviour": "Growth-minded younger owner",
+  "behaviour_how": "Took over or founded the business recently, uses WhatsApp and Google, wants more and better jobs.",
+  "objection": "I already have too much work",
+  "habit": "you listen to the mailbox in the van at lunch"
+ },
+ {
+  "id": "P017",
+  "name": "Maya",
+  "age": 58,
+  "segment": "Small business, 2-5 employees",
+  "income": 86000,
+  "behaviour": "Penny pincher",
+  "behaviour_how": "Counts every monthly fee, cancels subscriptions he does not use.",
+  "objection": "I don't want to change my phone setup or my number",
+  "habit": "you are on a ladder or under a sink most of the day with dirty hands"
+ },
+ {
+  "id": "P018",
+  "name": "Pablo",
+  "age": 34,
+  "segment": "Small business, 2-5 employees",
+  "income": 80000,
+  "behaviour": "Emergency trade",
+  "behaviour_how": "Many urgent calls (burst pipe, heating failure); a slow reply loses the job to the next number on Google.",
+  "objection": "Never heard of you, two guys without customers",
+  "habit": "your customers find you via Google Maps and word of mouth"
+ },
+ {
+  "id": "P019",
+  "name": "Marco",
+  "age": 54,
+  "segment": "Solo master craftsman (Ein-Mann-Betrieb)",
+  "income": 49000,
+  "behaviour": "Growth-minded younger owner",
+  "behaviour_how": "Took over or founded the business recently, uses WhatsApp and Google, wants more and better jobs.",
+  "objection": "My customers want to talk to a person, not get a text message",
+  "habit": "you are on a ladder or under a sink most of the day with dirty hands"
+ },
+ {
+  "id": "P020",
+  "name": "Jasper",
+  "age": 31,
+  "segment": "Solo master craftsman (Ein-Mann-Betrieb)",
+  "income": 47000,
+  "behaviour": "Near retirement",
+  "behaviour_how": "Plans to stop or hand over within a few years and avoids new commitments.",
+  "objection": "Never heard of you, two guys without customers",
+  "habit": "you are on a ladder or under a sink most of the day with dirty hands"
+ }
+]

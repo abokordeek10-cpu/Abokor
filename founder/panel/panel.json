@@ -1,0 +1,95 @@
+{
+ "n": 20,
+ "seed": 42,
+ "customer": {
+  "business": "Abora Automation (sets up a missed-call SMS/WhatsApp reply and enquiry summaries for trade businesses)",
+  "target": "Owners of small trade businesses in Germany (plumbing/heating, electrical, roofing, painting, carpentry, landscaping) who are on site all day and miss calls",
+  "where": "Germany, first around Viernheim / Rhein-Neckar",
+  "age": [
+   28,
+   62
+  ],
+  "notes": "ALL GUESSES by the founders' assistant, not data: shares, incomes and behaviours are estimates. Only real input so far: founders say most enquiries come by phone; one owner called was close to retirement and not interested.",
+  "segments": [
+   {
+    "name": "Solo master craftsman (Ein-Mann-Betrieb)",
+    "share": 0.35,
+    "income": [
+     35000,
+     65000
+    ]
+   },
+   {
+    "name": "Small business, 2-5 employees",
+    "share": 0.4,
+    "income": [
+     50000,
+     95000
+    ]
+   },
+   {
+    "name": "Established business, 6-15 employees, partner or office help does the phone",
+    "share": 0.25,
+    "income": [
+     70000,
+     150000
+    ]
+   }
+  ],
+  "behaviours": [
+   {
+    "name": "Overbooked",
+    "share": 0.22,
+    "how": "Has more work than time; a missed call barely hurts because the order book is full for months."
+   },
+   {
+    "name": "Growth-minded younger owner",
+    "share": 0.18,
+    "how": "Took over or founded the business recently, uses WhatsApp and Google, wants more and better jobs."
+   },
+   {
+    "name": "Tech sceptic",
+    "share": 0.18,
+    "how": "Avoids new software, distrusts anything with 'KI', buys only what a colleague recommends."
+   },
+   {
+    "name": "Penny pincher",
+    "share": 0.14,
+    "how": "Counts every monthly fee, cancels subscriptions he does not use."
+   },
+   {
+    "name": "Wife/partner does the office",
+    "share": 0.12,
+    "how": "A family member answers the phone part-time and does quotes in the evening."
+   },
+   {
+    "name": "Near retirement",
+    "share": 0.08,
+    "how": "Plans to stop or hand over within a few years and avoids new commitments."
+   },
+   {
+    "name": "Emergency trade",
+    "share": 0.08,
+    "how": "Many urgent calls (burst pipe, heating failure); a slow reply loses the job to the next number on Google."
+   }
+  ],
+  "objections": [
+   "My customers want to talk to a person, not get a text message",
+   "I call back anyway in the evening, I don't lose jobs",
+   "149 euros a month is a lot for an SMS",
+   "I don't want to change my phone setup or my number",
+   "Data protection: who reads my customers' messages?",
+   "Never heard of you, two guys without customers",
+   "Many callers are older people with a landline who can't receive SMS or WhatsApp",
+   "I already have too much work"
+  ],
+  "habits": [
+   "you are on a ladder or under a sink most of the day with dirty hands",
+   "you listen to the mailbox in the van at lunch",
+   "you do quotes on Sunday evening at the kitchen table",
+   "your customers find you via Google Maps and word of mouth",
+   "you use WhatsApp with suppliers and some customers"
+  ]
+ },
+ "pitch": "Abora Automation from Viernheim, for trade businesses (Handwerksbetriebe).\nWhen you can't take a call, the caller automatically gets an SMS or WhatsApp within seconds: \"Thanks for calling <your business>. We're on a job and will call you back shortly. Reply here with a short text or voice message saying what it's about.\" You keep your own number; missed calls are simply forwarded.\nTheir reply (text, photo or voice note) arrives on your phone as a short summary with the urgency marked, plus an overview of all enquiries every evening. Website and e-mail enquiries are included.\nSet up by us remotely in about 2 weeks. 990 € one-off setup, then 149 € per month, cancellable monthly, no VAT (small business). First 3 businesses: setup 495 €.\nA new company with two founders and no customers yet; there is a demo you can try."
+}

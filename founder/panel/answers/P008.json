@@ -1,0 +1,13 @@
+{
+  "id": "P008",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My wife and the office already pick up most calls, and the ones I miss are mostly older customers on a landline who will never see an SMS or WhatsApp. I'm not paying 149 a month plus 990 setup for a fix to a problem I mostly don't have, from a company with zero customers.",
+  "objection": "Half my callers are pensioners on a landline; a text to a landline goes nowhere, so the people I actually lose are the ones this can't reach.",
+  "would_change_my_mind": "If landline callers got a spoken message and could leave their request by voice, and it cost under 50 a month with no setup fee and a free month to prove it pays off.",
+  "price_too_cheap": 10,
+  "price_cheap": 25,
+  "price_expensive": 59,
+  "price_too_expensive": 99
+}

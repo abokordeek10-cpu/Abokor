@@ -1,0 +1,144 @@
+{
+ "business": "Abora Automation (sets up a missed-call SMS/WhatsApp reply and enquiry summaries for trade businesses)",
+ "seed": 42,
+ "dealt": 20,
+ "answered": 20,
+ "skipped": [],
+ "buys": 0,
+ "passes": 20,
+ "buy_rate": 0.0,
+ "by_segment": [
+  [
+   "Established business, 6-15 employees, partner or office help does the phone",
+   5,
+   0.0
+  ],
+  [
+   "Solo master craftsman (Ein-Mann-Betrieb)",
+   7,
+   0.0
+  ],
+  [
+   "Small business, 2-5 employees",
+   8,
+   0.0
+  ]
+ ],
+ "by_behaviour": [
+  [
+   "Wife/partner does the office",
+   2,
+   0.0
+  ],
+  [
+   "Tech sceptic",
+   3,
+   0.0
+  ],
+  [
+   "Overbooked",
+   4,
+   0.0
+  ],
+  [
+   "Penny pincher",
+   3,
+   0.0
+  ],
+  [
+   "Near retirement",
+   2,
+   0.0
+  ],
+  [
+   "Growth-minded younger owner",
+   4,
+   0.0
+  ],
+  [
+   "Emergency trade",
+   2,
+   0.0
+  ]
+ ],
+ "by_income": [
+  [
+   "$86,000 and up",
+   7,
+   0.0
+  ],
+  [
+   "under $54,000",
+   6,
+   0.0
+  ],
+  [
+   "$54,000 to $86,000",
+   7,
+   0.0
+  ]
+ ],
+ "why_not": [
+  [
+   "need",
+   10,
+   [
+    "My family already answers the phone part of the day and I call everyone back in the evening, so I don't see jobs slipping away. I'm not paying 990 euros plus 149 a month to fix a problem I don't have.",
+    "My order book is full for months, so a missed call doesn't cost me anything, and I already sort things out with people on WhatsApp myself. Paying 990 € plus 149 € a month to collect even more enquiries I can't take on makes no sense for me."
+   ],
+   [
+    "P001",
+    "P003"
+   ]
+  ],
+  [
+   "trust",
+   7,
+   [
+    "A brand-new outfit with no customers wants 990 euros up front and 149 a month for something that sends an SMS. Nobody I know uses it, and I'm not paying to be someone's guinea pig at sixty.",
+    "A brand-new company with two founders and not one customer, and they want to sit between me and my callers? Nobody I know uses it, so I'm not paying 990 euros to be their guinea pig."
+   ],
+   [
+    "P002",
+    "P005"
+   ]
+  ],
+  [
+   "price",
+   3,
+   [
+    "I'm on my own and already have more callers than I can handle, so 990 setup plus 149 a month (almost 1,800 a year) is too much for SMS replies I can partly do myself with a WhatsApp Business auto-reply. And I'm not handing my phone forwarding to two guys who don't have a single customer yet.",
+    "I do want more jobs and I already live on WhatsApp, but 990 euros up front plus 149 a month is real money when I only take home about 35k, and I could set up an auto-reply in WhatsApp Business myself for free."
+   ],
+   [
+    "P009",
+    "P013"
+   ]
+  ]
+ ],
+ "why_yes": [],
+ "flip": [
+  "Proof from my own phone that I'm actually losing calls I never get back to, say a month of missed-call numbers that never rang again, plus a free trial with no setup fee.",
+  "A colleague from the Innung telling me he's used it for half a year and it actually brought him jobs, with no setup fee so I can just try it and quit.",
+  "If it sorted out and turned away the jobs I can't take, and answered existing customers about appointments, so it saved me phone time instead of bringing in more enquiries. And a setup under 300 € with no long setup project.",
+  "No setup fee and around 30-40 € a month, or proof from another one-man trade business that it actually won them jobs they would have lost.",
+  "A tradesman I know personally using it for a few months and telling me it works and didn't mess with his number.",
+  "If it could politely tell callers we're fully booked and sort out only my existing regular customers' urgent jobs, with no setup fee and nothing to manage myself.",
+  "If it sorted and turned down the enquiries for me, filtering out small jobs and tyre-kickers so my office spent less time on the phone, and it came from a company with other trade businesses already using it, at a much lower monthly price.",
+  "If landline callers got a spoken message and could leave their request by voice, and it cost under 50 a month with no setup fee and a free month to prove it pays off.",
+  "A free month on my own number, set up in an afternoon, with references from other one-man shops nearby, and around 49 a month with no big setup fee.",
+  "A free month or no setup fee until it works, plus a couple of trade businesses nearby I can call who use it.",
+  "If my office help left and nobody was answering the phone anymore, and a few trade colleagues I know had it running for a year without trouble.",
+  "If it filtered and politely put off non-urgent enquiries for me, so it saved my office time instead of creating more callbacks, at a much lower price with no setup fee.",
+  "A free month with no setup fee, so I can see with my own customers that it actually brings me jobs I would have lost.",
+  "A plumber or electrician I know telling me he's used it for a few months and it actually brought him jobs he would otherwise have missed.",
+  "If my wife or the family member stopped doing the phone, and it was cheap with no big setup fee.",
+  "If it sorted out the enquiries so we could turn away the small stuff and pick the bigger, better jobs, and a fellow Handwerker I know had used it for a few months without trouble.",
+  "A free month on my own number with no setup fee, so I can count how many jobs actually came in through it before I pay anything.",
+  "A plumber or heating guy I know saying it brought him real jobs, plus no setup fee or a free month so I can see whether it wins back emergency calls before I pay.",
+  "A colleague from my area with a one-man shop showing me it got him real jobs he would have lost, and no setup fee so I can try it a month and walk away if it doesn't work.",
+  "A fellow tradesman I know telling me it's been running for months without trouble, with no setup fee and just a monthly price I can cancel any time."
+ ],
+ "purchases_first_month_per_buyer": null,
+ "price_answers": 20
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P011",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My order book is full for months and my office help picks up the phone anyway; the few calls that hit the mailbox I listen to in the van at lunch. I don't need more enquiries, I need fewer, so 149 a month to catch calls I can't take on anyway makes no sense.",
+  "objection": "I don't want anyone fiddling with my phone setup or forwarding, and a brand-new outfit with no customers sending texts to my customers in my name, that worries me.",
+  "would_change_my_mind": "If my office help left and nobody was answering the phone anymore, and a few trade colleagues I know had it running for a year without trouble.",
+  "price_too_cheap": 20,
+  "price_cheap": 40,
+  "price_expensive": 80,
+  "price_too_expensive": 120
+}

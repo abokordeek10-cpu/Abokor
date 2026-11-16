@@ -1,0 +1,13 @@
+{
+  "id": "P017",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "149 euros every month plus 495 or 990 up front is close to 2,300 euros in the first year for an automatic text message, and I already call people back in the evening. For a small firm like mine that's another fixed cost I'd cut the first time things get quiet.",
+  "objection": "A brand-new company with no customers wants a monthly fee from me for something my voicemail and WhatsApp half do already. I can't see that it wins me jobs I'm losing now, and if those two founders give up next year I'm left with forwarding I have to undo myself.",
+  "would_change_my_mind": "A free month on my own number with no setup fee, so I can count how many jobs actually came in through it before I pay anything.",
+  "price_too_cheap": 9,
+  "price_cheap": 29,
+  "price_expensive": 59,
+  "price_too_expensive": 99
+}

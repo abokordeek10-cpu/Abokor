@@ -1,0 +1,13 @@
+{
+  "id": "P012",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My order book is full for months, so a missed call barely costs me anything. Paying 990 euros plus 149 a month to collect even more enquiries I can't take on makes no sense right now.",
+  "objection": "I don't need more leads, I need fewer interruptions, and I don't want to mess with my phone and call forwarding for something that solves a problem I don't really have. On top of that it's a brand-new company with no customers, and I'm not handing my customer calls to them.",
+  "would_change_my_mind": "If it filtered and politely put off non-urgent enquiries for me, so it saved my office time instead of creating more callbacks, at a much lower price with no setup fee.",
+  "price_too_cheap": 10,
+  "price_cheap": 25,
+  "price_expensive": 59,
+  "price_too_expensive": 99
+}

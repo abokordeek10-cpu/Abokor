@@ -1,0 +1,13 @@
+{
+  "id": "P014",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Never heard of you, two guys with no customers, and you want my customers' calls running through your system. I only take on software when a colleague I know has used it for a while and says it works.",
+  "objection": "If this thing sends my customers some odd message, or goes down and nobody notices, it's my name that looks bad, not yours. And if you two are gone in a year, I've paid 990 € to set it up for nothing.",
+  "would_change_my_mind": "A plumber or electrician I know telling me he's used it for a few months and it actually brought him jobs he would otherwise have missed.",
+  "price_too_cheap": 20,
+  "price_cheap": 49,
+  "price_expensive": 99,
+  "price_too_expensive": 149
+}

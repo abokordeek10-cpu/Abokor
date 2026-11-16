@@ -1,0 +1,13 @@
+{
+  "id": "P004",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I see the missed calls on my phone and call everyone back in the evening anyway, so I don't lose jobs. Paying 990 € up front plus 149 € every month for a text message I can send myself is nearly 2,800 € in the first year, and that is real money for a one-man shop.",
+  "objection": "I don't believe it brings me a single extra job, I'd just be paying monthly for something I already do for free, and two founders with no customers yet might be gone in a year with my setup fee.",
+  "would_change_my_mind": "No setup fee and around 30-40 € a month, or proof from another one-man trade business that it actually won them jobs they would have lost.",
+  "price_too_cheap": 9,
+  "price_cheap": 25,
+  "price_expensive": 49,
+  "price_too_expensive": 79
+}

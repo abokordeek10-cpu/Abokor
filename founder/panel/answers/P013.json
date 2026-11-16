@@ -1,0 +1,13 @@
+{
+  "id": "P013",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason": "I do want more jobs and I already live on WhatsApp, but 990 euros up front plus 149 a month is real money when I only take home about 35k, and I could set up an auto-reply in WhatsApp Business myself for free.",
+  "reason_code": "price",
+  "objection": "My customers want to hear a person, not get a text from a machine, and a brand-new company with zero customers is asking me to pay first and hope it works.",
+  "would_change_my_mind": "A free month with no setup fee, so I can see with my own customers that it actually brings me jobs I would have lost.",
+  "price_too_cheap": 15,
+  "price_cheap": 39,
+  "price_expensive": 79,
+  "price_too_expensive": 129
+}

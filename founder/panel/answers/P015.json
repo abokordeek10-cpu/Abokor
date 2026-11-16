@@ -1,0 +1,13 @@
+{
+  "id": "P015",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I already have more work than I can do, and my wife and a family member handle the phone and the quotes. Missing a call doesn't cost me anything right now, so why pay 149 a month to get even more enquiries I can't take on.",
+  "objection": "I don't need more enquiries, I need fewer. And a brand-new company with no customers wants nearly 1,000 euros up front for something my family already does for free.",
+  "would_change_my_mind": "If my wife or the family member stopped doing the phone, and it was cheap with no big setup fee.",
+  "price_too_cheap": 10,
+  "price_cheap": 29,
+  "price_expensive": 59,
+  "price_too_expensive": 99
+}

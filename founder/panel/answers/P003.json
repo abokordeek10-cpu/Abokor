@@ -1,0 +1,13 @@
+{
+  "id": "P003",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My order book is full for months, so a missed call doesn't cost me anything, and I already sort things out with people on WhatsApp myself. Paying 990 € plus 149 € a month to collect even more enquiries I can't take on makes no sense for me.",
+  "objection": "My customers want to talk to a person, not get an automatic text, and I don't need more leads. I need fewer interruptions. And I'm not handing my customer calls to a brand-new company with no customers.",
+  "would_change_my_mind": "If it sorted out and turned away the jobs I can't take, and answered existing customers about appointments, so it saved me phone time instead of bringing in more enquiries. And a setup under 300 € with no long setup project.",
+  "price_too_cheap": 15,
+  "price_cheap": 29,
+  "price_expensive": 69,
+  "price_too_expensive": 120
+}

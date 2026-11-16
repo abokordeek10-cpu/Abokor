@@ -1,0 +1,13 @@
+{
+  "id": "P010",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Missed calls really do cost me burst-pipe jobs, so the idea makes sense, but I'm not handing my phone line and 990 € to two guys with no customers. If their forwarding breaks on a Saturday night, I lose the job and the customer blames me.",
+  "objection": "Never heard of you, no references, and if the forwarding or the SMS fails during an emergency or you go bust in six months, I'm the one left with angry customers and a setup fee gone.",
+  "would_change_my_mind": "A free month or no setup fee until it works, plus a couple of trade businesses nearby I can call who use it.",
+  "price_too_cheap": 20,
+  "price_cheap": 49,
+  "price_expensive": 129,
+  "price_too_expensive": 199
+}

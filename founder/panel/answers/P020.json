@@ -1,0 +1,13 @@
+{
+  "id": "P020",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Never heard of you, two guys with no customers, and I'm planning to wind down or hand over the business in a few years. I'm not signing up for 990 euros plus 149 a month with a brand-new outfit when I can just call people back from the van in the evening.",
+  "objection": "You're a startup with zero customers. If you fold in a year my callers get some dead SMS and I'm the one who looks bad, and I don't want any new commitments this close to stepping back.",
+  "would_change_my_mind": "A fellow tradesman I know telling me it's been running for months without trouble, with no setup fee and just a monthly price I can cancel any time.",
+  "price_too_cheap": 15,
+  "price_cheap": 39,
+  "price_expensive": 79,
+  "price_too_expensive": 129
+}
