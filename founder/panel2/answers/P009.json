@@ -1,0 +1,13 @@
+{
+  "id": "P009",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "I might let them run the free missed-call check to see the numbers, but I won't hand my phone line to two guys with no customers yet. If something breaks, my regulars get a text robot instead of me, and at 62 my name is all I've got.",
+  "objection": "Even if I keep my number, the forwarding is still messing with my phone setup, and if this young company folds or the forwarding goes wrong, I lose calls without even knowing it.",
+  "would_change_my_mind": "If the free check shows I'm really losing several paying jobs a week, and another Handwerker nearby I know has used it for a few months without problems.",
+  "price_too_cheap": 15,
+  "price_cheap": 39,
+  "price_expensive": 79,
+  "price_too_expensive": 120
+}

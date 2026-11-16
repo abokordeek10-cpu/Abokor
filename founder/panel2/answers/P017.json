@@ -1,0 +1,13 @@
+{
+  "id": "P017",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "99 euros a month is almost 1,200 a year for something my voicemail and a callback in the evening mostly cover already. Maybe I'd let them run the free count, but I'm not signing up for another monthly fee from a company with no customers that has to mess with my phone forwarding.",
+  "objection": "Another subscription eating money every month, and I have to fiddle with my call forwarding for a two-man startup that might be gone next year, and then my number's in a mess.",
+  "would_change_my_mind": "If the free 14-day check showed me I'm really losing several paying jobs a month, and a trade colleague I know said it ran for months without trouble with his own number, I'd look at it again, at a lower price.",
+  "price_too_cheap": 10,
+  "price_cheap": 25,
+  "price_expensive": 49,
+  "price_too_expensive": 79
+}

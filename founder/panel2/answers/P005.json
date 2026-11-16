@@ -1,0 +1,13 @@
+{
+  "id": "P005",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Two founders, no customers, and they want to put themselves between my customers and my phone. I don't let a stranger answer for my business unless a colleague I know has used it and tells me it works.",
+  "objection": "If something goes wrong with the forwarding, my customers can't reach me and I don't even notice. And a robot texting my customers in my name is not how I talk to people. I don't trust a new company with my number.",
+  "would_change_my_mind": "A fellow trade business owner I know telling me they've used it for a few months without problems.",
+  "price_too_cheap": 10,
+  "price_cheap": 25,
+  "price_expensive": 50,
+  "price_too_expensive": 80
+}

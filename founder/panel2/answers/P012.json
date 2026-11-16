@@ -1,0 +1,13 @@
+{
+  "id": "P012",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My order book is full for months, so a caller who never rings back is not money I lose. Paying 99 euros a month to catch more requests I can't take on anyway makes no sense right now.",
+  "objection": "I don't want to touch my phone setup or my number, and I'd be handing my customers' first contact to a brand-new company with no customers that could break or annoy my regulars.",
+  "would_change_my_mind": "If the free check showed regular customers or emergency jobs getting lost, not just new enquiries, I might try the 'ausgebucht' mode to filter calls.",
+  "price_too_cheap": 15,
+  "price_cheap": 29,
+  "price_expensive": 59,
+  "price_too_expensive": 99
+}

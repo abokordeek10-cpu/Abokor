@@ -1,0 +1,13 @@
+{
+  "id": "P001",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My wife takes the calls in the office and I ring people back in the evening, that has worked for twenty-odd years. We have more work than we can do already, so I don't see what 99 euros a month buys me.",
+  "objection": "I don't believe I'm losing jobs, and I don't want two young lads with no customers sending WhatsApps to my regulars in my name. My customers want a person, not a text from a machine.",
+  "would_change_my_mind": "If the free 14-day check showed in black and white that real new customers rang, never got through and never called again, enough jobs to cover the fee many times over, I might try the 30 free days.",
+  "price_too_cheap": 15,
+  "price_cheap": 39,
+  "price_expensive": 79,
+  "price_too_expensive": 120
+}

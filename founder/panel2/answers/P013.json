@@ -1,0 +1,13 @@
+{
+  "id": "P013",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "quality",
+  "reason": "I'd probably let them run the free missed-call check, because I'm curious what I'm losing. But paying 99 euros a month so my customers get an automatic text instead of me? My customers want to talk to a person, and I already listen to the mailbox at lunch and WhatsApp people back myself.",
+  "objection": "My customers want a real person. A text from a machine makes my one-man business look like a call centre, and a brand-new company with no customers handling my calls is a risk I'm not ready to take.",
+  "would_change_my_mind": "If the free 14-day check shows me real numbers, like several callers a week I lost who never rang back, and a couple of other tradespeople nearby tell me their customers didn't mind the text.",
+  "price_too_cheap": 15,
+  "price_cheap": 35,
+  "price_expensive": 79,
+  "price_too_expensive": 129
+}

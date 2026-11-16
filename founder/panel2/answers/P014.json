@@ -1,0 +1,13 @@
+{
+  "id": "P014",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Two guys from Viernheim with no customers want me to forward my business number to them. Nobody I know uses it. My customers call me, not a robot texting them, so I'm not touching it.",
+  "objection": "If they go bust or something breaks, my calls end up nowhere, and I'm the one who looks bad in front of my customers. Free trial or not, I'm not handing my phone line to a startup nobody has vouched for.",
+  "would_change_my_mind": "A colleague from the Innung or another trade business telling me they've used it for a few months and it actually brought in jobs without trouble.",
+  "price_too_cheap": 15,
+  "price_cheap": 30,
+  "price_expensive": 60,
+  "price_too_expensive": 90
+}

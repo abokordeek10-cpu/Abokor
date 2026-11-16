@@ -1,0 +1,13 @@
+{
+  "id": "P002",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Two young founders with no customers yet who want to put themselves between my phone and my customers? I've had the same number for thirty years and my regulars call me, not a robot texting them back. Nobody I know uses it, so I'm not touching it.",
+  "objection": "Who are these people? A brand-new company with zero customers gets control of my calls, and if they go bust or something breaks, my customers hear nonsense or nothing, and I'm the one who looks bad. And 99 euros a month is still a lot for what is basically an automatic SMS.",
+  "would_change_my_mind": "A colleague from the Innung or a trade I know telling me he's used it for months and it actually brought him jobs without annoying his customers.",
+  "price_too_cheap": 10,
+  "price_cheap": 25,
+  "price_expensive": 50,
+  "price_too_expensive": 80
+}

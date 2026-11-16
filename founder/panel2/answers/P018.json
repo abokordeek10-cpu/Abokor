@@ -1,0 +1,13 @@
+{
+  "id": "P018",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Two guys from Viernheim with no customers want to sit on my phone line, and that line is my whole business. Maybe I'd let them run the free count, but I'm not signing up for 99 a month with a company that could be gone next year.",
+  "objection": "If someone's pipe has burst, an SMS saying 'we'll call you back today' doesn't keep them. They just ring the next plumber on Google. And if the forwarding breaks, I lose jobs without ever knowing. I'm not betting my number on a startup with zero references.",
+  "would_change_my_mind": "If the free 14-day check shows me I really am losing several paying jobs a week, and I can talk to a couple of other trade businesses near me who have used it for months without a problem.",
+  "price_too_cheap": 15,
+  "price_cheap": 39,
+  "price_expensive": 99,
+  "price_too_expensive": 149
+}

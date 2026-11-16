@@ -1,0 +1,13 @@
+{
+  "id": "P006",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "timing",
+  "reason": "I already have more work than I can handle and I'm planning to wind the business down in a few years, so catching more callers is the last thing I need. I'm not signing up for another monthly thing now.",
+  "objection": "More calls means more work I can't take, and I don't want another subscription and setup to deal with from a brand-new company with no customers when I'm on my way out.",
+  "would_change_my_mind": "If the 'ausgebucht' mode alone could keep everyone except emergencies and my regulars away from me, with zero setup on my side and no forwarding fiddling, I might try the free month.",
+  "price_too_cheap": 15,
+  "price_cheap": 30,
+  "price_expensive": 60,
+  "price_too_expensive": 99
+}

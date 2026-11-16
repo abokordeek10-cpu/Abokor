@@ -1,0 +1,166 @@
+{
+ "business": "Abora Automation (sets up a missed-call SMS/WhatsApp reply and enquiry summaries for trade businesses)",
+ "seed": 42,
+ "dealt": 20,
+ "answered": 20,
+ "skipped": [],
+ "buys": 0,
+ "passes": 20,
+ "buy_rate": 0.0,
+ "by_segment": [
+  [
+   "Established business, 6-15 employees, partner or office help does the phone",
+   5,
+   0.0
+  ],
+  [
+   "Solo master craftsman (Ein-Mann-Betrieb)",
+   7,
+   0.0
+  ],
+  [
+   "Small business, 2-5 employees",
+   8,
+   0.0
+  ]
+ ],
+ "by_behaviour": [
+  [
+   "Wife/partner does the office",
+   2,
+   0.0
+  ],
+  [
+   "Tech sceptic",
+   3,
+   0.0
+  ],
+  [
+   "Overbooked",
+   4,
+   0.0
+  ],
+  [
+   "Penny pincher",
+   3,
+   0.0
+  ],
+  [
+   "Near retirement",
+   2,
+   0.0
+  ],
+  [
+   "Growth-minded younger owner",
+   4,
+   0.0
+  ],
+  [
+   "Emergency trade",
+   2,
+   0.0
+  ]
+ ],
+ "by_income": [
+  [
+   "$86,000 and up",
+   7,
+   0.0
+  ],
+  [
+   "under $54,000",
+   6,
+   0.0
+  ],
+  [
+   "$54,000 to $86,000",
+   7,
+   0.0
+  ]
+ ],
+ "why_not": [
+  [
+   "need",
+   9,
+   [
+    "My wife takes the calls in the office and I ring people back in the evening, that has worked for twenty-odd years. We have more work than we can do already, so I don't see what 99 euros a month buys me.",
+    "My order book is full for months, so a missed call doesn't cost me anything. Whoever really needs us calls back or messages me on WhatsApp anyway, and I'm not paying 99 euros a month to collect even more requests I can't take on."
+   ],
+   [
+    "P001",
+    "P003"
+   ]
+  ],
+  [
+   "trust",
+   6,
+   [
+    "Two young founders with no customers yet who want to put themselves between my phone and my customers? I've had the same number for thirty years and my regulars call me, not a robot texting them back. Nobody I know uses it, so I'm not touching it.",
+    "Two founders, no customers, and they want to put themselves between my customers and my phone. I don't let a stranger answer for my business unless a colleague I know has used it and tells me it works."
+   ],
+   [
+    "P002",
+    "P005"
+   ]
+  ],
+  [
+   "price",
+   2,
+   [
+    "I call everyone back in the evening anyway, so I don't believe I'm losing jobs. 99 euros every month is almost 1,200 a year for something I already do myself at no cost.",
+    "99 euros a month is almost 1,200 a year for something my voicemail and a callback in the evening mostly cover already. Maybe I'd let them run the free count, but I'm not signing up for another monthly fee from a company with no customers that has to mess with my phone forwarding."
+   ],
+   [
+    "P004",
+    "P017"
+   ]
+  ],
+  [
+   "timing",
+   2,
+   [
+    "I already have more work than I can handle and I'm planning to wind the business down in a few years, so catching more callers is the last thing I need. I'm not signing up for another monthly thing now.",
+    "I'm winding down in the next few years and I'm not taking on new contracts or new systems now. If a stranger rings while I'm under a sink, my regulars find me anyway, and that's enough for me."
+   ],
+   [
+    "P006",
+    "P020"
+   ]
+  ],
+  [
+   "quality",
+   1,
+   [
+    "I'd probably let them run the free missed-call check, because I'm curious what I'm losing. But paying 99 euros a month so my customers get an automatic text instead of me? My customers want to talk to a person, and I already listen to the mailbox at lunch and WhatsApp people back myself."
+   ],
+   [
+    "P013"
+   ]
+  ]
+ ],
+ "why_yes": [],
+ "flip": [
+  "If the free 14-day check showed in black and white that real new customers rang, never got through and never called again, enough jobs to cover the fee many times over, I might try the 30 free days.",
+  "A colleague from the Innung or a trade I know telling me he's used it for months and it actually brought him jobs without annoying his customers.",
+  "If the free 14-day check showed regular customers or emergencies were actually getting lost, and the ausgebucht mode really kept everything else off my phone, I might try it.",
+  "If the free 14-day check showed me in black and white that several callers never rang back and those were real jobs worth more than the fee, I'd think about it, but at a lower price.",
+  "A fellow trade business owner I know telling me they've used it for a few months without problems.",
+  "If the 'ausgebucht' mode alone could keep everyone except emergencies and my regulars away from me, with zero setup on my side and no forwarding fiddling, I might try the free month.",
+  "If my office help retired or left and nobody was there to pick up, the ausgebucht mode that filters to emergencies and regular customers could be worth it, ideally from a company that has been around a few years.",
+  "If the free 14-day check showed real jobs being lost every week, enough that one saved job a month clearly pays the fee. Even then I'd want it closer to 49 euros.",
+  "If the free check shows I'm really losing several paying jobs a week, and another Handwerker nearby I know has used it for a few months without problems.",
+  "Another plumber or heating firm near me who has used it for a few months and tells me it never dropped a call. Then I'd run the free 14-day check.",
+  "If the free check showed regular customers or emergencies actually slipping through and getting lost, I might switch on the ausgebucht mode.",
+  "If the free check showed regular customers or emergency jobs getting lost, not just new enquiries, I might try the 'ausgebucht' mode to filter calls.",
+  "If the free 14-day check shows me real numbers, like several callers a week I lost who never rang back, and a couple of other tradespeople nearby tell me their customers didn't mind the text.",
+  "A colleague from the Innung or another trade business telling me they've used it for a few months and it actually brought in jobs without trouble.",
+  "If the free 14-day check showed I was losing real emergency jobs or regular customers, and the 'ausgebucht' mode actually took the calls off my family's plate, I'd think about it, for less money.",
+  "If the free check showed my office is losing well-paid jobs or regular customers in large numbers, and the 'ausgebucht' mode really shielded us from the time-wasters.",
+  "If the free 14-day check showed me I'm really losing several paying jobs a month, and a trade colleague I know said it ran for months without trouble with his own number, I'd look at it again, at a lower price.",
+  "If the free 14-day check shows me I really am losing several paying jobs a week, and I can talk to a couple of other trade businesses near me who have used it for months without a problem.",
+  "If the free check shows I really lose five or more new jobs a month, and a colleague from my Innung tells me his customers didn't mind the SMS.",
+  "If a colleague from the Innung I trust had used it for a year without problems and the free check showed I'm actually losing real jobs, not just tyre-kickers."
+ ],
+ "purchases_first_month_per_buyer": null,
+ "price_answers": 20
+}

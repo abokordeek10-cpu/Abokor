@@ -1,0 +1,13 @@
+{
+  "id": "P010",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "My phone is my business; if a burst-pipe call vanishes into some startup's forwarding, I've lost the job and maybe the customer for good. I'm not handing my number to two guys from Viernheim with no customers, even for free.",
+  "objection": "What happens when their system goes down or they fold in six months? An emergency caller gets a text from a robot instead of me, and I don't even know they rang.",
+  "would_change_my_mind": "Another plumber or heating firm near me who has used it for a few months and tells me it never dropped a call. Then I'd run the free 14-day check.",
+  "price_too_cheap": 15,
+  "price_cheap": 49,
+  "price_expensive": 99,
+  "price_too_expensive": 180
+}

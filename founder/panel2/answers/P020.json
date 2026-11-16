@@ -1,0 +1,13 @@
+{
+  "id": "P020",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "timing",
+  "reason": "I'm winding down in the next few years and I'm not taking on new contracts or new systems now. If a stranger rings while I'm under a sink, my regulars find me anyway, and that's enough for me.",
+  "objection": "Two guys with no customers wanting to sit between me and my callers. If they fold in six months, I'm the one with customers getting strange SMS in my name. Not worth the hassle at this stage.",
+  "would_change_my_mind": "If a colleague from the Innung I trust had used it for a year without problems and the free check showed I'm actually losing real jobs, not just tyre-kickers.",
+  "price_too_cheap": 10,
+  "price_cheap": 25,
+  "price_expensive": 50,
+  "price_too_expensive": 80
+}

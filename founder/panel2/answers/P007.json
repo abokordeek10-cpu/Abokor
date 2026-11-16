@@ -1,0 +1,13 @@
+{
+  "id": "P007",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My order book is full for months and my wife and the office handle the phone, so a missed call costs me next to nothing. I don't need more requests coming in; I already turn work away.",
+  "objection": "Why would I pay 99 euros a month to catch callers I couldn't take on anyway? And a brand-new company with two founders and no customers handling my regulars' calls, at my age I don't want to switch things that work.",
+  "would_change_my_mind": "If my office help retired or left and nobody was there to pick up, the ausgebucht mode that filters to emergencies and regular customers could be worth it, ideally from a company that has been around a few years.",
+  "price_too_cheap": 15,
+  "price_cheap": 35,
+  "price_expensive": 69,
+  "price_too_expensive": 99
+}

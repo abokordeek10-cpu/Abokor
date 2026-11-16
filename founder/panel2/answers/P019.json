@@ -1,0 +1,13 @@
+{
+  "id": "P019",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My customers are mostly older people with a dripping tap or a dead boiler, and they want to hear a human voice, not get a robot text from my number. I might let them run the free 14-day count out of curiosity, but I'm not handing my phone line to two guys with no customers for 99 € a month.",
+  "objection": "A text or a recording in my name makes me look like a call centre, and if their system hiccups I lose the customers I already have. Who is liable then, a start-up with zero customers?",
+  "would_change_my_mind": "If the free check shows I really lose five or more new jobs a month, and a colleague from my Innung tells me his customers didn't mind the SMS.",
+  "price_too_cheap": 15,
+  "price_cheap": 30,
+  "price_expensive": 70,
+  "price_too_expensive": 100
+}

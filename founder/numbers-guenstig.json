@@ -1,0 +1,88 @@
+{
+  "business": "Abora Automation – Paket Start (verpasster Anruf -> SMS/WhatsApp, Zusammenfassung, Formular/E-Mail) – Variante guenstige Nummer + weniger Betreuung",
+  "unit": "Kunde-Monat (ein Betrieb, ein Monat)",
+  "price": 79,
+  "variable": [
+    {
+      "label": "Guenstigere dt. Rufnummer (z. B. Festnetz-/Sipgate-Nummer, SCHAETZUNG, Preis pruefen)",
+      "cost": 5
+    },
+    {
+      "label": "SMS/WhatsApp an Anrufer, Annahme 40 verpasste Anrufe x ca. 0,10 EUR (SCHAETZUNG Menge)",
+      "cost": 4
+    },
+    {
+      "label": "Eingehende Minuten (Ansage/Nachricht fuer Festnetz-Anrufer), ca. 40 Min x 0,01 $",
+      "cost": 0.5
+    },
+    {
+      "label": "KI-Zusammenfassung + Spracherkennung Sprachnachrichten (SCHAETZUNG)",
+      "cost": 1.5
+    },
+    {
+      "label": "Betreuung 0,5 Std. je Kunde x 25 EUR (SCHAETZUNG, nach Automatisierung der Ueberwachung)",
+      "cost": 12.5
+    }
+  ],
+  "fixed_monthly": [
+    {
+      "label": "Hetzner-Server (ca. 6 EUR)",
+      "cost": 6
+    },
+    {
+      "label": "Domain, E-Mail, Kleinkram (SCHAETZUNG)",
+      "cost": 10
+    },
+    {
+      "label": "Betriebshaftpflicht / IT-Versicherung (SCHAETZUNG, Angebot einholen)",
+      "cost": 20
+    },
+    {
+      "label": "KI-Kosten Live-Demo und Tests (SCHAETZUNG)",
+      "cost": 10
+    },
+    {
+      "label": "Werbung/Material (SCHAETZUNG)",
+      "cost": 50
+    },
+    {
+      "label": "Gehalt Gruender",
+      "cost": 0
+    }
+  ],
+  "startup": [
+    {
+      "label": "Steuerberater: GbR/Rechtsform, Kleinunternehmer (SCHAETZUNG)",
+      "cost": 300
+    },
+    {
+      "label": "Twilio-Testnummer + Guthaben fuer Demo (SCHAETZUNG)",
+      "cost": 60
+    },
+    {
+      "label": "AVV-Vorlage / Rechtscheck (SCHAETZUNG)",
+      "cost": 200
+    },
+    {
+      "label": "Einrichtung je Pilotkunde ohne Gebuehr: 3 x 3 Std. Gruenderzeit (nicht bezahlt, nur Hinweis)",
+      "cost": 0
+    }
+  ],
+  "days_per_month": 1,
+  "capacity_per_day": 40,
+  "plan_per_day": 20,
+  "ramp_per_day": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16
+  ]
+}
