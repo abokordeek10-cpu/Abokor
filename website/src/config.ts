@@ -24,8 +24,9 @@ export const KONTAKT = {
 };
 
 export const PREISE = {
-  start: { aufbau: 'ab 990 € einmalig', monat: 'ab 149 € / Monat' },
-  komplett: { aufbau: 'ab 2.490 € einmalig', monat: 'ab 299 € / Monat' },
+  start: { aufbau: '990 € einmalig', monat: '149 € / Monat', aufbauZahl: '990 €', monatZahl: '149 €', pilot: '495 €' },
+  business: { aufbau: '1.990 € einmalig', monat: '249 € / Monat', aufbauZahl: '1.990 €', monatZahl: '249 €' },
+  komplett: { aufbau: 'ab 3.990 € einmalig', monat: 'ab 399 € / Monat', aufbauZahl: 'ab 3.990 €', monatZahl: 'ab 399 €' },
   hinweis: 'Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.',
 };
 
@@ -42,12 +43,16 @@ export const FIRMA = {
 export const CTA_TEXT = 'Kostenloses Erstgespräch';
 export const CTA_LINK = '/kontakt';
 
+// Hauptmenü (oben). Weitere Seiten stehen in der Fußzeile.
 export const NAVIGATION = [
-  { href: '/leistungen', text: 'Leistungen' },
-  { href: '/fuer-wen', text: 'Für wen' },
-  { href: '/ablauf', text: 'So arbeiten wir' },
+  { href: '/leistungen', text: 'Lösungen' },
+  { href: '/ablauf', text: "So funktioniert's" },
   { href: '/preise', text: 'Preise' },
   { href: '/ueber-uns', text: 'Über uns' },
+];
+
+export const NAVIGATION_FUSS = [
+  { href: '/fuer-wen', text: 'Für wen' },
   { href: '/ratgeber', text: 'Ratgeber' },
 ];
 

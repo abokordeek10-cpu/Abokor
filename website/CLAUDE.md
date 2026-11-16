@@ -40,8 +40,9 @@ Das Modell: **einmaliger Aufbau + monatliche Betreuung.**
   - **Start:** die 1–2 Bausteine, die im Betrieb am meisten bringen
   - **Komplett:** alle 6 Bausteine
 - **Preise (festgelegt, stehen in `src/config.ts`):**
-  - Start: ab 990 € einmalig, ab 149 € / Monat
-  - Komplett: ab 2.490 € einmalig, ab 299 € / Monat
+  - Start (jetzt buchbar, Anfragen + Vorsortieren): 990 € einmalig, 149 € / Monat, Pilotpreis Einrichtung 495 €
+  - Business (auf Anfrage): 1.990 € einmalig, 249 € / Monat
+  - Komplett (auf Anfrage): ab 3.990 € einmalig, ab 399 € / Monat
   - Hinweis unter den Preisen: „Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.“
 - **Pilotangebot:** „Die ersten 3 Betriebe bekommen den Aufbau zum halben Preis. Dafür gibst du uns ehrliches Feedback und wir dürfen dich als Referenz nennen, wenn du zufrieden bist.“
 - **Laufzeit:** Die Betreuung ist monatlich kündbar. **Aufbaudauer:** meist 2 bis 4 Wochen.
@@ -151,3 +152,15 @@ Keine Rechtstexte erfinden. Impressum und Datenschutz stammen vom Inhaber und we
 3. Danach die restlichen Seiten.
 4. Dann das Deployment auf den Hetzner-Server (siehe Abschnitt Hosting), Schritt für Schritt mit meinem OK.
 5. Am Ende: Liste aller `TODO`-Stellen und eine kurze Anleitung, wie ich Änderungen später neu hochlade.
+
+## Relaunch November 2026: „Industrial Tech + Digital Blueprint“ (hat bei Widersprüchen Vorrang)
+
+Entscheidung des Inhabers. Ersetzt die älteren Angaben zu Farben, Fotos und Startseite.
+
+- **Stand:** zwei Gründer, noch keine zahlenden Kunden. Ziel: 3 zahlende Pilotbetriebe bis 31. Januar 2027. Langfristige Vision: eigene Automatisierungsplattform, später Mittelstand und Industrie. Auf der Website immer klar als „geplant“ kennzeichnen, nie als verfügbar.
+- **Design:** durchgehend dunkel. Tiefes Navy `#0A1424` (tief `#060D18`), Gelb `#FFC83D` als Akzent, feines technisches Raster (Klasse `.blaupause`, `.abschnitt--dunkel`, `.abschnitt--tafel`), Karten mit feiner Linie und gelber Ecke. Keine Fotos, keine Menschenbilder. Statt Foto im Einstieg eine Produkt-Übersicht mit „Beispieldaten“.
+- **Startseite:** Einstieg → Alltag (Problem) → sechs Bausteine (`BausteinRaster`) → Demo-Beispiel → Ablauf → Preise (`Pakete`) → Rechner → Vision und Gründer (`Vision`) → Pilotangebot → FAQ → gelbes Abschluss-Band.
+- **Ehrlichkeit:** Jeder Baustein trägt seinen Stand (`stand` in `src/inhalte.ts`): „Im Start-Paket“ oder „Mit Pilotbetrieben“. WhatsApp und Telefon nur „auf Anfrage / nach Absprache“. Kein „DSGVO-konform“ als Siegel, keine Kundenstimmen, keine Einsparzahlen.
+- **Menü:** Lösungen (`/leistungen`), So funktioniert's (`/ablauf`), Preise, Über uns. „Für wen“ und „Ratgeber“ stehen in der Fußzeile.
+- **Sprache bleibt Du-Form.** Die Live-Demo `/demo` bleibt mit Code geschützt und wird im Erstgespräch gezeigt.
+- Strategie und Content-Plan: `marketing/STRATEGIE-90-TAGE.md`.

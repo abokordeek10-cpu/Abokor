@@ -16,7 +16,7 @@ import { ARTIKEL } from '../artikel';
     text="Praktische Tipps für Handwerksbetriebe. Kurz, ehrlich und ohne Fachchinesisch."
   />
 
-  <section class="abschnitt abschnitt--hell">
+  <section class="abschnitt abschnitt--tafel">
     <div class="container">
       <div class="artikel-liste">
         {
@@ -55,12 +55,12 @@ import { ARTIKEL } from '../artikel';
   }
   .artikel-karte {
     display: grid;
-    background: #fff;
+    background: var(--flaeche);
     border: 1px solid var(--linie-hell);
     border-radius: var(--radius-gross);
     overflow: hidden;
     text-decoration: none;
-    color: var(--text);
+    color: var(--text-hell);
     transition: transform 0.25s, box-shadow 0.25s;
   }
   .artikel-karte:hover {
@@ -93,7 +93,7 @@ import { ARTIKEL } from '../artikel';
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--blaugrau);
+    color: var(--gelb);
     margin-bottom: 10px;
   }
   .artikel-karte h2 {

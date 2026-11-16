@@ -1,0 +1,74 @@
+---
+// Vision: heute Handwerk, später Plattform und Industrie. Geplantes ist klar als geplant markiert.
+import Icon from './Icon.astro';
+
+const stufen = [
+  { marke: 'Heute', name: 'Abora Handwerk', text: 'Büro-Automatisierung für Handwerksbetriebe in ganz Deutschland.', icon: 'werkzeug', aktiv: true },
+  { marke: 'Geplant', name: 'Abora Plattform', text: 'Eine eigene Automatisierungsplattform für weitere Branchen im Mittelstand.', icon: 'ordner', aktiv: false },
+  { marke: 'Langfristig', name: 'Abora Industrie', text: 'Intelligente Abläufe für Industrie und Produktion.', icon: 'blitz', aktiv: false },
+] as const;
+---
+
+<ol class="vision">
+  {
+    stufen.map((s, i) => (
+      <li class:list={['karte', 'stufe', { 'stufe--aktiv': s.aktiv }]} data-reveal style={`--delay:${i * 0.1}s`}>
+        <span class="icon-kreis"><Icon name={s.icon} /></span>
+        <span class:list={['etikett', { 'etikett--gelb': s.aktiv }]}>{s.marke}</span>
+        <h3>{s.name}</h3>
+        <p>{s.text}</p>
+      </li>
+    ))
+  }
+</ol>
+<p class="vision__hinweis">
+  Plattform und Industrie sind unsere Richtung, noch keine fertigen Produkte. Was wir heute anbieten, ist die Automatisierung
+  für Handwerksbetriebe.
+</p>
+
+<style>
+  .vision {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 18px;
+  }
+  @media (min-width: 900px) {
+    .vision {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 34px;
+    }
+    .stufe + .stufe::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -30px;
+      width: 24px;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, var(--gelb) 0 6px, transparent 6px 11px);
+    }
+  }
+  .stufe {
+    padding: 24px;
+  }
+  .stufe:not(.stufe--aktiv) {
+    border-style: dashed;
+  }
+  .stufe--aktiv {
+    border-color: var(--gelb);
+  }
+  .stufe h3 {
+    margin: 14px 0 8px;
+  }
+  .stufe p {
+    margin: 0;
+    color: var(--text-gedaempft);
+  }
+  .vision__hinweis {
+    margin: 20px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-gedaempft);
+    max-width: 46rem;
+  }
+</style>

@@ -1,0 +1,169 @@
+---
+// Die drei Pakete. Beträge stehen zentral in src/config.ts (PREISE).
+import Icon from './Icon.astro';
+import { PREISE, CTA_LINK, CTA_TEXT } from '../config';
+
+const pakete = [
+  {
+    name: 'Start',
+    fuer: 'Der einfache Einstieg',
+    marke: 'Jetzt buchbar',
+    preis: PREISE.start,
+    pilot: `Pilotpreis für die ersten 3 Betriebe: Einrichtung ${PREISE.start.pilot}`,
+    enthalten: [
+      'Bausteine Anfragen und Vorsortieren',
+      'Anfragen über Website und E-Mail',
+      'Fertige Übersicht zu jeder Anfrage',
+      'Testphase und Einweisung',
+      'Betreuung, Server- und KI-Kosten inklusive',
+    ],
+    knopf: CTA_TEXT,
+    hervor: true,
+  },
+  {
+    name: 'Business',
+    fuer: 'Für feste Abläufe',
+    marke: 'Auf Anfrage',
+    preis: PREISE.business,
+    enthalten: ['Alles aus Start', 'Baustein Termine', 'Baustein Nachfassen', 'Anbindung an deinen Kalender'],
+    knopf: 'Angebot anfragen',
+    hervor: false,
+  },
+  {
+    name: 'Komplett',
+    fuer: 'Der ganze Weg',
+    marke: 'Auf Anfrage',
+    preis: PREISE.komplett,
+    enthalten: ['Alle sechs Bausteine', 'Angebotsentwürfe und Bewertungen', 'Individuelle Anpassung an deinen Betrieb', 'WhatsApp und Telefon nach Absprache'],
+    knopf: 'Angebot anfragen',
+    hervor: false,
+  },
+];
+---
+
+<div class="pakete">
+  {
+    pakete.map((p, i) => (
+      <article class:list={['karte', 'paket', { 'paket--hervor': p.hervor }]} data-reveal style={`--delay:${i * 0.08}s`}>
+        <div class="paket__kopf">
+          <h3>{p.name}</h3>
+          <span class:list={['etikett', { 'etikett--gelb': p.hervor }]}>{p.marke}</span>
+        </div>
+        <p class="paket__fuer">{p.fuer}</p>
+        <p class="paket__preis">
+          <strong>{p.preis.monatZahl}</strong> <span>/ Monat</span>
+        </p>
+        <p class="paket__aufbau">Einrichtung einmalig {p.preis.aufbauZahl}</p>
+        {p.pilot && <p class="paket__pilot">{p.pilot}</p>}
+        <ul>
+          {p.enthalten.map((e) => (
+            <li>
+              <Icon name="haken" />
+              {e}
+            </li>
+          ))}
+        </ul>
+        <a href={CTA_LINK} class:list={['btn', p.hervor ? 'btn--gelb' : 'btn--rahmen']}>
+          {p.knopf}
+        </a>
+      </article>
+    ))
+  }
+</div>
+<p class="pakete__hinweis">
+  {PREISE.hinweis} Business und Komplett bieten wir als individuelles Projekt an. Den genauen Umfang und einen festen Preis
+  bekommst du nach dem Erstgespräch.
+</p>
+
+<style>
+  .pakete {
+    display: grid;
+    gap: 18px;
+    align-items: stretch;
+  }
+  @media (min-width: 960px) {
+    .pakete {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .paket {
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+  }
+  .paket--hervor {
+    border-color: var(--gelb);
+    box-shadow: 0 0 0 4px rgba(255, 200, 61, 0.08);
+  }
+  .paket__kopf {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .paket__kopf h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .paket__fuer {
+    color: var(--text-gedaempft);
+    margin: 4px 0 18px;
+  }
+  .paket__preis {
+    margin: 0;
+    line-height: 1;
+  }
+  .paket__preis strong {
+    font-size: clamp(2.2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .paket__preis span {
+    color: var(--text-gedaempft);
+    font-weight: 600;
+  }
+  .paket__aufbau {
+    margin: 8px 0 0;
+    color: var(--text-gedaempft);
+    font-size: 0.95rem;
+  }
+  .paket__pilot {
+    margin: 12px 0 0;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: rgba(255, 200, 61, 0.12);
+    border: 1px solid var(--gelb-linie);
+    color: var(--gelb);
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+  .paket ul {
+    list-style: none;
+    margin: 22px 0 26px;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+    font-size: 0.97rem;
+  }
+  .paket li {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+  .paket li :global(svg) {
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+    color: var(--gelb);
+  }
+  .paket .btn {
+    margin-top: auto;
+  }
+  .pakete__hinweis {
+    margin: 20px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-gedaempft);
+    max-width: 48rem;
+  }
+</style>

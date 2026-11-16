@@ -4,41 +4,8 @@ import Seitenkopf from '../components/Seitenkopf.astro';
 import FAQ from '../components/FAQ.astro';
 import Abschluss from '../components/Abschluss.astro';
 import Icon from '../components/Icon.astro';
+import Pakete from '../components/Pakete.astro';
 import { PREISE, CTA_LINK, CTA_TEXT } from '../config';
-
-// Beträge stehen zentral in src/config.ts (PREISE).
-const pakete = [
-  {
-    name: 'Start',
-    fuer: 'Für den Einstieg',
-    text: 'Die 1–2 Bausteine, die in deinem Betrieb am meisten bringen. Welche das sind, finden wir im Erstgespräch heraus.',
-    preis: PREISE.start,
-    enthalten: [
-      '1–2 Bausteine nach Wahl',
-      'Anbindung an Telefon, E-Mail, WhatsApp und Kalender (je nach Baustein)',
-      'Testphase und Einweisung',
-      'Laufende Betreuung und Support',
-      'Server- und KI-Kosten inklusive',
-      'Monatlicher Kurzbericht',
-    ],
-    hervorgehoben: false,
-  },
-  {
-    name: 'Komplett',
-    fuer: 'Für den ganzen Weg',
-    text: 'Alle 6 Bausteine, von der ersten Anfrage bis zur Bewertung. Für Betriebe, die das Büro so weit wie möglich loswerden wollen.',
-    preis: PREISE.komplett,
-    enthalten: [
-      'Alle 6 Bausteine',
-      'Anbindung an Telefon, E-Mail, WhatsApp und Kalender',
-      'Testphase und Einweisung für dich und dein Team',
-      'Laufende Betreuung und Support',
-      'Server- und KI-Kosten inklusive',
-      'Monatlicher Kurzbericht',
-    ],
-    hervorgehoben: true,
-  },
-];
 
 const fragen = [
   {
@@ -54,7 +21,7 @@ const fragen = [
   {
     frage: 'Kann ich mit „Start“ anfangen und später erweitern?',
     antwort:
-      '<p>Ja, genau dafür ist das Paket gedacht. Viele fangen mit dem Baustein an, der am meisten nervt, und nehmen später weitere dazu.</p>',
+      '<p>Ja, genau dafür ist das Paket gedacht. Du fängst mit Anfragen und Vorsortieren an und nimmst später weitere Bausteine dazu.</p>',
   },
   {
     frage: 'Wie lange läuft der Vertrag?',
@@ -70,7 +37,7 @@ const fragen = [
 
 <Basis
   titel="Preise"
-  beschreibung="Preise von Abora Automation: einmaliger Aufbau plus monatliche Betreuung. Pakete Start und Komplett für Handwerksbetriebe, Server- und KI-Kosten inklusive."
+  beschreibung="Preise von Abora Automation: einmaliger Aufbau plus monatliche Betreuung. Pakete Start, Business und Komplett für Handwerksbetriebe, Server- und KI-Kosten inklusive."
 >
   <Seitenkopf
     dachzeile="Preise"
@@ -78,14 +45,14 @@ const fragen = [
     text="Du zahlst einmal für den Aufbau und danach einen festen Betrag im Monat. Server, KI, Betreuung und Anpassungen sind drin."
   />
 
-  <section class="abschnitt abschnitt--hell">
+  <section class="abschnitt abschnitt--tafel">
     <div class="container">
       <div class="modell" data-reveal>
         <div class="modell__teil">
           <span class="modell__icon"><Icon name="werkzeug" /></span>
           <div>
             <h2 class="modell__titel">Aufbau <small>einmalig</small></h2>
-            <p>Analyse im Erstgespräch, Einrichtung der Automatisierungen, Anbindung an Telefon, E-Mail, WhatsApp und Kalender, Testphase, Einweisung.</p>
+            <p>Analyse im Erstgespräch, Einrichtung der vereinbarten Bausteine, Anbindung an das, was du schon nutzt, Testphase, Einweisung.</p>
           </div>
         </div>
         <span class="modell__plus" aria-hidden="true">+</span>
@@ -98,37 +65,11 @@ const fragen = [
         </div>
       </div>
 
-      <div class="pakete">
-        {
-          pakete.map((p, i) => (
-            <article class:list={['paket', { 'paket--hervor': p.hervorgehoben }]} data-reveal style={`--delay:${i * 0.1}s`}>
-              <p class="paket__fuer">{p.fuer}</p>
-              <h3 class="paket__name">{p.name}</h3>
-              <p class="paket__text">{p.text}</p>
-              <div class="paket__preis">
-                <p class="paket__betrag">{p.preis.aufbau}</p>
-                <p class="paket__betrag">{p.preis.monat}</p>
-              </div>
-              <ul>
-                {p.enthalten.map((e) => (
-                  <li>
-                    <Icon name="haken" />
-                    {e}
-                  </li>
-                ))}
-              </ul>
-              <a href={CTA_LINK} class:list={['btn', p.hervorgehoben ? 'btn--gelb' : 'btn--rahmen']}>
-                {CTA_TEXT}
-              </a>
-            </article>
-          ))
-        }
-      </div>
-      <p class="preis-hinweis">{PREISE.hinweis}</p>
+      <Pakete />
     </div>
   </section>
 
-  <section class="abschnitt abschnitt--hell abschnitt--faq">
+  <section class="abschnitt abschnitt--tafel abschnitt--faq">
     <div class="container">
       <div class="kopf" data-reveal>
         <p class="dachzeile">Fragen zu Kosten</p>
@@ -161,7 +102,7 @@ const fragen = [
     display: flex;
     gap: 18px;
     align-items: flex-start;
-    background: #fff;
+    background: var(--flaeche);
     border: 1px solid var(--linie-hell);
     border-radius: var(--radius-gross);
     padding: 24px;
@@ -194,7 +135,7 @@ const fragen = [
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--blaugrau);
+    color: var(--gelb);
     margin-left: 6px;
   }
   .modell__plus {
@@ -202,7 +143,7 @@ const fragen = [
     font-size: 2.4rem;
     font-weight: 900;
     line-height: 1;
-    color: var(--blaugrau);
+    color: var(--gelb);
   }
 
   .pakete {
@@ -219,7 +160,7 @@ const fragen = [
     display: flex;
     flex-direction: column;
     gap: 14px;
-    background: #fff;
+    background: var(--flaeche);
     border: 1px solid var(--linie-hell);
     border-radius: var(--radius-gross);
     padding: 30px 24px;
@@ -235,7 +176,7 @@ const fragen = [
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--blaugrau);
+    color: var(--gelb);
   }
   .paket--hervor .paket__fuer {
     color: var(--gelb);
@@ -290,7 +231,7 @@ const fragen = [
     width: 20px;
     height: 20px;
     margin-top: 3px;
-    color: var(--blaugrau);
+    color: var(--text-gedaempft);
   }
   .paket--hervor li :global(svg) {
     color: var(--gelb);

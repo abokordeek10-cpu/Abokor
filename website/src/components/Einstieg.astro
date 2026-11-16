@@ -1,265 +1,332 @@
 ---
-import { Picture } from 'astro:assets';
-import einstiegBild from '../../bilder/einstieg.jpg';
-import Benachrichtigung from './Benachrichtigung.astro';
+// Einstieg der Startseite: Slogan links, Produkt-Übersicht (Beispieldaten) rechts.
 import Icon from './Icon.astro';
-import { CTA_LINK, CTA_TEXT, FIRMA } from '../config';
+import { CTA_LINK, CTA_TEXT } from '../config';
+
+const weg = [
+  { icon: 'anfrage', text: 'Anfrage' },
+  { icon: 'filter', text: 'Vorsortiert' },
+  { icon: 'kalender', text: 'Termin' },
+  { icon: 'angebot', text: 'Angebot' },
+] as const;
+
+const zeilen = [
+  { titel: 'Badsanierung', ort: 'Mannheim', status: 'Erste Antwort gesendet', art: 'ok' },
+  { titel: 'Heizung fällt aus', ort: 'Viernheim', status: 'Dringend', art: 'eilt' },
+  { titel: 'Dachreparatur', ort: 'Weinheim', status: 'Terminvorschlag', art: 'ok' },
+];
+
+const merkmale = [
+  { icon: 'schild', text: 'Server in Deutschland' },
+  { icon: 'haken', text: 'Du gibst frei' },
+  { icon: 'uhr', text: 'Monatlich kündbar' },
+  { icon: 'werkzeug', text: 'Für alle Gewerke' },
+] as const;
 ---
 
-<section class="einstieg" aria-labelledby="einstieg-titel">
-  <div class="einstieg__bild">
-    <Picture
-      src={einstiegBild}
-      alt="Nahaufnahme: Handwerkerhände setzen mit einem Hammer einen Nagel an, dunkle Werkstatt"
-      formats={['avif', 'webp']}
-      widths={[480, 720, 960, 1280, 1600]}
-      sizes="(min-width: 900px) 46vw, 160vw"
-      loading="eager"
-      fetchpriority="high"
-      class="einstieg__foto"
-    />
-  </div>
-
+<section class="einstieg blaupause" aria-labelledby="einstieg-titel">
+  <div class="einstieg__licht" aria-hidden="true"></div>
   <div class="container einstieg__raster">
     <div class="einstieg__text">
-      <p class="dachzeile">Automatisierung für Handwerksbetriebe</p>
+      <p class="mono einstieg__dach">Abora Automation · KI-Automatisierung für das Handwerk</p>
       <h1 id="einstieg-titel">
-        Du machst das Handwerk. <span class="gelb">Wir machen den Rest.</span>
+        Du machst das<br />
+        <span class="einstieg__marke">Handwerk.</span><br />
+        Wir machen den Rest.
       </h1>
+      <p class="einstieg__unter">Weniger Büroarbeit. Mehr Zeit für Aufträge.</p>
       <p class="einstieg__satz">
-        Deine KI beantwortet Anfragen, bucht Termine und fasst Angebote nach, während du auf der Baustelle bist.
+        Wir bauen KI-Automatisierungen für Handwerksbetriebe in ganz Deutschland: von der Kundenanfrage über den Termin bis
+        zum Nachfassen von Angeboten.
       </p>
       <div class="einstieg__aktionen">
         <a href={CTA_LINK} class="btn btn--gelb btn--gross btn--block-mobil" data-cta-haupt>
           {CTA_TEXT}
           <Icon name="pfeil" />
         </a>
-        <a href="#loesung" class="einstieg__mehr">So funktioniert's</a>
+        <a href="#demo" class="btn btn--rahmen btn--gross btn--block-mobil einstieg__zweit">Live-Demo ansehen</a>
       </div>
-      <p class="einstieg__klein">Kostenlos und unverbindlich. Ohne Technik-Kauderwelsch.</p>
+      <ul class="einstieg__merkmale">
+        {merkmale.map((m) => (
+          <li>
+            <Icon name={m.icon} />
+            {m.text}
+          </li>
+        ))}
+      </ul>
     </div>
 
-    <div class="einstieg__meldungen" aria-hidden="true" data-meldungen>
-      <Benachrichtigung class="meldung" titel="Neue Anfrage" text="Automatisch beantwortet: Badsanierung in Mannheim" />
-      <Benachrichtigung class="meldung" titel="Termin gebucht" text="Besichtigung Do., 8:00 Uhr – Dachreparatur" zeit="vor 1 Min." />
-      <Benachrichtigung class="meldung" titel="Angebot angenommen ✓" text="Elektroinstallation Altbau – Kunde hat zugesagt" zeit="vor 3 Min." />
+    <div class="pult" data-pult>
+      <div class="pult__kopf">
+        <span class="pult__punkte" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="pult__name">Abora · Übersicht</span>
+        <span class="etikett etikett--gelb">Beispieldaten</span>
+      </div>
+      <p class="pult__status"><i aria-hidden="true"></i> Automatisierung aktiv</p>
+      <ol class="pult__weg" aria-label="Beispielablauf: Anfrage, vorsortiert, Termin, Angebot">
+        {weg.map((w, i) => (
+          <li style={`--i:${i}`}>
+            <span class="pult__knoten"><Icon name={w.icon} /></span>
+            <span>{w.text}</span>
+          </li>
+        ))}
+      </ol>
+      <ul class="pult__liste">
+        {zeilen.map((z) => (
+          <li>
+            <span class="pult__zeile-text">
+              <strong>{z.titel}</strong>
+              <small>{z.ort}</small>
+            </span>
+            <span class:list={['pult__marke', `pult__marke--${z.art}`]}>{z.status}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
 </section>
-
-<script>
-  // Benachrichtigungen erscheinen nacheinander. Bei „Bewegung reduzieren“ stehen sie still da.
-  const box = document.querySelector<HTMLElement>('[data-meldungen]');
-  const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (box && !ruhig) {
-    const karten = Array.from(box.querySelectorAll<HTMLElement>('.meldung'));
-    box.classList.add('animiert');
-    let laeuft = false;
-    let timer: number[] = [];
-
-    const runde = () => {
-      karten.forEach((k) => k.classList.remove('an', 'zuletzt'));
-      karten.forEach((k, i) => {
-        timer.push(
-          window.setTimeout(() => {
-            karten.forEach((x) => x.classList.remove('zuletzt'));
-            k.classList.add('an', 'zuletzt');
-          }, 700 + i * 1700),
-        );
-      });
-      timer.push(window.setTimeout(() => karten.forEach((k) => k.classList.remove('an', 'zuletzt')), 700 + karten.length * 1700 + 3200));
-      timer.push(window.setTimeout(runde, 700 + karten.length * 1700 + 4000));
-    };
-    const stopp = () => {
-      timer.forEach(clearTimeout);
-      timer = [];
-    };
-
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !laeuft) {
-        laeuft = true;
-        runde();
-      } else if (!e.isIntersecting && laeuft) {
-        laeuft = false;
-        stopp();
-      }
-    }).observe(box);
-  }
-</script>
 
 <style>
   .einstieg {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    background: var(--dunkel);
-    min-height: 100svh;
-    display: flex;
+    padding: clamp(112px, 16vw, 168px) 0 clamp(56px, 8vw, 104px);
   }
-
-  /* ── Handy: Foto über den ganzen Bildschirm ── */
-  .einstieg__bild {
+  .einstieg__licht {
     position: absolute;
     inset: 0;
     z-index: -1;
+    background:
+      radial-gradient(ellipse 55% 60% at 80% 35%, rgba(255, 200, 61, 0.11), transparent 70%),
+      radial-gradient(ellipse 60% 70% at 10% 0%, rgba(60, 110, 190, 0.22), transparent 70%),
+      linear-gradient(180deg, transparent 70%, var(--dunkel) 100%);
   }
-  .einstieg__bild :global(picture) {
-    display: contents;
-  }
-  .einstieg__bild :global(.einstieg__foto) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 62% 40%;
-  }
-  .einstieg__bild::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(20, 32, 46, 0.55) 0%,
-      rgba(20, 32, 46, 0.05) 22%,
-      rgba(20, 32, 46, 0.1) 38%,
-      rgba(20, 32, 46, 0.82) 58%,
-      rgba(20, 32, 46, 0.97) 78%,
-      #14202e 100%
-    );
-  }
-
   .einstieg__raster {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 28px;
-    padding-top: 88px;
-    padding-bottom: 36px;
+    display: grid;
+    gap: 44px;
+    align-items: center;
   }
-  .einstieg__text {
-    order: 2;
+  @media (min-width: 960px) {
+    .einstieg__raster {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px;
+    }
   }
-  .einstieg__meldungen {
-    order: 1;
+  .einstieg__dach {
+    margin: 0 0 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
   }
-
   h1 {
-    font-size: clamp(2.45rem, 11vw, 5rem);
+    font-size: clamp(2.2rem, 5.2vw, 3.35rem);
     margin-bottom: 18px;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+    text-wrap: normal;
+    line-height: 1.1;
+  }
+  .einstieg__marke {
+    display: inline-block;
+    background: var(--gelb);
+    color: var(--text);
+    padding: 0 0.14em 0.04em;
+    margin: 0.04em 0 0.04em -0.06em;
+    border-radius: 6px;
+    transform: rotate(-1.2deg);
+  }
+  .einstieg__unter {
+    font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
   }
   .einstieg__satz {
-    font-size: clamp(1.08rem, 2vw, 1.3rem);
-    line-height: 1.5;
-    color: #e4e7eb;
+    color: var(--text-gedaempft);
     max-width: 34rem;
-    margin-bottom: 26px;
+    font-size: 1.06rem;
+    margin-bottom: 28px;
   }
   .einstieg__aktionen {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 14px 26px;
+    gap: 12px;
   }
-  .einstieg__mehr {
-    font-weight: 700;
-    color: var(--text-hell);
-    text-decoration: none;
-    border-bottom: 2px solid var(--gelb);
-    padding-bottom: 2px;
+  .einstieg__aktionen .btn {
+    padding-inline: 22px;
   }
-  .einstieg__klein {
-    margin: 18px 0 0;
-    font-size: 0.9rem;
+  .einstieg__merkmale {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    font-size: 0.86rem;
+    font-weight: 600;
     color: var(--text-gedaempft);
   }
-  @media (max-width: 479px) {
-    .einstieg__mehr {
-      margin-inline: auto;
-    }
-    .einstieg__klein {
-      text-align: center;
-    }
+  .einstieg__merkmale li {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .einstieg__merkmale :global(svg) {
+    width: 16px;
+    height: 16px;
+    color: var(--gelb);
   }
 
-  /* Benachrichtigungen: auf dem Handy erscheint immer die neueste an derselben Stelle */
-  .einstieg__meldungen {
+  /* Produkt-Übersicht */
+  .pult {
+    position: relative;
+    background: linear-gradient(180deg, rgba(20, 36, 62, 0.92), rgba(9, 18, 33, 0.96));
+    border: 1px solid var(--gelb-linie);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow:
+      0 40px 80px -40px rgba(0, 0, 0, 0.8),
+      0 0 0 6px rgba(255, 200, 61, 0.04);
+  }
+  .pult__kopf {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--linie-dunkel);
+  }
+  .pult__punkte {
+    display: inline-flex;
+    gap: 5px;
+  }
+  .pult__punkte i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(140, 175, 230, 0.35);
+  }
+  .pult__name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-gedaempft);
+    margin-right: auto;
+  }
+  .pult__status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 16px 0 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .pult__status i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #46d58a;
+    box-shadow: 0 0 0 4px rgba(70, 213, 138, 0.18);
+  }
+  .pult__weg {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 16px 8px;
     display: grid;
-    justify-items: end;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px dashed var(--linie-dunkel);
+    border-radius: 12px;
+    background: rgba(6, 13, 24, 0.5);
   }
-  .einstieg__meldungen :global(.meldung) {
-    grid-area: 1 / 1;
-    max-width: 300px;
+  .pult__weg li {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-gedaempft);
+    text-align: center;
   }
-  .einstieg__meldungen:not(.animiert) :global(.meldung:not(:first-child)) {
-    display: none;
+  .pult__weg li + li::before {
+    content: '';
+    position: absolute;
+    top: 21px;
+    left: calc(-50% + 26px);
+    right: calc(50% + 26px);
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--gelb) 0 6px, transparent 6px 11px);
+    opacity: 0.7;
   }
-  .einstieg__meldungen.animiert :global(.meldung) {
-    opacity: 0;
-    transform: translateY(-14px) scale(0.96);
-    transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1.1);
+  .pult__knoten {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    border: 1.5px solid var(--gelb-linie);
+    color: var(--gelb);
+    background: rgba(255, 200, 61, 0.07);
   }
-  .einstieg__meldungen.animiert :global(.meldung.zuletzt) {
-    opacity: 1;
-    transform: none;
+  .pult__knoten :global(svg) {
+    width: 21px;
+    height: 21px;
   }
-
-  /* ── Desktop: Foto rechts, läuft nach links weich in #14202E aus ── */
-  @media (min-width: 900px) {
-    .einstieg {
-      min-height: min(100vh, 940px);
-      min-height: min(100svh, 940px);
+  @media (prefers-reduced-motion: no-preference) {
+    .pult__knoten {
+      animation: knoten 6s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 1.2s);
     }
-    .einstieg__bild {
-      inset: 0 0 0 auto;
-      height: 100%;
-      aspect-ratio: 4 / 5;
-      max-width: 60%;
-      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 18%, #000 42%);
-      mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 18%, #000 42%);
+    @keyframes knoten {
+      0%,
+      14%,
+      100% {
+        background: rgba(255, 200, 61, 0.07);
+        color: var(--gelb);
+      }
+      5% {
+        background: var(--gelb);
+        color: var(--text);
+      }
     }
-    .einstieg__bild :global(.einstieg__foto) {
-      object-position: 50% 50%;
-    }
-    .einstieg__bild::after {
-      background:
-        linear-gradient(180deg, rgba(20, 32, 46, 0.5) 0%, transparent 18%, transparent 80%, #14202e 100%);
-    }
-    .einstieg__raster {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      align-items: center;
-      gap: 40px;
-      padding-top: 130px;
-      padding-bottom: 90px;
-    }
-    .einstieg__text {
-      order: 0;
-      max-width: 39rem;
-    }
-    /* unten links über dem Unterarm, damit Hände und Hammer frei bleiben */
-    .einstieg__meldungen {
-      order: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: flex-start;
-      align-self: end;
-      margin-left: -90px;
-      margin-bottom: -30px;
-    }
-    .einstieg__meldungen :global(.meldung) {
-      max-width: 290px;
-    }
-    .einstieg__meldungen :global(.meldung:nth-child(2)) {
-      margin-left: 24px;
-    }
-    .einstieg__meldungen:not(.animiert) :global(.meldung:not(:first-child)) {
-      display: flex;
-    }
-    .einstieg__meldungen.animiert :global(.meldung.an) {
-      opacity: 1;
-      transform: none;
-    }
+  }
+  .pult__liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .pult__liste li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 13px;
+    border-radius: 10px;
+    border: 1px solid var(--linie-dunkel);
+    background: rgba(16, 30, 52, 0.6);
+  }
+  .pult__zeile-text {
+    display: grid;
+    line-height: 1.25;
+    min-width: 0;
+  }
+  .pult__zeile-text strong {
+    font-size: 0.92rem;
+  }
+  .pult__zeile-text small {
+    color: var(--text-gedaempft);
+    font-size: 0.78rem;
+  }
+  .pult__marke {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 9px;
+    border-radius: 6px;
+    white-space: nowrap;
+    color: #7fe3ae;
+    background: rgba(70, 213, 138, 0.12);
+  }
+  .pult__marke--eilt {
+    color: var(--gelb);
+    background: rgba(255, 200, 61, 0.14);
   }
 </style>

@@ -3,6 +3,7 @@ import Basis from '../layouts/Basis.astro';
 import Seitenkopf from '../components/Seitenkopf.astro';
 import Abschluss from '../components/Abschluss.astro';
 import Icon from '../components/Icon.astro';
+import Vision from '../components/Vision.astro';
 import { KONTAKT } from '../config';
 
 const werte = [
@@ -14,32 +15,52 @@ const werte = [
 
 <Basis
   titel="Über uns"
-  beschreibung="Wer hinter Abora Automation aus Viernheim steht und warum wir Automatisierung speziell für Handwerksbetriebe bauen."
+  beschreibung="Abora Automation aus Viernheim: zwei Gründer, die KI-Automatisierung für Handwerksbetriebe bauen. Wo wir heute stehen und wohin wir wollen."
 >
   <Seitenkopf
     dachzeile="Über uns"
-    titel='Wir bauen die Technik. <span class="gelb">Du bleibst beim Handwerk.</span>'
-    text="Abora Automation sitzt in Viernheim. Wir automatisieren für Handwerksbetriebe alles rund um Anfragen, Termine und Angebote."
+    titel='Zwei Gründer. <span class="gelb">Eine klare Mission.</span>'
+    text="Wir wollen Betriebe von wiederkehrender Büroarbeit entlasten. Heute im Handwerk, später auch in anderen Branchen."
   />
 
-  <section class="abschnitt abschnitt--hell">
+  <section class="abschnitt abschnitt--tafel">
     <div class="container geschichte">
-      <div class="fliesstext" data-reveal>
+      <div data-reveal>
         <p class="dachzeile">Wer dahintersteht</p>
-        <h2>{KONTAKT.inhaber}</h2>
+        <h2>Wir stehen am Anfang. Und sagen das offen.</h2>
         <p class="ueber-uns__text">
-          Ich bin Abokor aus Viernheim und baue Automatisierungen für Handwerksbetriebe. Handwerker stehen den ganzen Tag auf
-          der Baustelle und machen das Büro abends. Genau das will ich ihnen abnehmen.
+          Abora Automation wurde von {KONTAKT.inhaber} in Viernheim gegründet. Heute arbeiten wir zu zweit daran.
+          Handwerker stehen den ganzen Tag auf der Baustelle und machen das Büro abends. Genau das wollen wir ihnen abnehmen.
+        </p>
+        <p class="ueber-uns__klein">
+          Wir haben noch keine zahlenden Kunden. Deshalb findest du hier keine Kundenstimmen und keine großen Versprechen,
+          sondern eine Live-Demo, klare Preise und ein faires Angebot für unsere ersten Pilotbetriebe.
         </p>
         <p class="ueber-uns__kontakt">
           <a href={`tel:${KONTAKT.telefonLink}`}>{KONTAKT.telefon}</a><br />
           <a href={`mailto:${KONTAKT.email}`}>{KONTAKT.email}</a>
         </p>
       </div>
+      <ul class="stand" data-reveal style="--delay:.1s">
+        <li class="karte"><span class="mono">HEUTE</span><strong>2 Gründer</strong><span>Alles aus einer Hand, direkter Draht</span></li>
+        <li class="karte"><span class="mono">ANGEBOT</span><strong>6 Bausteine</strong><span>Von der Anfrage bis zur Bewertung</span></li>
+        <li class="karte"><span class="mono">GESUCHT</span><strong>3 Pilotbetriebe</strong><span>Einrichtung zum halben Preis</span></li>
+      </ul>
     </div>
   </section>
 
   <section class="abschnitt abschnitt--dunkel">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Wohin wir wollen</p>
+        <h2>Vom Handwerk <span class="gelb">bis zur Industrie.</span></h2>
+        <p class="einleitung">Wir bauen Abora mit einer langen Sicht. Aber Schritt für Schritt, und zuerst für die Betriebe, die wir am besten verstehen.</p>
+      </div>
+      <Vision />
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--tafel">
     <div class="container">
       <div class="kopf" data-reveal>
         <p class="dachzeile">Wie wir arbeiten</p>
@@ -62,25 +83,55 @@ const werte = [
   </section>
 
   <Abschluss
-    titel='Lern uns kennen. <span class="gelb">Ganz unverbindlich.</span>'
+    titel="Lern uns kennen. Ganz unverbindlich."
     text="Im kostenlosen Erstgespräch merkst du schnell, ob wir zusammenpassen."
   />
 </Basis>
 
 <style>
-  .fliesstext h2 {
-    margin-top: 0;
+  .geschichte {
+    display: grid;
+    gap: 36px;
+  }
+  @media (min-width: 960px) {
+    .geschichte {
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 64px;
+      align-items: center;
+    }
   }
   .ueber-uns__text {
-    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+    font-size: clamp(1.15rem, 2.2vw, 1.35rem);
     line-height: 1.55;
     font-weight: 500;
   }
+  .ueber-uns__klein {
+    color: var(--text-gedaempft);
+  }
   .ueber-uns__kontakt a {
     font-weight: 700;
-    color: var(--text);
     text-decoration-color: var(--gelb);
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+  }
+  .stand {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .stand li {
+    display: grid;
+    gap: 2px;
+    padding: 18px 20px;
+  }
+  .stand strong {
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .stand li span:last-child {
+    color: var(--text-gedaempft);
+    font-size: 0.92rem;
   }
 </style>

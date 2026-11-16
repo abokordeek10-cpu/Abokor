@@ -21,7 +21,7 @@ const schritte = [
   {
     titel: 'Aufbau',
     untertitel: 'Wir machen die Arbeit',
-    text: 'Wir richten alles ein und verbinden es mit deinem Telefon, deiner E-Mail, WhatsApp und deinem Kalender. Die Antworten klingen nach deinem Betrieb, nicht nach Maschine. Du musst dafür nichts installieren.',
+    text: 'Wir richten die vereinbarten Bausteine ein und verbinden sie mit dem, was du schon nutzt, zum Beispiel Website, E-Mail und Kalender. Die Antworten klingen nach deinem Betrieb, nicht nach Maschine. Du musst dafür nichts installieren.',
     punkte: ['Antworten in deinem Ton', 'Anbindung an das, was du schon nutzt', 'Kein neues Programm zum Lernen'],
   },
   {
@@ -49,7 +49,7 @@ const schritte = [
     text="Fünf Schritte, klar und ohne Überraschungen. Du sagst, was nervt. Wir bauen. Du arbeitest weiter wie bisher, nur mit weniger Büro."
   />
 
-  <section class="abschnitt abschnitt--hell">
+  <section class="abschnitt abschnitt--tafel">
     <div class="container">
       <ol class="zeitstrahl">
         {
@@ -108,7 +108,7 @@ const schritte = [
     top: 30px;
     bottom: 30px;
     width: 2px;
-    background: linear-gradient(var(--dunkel), rgba(20, 32, 46, 0.15));
+    background: linear-gradient(var(--dunkel), rgba(10, 20, 36, 0.15));
   }
   .zeitstrahl__schritt {
     display: grid;
@@ -132,7 +132,7 @@ const schritte = [
     font-size: 1.3rem;
     position: relative;
     z-index: 1;
-    box-shadow: 0 0 0 6px var(--hell);
+    box-shadow: 0 0 0 6px var(--dunkel-tief);
   }
   .zeitstrahl__unter {
     margin: 4px 0 6px;
@@ -140,7 +140,7 @@ const schritte = [
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--blaugrau);
+    color: var(--gelb);
   }
   .zeitstrahl__inhalt h2 {
     font-size: clamp(1.7rem, 4vw, 2.4rem);
@@ -162,7 +162,7 @@ const schritte = [
     font-weight: 600;
     padding: 7px 12px;
     border-radius: 999px;
-    background: #fff;
+    background: var(--flaeche);
     border: 1px solid var(--linie-hell);
   }
   @media (min-width: 700px) {

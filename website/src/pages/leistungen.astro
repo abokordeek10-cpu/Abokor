@@ -23,7 +23,7 @@ import { BAUSTEINE } from '../inhalte';
 
   {
     BAUSTEINE.map((b, i) => (
-      <section id={b.id} class:list={['abschnitt', 'baustein', i % 2 === 0 ? 'abschnitt--hell' : 'abschnitt--dunkel']}>
+      <section id={b.id} class:list={['abschnitt', 'baustein', i % 2 === 0 ? 'abschnitt--tafel' : 'abschnitt--dunkel']}>
         <div class="container baustein__raster">
           <div class="baustein__kopf" data-reveal>
             <p class="dachzeile">Baustein {i + 1} von 6</p>

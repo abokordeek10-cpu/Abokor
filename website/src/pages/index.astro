@@ -1,15 +1,15 @@
 ---
 import Basis from '../layouts/Basis.astro';
 import Einstieg from '../components/Einstieg.astro';
-import FotoAbschnitt from '../components/FotoAbschnitt.astro';
-import BausteineWeg from '../components/BausteineWeg.astro';
+import BausteinRaster from '../components/BausteinRaster.astro';
+import Pakete from '../components/Pakete.astro';
+import Vision from '../components/Vision.astro';
 import WhatsAppChat from '../components/WhatsAppChat.astro';
 import Rechner from '../components/Rechner.astro';
 import AblaufSchritte from '../components/AblaufSchritte.astro';
 import FAQ from '../components/FAQ.astro';
 import Abschluss from '../components/Abschluss.astro';
 import Icon from '../components/Icon.astro';
-import Benachrichtigung from '../components/Benachrichtigung.astro';
 import { ABLAUF_KURZ } from '../inhalte';
 import { CTA_LINK, CTA_TEXT, PREISE, PILOTANGEBOT } from '../config';
 
@@ -39,12 +39,22 @@ const probleme = [
 const fragen = [
   {
     frage: 'Was kostet das?',
-    antwort: `<p>Du zahlst einmal für den Aufbau und danach einen festen Betrag pro Monat für Betrieb, Betreuung, Server- und KI-Kosten. Das Paket „Start“ gibt es ${PREISE.start.aufbau} und ${PREISE.start.monat}, das Paket „Komplett“ ${PREISE.komplett.aufbau} und ${PREISE.komplett.monat}. ${PREISE.hinweis} Was genau bei dir sinnvoll ist, klären wir im kostenlosen Erstgespräch. <a href="/preise">Mehr zu den Preisen</a></p>`,
+    antwort: `<p>Du zahlst einmal für die Einrichtung und danach einen festen Betrag pro Monat für Betrieb, Betreuung, Server- und KI-Kosten. Das Paket „Start“ kostet ${PREISE.start.aufbau} und ${PREISE.start.monat}. Die ersten 3 Pilotbetriebe zahlen für die Einrichtung nur ${PREISE.start.pilot}. ${PREISE.hinweis} <a href="/preise">Alle Pakete ansehen</a></p>`,
   },
   {
     frage: 'Muss ich mich mit Technik auskennen?',
     antwort:
-      '<p>Nein. Wir richten alles ein und verbinden es mit dem, was du schon nutzt: Telefon, E-Mail, WhatsApp und Kalender. Du bekommst eine Einweisung und kannst uns jederzeit anrufen, wenn etwas nicht passt.</p>',
+      '<p>Nein. Wir richten alles ein und verbinden es mit dem, was du schon nutzt, zum Beispiel Website, E-Mail und Kalender. Du bekommst eine Einweisung und kannst uns jederzeit anrufen, wenn etwas nicht passt.</p>',
+  },
+  {
+    frage: 'Entscheidet die KI etwas ohne mich?',
+    antwort:
+      '<p>Nein. Die KI nimmt dir Vorarbeit ab: antworten, nachfragen, sortieren, vorbereiten. Preise, Angebote und Zusagen gibst immer du frei.</p>',
+  },
+  {
+    frage: 'Habt ihr schon Kunden?',
+    antwort:
+      '<p>Noch nicht. Wir sind neu und sagen das offen. Deshalb gibt es hier keine Kundenstimmen, sondern ein Pilotangebot für die ersten 3 Betriebe und eine Live-Demo, die wir dir im Erstgespräch mit deinem Gewerk zeigen.</p>',
   },
   {
     frage: 'Was passiert mit den Daten meiner Kunden?',
@@ -65,21 +75,18 @@ const fragen = [
 
 <Basis
   titel="Startseite"
-  beschreibung="Abora Automation aus Viernheim: Deine KI beantwortet Anfragen, bucht Termine und fasst Angebote nach, während du auf der Baustelle bist. Für Handwerksbetriebe aller Gewerke."
+  beschreibung="Abora Automation: KI-Automatisierung für Handwerksbetriebe in ganz Deutschland. Kundenanfragen beantworten und vorsortieren, Termine organisieren, Angebote nachfassen. Weniger Büroarbeit, mehr Zeit für Aufträge."
 >
   <!-- 1. Einstieg -->
   <Einstieg />
 
-
   <!-- 2. Problem -->
-  <FotoAbschnitt
-    id="problem"
-  >
+  <section class="abschnitt abschnitt--tafel" id="problem">
     <div class="container">
       <div class="kopf" data-reveal>
-        <p class="dachzeile">Ohne KI</p>
-        <h2>Kommt dir das bekannt vor?</h2>
-        <p class="einleitung">Du bist gut in deinem Handwerk. Aber das Büro drumherum kostet dich Aufträge und Feierabende.</p>
+        <p class="dachzeile">Der Alltag</p>
+        <h2>Deine Arbeit ist auf der Baustelle. <span class="gelb">Das Büro wartet trotzdem.</span></h2>
+        <p class="einleitung">Kunden schreiben, fragen nach, wollen Termine und warten auf Angebote. Kommt dir das bekannt vor?</p>
       </div>
       <div class="raster raster--4">
         {
@@ -93,34 +100,84 @@ const fragen = [
         }
       </div>
     </div>
-  </FotoAbschnitt>
+  </section>
 
-  <!-- 3. Lösung -->
-  <FotoAbschnitt
-    id="loesung"
-  >
+  <!-- 3. Lösung: sechs Bausteine -->
+  <section class="abschnitt abschnitt--dunkel" id="loesung">
     <div class="container">
       <div class="kopf" data-reveal>
-        <p class="dachzeile">Mit KI</p>
-        <h2>Von der Anfrage bis zur Bewertung. <span class="gelb">Läuft automatisch.</span></h2>
-        <p class="einleitung">
-          Sechs Bausteine, die ineinandergreifen. Du entscheidest, wo du anfängst. Wir bauen es für dich.
-        </p>
+        <p class="dachzeile">Die Lösung</p>
+        <h2>Sechs Bausteine. <span class="gelb">Ein durchgängiger Ablauf.</span></h2>
+        <p class="einleitung">Von der ersten Anfrage bis zur Bewertung. Du fängst mit dem an, was am meisten nervt, und erweiterst später.</p>
       </div>
-      <div class="loesung">
-        <div class="loesung__weg">
-          <BausteineWeg />
-          <a href="/leistungen" class="textlink loesung__link">Alle Bausteine im Detail</a>
-        </div>
-        <div class="loesung__chat" data-reveal>
+      <BausteinRaster />
+    </div>
+  </section>
+
+  <!-- 4. Demo -->
+  <section class="abschnitt abschnitt--tafel" id="demo">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Live-Demo</p>
+        <h2>So arbeitet Abora <span class="gelb">in der Praxis.</span></h2>
+        <p class="einleitung">Ein Beispiel: Eine Kundin schreibt abends wegen eines tropfenden Wasserhahns. Die KI fragt nach, und du bekommst eine fertige Übersicht.</p>
+      </div>
+      <div class="demo">
+        <div class="demo__chat" data-reveal>
           <WhatsAppChat />
+        </div>
+        <div class="demo__seite">
+          <article class="karte uebersicht" data-reveal>
+            <div class="uebersicht__kopf">
+              <h3>Das landet bei dir</h3>
+              <span class="etikett etikett--gelb">Beispieldaten</span>
+            </div>
+            <dl>
+              <div><dt>Anliegen</dt><dd>Wasserhahn tropft, Küche</dd></div>
+              <div><dt>Ort</dt><dd>68519 Viernheim</dd></div>
+              <div><dt>Dringlichkeit</dt><dd>Normal, kein Notfall</dd></div>
+              <div><dt>Fotos</dt><dd>1 Foto liegt vor</dd></div>
+              <div><dt>Vorschlag</dt><dd>Termin Do., 8:00 Uhr</dd></div>
+            </dl>
+            <p class="uebersicht__frei"><Icon name="haken" /> Du entscheidest, ob der Termin passt.</p>
+          </article>
+          <article class="karte demo__echt" data-reveal style="--delay:.1s">
+            <h3>Mit deinem Gewerk ausprobieren</h3>
+            <p>Im Erstgespräch zeigen wir dir die Live-Demo mit einer echten Anfrage aus deinem Gewerk. Du siehst sofort, was die KI antwortet.</p>
+            <a href={CTA_LINK} class="btn btn--gelb btn--block-mobil">{CTA_TEXT} <Icon name="pfeil" /></a>
+          </article>
         </div>
       </div>
     </div>
-  </FotoAbschnitt>
+  </section>
 
-  <!-- 4. Rechner -->
-  <section class="abschnitt abschnitt--hell" id="rechner">
+  <!-- 5. Ablauf -->
+  <section class="abschnitt abschnitt--dunkel" id="ablauf">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">So funktioniert's</p>
+        <h2>In 4 Schritten zu weniger Büroarbeit</h2>
+        <p class="einleitung">Keine komplizierte Software, die du lernen musst. Wir richten ein, was zu deinem Betrieb passt.</p>
+      </div>
+      <AblaufSchritte schritte={ABLAUF_KURZ} />
+      <p class="mehr-link" data-reveal><a href="/ablauf" class="textlink">Genauer ansehen: So arbeiten wir</a></p>
+    </div>
+  </section>
+
+  <!-- 6. Preise -->
+  <section class="abschnitt abschnitt--tafel" id="preise">
+    <div class="container">
+      <div class="kopf" data-reveal>
+        <p class="dachzeile">Preise</p>
+        <h2>Klare Pakete. <span class="gelb">Später erweiterbar.</span></h2>
+        <p class="einleitung">Einmal einrichten, danach ein fester Betrag im Monat. Server, KI und Betreuung sind drin. Monatlich kündbar.</p>
+      </div>
+      <Pakete />
+    </div>
+  </section>
+
+  <!-- 7. Rechner -->
+  <section class="abschnitt abschnitt--dunkel" id="rechner">
     <div class="container">
       <div class="kopf" data-reveal>
         <p class="dachzeile">Rechner</p>
@@ -133,89 +190,57 @@ const fragen = [
     </div>
   </section>
 
-  <!-- 5. Ablauf -->
-  <section class="abschnitt abschnitt--dunkel" id="ablauf">
+  <!-- 8. Vision und Gründer -->
+  <section class="abschnitt abschnitt--tafel" id="vision">
     <div class="container">
       <div class="kopf" data-reveal>
-        <p class="dachzeile">So läuft's</p>
-        <h2>In 4 Schritten zu weniger Büro</h2>
-        <p class="einleitung">Du musst nichts vorbereiten und nichts installieren. Wir kümmern uns.</p>
+        <p class="dachzeile">Unsere Vision</p>
+        <h2>Vom Handwerk <span class="gelb">bis zur Industrie.</span></h2>
+        <p class="einleitung">Wir wollen Betriebe von wiederkehrender Arbeit entlasten. Wir fangen dort an, wo es jeden Tag weh tut: im Büro von Handwerksbetrieben.</p>
       </div>
-      <AblaufSchritte schritte={ABLAUF_KURZ} />
-      <p class="mehr-link" data-reveal><a href="/ablauf" class="textlink">Genauer ansehen: So arbeiten wir</a></p>
+      <Vision />
+      <div class="gruender" data-reveal>
+        <div>
+          <p class="mono">STAND HEUTE</p>
+          <h3>Zwei Gründer. Noch keine Kunden. Ein klares Ziel.</h3>
+          <p>Wir stehen am Anfang und sagen das offen. Wir suchen Betriebe, mit denen wir unsere Lösungen im echten Alltag weiterentwickeln.</p>
+          <a href="/ueber-uns" class="textlink">Mehr über uns</a>
+        </div>
+        <ul class="gruender__zahlen">
+          <li><strong>2</strong> Gründer</li>
+          <li><strong>6</strong> Bausteine</li>
+          <li><strong>3</strong> Pilotplätze</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- 6. Zusammenarbeit -->
-  <FotoAbschnitt
-    id="zusammenarbeit"
-  >
-    <div class="container">
-      <div class="kopf" data-reveal>
-        <p class="dachzeile">Zusammenarbeit</p>
-        <h2>Einmal aufbauen, <span class="gelb">dauerhaft entlastet</span></h2>
-        <p class="einleitung">Kein Software-Abo, um das du dich selbst kümmern musst. Wir bauen es auf und halten es am Laufen.</p>
-      </div>
-      <div class="raster raster--2 modell">
-        <article class="karte" data-reveal>
-          <div class="icon-kreis"><Icon name="werkzeug" /></div>
-          <p class="modell__art">Einmalig</p>
-          <h3>Aufbau</h3>
-          <ul class="liste">
-            <li>Analyse im Erstgespräch</li>
-            <li>Einrichtung der Automatisierungen</li>
-            <li>Anbindung an Telefon, E-Mail, WhatsApp und Kalender</li>
-            <li>Testphase und Einweisung</li>
-          </ul>
-        </article>
-        <article class="karte" data-reveal style="--delay:.1s">
-          <div class="icon-kreis"><Icon name="schild" /></div>
-          <p class="modell__art">Monatlich</p>
-          <h3>Betreuung</h3>
-          <ul class="liste">
-            <li>Laufender Betrieb und Überwachung</li>
-            <li>Anpassungen, wenn sich bei dir etwas ändert</li>
-            <li>Support, wenn du Fragen hast</li>
-            <li>Server- und KI-Kosten inklusive</li>
-            <li>Monatlicher Kurzbericht</li>
-          </ul>
-        </article>
-      </div>
-      <p class="mehr-link" data-reveal><a href="/preise" class="textlink">Pakete und Preise ansehen</a></p>
-    </div>
-  </FotoAbschnitt>
-
-  <!-- 7. Pilotkunden-Angebot -->
-  <FotoAbschnitt
-    id="pilot"
-  >
+  <!-- 9. Pilotkunden-Angebot -->
+  <section class="abschnitt abschnitt--dunkel" id="pilot">
     <div class="container pilot">
       <div data-reveal>
-        <p class="dachzeile">Pilotkunden gesucht</p>
-        <h2>Wir suchen die ersten Handwerksbetriebe, mit denen wir gemeinsam starten.</h2>
+        <p class="dachzeile">Pilotbetriebe gesucht</p>
+        <h2>Wir suchen die ersten 3 Handwerksbetriebe, mit denen wir gemeinsam starten.</h2>
         <p class="einleitung">
-          Wir sind neu und sagen das offen. Deshalb haben wir noch keine Kundenstimmen. Wir suchen ein paar Betriebe, die
-          mit uns anfangen und uns ehrlich sagen, was funktioniert.
+          Deshalb gibt es hier noch keine Kundenstimmen. Wir suchen Betriebe, die mit uns anfangen und uns ehrlich sagen, was
+          funktioniert.
         </p>
       </div>
       <div class="karte pilot__karte" data-reveal style="--delay:.1s">
-        <p class="pilot__label">Dein Vorteil als Pilotkunde</p>
+        <p class="pilot__label">Dein Vorteil als Pilotbetrieb</p>
         <p class="pilot__vorteil">{PILOTANGEBOT}</p>
         <a href={CTA_LINK} class="btn btn--gelb btn--block-mobil">{CTA_TEXT}</a>
       </div>
     </div>
-  </FotoAbschnitt>
+  </section>
 
-  <!-- 8. FAQ -->
-  <section class="abschnitt abschnitt--hell" id="faq">
+  <!-- 10. FAQ -->
+  <section class="abschnitt abschnitt--tafel" id="faq">
     <div class="container faq-raster">
       <div class="kopf" data-reveal>
         <p class="dachzeile">Häufige Fragen</p>
         <h2>Was du wissen willst</h2>
         <p class="einleitung">Deine Frage ist nicht dabei? Stell sie uns im Erstgespräch.</p>
-        <div class="faq-meldung" aria-hidden="true">
-          <Benachrichtigung titel="Rückruf gewünscht" text="Frage zu Preisen – heute ab 17 Uhr" />
-        </div>
       </div>
       <div data-reveal>
         <FAQ fragen={fragen} />
@@ -223,7 +248,7 @@ const fragen = [
     </div>
   </section>
 
-  <!-- 9. Abschluss -->
+  <!-- 11. Abschluss -->
   <Abschluss />
 </Basis>
 
@@ -235,61 +260,116 @@ const fragen = [
     margin: 0;
     color: var(--text-gedaempft);
   }
-
-  .loesung {
-    display: grid;
-    gap: 56px;
-  }
-  @media (min-width: 960px) {
-    .loesung {
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 64px;
-      align-items: start;
-    }
-    .loesung__chat {
-      position: sticky;
-      top: 110px;
-    }
-  }
-  .loesung__link {
-    display: inline-block;
-    margin: 18px 0 0 66px;
-  }
-
   .mehr-link {
     margin: 36px 0 0;
   }
 
-  .modell__art {
-    margin: 0 0 4px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gelb);
+  .demo {
+    display: grid;
+    gap: 28px;
   }
-  .liste {
+  .demo__seite {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+  }
+  @media (min-width: 960px) {
+    .demo {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 48px;
+      align-items: start;
+    }
+  }
+  .uebersicht__kopf {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .uebersicht__kopf h3 {
+    margin: 0;
+  }
+  .uebersicht dl {
+    margin: 0;
+    display: grid;
+  }
+  .uebersicht dl div {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px dashed var(--linie-dunkel);
+  }
+  .uebersicht dt {
+    color: var(--text-gedaempft);
+    font-size: 0.9rem;
+  }
+  .uebersicht dd {
+    margin: 0;
+    font-weight: 600;
+  }
+  .uebersicht__frei {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 0;
+    color: var(--gelb);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .uebersicht__frei :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .demo__echt p {
+    color: var(--text-gedaempft);
+  }
+
+  .gruender {
+    margin-top: clamp(36px, 6vw, 64px);
+    padding-top: clamp(28px, 4vw, 44px);
+    border-top: 1px solid var(--linie-dunkel);
+    display: grid;
+    gap: 28px;
+  }
+  @media (min-width: 900px) {
+    .gruender {
+      grid-template-columns: 1.3fr 0.7fr;
+      align-items: center;
+      gap: 56px;
+    }
+  }
+  .gruender h3 {
+    font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+    margin: 10px 0 12px;
+  }
+  .gruender p {
+    color: var(--text-gedaempft);
+    max-width: 36rem;
+  }
+  .gruender__zahlen {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-gedaempft);
   }
-  .liste li {
-    position: relative;
-    padding-left: 30px;
-    color: #dfe3e8;
+  .gruender__zahlen li {
+    border: 1px solid var(--linie-dunkel);
+    border-radius: 12px;
+    padding: 16px 6px;
+    background: var(--flaeche);
   }
-  .liste li::before {
-    content: '';
-    position: absolute;
-    left: 2px;
-    top: 0.45em;
-    width: 14px;
-    height: 8px;
-    border-left: 2.5px solid var(--gelb);
-    border-bottom: 2.5px solid var(--gelb);
-    transform: rotate(-45deg);
+  .gruender__zahlen strong {
+    display: block;
+    font-size: 2rem;
+    line-height: 1.1;
+    color: var(--gelb);
   }
 
   .pilot {
@@ -307,7 +387,7 @@ const fragen = [
     font-size: clamp(1.9rem, 4.6vw, 3.1rem);
   }
   .pilot__karte {
-    border-color: rgba(255, 200, 61, 0.45);
+    border-color: var(--gelb-linie);
     display: grid;
     gap: 18px;
   }
@@ -335,15 +415,6 @@ const fragen = [
       grid-template-columns: 0.8fr 1.2fr;
       gap: 64px;
       align-items: start;
-    }
-  }
-  .faq-meldung {
-    margin-top: 28px;
-    display: none;
-  }
-  @media (min-width: 960px) {
-    .faq-meldung {
-      display: block;
     }
   }
 </style>

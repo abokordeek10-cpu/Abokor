@@ -65,11 +65,14 @@ Dem Kunden gegenüber keine Fachwörter verwenden (nicht „Workflow“, „API�
 
 Modell: **einmaliger Aufbau + monatliche Betreuung**
 
-| | **Start** | **Komplett** |
-|---|---|---|
-| Inhalt | die 1–2 Bausteine, die am meisten bringen | alle 6 Bausteine |
-| Aufbau (einmalig) | ab 990 € | ab 2.490 € |
-| Betreuung (monatlich) | ab 149 € | ab 299 € |
+| | **Start** (jetzt buchbar) | **Business** (auf Anfrage) | **Komplett** (auf Anfrage) |
+|---|---|---|---|
+| Inhalt | Anfragen + Vorsortieren | Start + Termine + Nachfassen | alle 6 Bausteine, individuell |
+| Einrichtung (einmalig) | 990 € (Pilot: 495 €) | 1.990 € | ab 3.990 € |
+| Betreuung (monatlich) | 149 € | 249 € | ab 399 € |
+
+- Aktiv verkauft wird zuerst nur **Start**. Business und Komplett gibt es als individuelles Angebot nach dem Erstgespräch.
+- Stand November 2026: **zwei Gründer, noch keine zahlenden Kunden.** Ziel: 3 zahlende Pilotbetriebe bis 31. Januar 2027.
 
 - Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Preise sind Endpreise).
 - Server- und KI-Kosten sind in der Betreuung enthalten.

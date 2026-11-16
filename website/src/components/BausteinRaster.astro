@@ -1,0 +1,93 @@
+---
+// Die sechs Bausteine als nummerierte Karten, mit ehrlichem Stand je Baustein.
+import Icon from './Icon.astro';
+import { BAUSTEINE } from '../inhalte';
+---
+
+<ol class="bausteine">
+  {
+    BAUSTEINE.map((b, i) => (
+      <li class="karte baustein" data-reveal style={`--delay:${(i % 3) * 0.08}s`}>
+        <div class="baustein__oben">
+          <span class="icon-kreis"><Icon name={b.icon} /></span>
+          <span class="mono">0{i + 1}</span>
+        </div>
+        <h3><a href={`/leistungen#${b.id}`}>{b.titel}</a></h3>
+        <p>{b.kurz}</p>
+        {b.stand === 'start' ? (
+          <span class="etikett etikett--gelb">Im Start-Paket</span>
+        ) : (
+          <span class="etikett">Mit Pilotbetrieben</span>
+        )}
+      </li>
+    ))
+  }
+</ol>
+<p class="bausteine__hinweis">
+  <strong>Ehrlich gesagt:</strong> „Im Start-Paket“ richten wir heute ein. Die anderen Bausteine bauen wir gerade gemeinsam
+  mit unseren ersten Pilotbetrieben aus.
+</p>
+
+<style>
+  .bausteine {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 640px) {
+    .bausteine {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 960px) {
+    .bausteine {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+  }
+  .baustein {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+  }
+  .baustein__oben {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .baustein :global(.icon-kreis) {
+    margin-bottom: 14px;
+  }
+  .baustein h3 {
+    margin-bottom: 8px;
+  }
+  .baustein h3 a {
+    text-decoration: none;
+  }
+  .baustein h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .baustein p {
+    color: var(--text-gedaempft);
+    font-size: 0.98rem;
+    margin-bottom: 18px;
+  }
+  .baustein .etikett {
+    margin-top: auto;
+  }
+  .bausteine__hinweis {
+    margin: 22px 0 0;
+    font-size: 0.92rem;
+    color: var(--text-gedaempft);
+    max-width: 46rem;
+  }
+  .bausteine__hinweis strong {
+    color: var(--text-hell);
+  }
+</style>

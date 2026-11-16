@@ -18,18 +18,18 @@
 
 /* ───────── Farben & Maße ───────── */
 :root {
-  --dunkel: #14202e;
-  --dunkel-tief: #0d1620;
-  --blaugrau: #3d5875;
+  --dunkel: #0a1424;
+  --dunkel-tief: #060d18;
+  --blaugrau: #1d3350;
   --gelb: #ffc83d;
   --gelb-hover: #ffd76b;
   --hell: #f6f4ef;
   --text: #111111;
   --text-hell: #f6f4ef;
-  --text-gedaempft: #b9c3cf;
-  --text-gedaempft-hell: #4a4f57;
-  --linie-dunkel: rgba(246, 244, 239, 0.14);
-  --linie-hell: rgba(17, 17, 17, 0.12);
+  --text-gedaempft: #a9b8cc;
+  --text-gedaempft-hell: #a9b8cc;
+  --linie-dunkel: rgba(140, 175, 230, 0.2);
+  --linie-hell: rgba(140, 175, 230, 0.2);
 
   --radius: 14px;
   --radius-gross: 22px;
@@ -305,7 +305,7 @@ p {
 
 /* ───────── Karten ───────── */
 .karte {
-  background: rgba(20, 32, 46, 0.72);
+  background: rgba(10, 20, 36, 0.72);
   border: 1px solid var(--linie-dunkel);
   border-radius: var(--radius-gross);
   padding: 26px;
@@ -418,7 +418,7 @@ p {
   margin-bottom: 0.4em;
 }
 .fliesstext a {
-  color: var(--text);
+  color: var(--text-hell);
   text-decoration-color: var(--gelb);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
@@ -427,7 +427,7 @@ p {
   margin: 1.6em 0;
   padding: 18px 22px;
   border-left: 4px solid var(--gelb);
-  background: #fff;
+  background: var(--flaeche);
   border-radius: 0 12px 12px 0;
   font-weight: 600;
 }
@@ -457,4 +457,80 @@ p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ───────── Relaunch: Industrial Tech + Digital Blueprint ───────── */
+:root {
+  --raster-linie: rgba(120, 160, 225, 0.07);
+  --raster-linie-stark: rgba(120, 160, 225, 0.13);
+  --flaeche: rgba(16, 30, 52, 0.78);
+  --gelb-linie: rgba(255, 200, 61, 0.45);
+}
+/* Technisches Raster wie auf einem Bauplan */
+.blaupause,
+.abschnitt--dunkel,
+.abschnitt--tafel {
+  background-color: var(--dunkel);
+  background-image:
+    linear-gradient(var(--raster-linie) 1px, transparent 1px),
+    linear-gradient(90deg, var(--raster-linie) 1px, transparent 1px),
+    linear-gradient(var(--raster-linie-stark) 1px, transparent 1px),
+    linear-gradient(90deg, var(--raster-linie-stark) 1px, transparent 1px);
+  background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px;
+  background-position: center top;
+}
+.abschnitt--tafel {
+  background-color: var(--dunkel-tief);
+  border-block: 1px solid var(--linie-dunkel);
+}
+/* Karten: feine Linie, gelbe Ecke wie eine Maßmarke */
+.karte {
+  position: relative;
+  background: var(--flaeche);
+  border-color: var(--linie-dunkel);
+  border-radius: var(--radius);
+  transition: border-color 0.25s, transform 0.25s;
+}
+.karte::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: 22px;
+  height: 22px;
+  border-left: 2px solid var(--gelb);
+  border-top: 2px solid var(--gelb);
+  border-top-left-radius: var(--radius);
+  pointer-events: none;
+}
+.karte:hover {
+  border-color: var(--gelb-linie);
+}
+.btn {
+  border-radius: 10px;
+}
+.etikett {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--linie-dunkel);
+  color: var(--text-gedaempft);
+  white-space: nowrap;
+}
+.etikett--gelb {
+  color: var(--gelb);
+  border-color: var(--gelb-linie);
+  background: rgba(255, 200, 61, 0.1);
+}
+.mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--gelb);
 }

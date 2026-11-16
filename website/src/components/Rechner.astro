@@ -80,7 +80,8 @@ const euro = (n: number) => n.toLocaleString('de-DE') + ' €';
     }
   }
   .rechner__eingaben {
-    background: #fff;
+    background: var(--flaeche);
+    border: 1px solid var(--linie-dunkel);
     border: 1px solid var(--linie-hell);
     border-radius: var(--radius-gross);
     padding: 26px 22px;
@@ -114,13 +115,13 @@ const euro = (n: number) => n.toLocaleString('de-DE') + ' €';
   .feld__hilfe {
     margin: 8px 0 0;
     font-size: 0.88rem;
-    color: var(--text-gedaempft-hell);
+    color: var(--text-gedaempft);
   }
   input[type='range'] {
     flex: 1;
     min-width: 0;
     height: 44px;
-    accent-color: var(--dunkel);
+    accent-color: var(--gelb);
     cursor: pointer;
   }
   .feld__eingabe {
@@ -137,11 +138,11 @@ const euro = (n: number) => n.toLocaleString('de-DE') + ' €';
     padding: 12px 14px;
     border: 2px solid var(--linie-hell);
     border-radius: 12px;
-    background: var(--hell);
-    color: var(--text);
+    background: var(--dunkel-tief);
+    color: var(--text-hell);
   }
   .feld__eingabe input:focus {
-    border-color: var(--dunkel);
+    border-color: var(--gelb);
     outline: none;
   }
   .feld__eingabe span {
@@ -150,7 +151,8 @@ const euro = (n: number) => n.toLocaleString('de-DE') + ' €';
   }
 
   .rechner__ergebnis {
-    background: var(--dunkel);
+    background: var(--dunkel-tief);
+    border: 1px solid var(--gelb-linie);
     color: var(--text-hell);
     border-radius: var(--radius-gross);
     padding: 28px 22px;

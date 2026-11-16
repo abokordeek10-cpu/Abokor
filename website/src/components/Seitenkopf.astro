@@ -70,16 +70,16 @@ const { dachzeile, titel, text, bild, motiv, position = '50% 50%' } = Astro.prop
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(180deg, rgba(20, 32, 46, 0.8), rgba(20, 32, 46, 0.7) 50%, #14202e);
+    background: linear-gradient(180deg, rgba(10, 20, 36, 0.8), rgba(10, 20, 36, 0.7) 50%, #0a1424);
   }
   @media (min-width: 900px) {
     .seitenkopf::after {
-      background: linear-gradient(90deg, rgba(20, 32, 46, 0.95) 0%, rgba(20, 32, 46, 0.7) 60%, rgba(20, 32, 46, 0.45)),
-        linear-gradient(180deg, transparent 70%, #14202e);
+      background: linear-gradient(90deg, rgba(10, 20, 36, 0.95) 0%, rgba(10, 20, 36, 0.7) 60%, rgba(10, 20, 36, 0.45)),
+        linear-gradient(180deg, transparent 70%, #0a1424);
     }
   }
   .seitenkopf--ohne-bild::after {
-    background: linear-gradient(180deg, transparent 60%, rgba(20, 32, 46, 0.6));
+    background: linear-gradient(180deg, transparent 60%, rgba(10, 20, 36, 0.6));
   }
   .seitenkopf__platzhalter {
     background:

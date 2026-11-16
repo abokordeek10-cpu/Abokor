@@ -3,24 +3,27 @@
 export const BAUSTEINE = [
   {
     id: 'anfragen',
+    stand: 'start',
     titel: 'Anfragen',
     icon: 'anfrage',
-    kurz: 'Anrufe, WhatsApp, E-Mails und Website-Anfragen landen an einem Ort und werden sofort beantwortet. Auch wenn du auf der Baustelle bist.',
+    kurz: 'Anfragen über deine Website und per E-Mail landen an einem Ort und bekommen sofort eine erste Antwort. Auch wenn du auf der Baustelle bist.',
     ohne: 'Das Handy klingelt, während du auf der Leiter stehst. Die WhatsApp liest du abends um zehn. Bis du zurückrufst, hat der Kunde schon den Nächsten gefragt.',
-    mit: 'Jede Anfrage bekommt in Minuten eine freundliche Antwort, egal ob per Telefon, WhatsApp, E-Mail oder über deine Website. Alles landet an einem Ort, nichts geht verloren.',
+    mit: 'Jede Anfrage über deine Website oder per E-Mail bekommt in Minuten eine freundliche erste Antwort. Alles landet an einem Ort, nichts geht verloren. WhatsApp und Telefon binden wir auf Anfrage an.',
     meldung: { titel: 'Neue Anfrage', text: 'Automatisch beantwortet: Heizung fällt aus' },
   },
   {
     id: 'vorsortieren',
+    stand: 'start',
     titel: 'Vorsortieren',
     icon: 'filter',
-    kurz: 'Die KI fragt Ort, Umfang, Budget und Fotos ab und sortiert nach Dringlichkeit. Nur passende Anfragen landen bei dir.',
+    kurz: 'Die KI fragt Ort, Umfang und Fotos ab und sortiert nach Dringlichkeit. Du bekommst eine fertige Übersicht statt Zettelwirtschaft.',
     ohne: 'Du fährst 40 Minuten raus, und vor Ort stellt sich raus: Der Kunde will nur einen Preis zum Vergleichen, oder der Auftrag ist viel zu klein.',
     mit: 'Bevor eine Anfrage bei dir landet, sind Ort, Umfang, ungefähres Budget und Fotos schon da. Der Rohrbruch kommt nach oben, die Preisanfrage für „irgendwann mal“ nach unten.',
     meldung: { titel: 'Dringend: Rohrbruch', text: 'Fotos und Adresse liegen vor' },
   },
   {
     id: 'termine',
+    stand: 'pilot',
     titel: 'Termine',
     icon: 'kalender',
     kurz: 'Passende Kunden buchen direkt einen Besichtigungstermin in deinem Kalender.',
@@ -30,15 +33,17 @@ export const BAUSTEINE = [
   },
   {
     id: 'angebote',
+    stand: 'pilot',
     titel: 'Angebote',
     icon: 'angebot',
-    kurz: 'Aus deiner Sprachnotiz und den Fotos entsteht ein Angebotsentwurf. Du prüfst nur noch und schickst ab.',
+    kurz: 'Aus deinen Angaben und den Fotos entsteht ein Angebotsentwurf. Die Freigabe bleibt immer bei dir.',
     ohne: 'Die Angebote stapeln sich, weil du sie erst am Wochenende schreiben kannst. Bis dahin hat der Kunde längst woanders unterschrieben.',
     mit: 'Nach der Besichtigung sprichst du kurz ins Handy, was gemacht werden muss. Daraus entsteht ein Angebotsentwurf mit deinen Positionen und Preisen. Du prüfst, änderst, schickst ab.',
     meldung: { titel: 'Angebot vorbereitet', text: 'Entwurf aus deiner Sprachnotiz – bitte prüfen' },
   },
   {
     id: 'nachfassen',
+    stand: 'pilot',
     titel: 'Nachfassen',
     icon: 'nachfassen',
     kurz: 'Offene Angebote werden automatisch und freundlich nachverfolgt, damit kein Auftrag einschläft.',
@@ -48,11 +53,12 @@ export const BAUSTEINE = [
   },
   {
     id: 'bewertungen',
+    stand: 'pilot',
     titel: 'Bewertungen',
     icon: 'stern',
-    kurz: 'Nach dem Auftrag gehen Rechnung, Zahlungserinnerung und Bewertungsanfrage automatisch raus.',
+    kurz: 'Nach dem Auftrag werden zufriedene Kunden automatisch um eine ehrliche Bewertung gebeten.',
     ohne: 'Der Kunde war zufrieden, aber eine Bewertung schreibt er nie. Und die Rechnung schreibst du nach Feierabend.',
-    mit: 'Ist der Auftrag erledigt, geht die Rechnung raus. Wird nicht gezahlt, kommt eine höfliche Erinnerung. Und zufriedene Kunden werden um eine Bewertung gebeten.',
+    mit: 'Ist der Auftrag erledigt, bekommt der Kunde eine freundliche Nachricht mit der Bitte um eine ehrliche Bewertung. Rechnung und Zahlungserinnerung können wir auf Wunsch mit anbinden.',
     meldung: { titel: 'Neue Bewertung', text: 'Ein Kunde hat dich bewertet' },
   },
 ] as const;
@@ -68,10 +74,10 @@ export const ABLAUF_KURZ = [
   },
   {
     titel: 'Aufbau',
-    text: 'Wir richten alles ein und verbinden es mit deinem Telefon, deiner E-Mail, WhatsApp und deinem Kalender.',
+    text: 'Wir richten die vereinbarten Bausteine ein und verbinden sie mit dem, was du schon nutzt, zum Beispiel Website, E-Mail und Kalender.',
   },
   {
     titel: 'Start',
-    text: 'Nach einer Testphase läuft es automatisch. Wir zeigen dir alles in Ruhe und bleiben dein Ansprechpartner.',
+    text: 'Wir testen gemeinsam typische Fälle und Ausnahmen. Danach läuft es automatisch, und wir bleiben dein Ansprechpartner.',
   },
 ];

@@ -1,5 +1,5 @@
 ---
-// Abschnitt mit Hintergrundfoto und dunklem Verlauf in #14202E.
+// Abschnitt mit Hintergrundfoto und dunklem Verlauf in #0a1424.
 // Ohne Foto erscheint ein warmer, dunkler Verlauf als Hintergrund.
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -89,19 +89,19 @@ const { bild, motiv, position = '50% 50%', abdunkeln = 'normal', id, class: klas
   .foto-abschnitt__verlauf {
     z-index: -1;
     background:
-      linear-gradient(180deg, rgba(20, 32, 46, 0.92) 0%, rgba(20, 32, 46, 0.55) 35%, rgba(20, 32, 46, 0.7) 70%, rgba(20, 32, 46, 0.96) 100%);
+      linear-gradient(180deg, rgba(10, 20, 36, 0.92) 0%, rgba(10, 20, 36, 0.55) 35%, rgba(10, 20, 36, 0.7) 70%, rgba(10, 20, 36, 0.96) 100%);
   }
   .foto-abschnitt--stark .foto-abschnitt__verlauf {
-    background: linear-gradient(180deg, rgba(20, 32, 46, 0.94), rgba(20, 32, 46, 0.86) 50%, rgba(20, 32, 46, 0.96));
+    background: linear-gradient(180deg, rgba(10, 20, 36, 0.94), rgba(10, 20, 36, 0.86) 50%, rgba(10, 20, 36, 0.96));
   }
   .foto-abschnitt--ohne-bild .foto-abschnitt__verlauf {
-    background: linear-gradient(180deg, rgba(20, 32, 46, 0.35), transparent 30%, transparent 70%, rgba(20, 32, 46, 0.5));
+    background: linear-gradient(180deg, rgba(10, 20, 36, 0.35), transparent 30%, transparent 70%, rgba(10, 20, 36, 0.5));
   }
   @media (min-width: 900px) {
     .foto-abschnitt__verlauf {
       background:
-        linear-gradient(90deg, rgba(20, 32, 46, 0.94) 0%, rgba(20, 32, 46, 0.72) 50%, rgba(20, 32, 46, 0.45) 100%),
-        linear-gradient(180deg, rgba(20, 32, 46, 0.6) 0%, transparent 25%, transparent 75%, rgba(20, 32, 46, 0.85) 100%);
+        linear-gradient(90deg, rgba(10, 20, 36, 0.94) 0%, rgba(10, 20, 36, 0.72) 50%, rgba(10, 20, 36, 0.45) 100%),
+        linear-gradient(180deg, rgba(10, 20, 36, 0.6) 0%, transparent 25%, transparent 75%, rgba(10, 20, 36, 0.85) 100%);
     }
   }
   .foto-abschnitt__inhalt {
