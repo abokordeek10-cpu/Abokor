@@ -2,7 +2,7 @@
   "name": "Abora Recherche-Agent",
   "nodes": [
     {
-      "id": "1e5b6450-c34c-4e57-8c55-3f9728b324ac",
+      "id": "1691ec6a-b88e-446c-a933-c684dae3cf32",
       "name": "Jeden Werktag 6:30",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -22,7 +22,7 @@
       }
     },
     {
-      "id": "e7cd5653-88d2-4d02-9d42-774a7c6900e4",
+      "id": "236f37c5-6dd0-414f-82b8-f8f6a770befa",
       "name": "Zum Testen starten",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
@@ -33,7 +33,7 @@
       "parameters": {}
     },
     {
-      "id": "49756ad4-9487-423b-bfc0-5ebc96ef45b8",
+      "id": "6d8eab1b-0be0-49d3-a4a7-85e1cf009d83",
       "name": "Ziel des Tages",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -42,11 +42,11 @@
         100
       ],
       "parameters": {
-        "jsCode": "// Recherche-Agent, Schritt 1: Ziel des Tages festlegen und die Anfrage an Claude bauen.\n// Wechselt jeden Tag Ort und Gewerke, damit die Liste nicht immer gleich ist.\n// Merkt sich bereits vorgeschlagene Betriebe (Workflow-Static-Data), damit keiner doppelt kommt.\n\nconst ORTE = ['Viernheim', 'Mannheim', 'Weinheim', 'Lampertheim', 'Heidelberg', 'Bensheim',\n  'Ladenburg', 'Hemsbach', 'Lorsch', 'Heppenheim', 'Schriesheim', 'Ludwigshafen am Rhein',\n  'Bürstadt', 'Hirschberg an der Bergstraße', 'Schwetzingen'];\nconst GEWERKE = ['Sanitär und Heizung', 'Elektro', 'Dachdecker', 'Maler und Lackierer',\n  'Schreiner / Tischler', 'Trockenbau', 'Garten- und Landschaftsbau', 'Fliesenleger',\n  'Fenster und Türen', 'Bodenleger', 'Zimmerei', 'Klima und Lüftung'];\n\nconst heute = new Date();\nconst tag = Math.floor(heute.getTime() / 86400000);\nconst ort = ORTE[tag % ORTE.length];\nconst gewerk1 = GEWERKE[tag % GEWERKE.length];\nconst gewerk2 = GEWERKE[(tag + 5) % GEWERKE.length];\n\nconst speicher = $getWorkflowStaticData('global');\nconst bekannt = (speicher.bekannt || []).slice(-300);\n\nconst system = `Du bist Recherche-Assistent von Abora Automation (Abokor Osman, Viernheim).\nAbora richtet Handwerksbetrieben eine KI ein, die Anfragen sofort beantwortet, Termine bucht, Angebote vorbereitet und nachfasst.\nAbokor ruft Inhaber kleiner Handwerksbetriebe persönlich an (Geschäftskunden, Kaltakquise am Telefon).\n\nDeine Aufgabe: Finde mit der Websuche echte, aktive Handwerksbetriebe und bereite die Anrufe vor.\n\nRegeln:\n- Nur öffentlich verfügbare Firmenangaben: Firmenname, Ort, geschäftliche Telefonnummer und Website (am besten aus Impressum oder Google-Unternehmensprofil). Keine privaten Daten von Personen, keine privaten Handynummern aus Bewertungen o. Ä.\n- Erfinde nichts. Wenn du eine Telefonnummer nicht sicher findest, lass das Feld leer. Lieber weniger Betriebe als falsche.\n- Bevorzuge kleine Betriebe (Inhaber arbeitet selbst mit, 1 bis 15 Mitarbeiter). Keine großen Ketten, keine Vermittlungsportale, keine Callcenter mit 0800-Nummern.\n- Für jeden Betrieb brauchst du einen konkreten, sachlichen Grund, warum das Thema für ihn interessant sein könnte (z. B. Bewertungen erwähnen schwere Erreichbarkeit oder späte Rückmeldung, Stellenanzeige für Büro- oder Bürokraft, keine Online-Terminbuchung, Notdienst mit vielen Anrufen, sehr viele Leistungen). Ohne Grund: Betrieb weglassen.\n- Der Einstiegssatz ist ein kurzer, freundlicher Satz in Sie-Form, den Abokor am Telefon nach der Begrüßung sagen kann und der auf den Grund eingeht. Ohne Fachwörter, ohne \"KI\".\n- Priorität 1 = sehr passend, 2 = passend, 3 = vielleicht.\n\nAntworte am Ende NUR mit einem JSON-Objekt zwischen <json> und </json> in genau dieser Form:\n{\"strategie\":{\"fokus\":\"…\",\"warum\":\"…\",\"beste_anrufzeit\":\"…\",\"tipp\":\"…\"},\n \"betriebe\":[{\"name\":\"…\",\"gewerk\":\"…\",\"ort\":\"…\",\"telefon\":\"…\",\"website\":\"…\",\"grund\":\"…\",\"einstiegssatz\":\"…\",\"prioritaet\":1}]}\n\"strategie\" fasst in je 1 bis 2 Sätzen zusammen: worauf Abokor heute achten soll, warum diese Betriebe, wann anrufen, ein praktischer Tipp für die Gespräche.`;\n\nconst nutzer = `Heute: ${ort} und Umgebung (bis ca. 10 km).\nGewerke: ${gewerk1} und ${gewerk2}.\nFinde 12 bis 15 passende Betriebe, sortiert nach Priorität.\n${bekannt.length ? 'Diese Betriebe wurden schon vorgeschlagen und dürfen NICHT noch einmal vorkommen:\\n' + bekannt.join('; ') : ''}`;\n\nconst anfrage = {\n  model: 'claude-opus-5-5',\n  max_tokens: 16000,\n  fallbacks: 'default',\n  output_config: { effort: 'medium' },\n  system,\n  tools: [\n    { type: 'web_search_20260209', name: 'web_search', max_uses: 12,\n      user_location: { type: 'approximate', country: 'DE', city: ort, timezone: 'Europe/Berlin' } },\n    { type: 'web_fetch_20260209', name: 'web_fetch', max_uses: 15 },\n  ],\n  messages: [{ role: 'user', content: nutzer }],\n};\n\nreturn [{ json: { anfrage, ort, gewerke: `${gewerk1}, ${gewerk2}`, datum: heute.toLocaleDateString('de-DE', { timeZone: 'Europe/Berlin' }) } }];\n"
+        "jsCode": "// Recherche-Agent, Schritt 1: Ziel des Tages festlegen und die Anfrage an Claude bauen.\n// Wechselt jeden Tag Ort und Gewerke, damit die Liste nicht immer gleich ist.\n// Merkt sich bereits vorgeschlagene Betriebe (Workflow-Static-Data), damit keiner doppelt kommt.\n\nconst ORTE = ['Viernheim', 'Mannheim', 'Weinheim', 'Lampertheim', 'Heidelberg', 'Bensheim',\n  'Ladenburg', 'Hemsbach', 'Lorsch', 'Heppenheim', 'Schriesheim', 'Ludwigshafen am Rhein',\n  'Bürstadt', 'Hirschberg an der Bergstraße', 'Schwetzingen'];\nconst GEWERKE = ['Sanitär und Heizung', 'Elektro', 'Dachdecker', 'Maler und Lackierer',\n  'Schreiner / Tischler', 'Trockenbau', 'Garten- und Landschaftsbau', 'Fliesenleger',\n  'Fenster und Türen', 'Bodenleger', 'Zimmerei', 'Klima und Lüftung'];\n\nconst heute = new Date();\nconst tag = Math.floor(heute.getTime() / 86400000);\nconst ort = ORTE[tag % ORTE.length];\nconst gewerk1 = GEWERKE[tag % GEWERKE.length];\nconst gewerk2 = GEWERKE[(tag + 5) % GEWERKE.length];\n\nconst speicher = $getWorkflowStaticData('global');\nconst bekannt = (speicher.bekannt || []).slice(-300);\n\nconst system = `Du bist Recherche-Assistent von Abora Automation (Abokor Osman, Viernheim).\nAbora richtet Handwerksbetrieben eine KI ein, die Anfragen sofort beantwortet, Termine bucht, Angebote vorbereitet und nachfasst.\nAli (Vertrieb) ruft Inhaber gesunder, gut laufender Handwerksbetriebe an oder besucht sie (Geschäftskunden).\n\nDeine Aufgabe: Finde mit der Websuche echte, aktive Handwerksbetriebe und bereite die Anrufe vor.\n\nRegeln:\n- Nur öffentlich verfügbare Firmenangaben: Firmenname, Ort, geschäftliche Telefonnummer und Website (am besten aus Impressum oder Google-Unternehmensprofil). Keine privaten Daten von Personen, keine privaten Handynummern aus Bewertungen o. Ä.\n- Erfinde nichts. Wenn du eine Telefonnummer nicht sicher findest, lass das Feld leer. Lieber weniger Betriebe als falsche.\n- ZIELKUNDEN (alle Pflicht): eigene Website UND geschäftliche E-Mail-Adresse; Google-Bewertung mindestens 4,0 Sterne bei mindestens 10 Bewertungen; etwa 3 bis 20 Mitarbeiter (Team-Fotos, „Unser Team“, Stellenanzeigen, mehrere Fahrzeuge); aktiv (Website oder Bewertungen aus den letzten 12 Monaten).\n- AUSSCHLIESSEN: Ein-Mann-Betriebe ohne Website oder E-Mail, Betriebe mit schlechten Bewertungen (unter 4,0), große Ketten, Vermittlungsportale, Callcenter mit 0800-Nummern.\n- Besonders gute Zeichen (dann Priorität 1): Stellenanzeige (wächst, ist überlastet), Bewertungen loben die Arbeit, beklagen aber Erreichbarkeit oder späte Rückmeldung, Notdienst, viele Leistungen.\n- Für jeden Betrieb brauchst du einen konkreten, sachlichen Grund, warum das Thema für ihn interessant sein könnte (z. B. Bewertungen erwähnen schwere Erreichbarkeit oder späte Rückmeldung, Stellenanzeige für Büro- oder Bürokraft, keine Online-Terminbuchung, Notdienst mit vielen Anrufen, sehr viele Leistungen). Ohne Grund: Betrieb weglassen.\n- Der Einstiegssatz ist ein kurzer, freundlicher Satz in Sie-Form, den Abokor am Telefon nach der Begrüßung sagen kann und der auf den Grund eingeht. Ohne Fachwörter, ohne \"KI\".\n- Priorität 1 = sehr passend, 2 = passend, 3 = vielleicht.\n\nAntworte am Ende NUR mit einem JSON-Objekt zwischen <json> und </json> in genau dieser Form:\n{\"strategie\":{\"fokus\":\"…\",\"warum\":\"…\",\"beste_anrufzeit\":\"…\",\"tipp\":\"…\"},\n \"betriebe\":[{\"name\":\"…\",\"gewerk\":\"…\",\"ort\":\"…\",\"telefon\":\"…\",\"email\":\"…\",\"website\":\"…\",\"bewertung\":\"z. B. 4,7 (38)\",\"mitarbeiter_ca\":\"…\",\"grund\":\"…\",\"einstiegssatz\":\"…\",\"prioritaet\":1}]}\n\"strategie\" fasst in je 1 bis 2 Sätzen zusammen: worauf Abokor heute achten soll, warum diese Betriebe, wann anrufen, ein praktischer Tipp für die Gespräche.`;\n\nconst nutzer = `Heute: ${ort} und Umgebung (bis ca. 10 km).\nGewerke: ${gewerk1} und ${gewerk2}.\nFinde 12 bis 15 passende Betriebe, sortiert nach Priorität.\n${bekannt.length ? 'Diese Betriebe wurden schon vorgeschlagen und dürfen NICHT noch einmal vorkommen:\\n' + bekannt.join('; ') : ''}`;\n\nconst anfrage = {\n  model: 'claude-opus-5-5',\n  max_tokens: 16000,\n  fallbacks: 'default',\n  output_config: { effort: 'medium' },\n  system,\n  tools: [\n    { type: 'web_search_20260209', name: 'web_search', max_uses: 12,\n      user_location: { type: 'approximate', country: 'DE', city: ort, timezone: 'Europe/Berlin' } },\n    { type: 'web_fetch_20260209', name: 'web_fetch', max_uses: 15 },\n  ],\n  messages: [{ role: 'user', content: nutzer }],\n};\n\nreturn [{ json: { anfrage, ort, gewerke: `${gewerk1}, ${gewerk2}`, datum: heute.toLocaleDateString('de-DE', { timeZone: 'Europe/Berlin' }) } }];\n"
       }
     },
     {
-      "id": "7f1653dd-efae-4bef-aa5a-a3ec773f73b5",
+      "id": "4551fe5c-f4ce-47af-9f26-bf84b449206e",
       "name": "Claude recherchiert",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -92,7 +92,7 @@
       }
     },
     {
-      "id": "9fc09846-ff45-40f1-b921-4d2bc404e1c7",
+      "id": "7d671baa-9366-473c-9a8a-cc3841984a69",
       "name": "Pause prüfen",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -105,7 +105,7 @@
       }
     },
     {
-      "id": "af634857-9452-4f78-b33e-d065c6456bf0",
+      "id": "91eca7e6-9836-4d09-ab19-ab7052f0f0ab",
       "name": "Pausiert?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -122,7 +122,7 @@
           "combinator": "and",
           "conditions": [
             {
-              "id": "aee13fa7-8f39-476e-b2e4-38ecd12a8fa0",
+              "id": "2eeeab04-de5d-4339-8306-ecfbfef84dd8",
               "leftValue": "={{ $json.pausiert }}",
               "rightValue": true,
               "operator": {
@@ -137,7 +137,7 @@
       }
     },
     {
-      "id": "964fce82-599b-43fb-99e6-b598291dc261",
+      "id": "fd267811-8122-46c2-bdde-daead6b03b21",
       "name": "Claude macht weiter",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -183,7 +183,7 @@
       }
     },
     {
-      "id": "bd5f0a20-ebe6-406b-bf1f-dc618cbc2520",
+      "id": "b07306e3-6450-4953-a971-d3e09c0f488a",
       "name": "Liste bauen",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -192,11 +192,11 @@
         100
       ],
       "parameters": {
-        "jsCode": "// Recherche-Agent, Schritt 3: Antwort auswerten und die E-Mail bauen.\nconst start = $('Ziel des Tages').first().json;\nconst status = $json.statusCode;\nconst antwort = $json.body || {};\nconst esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n\nlet fehler = '';\nlet daten = null;\nif (status !== 200) {\n  fehler = `Claude-Fehler (HTTP ${status}): ${esc(JSON.stringify(antwort).slice(0, 500))}`;\n} else if (antwort.stop_reason === 'refusal') {\n  fehler = 'Claude hat die Anfrage abgelehnt.';\n} else {\n  const text = (antwort.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('\\n');\n  const m = text.match(/<json>([\\s\\S]*?)<\\/json>/);\n  try { daten = JSON.parse(m ? m[1] : text); } catch (e) { fehler = 'Antwort war kein gültiges JSON.'; }\n}\n\nconst betriebe = (daten?.betriebe || []).filter((b) => b && b.name);\nbetriebe.sort((a, b) => (a.prioritaet || 3) - (b.prioritaet || 3));\n\n// Bereits vorgeschlagene Betriebe merken (nur bei echten Ausführungen gespeichert)\nconst speicher = $getWorkflowStaticData('global');\nspeicher.bekannt = [...(speicher.bekannt || []), ...betriebe.map((b) => `${b.name} (${b.ort})`)].slice(-500);\n\nconst s = daten?.strategie || {};\nconst zeilen = betriebe.map((b, i) => `\n  <tr style=\"border-top:1px solid #ddd;vertical-align:top\">\n    <td style=\"padding:8px\">${i + 1}<br><b style=\"color:${b.prioritaet === 1 ? '#c78a00' : '#666'}\">P${esc(b.prioritaet)}</b></td>\n    <td style=\"padding:8px\"><b>${esc(b.name)}</b><br>${esc(b.gewerk)} · ${esc(b.ort)}<br>\n      ${b.telefon ? `<a href=\"tel:${esc(String(b.telefon).replace(/[^+\\d]/g, ''))}\">${esc(b.telefon)}</a>` : '<i>Nummer selbst prüfen</i>'}<br>\n      ${b.website ? `<a href=\"${esc(b.website)}\">${esc(b.website)}</a>` : ''}</td>\n    <td style=\"padding:8px\"><b>Grund:</b> ${esc(b.grund)}<br><b>Einstieg:</b> „${esc(b.einstiegssatz)}“</td>\n  </tr>`).join('');\n\nconst html = `<div style=\"font-family:Arial,sans-serif;max-width:900px\">\n<h2 style=\"color:#14202e\">Anrufliste ${esc(start.datum)}: ${esc(start.ort)}</h2>\n<p style=\"color:#555\">Gewerke: ${esc(start.gewerke)} · ${betriebe.length} Betriebe</p>\n${fehler ? `<p style=\"color:#b42318\"><b>${fehler}</b></p>` : ''}\n<div style=\"background:#fff8e1;border-left:4px solid #ffc83d;padding:12px 16px;margin:16px 0\">\n<b>Strategie für heute</b><br>\n<b>Fokus:</b> ${esc(s.fokus)}<br><b>Warum:</b> ${esc(s.warum)}<br>\n<b>Beste Anrufzeit:</b> ${esc(s.beste_anrufzeit)}<br><b>Tipp:</b> ${esc(s.tipp)}</div>\n<table style=\"border-collapse:collapse;width:100%;font-size:14px\">${zeilen}</table>\n<p style=\"color:#888;font-size:12px;margin-top:20px\">Automatisch recherchiert. Angaben vor dem Anruf kurz prüfen.\nNur anrufen, wenn der Grund passt. Bei „Kein Interesse“ nicht mehr anrufen.</p></div>`;\n\nconst csv = ['Prioritaet;Betrieb;Gewerk;Ort;Telefon;Website;Grund;Einstiegssatz',\n  ...betriebe.map((b) => [b.prioritaet, b.name, b.gewerk, b.ort, b.telefon, b.website, b.grund, b.einstiegssatz]\n    .map((v) => `\"${String(v ?? '').replace(/\"/g, '\"\"')}\"`).join(';'))].join('\\n');\n\nreturn [{\n  json: { betreff: `Anrufliste ${start.datum}: ${start.ort} (${betriebe.length} Betriebe)`, html, anzahl: betriebe.length },\n  binary: { liste: { data: Buffer.from('﻿' + csv, 'utf8').toString('base64'), mimeType: 'text/csv', fileName: `anrufliste-${start.datum}.csv` } },\n}];\n"
+        "jsCode": "// Recherche-Agent, Schritt 3: Antwort auswerten und die E-Mail bauen.\nconst start = $('Ziel des Tages').first().json;\nconst status = $json.statusCode;\nconst antwort = $json.body || {};\nconst esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n\nlet fehler = '';\nlet daten = null;\nif (status !== 200) {\n  fehler = `Claude-Fehler (HTTP ${status}): ${esc(JSON.stringify(antwort).slice(0, 500))}`;\n} else if (antwort.stop_reason === 'refusal') {\n  fehler = 'Claude hat die Anfrage abgelehnt.';\n} else {\n  const text = (antwort.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('\\n');\n  const m = text.match(/<json>([\\s\\S]*?)<\\/json>/);\n  try { daten = JSON.parse(m ? m[1] : text); } catch (e) { fehler = 'Antwort war kein gültiges JSON.'; }\n}\n\nconst betriebe = (daten?.betriebe || []).filter((b) => b && b.name);\nbetriebe.sort((a, b) => (a.prioritaet || 3) - (b.prioritaet || 3));\n\n// Bereits vorgeschlagene Betriebe merken (nur bei echten Ausführungen gespeichert)\nconst speicher = $getWorkflowStaticData('global');\nspeicher.bekannt = [...(speicher.bekannt || []), ...betriebe.map((b) => `${b.name} (${b.ort})`)].slice(-500);\n\nconst s = daten?.strategie || {};\nconst zeilen = betriebe.map((b, i) => `\n  <tr style=\"border-top:1px solid #ddd;vertical-align:top\">\n    <td style=\"padding:8px\">${i + 1}<br><b style=\"color:${b.prioritaet === 1 ? '#c78a00' : '#666'}\">P${esc(b.prioritaet)}</b></td>\n    <td style=\"padding:8px\"><b>${esc(b.name)}</b><br>${esc(b.gewerk)} · ${esc(b.ort)}<br>\n      ${b.telefon ? `<a href=\"tel:${esc(String(b.telefon).replace(/[^+\\d]/g, ''))}\">${esc(b.telefon)}</a>` : '<i>Nummer selbst prüfen</i>'}<br>\n      ${b.email ? `${esc(b.email)}<br>` : ''}${b.website ? `<a href=\"${esc(b.website)}\">${esc(b.website)}</a><br>` : ''}\n      ${b.bewertung ? `⭐ ${esc(b.bewertung)}` : ''}${b.mitarbeiter_ca ? ` · ca. ${esc(b.mitarbeiter_ca)} Mitarbeiter` : ''}</td>\n    <td style=\"padding:8px\"><b>Grund:</b> ${esc(b.grund)}<br><b>Einstieg:</b> „${esc(b.einstiegssatz)}“</td>\n  </tr>`).join('');\n\nconst html = `<div style=\"font-family:Arial,sans-serif;max-width:900px\">\n<h2 style=\"color:#14202e\">Anrufliste ${esc(start.datum)}: ${esc(start.ort)}</h2>\n<p style=\"color:#555\">Gewerke: ${esc(start.gewerke)} · ${betriebe.length} Betriebe</p>\n${fehler ? `<p style=\"color:#b42318\"><b>${fehler}</b></p>` : ''}\n<div style=\"background:#fff8e1;border-left:4px solid #ffc83d;padding:12px 16px;margin:16px 0\">\n<b>Strategie für heute</b><br>\n<b>Fokus:</b> ${esc(s.fokus)}<br><b>Warum:</b> ${esc(s.warum)}<br>\n<b>Beste Anrufzeit:</b> ${esc(s.beste_anrufzeit)}<br><b>Tipp:</b> ${esc(s.tipp)}</div>\n<table style=\"border-collapse:collapse;width:100%;font-size:14px\">${zeilen}</table>\n<p style=\"color:#888;font-size:12px;margin-top:20px\">Automatisch recherchiert. Angaben vor dem Anruf kurz prüfen.\nNur anrufen, wenn der Grund passt. Bei „Kein Interesse“ nicht mehr anrufen.</p></div>`;\n\nconst csv = ['Prioritaet;Betrieb;Gewerk;Ort;Telefon;E-Mail;Website;Bewertung;Mitarbeiter;Grund;Einstiegssatz',\n  ...betriebe.map((b) => [b.prioritaet, b.name, b.gewerk, b.ort, b.telefon, b.email, b.website, b.bewertung, b.mitarbeiter_ca, b.grund, b.einstiegssatz]\n    .map((v) => `\"${String(v ?? '').replace(/\"/g, '\"\"')}\"`).join(';'))].join('\\n');\n\nreturn [{\n  json: { betreff: `Anrufliste ${start.datum}: ${start.ort} (${betriebe.length} Betriebe)`, html, anzahl: betriebe.length },\n  binary: { liste: { data: Buffer.from('﻿' + csv, 'utf8').toString('base64'), mimeType: 'text/csv', fileName: `anrufliste-${start.datum}.csv` } },\n}];\n"
       }
     },
     {
-      "id": "75cb9797-66b9-42bd-afd3-13a23c28d62c",
+      "id": "40ac0bd2-daa7-41a7-8508-12b0fed7542c",
       "name": "E-Mail an Abokor",
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,

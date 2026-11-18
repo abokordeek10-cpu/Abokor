@@ -29,7 +29,8 @@ const zeilen = betriebe.map((b, i) => `
     <td style="padding:8px">${i + 1}<br><b style="color:${b.prioritaet === 1 ? '#c78a00' : '#666'}">P${esc(b.prioritaet)}</b></td>
     <td style="padding:8px"><b>${esc(b.name)}</b><br>${esc(b.gewerk)} · ${esc(b.ort)}<br>
       ${b.telefon ? `<a href="tel:${esc(String(b.telefon).replace(/[^+\d]/g, ''))}">${esc(b.telefon)}</a>` : '<i>Nummer selbst prüfen</i>'}<br>
-      ${b.website ? `<a href="${esc(b.website)}">${esc(b.website)}</a>` : ''}</td>
+      ${b.email ? `${esc(b.email)}<br>` : ''}${b.website ? `<a href="${esc(b.website)}">${esc(b.website)}</a><br>` : ''}
+      ${b.bewertung ? `⭐ ${esc(b.bewertung)}` : ''}${b.mitarbeiter_ca ? ` · ca. ${esc(b.mitarbeiter_ca)} Mitarbeiter` : ''}</td>
     <td style="padding:8px"><b>Grund:</b> ${esc(b.grund)}<br><b>Einstieg:</b> „${esc(b.einstiegssatz)}“</td>
   </tr>`).join('');
 
@@ -45,8 +46,8 @@ ${fehler ? `<p style="color:#b42318"><b>${fehler}</b></p>` : ''}
 <p style="color:#888;font-size:12px;margin-top:20px">Automatisch recherchiert. Angaben vor dem Anruf kurz prüfen.
 Nur anrufen, wenn der Grund passt. Bei „Kein Interesse“ nicht mehr anrufen.</p></div>`;
 
-const csv = ['Prioritaet;Betrieb;Gewerk;Ort;Telefon;Website;Grund;Einstiegssatz',
-  ...betriebe.map((b) => [b.prioritaet, b.name, b.gewerk, b.ort, b.telefon, b.website, b.grund, b.einstiegssatz]
+const csv = ['Prioritaet;Betrieb;Gewerk;Ort;Telefon;E-Mail;Website;Bewertung;Mitarbeiter;Grund;Einstiegssatz',
+  ...betriebe.map((b) => [b.prioritaet, b.name, b.gewerk, b.ort, b.telefon, b.email, b.website, b.bewertung, b.mitarbeiter_ca, b.grund, b.einstiegssatz]
     .map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';'))].join('\n');
 
 return [{

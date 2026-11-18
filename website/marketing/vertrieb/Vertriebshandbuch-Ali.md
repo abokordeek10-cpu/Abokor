@@ -6,6 +6,27 @@ Ehrlichkeit vorweg: Wir haben noch keinen zahlenden Kunden. Viele Zahlen unten s
 
 ---
 
+## 0. Wen wir ansprechen (Zielkunden)
+
+Entscheidung vom 18.11.2026: **Nur gesunde, gut laufende Betriebe.** Wer sich das nicht leisten kann oder schlecht arbeitet, kostet uns Zeit und bringt keine guten Referenzen.
+
+**Muss alles erfüllt sein:**
+- eigene **Website** und geschäftliche **E-Mail-Adresse**
+- Google-Bewertung **mindestens 4,0 Sterne** bei **mindestens 10 Bewertungen**
+- ca. **3 bis 20 Mitarbeiter** (Team-Fotos, „Unser Team“, Stellenanzeigen, mehrere Firmenfahrzeuge)
+- aktiv: Website oder Bewertungen aus den letzten 12 Monaten
+
+**Nicht ansprechen:** Ein-Mann-Betriebe ohne Website oder E-Mail, schlechte Bewertungen (unter 4,0), große Ketten, Vermittlungsportale.
+
+**Besonders gute Zeichen (zuerst anrufen):**
+- **Stellenanzeige**, vor allem für Büro oder Monteure: Der Betrieb wächst und ist überlastet.
+- Bewertungen loben die Arbeit, beschweren sich aber über **Erreichbarkeit** („nie erreichbar“, „ruft nicht zurück“, „Angebot kam nie“). Das ist genau unser Thema.
+- Notdienst, viele verschiedene Leistungen.
+
+Die Liste vom Recherche-Agenten hält sich an diese Regeln.
+
+---
+
 ## 1. Was wir verkaufen
 
 **Versprechen:** „Du machst das Handwerk. Wir machen den Rest.“ Weniger Büroarbeit, mehr Zeit für Aufträge.
