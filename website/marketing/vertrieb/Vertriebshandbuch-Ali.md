@@ -130,6 +130,37 @@ Wir haben 20 KI-„Handwerker“ gefragt. Für sie war **15–99 € im Monat** 
 
 ---
 
+## 3b. Lohnt sich das für den Kunden? Wert-Rechnung mit 20 € pro Stunde
+
+Wir rechnen **immer mit 20 € pro Stunde** für die Büro-Zeit des Chefs, nicht mehr. Das ist ehrlich und für jeden Handwerker glaubwürdig. Ein Monat hat im Schnitt 4,33 Wochen.
+
+**Was kostet das Start-Paket im Monat?**
+- Ab dem 2. Jahr: **149 €** im Monat.
+- Im 1. Jahr mit Einrichtung (990 € ÷ 12 = 82,50 €): **231,50 €** im Monat.
+- Im 1. Jahr mit Pilotpreis (495 € ÷ 12 = 41,25 €): **190,25 €** im Monat.
+
+**Wie viel ist gesparte Büro-Zeit wert?** (Stunden pro Woche × 4,33 × 20 €)
+
+| Gesparte Stunden pro Woche | Wert pro Monat | Lohnt sich ab 2. Jahr (149 €)? | Lohnt sich im 1. Jahr (231,50 €)? |
+|---|---|---|---|
+| 1 Stunde | 86,60 € | nein | nein |
+| 2 Stunden | 173,20 € | ja | nein |
+| 3 Stunden | 259,80 € | ja | ja |
+| 4 Stunden | 346,40 € | ja | ja |
+| 5 Stunden | 433,00 € | ja | ja |
+
+**Merksatz:** Nimmt Abora dem Chef **ab 3 Stunden Büro pro Woche** ab, rechnet es sich **schon im ersten Jahr nur über die Zeit**. Mit Pilotpreis reichen gut 2 Stunden (190,25 € ÷ 86,60 € = 2,2 Stunden).
+
+**Dazu kommen Aufträge, die nicht mehr verloren gehen.** Das ist meist der größere Hebel, aber wir rechnen ihn nur mit den Zahlen des Kunden: „Wie viele Anfragen bleiben im Monat liegen? Was bleibt Ihnen an einem Auftrag ungefähr übrig?“ Schon **ein** zusätzlicher Auftrag im Quartal kann die Kosten allein decken. Nie selbst Zahlen erfinden, immer den Kunden schätzen lassen.
+
+**Wichtig:** Wie viele Stunden Abora wirklich spart, wissen wir erst nach den ersten Kunden. Bis dahin nur als Rechnung mit den Zahlen des Kunden zeigen, **nie als Versprechen**.
+
+**So im Gespräch:**
+1. „Wie viele Stunden sitzen Sie pro Woche im Büro?“
+2. „Wie viel davon ist Kundenkram: zurückrufen, Termine, Angebote hinterhertelefonieren?“
+3. „Wenn wir Ihnen davon 3 Stunden abnehmen, sind das mit 20 € pro Stunde rund 260 € im Monat. Wir kosten 149 €.“
+4. Dann erst den Einrichtungspreis nennen.
+
 ## 4. Die Konkurrenz (Stand 16.11.2026, Preise bitte selbst prüfen)
 
 | Anbieter | Was | Preis/Monat |
@@ -153,7 +184,7 @@ Wir haben 20 KI-„Handwerker“ gefragt. Für sie war **15–99 € im Monat** 
 
 | Einwand | Antwort |
 |---|---|
-| „Zu teuer.“ | „Wie viele Stunden sitzen Sie pro Woche im Büro? Wenn wir Ihnen davon 3 abnehmen, was ist Ihnen die Stunde wert?“ Dann zur Not den Pilotpreis nennen. |
+| „Zu teuer.“ | „Wie viele Stunden sitzen Sie pro Woche im Büro? Wenn wir Ihnen davon 3 abnehmen, sind das mit 20 € pro Stunde rund 260 € im Monat. Wir kosten 149 €.“ (Rechnung siehe Abschnitt 3b.) Dann zur Not den Pilotpreis nennen. |
 | „Ihr habt ja noch keine Kunden.“ | „Stimmt, das sagen wir auch offen. Deshalb gibt es für die ersten 3 Betriebe die halbe Einrichtung, und der Büro-Check kostet nichts.“ |
 | „Ich rufe abends eh zurück.“ | „Wie viele von denen haben bis dahin schon einen anderen gefragt?“ Nachfragen, nicht streiten. |
 | „Ich bin ausgebucht.“ | „Dann geht es nicht um mehr Kunden, sondern um weniger Büro. Was kostet Sie am meisten Zeit?“ |
