@@ -55,6 +55,12 @@ Laufen später auf einem **Server in Google Cloud**, vor allem **nachts** („Na
 
 **Sicherheit:** Skills können Code ausführen. Fremde Skills und Repos (AutoClip, OpenShorts …) immer erst ansehen, bevor sie mit euren API-Schlüsseln auf den Server kommen. API-Schlüssel nie in Dateien im Repository speichern.
 
+## Stand 19.11.2026 (Tag des ersten Streams)
+- **Fertig und getestet:** Clip-Agent (`clip-agent/`, Test mit Beispielvideo ohne KI: Schnitt, Untertitel, Freigabe-Seite laufen), Trend-Scout (`trend-scout/`, n8n-Workflow gebaut und Code mit Testdaten geprüft, echter Lauf mit Websuche steht aus).
+- **Fertig als Anweisung:** GTA-Coach, Stream-Manager, Chat-Bot.
+- **Für heute Abend:** `HEUTE-ABEND.md`.
+- **Noch offen:** KI-Chat-Bot, Watcher, Google-Cloud-Server.
+
 ## Reihenfolge
 1. **Diese Woche (vor Release):** Equipment kaufen, OBS einrichten, Teststream. GTA-Coach als Claude-Projekt anlegen.
 2. **Release-Woche:** streamen, Clips anfangs von Hand (OBS-Replay-Buffer oder Twitch-Clips), Trend-Scout per Hand fragen.
