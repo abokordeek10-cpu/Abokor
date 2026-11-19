@@ -37,7 +37,8 @@ export const FIRMA = {
   name: 'Abora Automation',
   domain: 'abora-automation.de',
   url: 'https://abora-automation.de',
-  slogan: 'Du machst das Handwerk. Wir machen den Rest.',
+  slogan: 'Weniger Büro. Mehr Feierabend.',
+  slogan2: 'Du machst das Handwerk. Wir machen den Rest.',
 };
 
 export const CTA_TEXT = 'Kostenloser Büro-Check';
