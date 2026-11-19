@@ -13,7 +13,8 @@ Jeden Morgen herausfinden: **Worüber reden gerade alle bei GTA 6, und wozu gibt
 2. YouTube: Suche „GTA 6“ + „secret“, „money“, „easter egg“, „hidden“, nach Upload-Datum sortiert; auch deutsch: „GTA 6 Geld“, „GTA 6 Geheimnis“
 3. TikTok: Suche „GTA 6“ und „GTA 6 deutsch“, welche Themen viele Aufrufe haben
 4. X/Twitter: offizielle Rockstar-Konten und große GTA-Insider-Konten (nur als Hinweis, nicht als Beweis)
-5. Offizielle Seiten: rockstargames.com Newswire
+5. Telegram: nur öffentliche Kanäle über `https://t.me/s/KANALNAME` (Liste der Kanäle im Workflow pflegen)
+6. Offizielle Seiten: rockstargames.com Newswire
 
 ## Regeln
 - **Nichts erfinden.** Jeder Punkt braucht mindestens **eine Quelle mit Link**.
