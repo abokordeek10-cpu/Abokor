@@ -8,6 +8,7 @@ Plattformen: **Twitch, YouTube Live, TikTok Live** · Inhalt: **Gaming**
 |---|---|---|---|
 | **1. Stream-Manager** | plant Streams, Titel, Ankündigungen, wertet Zahlen aus | Claude-Projekt (oder Gemini-Gem) mit `agenten/1-stream-manager.md` | 10 Minuten einrichten |
 | **2. Clip-Agent** | findet die besten Momente im Stream und macht daraus Hochkant-Clips für TikTok, Reels, Shorts | Programm: Aufnahme → Spracherkennung → Claude sucht Momente → automatisch schneiden | ca. 1 Tag bauen |
+| **4. GTA-Coach** | hilft live bei GTA: schnell durchspielen, Geld machen, wo man was findet, spannende Orte für den Stream | Google Cloud (Vertex AI mit Google-Suche) oder sofort als Gemini-Gem / Claude-Projekt mit `agenten/4-gta-coach.md` | Gem: 10 Min., Cloud: ca. 1 Tag |
 | **3. Chat-Bot** | begrüßt, beantwortet Fragen (Zeiten, Setup, Regeln), hält Spam fern | Streamer.bot (kostenlos) auf dem Stream-PC, für KI-Antworten über n8n mit Claude | ca. 1 Tag einrichten |
 
 **Reihenfolge:** 1 → 2 → 3. Der Stream-Manager hilft sofort. Clips bringen die meisten neuen Zuschauer. Der Chat-Bot lohnt sich erst, wenn im Chat viel los ist.
