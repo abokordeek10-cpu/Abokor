@@ -6,16 +6,17 @@ import { PREISE, CTA_LINK, CTA_TEXT } from '../config';
 const pakete = [
   {
     name: 'Start',
-    fuer: 'Der einfache Einstieg',
-    marke: 'Jetzt buchbar',
+    fuer: 'Keine Anfrage geht mehr verloren',
+    marke: 'Beliebter Einstieg',
     preis: PREISE.start,
     pilot: `Pilotpreis für die ersten 3 Betriebe: Einrichtung ${PREISE.start.pilot}`,
     enthalten: [
-      'Bausteine Anfragen und Vorsortieren',
-      'Anfragen per Telefon, WhatsApp, E-Mail und Website',
-      'Verpasster Anruf: Anrufer bekommt sofort eine Nachricht',
-      'Fertige Übersicht zu jeder Anfrage',
-      'Testphase und Einweisung',
+      'Kundenanfragen per Telefon, WhatsApp, E-Mail und Website',
+      'Verpasster Anruf: Anrufer bekommt sofort eine SMS',
+      'Sofortige erste Antwort, von dir vorher freigegeben',
+      'Vorsortiert nach Dringlichkeit, Zusammenfassung aufs Handy',
+      'Abora-Übersicht und Wochenbericht',
+      'Einrichtung, Testphase und Einweisung',
       'Betreuung, Server- und KI-Kosten inklusive',
     ],
     knopf: CTA_TEXT,
@@ -23,20 +24,32 @@ const pakete = [
   },
   {
     name: 'Business',
-    fuer: 'Für feste Abläufe',
-    marke: 'Auf Anfrage',
+    fuer: 'Anrufe, Termine und Angebote',
+    marke: 'Jetzt buchbar',
     preis: PREISE.business,
-    enthalten: ['Alles aus Start', 'Baustein Termine', 'Baustein Nachfassen', 'Anbindung an deinen Kalender'],
-    knopf: 'Angebot anfragen',
+    enthalten: [
+      'Alles aus Start',
+      'Telefonassistent, der Anrufe annimmt',
+      'Termine aus deinem Kalender, mit Erinnerung',
+      'Angebotsentwürfe aus Sprachnotiz und Fotos',
+      'Freigabe vor jedem Versand',
+    ],
+    knopf: CTA_TEXT,
     hervor: false,
   },
   {
     name: 'Komplett',
-    fuer: 'Der ganze Weg',
-    marke: 'Auf Anfrage',
+    fuer: 'Dein ganzes Kunden-Büro',
+    marke: 'Jetzt buchbar',
     preis: PREISE.komplett,
-    enthalten: ['Alle sechs Bausteine', 'Angebotsentwürfe und Bewertungen', 'Individuelle Anpassung an deinen Betrieb', 'Auf Wunsch KI-Telefonassistent, der Anrufe annimmt'],
-    knopf: 'Angebot anfragen',
+    enthalten: [
+      'Alles aus Business',
+      'Rechnungsentwürfe, auf Wunsch als E-Rechnung',
+      'Nachfassen offener Angebote',
+      'Zahlungserinnerungen und Bewertungsanfragen',
+      'Anbindung an deine Bürosoftware',
+    ],
+    knopf: CTA_TEXT,
     hervor: false,
   },
 ];
@@ -75,7 +88,7 @@ const pakete = [
   {PREISE.hinweis} <strong>Telefon und WhatsApp:</strong> Telefonnummer, SMS und Gesprächsminuten kosten je nach Nutzung extra.
   Entweder läuft die Nummer über uns, dann rechnen wir die Kosten offen mit ab, oder du schließt sie auf deinen eigenen Namen ab
   und zahlst direkt beim Anbieter. Wir verbinden sie nur mit deiner Automatisierung. Was das bei dir ungefähr kostet, rechnen wir
-  im Büro-Check gemeinsam aus. Business und Komplett bieten wir als individuelles Projekt an.
+  im Büro-Check gemeinsam aus. Jedes Paket enthält einen festen Nutzungsumfang für Telefon und KI. Was darüber hinausgeht, rechnen wir nur nach deiner Zustimmung ab.
 </p>
 
 <style>

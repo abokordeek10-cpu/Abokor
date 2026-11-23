@@ -1,5 +1,5 @@
 ---
-// Die sechs Bausteine als nummerierte Karten, mit ehrlichem Stand je Baustein.
+// Die sechs Bausteine als nummerierte Karten, mit dem Paket, ab dem sie enthalten sind.
 import Icon from './Icon.astro';
 import { BAUSTEINE } from '../inhalte';
 ---
@@ -14,18 +14,15 @@ import { BAUSTEINE } from '../inhalte';
         </div>
         <h3><a href={`/leistungen#${b.id}`}>{b.titel}</a></h3>
         <p>{b.kurz}</p>
-        {b.stand === 'start' ? (
-          <span class="etikett etikett--gelb">Im Start-Paket</span>
-        ) : (
-          <span class="etikett">Live in der Demo</span>
-        )}
+        <span class:list={['etikett', { 'etikett--gelb': b.paket === 'Start' }]}>Ab Paket {b.paket}</span>
       </li>
     ))
   }
 </ol>
 <p class="bausteine__hinweis">
-  <strong>So kannst du es prüfen:</strong> Alle sechs Bausteine zeigen wir dir im kostenlosen Büro-Check live in unserer
-  Demo, mit echter KI und einem Beispiel aus deinem Gewerk. „Im Start-Paket“ ist das, womit die meisten Betriebe anfangen.
+  <strong>So kannst du es prüfen:</strong> Im kostenlosen Büro-Check zeigen wir dir alles live, mit echter KI und einem
+  Beispiel aus deinem Gewerk. Du entscheidest, was automatisch rausgeht. Angebote, Rechnungen und Erinnerungen gehen nur
+  nach deiner Freigabe raus.
 </p>
 
 <style>

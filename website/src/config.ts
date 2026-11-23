@@ -24,9 +24,9 @@ export const KONTAKT = {
 };
 
 export const PREISE = {
-  start: { aufbau: '990 € einmalig', monat: '149 € / Monat', aufbauZahl: '990 €', monatZahl: '149 €', pilot: '495 €' },
-  business: { aufbau: '1.990 € einmalig', monat: '249 € / Monat', aufbauZahl: '1.990 €', monatZahl: '249 €' },
-  komplett: { aufbau: 'ab 3.990 € einmalig', monat: 'ab 399 € / Monat', aufbauZahl: 'ab 3.990 €', monatZahl: 'ab 399 €' },
+  start: { aufbau: '799 € einmalig', monat: '299 € / Monat', aufbauZahl: '799 €', monatZahl: '299 €', pilot: '399 €' },
+  business: { aufbau: '1.499 € einmalig', monat: '599 € / Monat', aufbauZahl: '1.499 €', monatZahl: '599 €' },
+  komplett: { aufbau: '2.999 € einmalig', monat: '999 € / Monat', aufbauZahl: '2.999 €', monatZahl: '999 €' },
   hinweis: 'Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.',
 };
 

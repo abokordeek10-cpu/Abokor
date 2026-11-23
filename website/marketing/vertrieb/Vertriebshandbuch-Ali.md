@@ -33,20 +33,22 @@ Die Liste vom Recherche-Agenten hält sich an diese Regeln.
 
 **Einstieg für jeden Kunden:** der **kostenlose Büro-Check** (ca. 20 Minuten). Wir finden heraus, wo im Büro die meiste Zeit draufgeht, und zeigen an einem Beispiel aus seinem Gewerk, wie wir das automatisieren. Website: https://abora-automation.de/kontakt
 
-**Die sechs Bausteine**
+**Die sechs Bausteine** (Stand 23.11.2026: so stehen sie auf der Website und werden bis zum ersten Kunden fertig gebaut)
 
-| Nr. | Baustein | Stand heute |
+| Nr. | Baustein | Ab Paket |
 |---|---|---|
-| 1 | Anfragen: Telefon, WhatsApp, E-Mail, Website; verpasster Anruf → Anrufer bekommt sofort SMS/WhatsApp | im Start-Paket |
-| 2 | Vorsortieren: Anliegen, Ort, Dringlichkeit, Fotos sammeln | im Start-Paket |
-| 3 | Termine: freie Zeiten anbieten, buchen, Erinnerung am Vortag | live in der Demo |
-| 4 | Angebotsentwürfe aus Sprachnotiz (Freigabe bleibt beim Chef) | live in der Demo |
-| 5 | Offene Angebote nachfassen | live in der Demo |
-| 6 | Zahlungserinnerung und Bitte um Bewertung | live in der Demo |
+| 1 | Kundenanfragen: Telefon, WhatsApp, E-Mail, Website; verpasster Anruf → sofort SMS; erste Antwort (vorher freigegeben); vorsortiert nach Dringlichkeit | Start |
+| 2 | Telefonassistent: nimmt Anrufe an, sagt offen, dass er ein automatischer Assistent ist, fasst zusammen | Business |
+| 3 | Termine: freie Zeiten aus dem Kalender, Buchung, Erinnerung am Vortag | Business |
+| 4 | Angebote (Entwurf aus Sprachnotiz und Fotos, PDF) und Rechnungen (Entwurf, auf Wunsch E-Rechnung; Rechnungen erst im Komplett-Paket) | Business |
+| 5 | Nachfassen offener Angebote, Zahlungserinnerungen, Bewertungsanfragen | Komplett |
+| 6 | Abora-Übersicht (alle Vorgänge und Freigaben, Wochenbericht); Anbindung an Bürosoftware im Komplett-Paket | Start |
 
-**Alle sechs kannst du in der Live-Demo mit echter KI zeigen.** In der Demo gibt es den Knopf „📞 Verpasster Anruf“: Damit zeigst du, was ein Anrufer bekommt, wenn der Chef nicht rangeht.
+**Regel für Freigaben:** Feste erste Antworten, die der Kunde vorher einmal freigegeben hat, gehen automatisch raus. Angebote, Rechnungen und Erinnerungen gehen **nur nach seiner Freigabe** raus.
 
-Ehrlich bleiben: Bei einem echten Betrieb ist noch keiner der Bausteine im Alltag gelaufen, wir haben ja noch keine Kunden. Die Einrichtung (Anbindung an seine Nummer, sein E-Mail-Postfach, seinen Kalender, seine Preise) ist die Arbeit, die die Einrichtungsgebühr bezahlt. Also nie sagen „läuft schon bei vielen Betrieben“.
+**In der Live-Demo zeigst du den Ablauf mit echter KI.** In der Demo gibt es den Knopf „📞 Verpasster Anruf“: Damit zeigst du, was ein Anrufer bekommt, wenn der Chef nicht rangeht.
+
+Ehrlich bleiben: Wir haben noch keine Kunden, also ist noch nichts bei einem echten Betrieb im Alltag gelaufen. Die Einrichtung (Anbindung an seine Nummer, sein E-Mail-Postfach, seinen Kalender, seine Preise) ist die Arbeit, die die Einrichtungsgebühr bezahlt. Also nie sagen „läuft schon bei vielen Betrieben“.
 
 ### Telefon und WhatsApp: Kosten offen erklären
 Telefonnummer, SMS und Gesprächsminuten hängen von der Nutzung ab. Dem Kunden zwei Wege anbieten:
@@ -63,26 +65,28 @@ Auf Wunsch bauen wir einen **KI-Telefonassistenten**, der Anrufe annimmt (auf Ba
 
 ---
 
-## 2. Die Preise
+## 2. Die Preise (ab 23.11.2026)
 
-| Paket | Einrichtung (einmalig) | Monatlich | Was drin ist | Status |
-|---|---|---|---|---|
-| **Start** | 990 € (**Pilot: 495 €**) | 149 € | Bausteine 1 + 2, Website und E-Mail, Testphase, Einweisung, Betreuung, Server- und KI-Kosten | **jetzt buchbar** |
-| **Business** | 1.990 € | 249 € | Start + Termine + Nachfassen, Kalender | auf Anfrage |
-| **Komplett** | ab 3.990 € | ab 399 € | alle 6 Bausteine, individuell | auf Anfrage |
+| Paket | Einrichtung (einmalig) | Monatlich | Was drin ist |
+|---|---|---|---|
+| **Start** | 799 € (**Pilot: 399 €**) | 299 € | Baustein 1 und 6 (Übersicht), Einrichtung, Testphase, Einweisung, Betreuung, Server- und KI-Kosten |
+| **Business** | 1.499 € | 599 € | Start + Telefonassistent, Termine, Angebotsentwürfe |
+| **Komplett** | 2.999 € | 999 € | Business + Rechnungen, Nachfassen, Zahlungserinnerungen, Bewertungen, Anbindung an Bürosoftware |
 
 - Keine Umsatzsteuer (Kleinunternehmer, § 19 UStG). Die Preise sind Endpreise.
 - Betreuung **monatlich kündbar**.
-- **Pilotangebot:** Die ersten 3 Betriebe zahlen die halbe Einrichtung. Dafür geben sie ehrliches Feedback, und wir dürfen sie als Referenz nennen, wenn sie zufrieden sind.
+- Jedes Paket hat einen **festen Nutzungsumfang** für Telefon und KI. Mehr nur nach Zustimmung des Kunden.
+- **Pilotangebot:** Die ersten 3 Betriebe zahlen die halbe Einrichtung beim Start-Paket. Dafür geben sie ehrliches Feedback, und wir dürfen sie als Referenz nennen, wenn sie zufrieden sind.
 
 ### Was du selbst entscheiden darfst
-- Pilotpreis 495 € anbieten, solange noch Pilotplätze frei sind (insgesamt 3).
-- Business und Komplett: nur „Angebot nach dem Büro-Check“, Preis mit Abokor abstimmen.
+- Pilotpreis 399 € anbieten, solange noch Pilotplätze frei sind (insgesamt 3).
 - **Andere Rabatte nur nach Absprache mit Abokor.**
 
 ---
 
 ## 3. Wie die Preise kalkuliert sind
+
+> **Hinweis 23.11.2026:** Die Rechnungen in diesem Abschnitt stammen noch aus der Zeit mit 990 € + 149 €. Die Kosten pro Kunde gelten weiter als Schätzung; mit 299 € bleibt pro Start-Kunde entsprechend mehr. Telefonassistent (Business) kostet pro Gesprächsminute und muss mit dem ersten Kunden gemessen werden.
 
 ### Woher die Preise kommen
 Die Preise wurden **am Anfang festgelegt**, nach einer Marktrecherche zu Agenturpreisen (ca. 400–3.000 € Einrichtung und 80–400 €/Monat für ähnliche Leistungen). Es gab **keine genaue Kostenrechnung**. Die haben wir am 16.11. nachgeholt (Ergebnis unten). Abokor hat entschieden, die Preise vorerst zu behalten.
@@ -130,35 +134,30 @@ Wir haben 20 KI-„Handwerker“ gefragt. Für sie war **15–99 € im Monat** 
 
 ---
 
-## 3b. Lohnt sich das für den Kunden? Wert-Rechnung mit 20 € pro Stunde
+## 3b. Lohnt sich das für den Kunden? Wert-Rechnung mit einer Büro-Aushilfe (ab 23.11.2026)
 
-Wir rechnen **immer mit 20 € pro Stunde** für die Büro-Zeit des Chefs, nicht mehr. Das ist ehrlich und für jeden Handwerker glaubwürdig. Ein Monat hat im Schnitt 4,33 Wochen.
+Wir vergleichen mit dem, was eine **Aushilfe fürs Büro zum Mindestlohn** den Betrieb kostet: Mindestlohn ab 1.1.2027 **14,60 €** plus rund 30 % Abgaben beim Minijob = **ca. 19 € pro Stunde**. (Die genauen Abgaben bei Bedarf vom Steuerberater bestätigen lassen.) Ein Monat hat im Schnitt 4,33 Wochen, eine Stunde pro Woche ist also ca. **82 € im Monat** wert.
 
-**Was kostet das Start-Paket im Monat?**
-- Ab dem 2. Jahr: **149 €** im Monat.
-- Im 1. Jahr mit Einrichtung (990 € ÷ 12 = 82,50 €): **231,50 €** im Monat.
-- Im 1. Jahr mit Pilotpreis (495 € ÷ 12 = 41,25 €): **190,25 €** im Monat.
+**Start (299 €/Monat, Einrichtung 799 €, Pilot 399 €):**
 
-**Wie viel ist gesparte Büro-Zeit wert?** (Stunden pro Woche × 4,33 × 20 €)
+| Gesparte Stunden pro Woche | Wert pro Monat | Nach 299 € bleiben | Einrichtung 799 € drin nach | Pilot 399 € drin nach |
+|---|---:|---:|---|---|
+| 3 | 247 € | −52 € | lohnt sich über die Zeit allein nicht | – |
+| 4 | 329 € | 30 € | ca. 27 Monaten | ca. 13 Monaten |
+| 5 | 411 € | 112 € | ca. 7 Monaten | ca. 4 Monaten |
+| 6 | 494 € | 195 € | ca. 4 Monaten | ca. 2 Monaten |
+| 8 | 658 € | 359 € | ca. 2 Monaten | ca. 1 Monat |
 
-| Gesparte Stunden pro Woche | Wert pro Monat | Lohnt sich ab 2. Jahr (149 €)? | Lohnt sich im 1. Jahr (231,50 €)? |
-|---|---|---|---|
-| 1 Stunde | 86,60 € | nein | nein |
-| 2 Stunden | 173,20 € | ja | nein |
-| 3 Stunden | 259,80 € | ja | ja |
-| 4 Stunden | 346,40 € | ja | ja |
-| 5 Stunden | 433,00 € | ja | ja |
+**Business (599 €)** lohnt sich über die Zeit allein ab ca. **7,5 Stunden pro Woche**, **Komplett (999 €)** ab ca. **12 Stunden pro Woche**. Zum Vergleich: Ein Minijob fürs Büro ist 2027 auf ca. 633 € im Monat begrenzt, also etwa 10 Stunden pro Woche.
 
-**Merksatz:** Nimmt Abora dem Chef **ab 3 Stunden Büro pro Woche** ab, rechnet es sich **schon im ersten Jahr nur über die Zeit**. Mit Pilotpreis reichen gut 2 Stunden (190,25 € ÷ 86,60 € = 2,2 Stunden).
-
-**Dazu kommen Aufträge, die nicht mehr verloren gehen.** Das ist meist der größere Hebel, aber wir rechnen ihn nur mit den Zahlen des Kunden: „Wie viele Anfragen bleiben im Monat liegen? Was bleibt Ihnen an einem Auftrag ungefähr übrig?“ Schon **ein** zusätzlicher Auftrag im Quartal kann die Kosten allein decken. Nie selbst Zahlen erfinden, immer den Kunden schätzen lassen.
+**Ehrliche Einordnung:** Über die gesparte Zeit allein rechnet sich Start ab etwa **5 Stunden Kundenkram pro Woche**. Das stärkere Argument sind **Aufträge, die nicht mehr verloren gehen**: „Wie viele Anfragen bleiben im Monat liegen? Was bleibt Ihnen an einem Auftrag ungefähr übrig?“ Schon **ein** zusätzlicher Auftrag im Monat kann die 299 € allein decken. Nie selbst Zahlen erfinden, immer den Kunden schätzen lassen.
 
 **Wichtig:** Wie viele Stunden Abora wirklich spart, wissen wir erst nach den ersten Kunden. Bis dahin nur als Rechnung mit den Zahlen des Kunden zeigen, **nie als Versprechen**.
 
 **So im Gespräch:**
-1. „Wie viele Stunden sitzen Sie pro Woche im Büro?“
-2. „Wie viel davon ist Kundenkram: zurückrufen, Termine, Angebote hinterhertelefonieren?“
-3. „Wenn wir Ihnen davon 3 Stunden abnehmen, sind das mit 20 € pro Stunde rund 260 € im Monat. Wir kosten 149 €.“
+1. „Wie viele Stunden sitzen Sie oder Ihre Frau/Bürokraft pro Woche am Kundenkram: zurückrufen, Termine, Angebote, hinterhertelefonieren?“
+2. „Wie viele Anfragen bleiben im Monat liegen, und was ist so ein Auftrag wert?“
+3. „Eine Aushilfe dafür kostet Sie mit Abgaben rund 19 € die Stunde. Bei 5 Stunden pro Woche sind das über 400 € im Monat. Wir kosten 299 €, und wir rufen auch abends zurück.“
 4. Dann erst den Einrichtungspreis nennen.
 
 ## 4. Die Konkurrenz (Stand 16.11.2026, Preise bitte selbst prüfen)
@@ -184,7 +183,7 @@ Wir rechnen **immer mit 20 € pro Stunde** für die Büro-Zeit des Chefs, nicht
 
 | Einwand | Antwort |
 |---|---|
-| „Zu teuer.“ | „Wie viele Stunden sitzen Sie pro Woche im Büro? Wenn wir Ihnen davon 3 abnehmen, sind das mit 20 € pro Stunde rund 260 € im Monat. Wir kosten 149 €.“ (Rechnung siehe Abschnitt 3b.) Dann zur Not den Pilotpreis nennen. |
+| „Zu teuer.“ | „Wie viele Stunden gehen pro Woche für Kundenkram drauf? Eine Aushilfe dafür kostet Sie rund 19 € die Stunde. Bei 5 Stunden sind das über 400 € im Monat, wir kosten 299 €.“ (Rechnung siehe Abschnitt 3b.) Dann zur Not den Pilotpreis nennen. |
 | „Ihr habt ja noch keine Kunden.“ | „Stimmt, das sagen wir auch offen. Deshalb gibt es für die ersten 3 Betriebe die halbe Einrichtung, und der Büro-Check kostet nichts.“ |
 | „Ich rufe abends eh zurück.“ | „Wie viele von denen haben bis dahin schon einen anderen gefragt?“ Nachfragen, nicht streiten. |
 | „Ich bin ausgebucht.“ | „Dann geht es nicht um mehr Kunden, sondern um weniger Büro. Was kostet Sie am meisten Zeit?“ |
