@@ -1,5 +1,8 @@
 # Abora Automation: Strategie für die ersten 90 Tage
 
+> **Update 23.11.2026:** Ali Reza Ansari ist ausgestiegen. Abokor macht Produkt, Content **und** Vertrieb allein. Die Rollen-Tabelle unten ist überholt; die 20 Erkundungsgespräche führt jetzt Abokor selbst (Leitfaden und Handbuch gelten weiter).
+
+
 Stand: 16. November 2026 · Zwei Gründer · 0 zahlende Kunden · 0 Follower, die zählen
 
 ## 1. Das eine Ziel
