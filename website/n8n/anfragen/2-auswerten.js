@@ -26,11 +26,11 @@ const zeilen = [
   ['E-Mail', a.email ? `<a href="mailto:${esc(a.email)}">${esc(a.email)}</a>` : null],
   ['Rückruf', a.rueckruf], ['Kanal', a.kanal],
 ].filter(([, v]) => v);
-const html = `<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.5">
-<p style="font-size:17px"><strong>${esc(d.zusammenfassung)}</strong></p>
-<table cellpadding="4">${zeilen.map(([k, v]) => `<tr><td style="color:#666">${k}</td><td>${k === 'Telefon' || k === 'E-Mail' ? v : esc(v)}</td></tr>`).join('')}</table>
+const html = `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.45">
+<p style="font-size:14px;margin:0 0 8px"><strong>${esc(d.zusammenfassung)}</strong></p>
+<table cellpadding="2" style="font-size:13px">${zeilen.map(([k, v]) => `<tr><td style="color:#666">${k}</td><td>${k === 'Telefon' || k === 'E-Mail' ? v : esc(v)}</td></tr>`).join('')}</table>
 ${d.fehlende_angaben.length ? `<p><strong>Fehlt noch:</strong> ${esc(d.fehlende_angaben.join(', '))}</p>` : ''}
-<p style="color:#666"><strong>Originaltext:</strong><br>${esc(a.nachricht || '(kein Text)').replace(/\n/g, '<br>')}</p>
+<p style="color:#666;font-size:13px"><strong>Originaltext:</strong><br>${esc(a.nachricht || '(kein Text)').replace(/\n/g, '<br>')}</p>
 </div>`;
 
 const erst = betrieb.erstantwort || {};

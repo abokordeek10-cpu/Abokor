@@ -2,7 +2,7 @@
   "name": "Abora Anfragen-Eingang",
   "nodes": [
     {
-      "id": "15e5a8c0-5870-4638-a349-2fa8c5c2ec15",
+      "id": "8ac42a9d-1c15-4bb9-afa4-08a14c03e1e1",
       "name": "Formular (Website)",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -18,10 +18,10 @@
           "allowedOrigins": "https://abora-automation.de,https://www.abora-automation.de"
         }
       },
-      "webhookId": "6ee29429-b334-4c8a-b681-a9543d10f97b"
+      "webhookId": "7639a134-7224-4971-b51b-65e7166ce4fb"
     },
     {
-      "id": "3460e9c2-6b76-46f5-800a-4eed6d6ad44c",
+      "id": "31ab9443-5d23-45e4-b0ed-688a4248e0fb",
       "name": "Anfrage annehmen",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "ce681f56-d25e-468c-8fbe-0903d96dceb8",
+      "id": "fa4f0358-336c-4331-ae59-c25ca7b74643",
       "name": "Claude sortiert vor",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -80,7 +80,7 @@
       }
     },
     {
-      "id": "0e9ac800-33ba-4cfe-8ae9-49dba6f79638",
+      "id": "2ff9876c-2822-4107-bddc-cfdf068d94a5",
       "name": "Auswerten",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -89,11 +89,11 @@
         200
       ],
       "parameters": {
-        "jsCode": "// ─────────────────────────────────────────────────────────────\n//  Abora Anfragen-Eingang – 2. Ergebnis auswerten, Nachrichten bauen\n// ─────────────────────────────────────────────────────────────\nconst r = $input.first().json;\nconst { anfrage: a, betrieb } = $('Anfrage annehmen').first().json;\n\nlet d = null;\nif (r.statusCode === 200 && r.body && r.body.stop_reason !== 'refusal') {\n  try {\n    d = JSON.parse((r.body.content || []).filter((c) => c.type === 'text').map((c) => c.text).join(''));\n  } catch (e) { d = null; }\n}\n// Falls Claude nicht antwortet: Anfrage trotzdem weitergeben, nur ohne Einordnung.\nd = d || { dringlichkeit: 'normal', anliegen: 'Neue Anfrage', ort: null,\n  zusammenfassung: 'Automatische Einordnung nicht verfügbar. Originaltext siehe unten.', fehlende_angaben: [] };\n\nconst symbol = { notfall: '🔴 NOTFALL', hoch: '🟠 dringend', normal: '🟢 normal', niedrig: '⚪ kann warten' };\nconst esc = (t) => String(t ?? '').replace(/[&<>\"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[c]));\nconst vorname = (a.name || '').split(/\\s+/)[0] || '';\nconst ersetze = (t) => t.replace('{vorname}', vorname).replace('{rueckruf}', (a.rueckruf || 'zeitnah').replace(/\\s*\\(.*\\)/, '').toLowerCase()).replace('{telefon}', a.telefon || 'deiner Nummer');\n\nconst zeilen = [\n  ['Dringlichkeit', symbol[d.dringlichkeit] || d.dringlichkeit],\n  ['Anliegen', d.anliegen], ['Ort', d.ort], ['Name', a.name], ['Firma', a.firma], ['Gewerk', a.gewerk_kunde],\n  ['Telefon', a.telefon ? `<a href=\"tel:${esc(a.telefon)}\">${esc(a.telefon)}</a>` : null],\n  ['E-Mail', a.email ? `<a href=\"mailto:${esc(a.email)}\">${esc(a.email)}</a>` : null],\n  ['Rückruf', a.rueckruf], ['Kanal', a.kanal],\n].filter(([, v]) => v);\nconst html = `<div style=\"font-family:Arial,sans-serif;font-size:15px;line-height:1.5\">\n<p style=\"font-size:17px\"><strong>${esc(d.zusammenfassung)}</strong></p>\n<table cellpadding=\"4\">${zeilen.map(([k, v]) => `<tr><td style=\"color:#666\">${k}</td><td>${k === 'Telefon' || k === 'E-Mail' ? v : esc(v)}</td></tr>`).join('')}</table>\n${d.fehlende_angaben.length ? `<p><strong>Fehlt noch:</strong> ${esc(d.fehlende_angaben.join(', '))}</p>` : ''}\n<p style=\"color:#666\"><strong>Originaltext:</strong><br>${esc(a.nachricht || '(kein Text)').replace(/\\n/g, '<br>')}</p>\n</div>`;\n\nconst erst = betrieb.erstantwort || {};\nconst erstantwortSenden = Boolean(erst.aktiv && a.email && /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(a.email));\n\nreturn [{\n  json: {\n    // Zeile für die Tabelle „abora_anfragen“ (Grundlage für Übersicht und Dashboard)\n    zeile: {\n      betrieb_id: a.betrieb_id, kanal: a.kanal, status: 'neu', dringlichkeit: d.dringlichkeit,\n      anliegen: d.anliegen || '', ort: d.ort || '', name: a.name, telefon: a.telefon, email: a.email,\n      firma: a.firma, zusammenfassung: d.zusammenfassung, fehlende_angaben: d.fehlende_angaben.join(', '),\n      nachricht: a.nachricht, erstantwort_gesendet: erstantwortSenden,\n    },\n    chef: {\n      an: betrieb.chefEmail,\n      von: betrieb.absender,\n      betreff: `${symbol[d.dringlichkeit] || ''} · ${d.anliegen || 'Neue Anfrage'}${a.name ? ' – ' + a.name : ''}`,\n      html,\n      antwortAn: a.email || betrieb.chefEmail,\n    },\n    kunde: erstantwortSenden ? { an: a.email, von: betrieb.absender, antwortAn: betrieb.chefEmail, betreff: erst.betreff, text: ersetze(erst.text) } : null,\n  },\n}];\n"
+        "jsCode": "// ─────────────────────────────────────────────────────────────\n//  Abora Anfragen-Eingang – 2. Ergebnis auswerten, Nachrichten bauen\n// ─────────────────────────────────────────────────────────────\nconst r = $input.first().json;\nconst { anfrage: a, betrieb } = $('Anfrage annehmen').first().json;\n\nlet d = null;\nif (r.statusCode === 200 && r.body && r.body.stop_reason !== 'refusal') {\n  try {\n    d = JSON.parse((r.body.content || []).filter((c) => c.type === 'text').map((c) => c.text).join(''));\n  } catch (e) { d = null; }\n}\n// Falls Claude nicht antwortet: Anfrage trotzdem weitergeben, nur ohne Einordnung.\nd = d || { dringlichkeit: 'normal', anliegen: 'Neue Anfrage', ort: null,\n  zusammenfassung: 'Automatische Einordnung nicht verfügbar. Originaltext siehe unten.', fehlende_angaben: [] };\n\nconst symbol = { notfall: '🔴 NOTFALL', hoch: '🟠 dringend', normal: '🟢 normal', niedrig: '⚪ kann warten' };\nconst esc = (t) => String(t ?? '').replace(/[&<>\"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[c]));\nconst vorname = (a.name || '').split(/\\s+/)[0] || '';\nconst ersetze = (t) => t.replace('{vorname}', vorname).replace('{rueckruf}', (a.rueckruf || 'zeitnah').replace(/\\s*\\(.*\\)/, '').toLowerCase()).replace('{telefon}', a.telefon || 'deiner Nummer');\n\nconst zeilen = [\n  ['Dringlichkeit', symbol[d.dringlichkeit] || d.dringlichkeit],\n  ['Anliegen', d.anliegen], ['Ort', d.ort], ['Name', a.name], ['Firma', a.firma], ['Gewerk', a.gewerk_kunde],\n  ['Telefon', a.telefon ? `<a href=\"tel:${esc(a.telefon)}\">${esc(a.telefon)}</a>` : null],\n  ['E-Mail', a.email ? `<a href=\"mailto:${esc(a.email)}\">${esc(a.email)}</a>` : null],\n  ['Rückruf', a.rueckruf], ['Kanal', a.kanal],\n].filter(([, v]) => v);\nconst html = `<div style=\"font-family:Arial,sans-serif;font-size:14px;line-height:1.45\">\n<p style=\"font-size:14px;margin:0 0 8px\"><strong>${esc(d.zusammenfassung)}</strong></p>\n<table cellpadding=\"2\" style=\"font-size:13px\">${zeilen.map(([k, v]) => `<tr><td style=\"color:#666\">${k}</td><td>${k === 'Telefon' || k === 'E-Mail' ? v : esc(v)}</td></tr>`).join('')}</table>\n${d.fehlende_angaben.length ? `<p><strong>Fehlt noch:</strong> ${esc(d.fehlende_angaben.join(', '))}</p>` : ''}\n<p style=\"color:#666;font-size:13px\"><strong>Originaltext:</strong><br>${esc(a.nachricht || '(kein Text)').replace(/\\n/g, '<br>')}</p>\n</div>`;\n\nconst erst = betrieb.erstantwort || {};\nconst erstantwortSenden = Boolean(erst.aktiv && a.email && /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(a.email));\n\nreturn [{\n  json: {\n    // Zeile für die Tabelle „abora_anfragen“ (Grundlage für Übersicht und Dashboard)\n    zeile: {\n      betrieb_id: a.betrieb_id, kanal: a.kanal, status: 'neu', dringlichkeit: d.dringlichkeit,\n      anliegen: d.anliegen || '', ort: d.ort || '', name: a.name, telefon: a.telefon, email: a.email,\n      firma: a.firma, zusammenfassung: d.zusammenfassung, fehlende_angaben: d.fehlende_angaben.join(', '),\n      nachricht: a.nachricht, erstantwort_gesendet: erstantwortSenden,\n    },\n    chef: {\n      an: betrieb.chefEmail,\n      von: betrieb.absender,\n      betreff: `${symbol[d.dringlichkeit] || ''} · ${d.anliegen || 'Neue Anfrage'}${a.name ? ' – ' + a.name : ''}`,\n      html,\n      antwortAn: a.email || betrieb.chefEmail,\n    },\n    kunde: erstantwortSenden ? { an: a.email, von: betrieb.absender, antwortAn: betrieb.chefEmail, betreff: erst.betreff, text: ersetze(erst.text) } : null,\n  },\n}];\n"
       }
     },
     {
-      "id": "a46284d6-1331-4d8f-9e16-37a8e46a22be",
+      "id": "7694c955-ef56-42f0-9da6-8cdb03e3aedb",
       "name": "Zeile",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -106,7 +106,7 @@
       }
     },
     {
-      "id": "a1b4f46d-3a1a-4b08-81e3-93dc7b7252bf",
+      "id": "d9a59f53-c421-46cb-95b2-73160df6a61f",
       "name": "In Tabelle speichern",
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
@@ -133,7 +133,7 @@
       "onError": "continueRegularOutput"
     },
     {
-      "id": "c4c069fe-55f8-40db-bb51-1fce3e89bf42",
+      "id": "bb200151-e6de-4e48-b990-e337b37ab0d9",
       "name": "E-Mail an Chef",
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
@@ -154,7 +154,7 @@
       }
     },
     {
-      "id": "20edaf11-9abb-4d8d-a3c9-fa479e9c5931",
+      "id": "1ff773fd-ba7b-4fba-aca2-b1d6e2193751",
       "name": "Erstantwort?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -171,7 +171,7 @@
           "combinator": "and",
           "conditions": [
             {
-              "id": "db18d95f-476d-4852-b4eb-1775012a9a59",
+              "id": "cbda8013-7d17-41c9-81e2-e10064436ea9",
               "leftValue": "={{ !!$json.kunde }}",
               "rightValue": true,
               "operator": {
@@ -186,7 +186,7 @@
       }
     },
     {
-      "id": "1d6bc520-d1ff-49ec-9168-aa6e85cd3372",
+      "id": "c32bf0a6-675c-42d3-9c5d-19f2d7b59d1a",
       "name": "Erstantwort an Kunden",
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
@@ -207,7 +207,7 @@
       }
     },
     {
-      "id": "41e17a99-64b6-4024-9fda-a4e3a1200c54",
+      "id": "0981bbc1-5586-4191-af89-be5335ab0ad8",
       "name": "Tabelle einmal anlegen",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
@@ -218,7 +218,7 @@
       "parameters": {}
     },
     {
-      "id": "33b882c3-53cb-4ac0-b7c1-e6b3c9d47a8b",
+      "id": "5485eef8-487b-466b-9ac6-624bc0ca1f9a",
       "name": "Tabelle anlegen",
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
