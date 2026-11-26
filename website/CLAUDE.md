@@ -11,7 +11,7 @@ Diese Datei beschreibt die Website von Abora Automation. Lies sie vollständig, 
 - **Adresse:** Werkstraße 29, 68519 Viernheim
 - **E-Mail:** abokorosman@abora-automation.de
 - **Telefon:** 0176 87823235
-- **Server:** Hetzner, IP 2.31.26.76, SSH-Benutzer root
+- **Server:** Google Cloud Compute Engine, VM „abora-server“, europe-west3 (Frankfurt). Einrichtung: `deploy/google-cloud-einrichten.sh`. Der alte Hetzner-Server (2.31.26.76) wurde am 26.11.2026 gelöscht.
 - **Impressum und Datenschutz:** Texte stammen vom Inhaber und werden wörtlich übernommen. Nichts dazu erfinden.
 - **Was wir machen:** Wir automatisieren für Handwerksbetriebe den Weg von der ersten Anfrage bis zur Bewertung: Anfragen beantworten und vorsortieren, Termine buchen, Angebote vorbereiten, Angebote nachfassen, Bewertungen einholen.
 - **Zielgruppe:** Inhaber kleiner und mittlerer Handwerksbetriebe aller Gewerke in Deutschland (Sanitär/Heizung, Elektro, Dach, Maler, Tischler, Garten- und Landschaftsbau usw.). Sie sind tagsüber auf der Baustelle, erledigen das Büro abends und haben wenig Zeit und wenig Lust auf Technik.
@@ -46,7 +46,7 @@ Das Modell: **einmaliger Aufbau + monatliche Betreuung.**
   - Hinweis unter den Preisen: „Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.“
 - **Pilotangebot:** „Die ersten 3 Betriebe bekommen den Aufbau zum halben Preis. Dafür gibst du uns ehrliches Feedback und wir dürfen dich als Referenz nennen, wenn du zufrieden bist.“
 - **Laufzeit:** Die Betreuung ist monatlich kündbar. **Aufbaudauer:** meist 2 bis 4 Wochen.
-- **Daten:** Server in Deutschland (Falkenstein). KI-Funktionen über Claude von Anthropic. Vertrag zur Auftragsverarbeitung vor dem Start.
+- **Daten:** Server in Deutschland (Google Cloud, Frankfurt, seit 26.11.2026; vorher Hetzner). KI-Funktionen über Claude von Anthropic. Vertrag zur Auftragsverarbeitung vor dem Start.
 
 ## Die 6 Bausteine (Leistungen)
 

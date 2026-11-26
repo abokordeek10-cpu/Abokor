@@ -1,0 +1,44 @@
+# ─────────────────────────────────────────────────────────────
+#  Abora-Server (Google Cloud): Caddy (HTTPS, Websites) + n8n
+#  Liegt auf dem Server in /root/abora/. Start: docker compose up -d
+# ─────────────────────────────────────────────────────────────
+services:
+  caddy:
+    image: caddy:2
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+      - /var/www/abora-automation.de:/srv/abora:ro
+      - /var/www/henry-tran.de:/srv/henry-tran:ro
+    logging:
+      driver: journald
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:stable
+    restart: always
+    environment:
+      N8N_HOST: n8n.abora-automation.de
+      N8N_PORT: "5678"
+      N8N_PROTOCOL: https
+      WEBHOOK_URL: https://n8n.abora-automation.de/
+      N8N_PROXY_HOPS: "1"
+      GENERIC_TIMEZONE: Europe/Berlin
+      TZ: Europe/Berlin
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      EXECUTIONS_DATA_PRUNE: "true"
+      EXECUTIONS_DATA_MAX_AGE: "336"   # Ausführungen nach 14 Tagen löschen
+    volumes:
+      - n8n_data:/home/node/.n8n
+    logging:
+      driver: journald
+
+volumes:
+  caddy_data:
+  caddy_config:
+  n8n_data:
