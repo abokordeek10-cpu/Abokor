@@ -1,0 +1,269 @@
+---
+// Abschnitt „Dein Abora-Dashboard“: Text links, Vorschau rechts (Beispieldaten).
+import Icon from './Icon.astro';
+import { CTA_LINK, CTA_TEXT } from '../config';
+
+const punkte = [
+  { icon: 'anfrage', titel: 'Alle Anfragen an einem Ort', text: 'Telefon, WhatsApp, E-Mail und Website, mit Zusammenfassung, Dringlichkeit und Status.' },
+  { icon: 'haken', titel: 'Freigeben mit einem Tipp', text: 'Angebote, Rechnungen und Erinnerungen prüfen, ändern und freigeben. Nichts geht ohne dich raus.' },
+  { icon: 'kalender', titel: 'Termine im Blick', text: 'Gebuchte Besichtigungen, Absagen und Verschiebungen der Woche.' },
+  { icon: 'uhr', titel: 'Wochenbericht', text: 'Jeden Freitag eine kurze Übersicht, was für dich erledigt wurde.' },
+] as const;
+
+const kacheln = [
+  { zahl: '7', text: 'neue Anfragen' },
+  { zahl: '3', text: 'Freigaben' },
+  { zahl: '4', text: 'Termine' },
+];
+
+const anfragen = [
+  { titel: 'Rohrbruch im Keller', ort: 'Viernheim', zeit: '08:12', marke: 'Notfall', art: 'eilt' },
+  { titel: 'Badsanierung, Angebot gewünscht', ort: 'Mannheim', zeit: '07:40', marke: 'Erste Antwort gesendet', art: 'ok' },
+  { titel: 'Steckdosen Küche erweitern', ort: 'Weinheim', zeit: 'gestern', marke: 'Termin vorgeschlagen', art: 'ok' },
+];
+
+const freigaben = [
+  { titel: 'Angebot Badsanierung', text: 'Entwurf aus deiner Sprachnotiz' },
+  { titel: 'Rechnung Heizungswartung', text: 'Entwurf, bereit zum Prüfen' },
+];
+---
+
+<div class="dash">
+  <div class="dash__text" data-reveal>
+    <p class="dachzeile">Dein Abora-Dashboard</p>
+    <h2>Alles auf einen Blick. <span class="gelb">Am Handy und am PC.</span></h2>
+    <p class="einleitung">
+      Mit deinem eigenen Zugang siehst du jederzeit, was reinkommt, was erledigt ist und was auf dich wartet. Ohne neue
+      Software lernen: einloggen, ansehen, freigeben.
+    </p>
+    <ul class="dash__punkte">
+      {
+        punkte.map((p) => (
+          <li>
+            <span class="icon-kreis"><Icon name={p.icon} /></span>
+            <span>
+              <strong>{p.titel}</strong>
+              {p.text}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+    <a href={CTA_LINK} class="btn btn--gelb btn--gross btn--block-mobil">
+      {CTA_TEXT}
+      <Icon name="pfeil" />
+    </a>
+    <p class="dash__klein">Im Büro-Check zeigen wir dir das Dashboard live. Enthalten ab Paket Start.</p>
+  </div>
+
+  <div class="dash__fenster" data-reveal style="--delay:.1s" aria-label="Vorschau des Abora-Dashboards mit Beispieldaten">
+    <div class="dash__kopf">
+      <span class="dash__punkte-deko" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="dash__name">Abora · Dashboard</span>
+      <span class="etikett etikett--gelb">Beispieldaten</span>
+    </div>
+    <div class="dash__inhalt">
+      <p class="dash__gruss">Guten Morgen, Muster Haustechnik</p>
+      <ul class="dash__kacheln">
+        {kacheln.map((k) => (
+          <li>
+            <strong>{k.zahl}</strong>
+            <span>{k.text}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="dash__ueber">Neueste Anfragen</p>
+      <ul class="dash__liste">
+        {anfragen.map((a) => (
+          <li>
+            <span class="dash__zeile">
+              <strong>{a.titel}</strong>
+              <small>{a.ort} · {a.zeit}</small>
+            </span>
+            <span class:list={['dash__marke', `dash__marke--${a.art}`]}>{a.marke}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="dash__ueber">Wartet auf deine Freigabe</p>
+      <ul class="dash__liste">
+        {freigaben.map((f) => (
+          <li>
+            <span class="dash__zeile">
+              <strong>{f.titel}</strong>
+              <small>{f.text}</small>
+            </span>
+            <span class="dash__knopf">Prüfen</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dash {
+    display: grid;
+    gap: 44px;
+    align-items: center;
+  }
+  @media (min-width: 960px) {
+    .dash {
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+    }
+  }
+  .dash__punkte {
+    list-style: none;
+    margin: 26px 0 30px;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+  .dash__punkte li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: start;
+    color: var(--text-gedaempft);
+    line-height: 1.5;
+  }
+  .dash__punkte strong {
+    display: block;
+    color: var(--text-hell);
+  }
+  .dash__klein {
+    margin: 14px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-gedaempft);
+  }
+  .dash__fenster {
+    background: var(--flaeche, rgba(16, 30, 52, 0.78));
+    border: 1px solid var(--linie-dunkel);
+    border-radius: var(--radius-gross);
+    box-shadow: var(--schatten);
+    overflow: hidden;
+  }
+  .dash__kopf {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--linie-dunkel);
+  }
+  .dash__punkte-deko {
+    display: flex;
+    gap: 6px;
+  }
+  .dash__punkte-deko i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(169, 184, 204, 0.35);
+  }
+  .dash__name {
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-right: auto;
+  }
+  .dash__inhalt {
+    padding: 18px;
+  }
+  .dash__gruss {
+    margin: 0 0 14px;
+    font-weight: 700;
+  }
+  .dash__kacheln {
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .dash__kacheln li {
+    border: 1px solid var(--linie-dunkel);
+    border-radius: var(--radius);
+    padding: 12px;
+    background: rgba(6, 13, 24, 0.45);
+  }
+  .dash__kacheln strong {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--gelb);
+    line-height: 1.1;
+  }
+  .dash__kacheln span {
+    font-size: 0.78rem;
+    color: var(--text-gedaempft);
+  }
+  .dash__ueber {
+    margin: 0 0 8px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-gedaempft);
+  }
+  .dash__liste {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .dash__liste:last-child {
+    margin-bottom: 0;
+  }
+  .dash__liste li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 12px;
+    border: 1px solid var(--linie-dunkel);
+    border-radius: 12px;
+    background: rgba(6, 13, 24, 0.35);
+  }
+  .dash__zeile {
+    display: grid;
+    min-width: 0;
+  }
+  .dash__zeile strong {
+    font-size: 0.92rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dash__zeile small {
+    color: var(--text-gedaempft);
+    font-size: 0.8rem;
+  }
+  .dash__marke,
+  .dash__knopf {
+    flex: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .dash__marke--ok {
+    background: rgba(56, 189, 120, 0.15);
+    color: #6ee7a8;
+  }
+  .dash__marke--eilt {
+    background: rgba(255, 200, 61, 0.16);
+    color: var(--gelb);
+  }
+  .dash__knopf {
+    background: var(--gelb);
+    color: var(--text);
+  }
+  @media (max-width: 420px) {
+    .dash__marke {
+      max-width: 42%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+</style>

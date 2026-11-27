@@ -1,5 +1,6 @@
 ---
 import Basis from '../layouts/Basis.astro';
+import Dashboard from '../components/Dashboard.astro';
 import Einstieg from '../components/Einstieg.astro';
 import BausteinRaster from '../components/BausteinRaster.astro';
 import Pakete from '../components/Pakete.astro';
@@ -121,6 +122,13 @@ const fragen = [
         <p class="einleitung">Von der ersten Anfrage bis zur bezahlten Rechnung. Du gibst frei, Abora erledigt den Rest.</p>
       </div>
       <BausteinRaster />
+    </div>
+  </section>
+
+  <!-- 3b. Dashboard -->
+  <section class="abschnitt abschnitt--dunkel blaupause" id="dashboard">
+    <div class="container">
+      <Dashboard />
     </div>
   </section>
 

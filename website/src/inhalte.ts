@@ -54,11 +54,11 @@ export const BAUSTEINE = [
   {
     id: 'uebersicht',
     paket: 'Start',
-    titel: 'Übersicht und Anbindungen',
+    titel: 'Dashboard und Anbindungen',
     icon: 'ordner',
     kurz: 'Alle Anfragen, Termine, Angebote und Freigaben an einem Ort, am Handy und am PC. Im Komplett-Paket verbunden mit deiner Bürosoftware.',
     ohne: 'Ein Teil steht im Handy, ein Teil im E-Mail-Postfach, ein Teil auf dem Zettel im Auto. Was offen ist, weißt nur dein Kopf.',
-    mit: 'In deiner Abora-Übersicht siehst du jede Anfrage mit Status, jeden Termin und alles, was auf deine Freigabe wartet. Mit einem Tipp gibst du frei oder änderst. Jede Woche bekommst du einen kurzen Bericht, was für dich erledigt wurde. Nutzt du schon eine Bürosoftware, verbinden wir Abora damit, statt sie zu ersetzen.',
+    mit: 'In deinem Abora-Dashboard siehst du jede Anfrage mit Status, jeden Termin und alles, was auf deine Freigabe wartet. Mit einem Tipp gibst du frei oder änderst. Jede Woche bekommst du einen kurzen Bericht, was für dich erledigt wurde. Nutzt du schon eine Bürosoftware, verbinden wir Abora damit, statt sie zu ersetzen.',
     meldung: { titel: '3 Freigaben warten', text: '1 Angebot · 1 Rechnung · 1 Erinnerung' },
   },
 ] as const;
