@@ -1,0 +1,363 @@
+{
+  "name": "Abora Dashboard-API",
+  "nodes": [
+    {
+      "id": "da4f5b19-06f0-40e5-b12c-c7d9a004a071",
+      "name": "Dashboard (Website)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        200
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "abora-dashboard",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://abora-automation.de,https://www.abora-automation.de"
+        }
+      },
+      "webhookId": "48e9772e-56ef-4ab1-9d2c-95e4c8e5290a"
+    },
+    {
+      "id": "87a66a44-54b6-4a04-a01a-1c04b7d88835",
+      "name": "Zugang prüfen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        200
+      ],
+      "parameters": {
+        "jsCode": "// ─────────────────────────────────────────────────────────────\n//  Abora Dashboard – 1. Zugang prüfen\n//  Die Betriebs-Kennung kommt NUR aus dem geprüften Code, nie vom Browser.\n// ─────────────────────────────────────────────────────────────\nconst ZUGAENGE = {\n  '3b89aba98af7098ee755c60d6d40a94e7f1edc5ba88a64271ec709b7be219850': { betrieb_id: 'abora', name: 'Abora Automation' },\n  '01a420d472745a17997dd89a560757aaffe18914fc32b487fc08625e15fa2c84': { betrieb_id: 'test-sanitaer', name: 'Sanitär Muster (Test)' },\n};\n\nfunction sha256(text) {\n  const K = [0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];\n  const bytes = [];\n  for (const ch of unescape(encodeURIComponent(text))) bytes.push(ch.charCodeAt(0));\n  const bitLen = bytes.length * 8;\n  bytes.push(0x80);\n  while (bytes.length % 64 !== 56) bytes.push(0);\n  for (let i = 7; i >= 0; i--) bytes.push(i >= 4 ? 0 : (bitLen >>> (i * 8)) & 0xff);\n  let H = [0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];\n  const r = (x, n) => (x >>> n) | (x << (32 - n));\n  for (let o = 0; o < bytes.length; o += 64) {\n    const W = new Array(64);\n    for (let t = 0; t < 16; t++) W[t] = (bytes[o+4*t] << 24) | (bytes[o+4*t+1] << 16) | (bytes[o+4*t+2] << 8) | bytes[o+4*t+3];\n    for (let t = 16; t < 64; t++) {\n      const s0 = r(W[t-15], 7) ^ r(W[t-15], 18) ^ (W[t-15] >>> 3);\n      const s1 = r(W[t-2], 17) ^ r(W[t-2], 19) ^ (W[t-2] >>> 10);\n      W[t] = (W[t-16] + s0 + W[t-7] + s1) | 0;\n    }\n    let [a, b, c, d, e, f, g, h] = H;\n    for (let t = 0; t < 64; t++) {\n      const t1 = (h + (r(e, 6) ^ r(e, 11) ^ r(e, 25)) + ((e & f) ^ (~e & g)) + K[t] + W[t]) | 0;\n      const t2 = ((r(a, 2) ^ r(a, 13) ^ r(a, 22)) + ((a & b) ^ (a & c) ^ (b & c))) | 0;\n      h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;\n    }\n    H = H.map((v, i) => (v + [a, b, c, d, e, f, g, h][i]) | 0);\n  }\n  return H.map((v) => (v >>> 0).toString(16).padStart(8, '0')).join('');\n}\n\nconst b = $input.first().json.body || {};\nconst code = String(b.code || '').trim().toUpperCase().slice(0, 64);\nconst zugang = code ? ZUGAENGE[sha256(code)] : null;\nif (!zugang) return [{ json: { ok: false } }];\n\nconst aktion = ['liste', 'status'].includes(b.aktion) ? b.aktion : 'liste';\nconst status = ['neu', 'erledigt'].includes(b.status) ? b.status : null;\nconst id = Number.isInteger(Number(b.id)) ? Number(b.id) : null;\nif (aktion === 'status' && (!status || id === null)) return [{ json: { ok: false } }];\nreturn [{ json: { ok: true, betrieb_id: zugang.betrieb_id, name: zugang.name, aktion, id: String(id ?? ''), status } }];\n"
+      }
+    },
+    {
+      "id": "073efe35-103a-492b-9b5a-a50b004b52d0",
+      "name": "Zugang ok?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        480,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "837a09f0-aaef-43e7-828f-3119b83d82ce",
+              "leftValue": "={{ $json.ok }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "46a27722-ff72-47ec-b0a5-6da19af1a12f",
+      "name": "Kein Zugang",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        420
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: false, fehler: \"Der Zugangscode stimmt nicht.\" }) }}",
+        "options": {
+          "responseCode": 401
+        }
+      }
+    },
+    {
+      "id": "74c73edf-3ffd-4215-bda6-daf3b3b57b78",
+      "name": "Status ändern?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        720,
+        140
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "60305023-a69d-41a0-bbbb-b16781629c2b",
+              "leftValue": "={{ $json.aktion === 'status' }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "16b7e639-ee3d-42c6-a215-2fb0ab5f16fd",
+      "name": "Neuer Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        0
+      ],
+      "parameters": {
+        "jsCode": "return [{ json: { status: $input.first().json.status } }];"
+      }
+    },
+    {
+      "id": "e02d1571-6b43-431c-89b1-3e4c4207e53b",
+      "name": "Status speichern",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "abora_anfragen"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Zugang prüfen').first().json.id }}"
+            },
+            {
+              "keyName": "betrieb_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Zugang prüfen').first().json.betrieb_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "3fd1170d-5195-4496-8deb-bc9e35a041dc",
+      "name": "Gespeichert",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1440,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    },
+    {
+      "id": "64787e4b-1c0e-4314-af73-d078b972dc2f",
+      "name": "Anfragen laden",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        260
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "abora_anfragen"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "betrieb_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Zugang prüfen').first().json.betrieb_id }}"
+            }
+          ]
+        },
+        "returnAll": false,
+        "limit": 300,
+        "orderBy": true,
+        "orderByColumn": "createdAt",
+        "orderByDirection": "DESC"
+      },
+      "alwaysOutputData": true
+    },
+    {
+      "id": "21049556-269c-495b-babf-494ca8a0b7e9",
+      "name": "Liste bauen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        260
+      ],
+      "parameters": {
+        "jsCode": "// ─────────────────────────────────────────────────────────────\n//  Abora Dashboard – 2. Anfragen für den Browser aufbereiten\n// ─────────────────────────────────────────────────────────────\nconst z = $('Zugang prüfen').first().json;\nconst felder = ['id', 'createdAt', 'kanal', 'status', 'dringlichkeit', 'anliegen', 'ort', 'name', 'telefon', 'email',\n  'firma', 'zusammenfassung', 'fehlende_angaben', 'nachricht', 'erstantwort_gesendet'];\nconst anfragen = $input.all()\n  .map((i) => i.json)\n  .filter((r) => r && r.id !== undefined && r.betrieb_id === z.betrieb_id) // doppelte Sicherung: nur eigene Zeilen\n  .map((r) => Object.fromEntries(felder.map((f) => [f, r[f] ?? null])));\nreturn [{ json: { ok: true, betrieb: z.name, anfragen } }];\n"
+      }
+    },
+    {
+      "id": "8311e0bc-ea0b-4dff-942f-64a99bb30e60",
+      "name": "Liste senden",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1440,
+        260
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Dashboard (Website)": {
+      "main": [
+        [
+          {
+            "node": "Zugang prüfen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zugang prüfen": {
+      "main": [
+        [
+          {
+            "node": "Zugang ok?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zugang ok?": {
+      "main": [
+        [
+          {
+            "node": "Status ändern?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Kein Zugang",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Status ändern?": {
+      "main": [
+        [
+          {
+            "node": "Neuer Status",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Anfragen laden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Neuer Status": {
+      "main": [
+        [
+          {
+            "node": "Status speichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Status speichern": {
+      "main": [
+        [
+          {
+            "node": "Gespeichert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anfragen laden": {
+      "main": [
+        [
+          {
+            "node": "Liste bauen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Liste bauen": {
+      "main": [
+        [
+          {
+            "node": "Liste senden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Berlin"
+  },
+  "active": false
+}

@@ -9,6 +9,9 @@ export const N8N_WEBHOOK_URL = 'https://n8n.abora-automation.de/webhook/8b0fcd17
 // Live-Demo: n8n-Webhook des Workflows „Abora Demo KI“ (siehe n8n/abora-demo-workflow.json)
 export const DEMO_WEBHOOK_URL = 'https://n8n.abora-automation.de/webhook/abora-demo';
 
+// Kunden-Dashboard: n8n-Workflow „Abora Dashboard-API“ (siehe n8n/dashboard/)
+export const DASHBOARD_URL = 'https://n8n.abora-automation.de/webhook/abora-dashboard';
+
 // TODO: KALENDER – Link zur Online-Terminbuchung (z. B. Cal.com).
 // Leer lassen, solange es keinen gibt: Dann wird der Kalender-Block ausgeblendet.
 export const KALENDER_URL = '';

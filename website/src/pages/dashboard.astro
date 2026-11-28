@@ -1,0 +1,269 @@
+---
+// Kunden-Dashboard: Login mit Zugangscode, Daten kommen aus n8n (Workflow „Abora Dashboard-API“).
+// Nicht in Navigation und Sitemap, noindex. Der Browser bekommt nur die Daten seines eigenen Betriebs.
+import Basis from '../layouts/Basis.astro';
+import Icon from '../components/Icon.astro';
+import { DASHBOARD_URL, KONTAKT } from '../config';
+---
+
+<Basis titel="Dashboard" beschreibung="Kunden-Dashboard von Abora Automation." ohneLeiste noindex artikel>
+  <section class="db" data-db data-url={DASHBOARD_URL}>
+    <div class="container">
+      <!-- Anmeldung -->
+      <div class="db-login karte" data-login>
+        <p class="dachzeile">Kunden-Login</p>
+        <h1>Dein Abora-Dashboard</h1>
+        <p class="db-grau">Melde dich mit dem Zugangscode an, den du von uns bekommen hast.</p>
+        <form data-login-form>
+          <label for="db-code">Zugangscode</label>
+          <input id="db-code" name="code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" required />
+          <label class="db-merken"><input type="checkbox" name="merken" checked /> Auf diesem Gerät angemeldet bleiben</label>
+          <button type="submit" class="btn btn--gelb btn--gross btn--block-mobil">Anmelden <Icon name="pfeil" /></button>
+          <p class="db-fehler" data-login-fehler role="alert" hidden></p>
+        </form>
+        <p class="db-klein">Code vergessen? Ruf an: <a href={`tel:${KONTAKT.telefonLink}`}>{KONTAKT.telefon}</a></p>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="db-app" data-app hidden>
+        <header class="db-kopf">
+          <div>
+            <p class="dachzeile">Dein Abora-Dashboard</p>
+            <h1 data-betrieb>…</h1>
+          </div>
+          <div class="db-kopf__knoepfe">
+            <button type="button" class="btn btn--rahmen" data-neu-laden>Aktualisieren</button>
+            <button type="button" class="btn btn--rahmen" data-abmelden>Abmelden</button>
+          </div>
+        </header>
+
+        <ul class="db-kacheln">
+          <li class="karte"><strong data-zahl="offen">0</strong><span>offene Anfragen</span></li>
+          <li class="karte"><strong data-zahl="notfall">0</strong><span>davon Notfall oder dringend</span></li>
+          <li class="karte"><strong data-zahl="woche">0</strong><span>neue Anfragen in 7 Tagen</span></li>
+          <li class="karte"><strong data-zahl="erledigt">0</strong><span>erledigt in 7 Tagen</span></li>
+        </ul>
+
+        <div class="db-raster">
+          <section class="db-spalte" aria-labelledby="db-anfragen-titel">
+            <div class="db-spalte__kopf">
+              <h2 id="db-anfragen-titel">Anfragen</h2>
+              <div class="db-filter" role="tablist">
+                <button type="button" role="tab" data-filter="neu" aria-selected="true">Offen</button>
+                <button type="button" role="tab" data-filter="erledigt" aria-selected="false">Erledigt</button>
+                <button type="button" role="tab" data-filter="alle" aria-selected="false">Alle</button>
+              </div>
+            </div>
+            <ul class="db-liste" data-liste></ul>
+            <p class="db-leer karte" data-leer hidden>Hier ist gerade nichts. Neue Anfragen erscheinen automatisch.</p>
+          </section>
+
+          <aside class="db-seite">
+            <section class="karte db-box">
+              <h2>Wartet auf deine Freigabe</h2>
+              <p class="db-grau">Angebote, Rechnungen und Erinnerungen erscheinen hier, sobald diese Bausteine bei dir eingerichtet sind. Nichts davon geht ohne deine Freigabe raus.</p>
+            </section>
+            <section class="karte db-box">
+              <h2>Diese Woche</h2>
+              <ul class="db-woche" data-woche></ul>
+            </section>
+          </aside>
+        </div>
+        <p class="db-klein">Fragen oder etwas funktioniert nicht? <a href={`tel:${KONTAKT.telefonLink}`}>{KONTAKT.telefon}</a> · <a href={`mailto:${KONTAKT.email}`}>{KONTAKT.email}</a></p>
+      </div>
+    </div>
+  </section>
+</Basis>
+
+<script>
+  type Anfrage = {
+    id: number; createdAt: string; kanal: string | null; status: string | null; dringlichkeit: string | null;
+    anliegen: string | null; ort: string | null; name: string | null; telefon: string | null; email: string | null;
+    firma: string | null; zusammenfassung: string | null; fehlende_angaben: string | null; nachricht: string | null;
+    erstantwort_gesendet: boolean | null;
+  };
+  const wurzel = document.querySelector<HTMLElement>('[data-db]')!;
+  const URL_API = wurzel.dataset.url!;
+  const $ = <T extends Element>(s: string) => wurzel.querySelector<T>(s)!;
+  const SPEICHER = 'abora-dashboard-code';
+  let code = '';
+  let filter = 'neu';
+  let anfragen: Anfrage[] = [];
+
+  const lesen = () => { try { return localStorage.getItem(SPEICHER) || sessionStorage.getItem(SPEICHER) || ''; } catch { return ''; } };
+  const merken = (c: string, dauerhaft: boolean) => {
+    try { (dauerhaft ? localStorage : sessionStorage).setItem(SPEICHER, c); } catch { /* privat: dann eben nicht */ }
+  };
+  const vergessen = () => { try { localStorage.removeItem(SPEICHER); sessionStorage.removeItem(SPEICHER); } catch { /* egal */ } };
+
+  async function api(daten: Record<string, unknown>) {
+    const r = await fetch(URL_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code, ...daten }) });
+    if (r.status === 401) throw new Error('code');
+    if (!r.ok) throw new Error('netz');
+    return r.json();
+  }
+
+  const esc = (t: unknown) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+  const zeit = (iso: string) => {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    const heute = new Date();
+    const gleich = d.toDateString() === heute.toDateString();
+    return gleich ? `heute, ${d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}` : d.toLocaleString('de-DE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+  };
+  const MARKE: Record<string, [string, string]> = { notfall: ['Notfall', 'eilt'], hoch: ['Dringend', 'eilt'], normal: ['Normal', 'ok'], niedrig: ['Kann warten', 'ruhig'] };
+  const KANAL: Record<string, string> = { formular: 'Website', email: 'E-Mail', telefon: 'Telefon', sms: 'SMS', whatsapp: 'WhatsApp' };
+  const vor7 = () => Date.now() - 7 * 864e5;
+
+  function zeichnen() {
+    const offen = anfragen.filter((a) => a.status !== 'erledigt');
+    const neu7 = anfragen.filter((a) => new Date(a.createdAt).getTime() > vor7());
+    $('[data-zahl="offen"]').textContent = String(offen.length);
+    $('[data-zahl="notfall"]').textContent = String(offen.filter((a) => a.dringlichkeit === 'notfall' || a.dringlichkeit === 'hoch').length);
+    $('[data-zahl="woche"]').textContent = String(neu7.length);
+    $('[data-zahl="erledigt"]').textContent = String(neu7.filter((a) => a.status === 'erledigt').length);
+
+    const kanaele = new Map<string, number>();
+    neu7.forEach((a) => kanaele.set(KANAL[a.kanal || ''] || a.kanal || 'Sonstiges', (kanaele.get(KANAL[a.kanal || ''] || a.kanal || 'Sonstiges') || 0) + 1));
+    const antworten = neu7.filter((a) => a.erstantwort_gesendet).length;
+    $('[data-woche]').innerHTML = neu7.length
+      ? [...kanaele].map(([k, n]) => `<li><span>${esc(k)}</span><strong>${n}</strong></li>`).join('') + `<li><span>Automatisch beantwortet</span><strong>${antworten}</strong></li>`
+      : '<li><span>Noch keine Anfragen in den letzten 7 Tagen.</span></li>';
+
+    const liste = anfragen.filter((a) => (filter === 'alle' ? true : filter === 'erledigt' ? a.status === 'erledigt' : a.status !== 'erledigt'));
+    $('[data-leer]').hidden = liste.length > 0;
+    $('[data-liste]').innerHTML = liste.map((a) => {
+      const [text, art] = MARKE[a.dringlichkeit || 'normal'] || MARKE.normal;
+      const erledigt = a.status === 'erledigt';
+      const kontakt = [a.telefon ? `<a href="tel:${esc(a.telefon)}">📞 ${esc(a.telefon)}</a>` : '', a.email ? `<a href="mailto:${esc(a.email)}">✉️ ${esc(a.email)}</a>` : ''].filter(Boolean).join('');
+      return `<li class="karte db-anfrage${erledigt ? ' db-anfrage--erledigt' : ''}">
+        <details>
+          <summary>
+            <span class="db-marke db-marke--${art}">${erledigt ? 'Erledigt' : text}</span>
+            <span class="db-anfrage__titel"><strong>${esc(a.anliegen || 'Neue Anfrage')}</strong>
+            <small>${esc([a.name, a.ort, KANAL[a.kanal || ''] || a.kanal, zeit(a.createdAt)].filter(Boolean).join(' · '))}</small></span>
+          </summary>
+          <div class="db-anfrage__inhalt">
+            <p>${esc(a.zusammenfassung)}</p>
+            ${a.fehlende_angaben ? `<p class="db-grau"><strong>Fehlt noch:</strong> ${esc(a.fehlende_angaben)}</p>` : ''}
+            ${kontakt ? `<p class="db-kontakt">${kontakt}</p>` : ''}
+            ${a.nachricht ? `<p class="db-original"><strong>Originaltext:</strong><br>${esc(a.nachricht).replace(/\n/g, '<br>')}</p>` : ''}
+            <button type="button" class="btn ${erledigt ? 'btn--rahmen' : 'btn--gelb'}" data-status="${erledigt ? 'neu' : 'erledigt'}" data-id="${a.id}">${erledigt ? 'Wieder öffnen' : 'Als erledigt markieren'}</button>
+          </div>
+        </details>
+      </li>`;
+    }).join('');
+  }
+
+  async function laden() {
+    const d = await api({ aktion: 'liste' });
+    $('[data-betrieb]').textContent = d.betrieb || '';
+    anfragen = Array.isArray(d.anfragen) ? d.anfragen : [];
+    zeichnen();
+  }
+
+  function zeigeApp(an: boolean) {
+    $<HTMLElement>('[data-login]').hidden = an;
+    $<HTMLElement>('[data-app]').hidden = !an;
+  }
+
+  async function anmelden(c: string, dauerhaft: boolean | null) {
+    code = c.trim().toUpperCase();
+    const fehler = $<HTMLElement>('[data-login-fehler]');
+    fehler.hidden = true;
+    try {
+      await laden();
+      if (dauerhaft !== null) merken(code, dauerhaft);
+      zeigeApp(true);
+    } catch (e) {
+      vergessen();
+      zeigeApp(false);
+      fehler.textContent = (e as Error).message === 'code' ? 'Der Zugangscode stimmt nicht.' : 'Gerade keine Verbindung. Bitte gleich nochmal versuchen.';
+      fehler.hidden = false;
+    }
+  }
+
+  $<HTMLFormElement>('[data-login-form]').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.target as HTMLFormElement;
+    anmelden((f.elements.namedItem('code') as HTMLInputElement).value, (f.elements.namedItem('merken') as HTMLInputElement).checked);
+  });
+  $('[data-abmelden]').addEventListener('click', () => { vergessen(); code = ''; anfragen = []; zeigeApp(false); });
+  $('[data-neu-laden]').addEventListener('click', () => laden().catch(() => {}));
+  wurzel.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) => b.addEventListener('click', () => {
+    filter = b.dataset.filter!;
+    wurzel.querySelectorAll('[data-filter]').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    zeichnen();
+  }));
+  $('[data-liste]').addEventListener('click', async (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-status]');
+    if (!b) return;
+    b.disabled = true;
+    try {
+      await api({ aktion: 'status', id: Number(b.dataset.id), status: b.dataset.status });
+      const a = anfragen.find((x) => x.id === Number(b.dataset.id));
+      if (a) a.status = b.dataset.status!;
+      zeichnen();
+    } catch { b.disabled = false; alert('Das hat nicht geklappt. Bitte nochmal versuchen.'); }
+  });
+
+  const gespeichert = lesen();
+  if (gespeichert) anmelden(gespeichert, null);
+</script>
+
+<style is:global>
+  .db { padding: clamp(110px, 14vw, 150px) 0 80px; min-height: 80vh; }
+  .db-login { max-width: 520px; margin: 0 auto; padding: clamp(24px, 5vw, 40px); }
+  .db-login h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); margin-bottom: 8px; }
+  .db-login form { display: grid; gap: 10px; margin-top: 22px; }
+  .db-login label { font-weight: 700; font-size: 0.92rem; }
+  .db-login input[type='text'] {
+    font: inherit; font-size: 1.05rem; letter-spacing: 0.06em; padding: 14px 16px; border-radius: 12px;
+    border: 1px solid var(--linie-dunkel); background: rgba(6, 13, 24, 0.6); color: var(--text-hell);
+  }
+  .db-merken { display: flex; gap: 8px; align-items: center; font-weight: 400 !important; color: var(--text-gedaempft); }
+  .db-fehler { color: #ffb4a8; margin: 4px 0 0; }
+  .db-grau { color: var(--text-gedaempft); }
+  .db-klein { margin-top: 22px; font-size: 0.9rem; color: var(--text-gedaempft); }
+  .db-klein a { color: var(--text-hell); }
+  .db-kopf { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; justify-content: space-between; margin-bottom: 24px; }
+  .db-kopf h1 { font-size: clamp(1.7rem, 4.5vw, 2.5rem); margin: 0; }
+  .db-kopf__knoepfe { display: flex; gap: 10px; flex-wrap: wrap; }
+  .db-kacheln { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 860px) { .db-kacheln { grid-template-columns: repeat(4, 1fr); } }
+  .db-kacheln li { padding: 16px; }
+  .db-kacheln strong { display: block; font-size: 2rem; color: var(--gelb); line-height: 1.1; }
+  .db-kacheln span { color: var(--text-gedaempft); font-size: 0.88rem; }
+  .db-raster { display: grid; gap: 24px; }
+  @media (min-width: 960px) { .db-raster { grid-template-columns: 1.6fr 1fr; align-items: start; } }
+  .db-spalte__kopf { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .db-spalte__kopf h2, .db-box h2 { font-size: 1.25rem; margin: 0; }
+  .db-filter { display: flex; gap: 6px; }
+  .db-filter button {
+    font: inherit; font-size: 0.85rem; font-weight: 700; padding: 7px 12px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--linie-dunkel); background: transparent; color: var(--text-gedaempft);
+  }
+  .db-filter button[aria-selected='true'] { background: var(--gelb); color: var(--text); border-color: var(--gelb); }
+  .db-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .db-anfrage { padding: 0; }
+  .db-anfrage summary { display: flex; gap: 12px; align-items: center; padding: 14px 16px; cursor: pointer; list-style: none; }
+  .db-anfrage summary::-webkit-details-marker { display: none; }
+  .db-anfrage__titel { display: grid; min-width: 0; }
+  .db-anfrage__titel small { color: var(--text-gedaempft); }
+  .db-anfrage--erledigt { opacity: 0.65; }
+  .db-anfrage__inhalt { padding: 0 16px 16px; border-top: 1px solid var(--linie-dunkel); }
+  .db-anfrage__inhalt p { margin: 12px 0; }
+  .db-kontakt { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .db-kontakt a { color: var(--gelb); font-weight: 700; }
+  .db-original { font-size: 0.9rem; color: var(--text-gedaempft); }
+  .db-marke { flex: none; font-size: 0.72rem; font-weight: 700; padding: 5px 9px; border-radius: 999px; white-space: nowrap; }
+  .db-marke--eilt { background: rgba(255, 200, 61, 0.16); color: var(--gelb); }
+  .db-marke--ok { background: rgba(56, 189, 120, 0.15); color: #6ee7a8; }
+  .db-marke--ruhig { background: rgba(169, 184, 204, 0.14); color: var(--text-gedaempft); }
+  .db-leer { padding: 20px; color: var(--text-gedaempft); }
+  .db-seite { display: grid; gap: 16px; }
+  .db-box { padding: 18px; }
+  .db-woche { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+  .db-woche li { display: flex; justify-content: space-between; gap: 10px; color: var(--text-gedaempft); }
+  .db-woche strong { color: var(--text-hell); }
+</style>
